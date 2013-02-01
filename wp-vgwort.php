@@ -4,7 +4,7 @@
 Plugin Name: WP VG WORT
 Plugin URI: http://www.mywebcheck.de/wp-vgwort.zip
 Description: Verwaltung der VG Wort Zählpixel
-Version: 1.00
+Version: 1.1
 Author: Marcus Franke
 Author URI: http://mywebcheck.de
 */
@@ -157,7 +157,6 @@ class WP_VGWORT {
 			}
 			else { 
 			  echo '<br/><span style="color:red">nicht vorhanden</span><br />';
-			  echo sprintf('<a href="wp-admin/user-edit.php?user_id=%d">(überprüfen)</a>', $post->post_author );
 			}
 		}
 	}
