@@ -31,13 +31,18 @@ Folgende Funktionen bietet das Plugin
 
 == Frequently Asked Questions ==
 
-Diskussion unter http://mywebcheck.de
+Diskussion unter http://www.mywebcheck.de/vg-wort-plugin-wordpress/
 
 == Screenshots ==
 
-- no screenshots available
+1. Übersicht möglicher Beiträge für VG Wortzählmarke
+2. VG Wort Spalte in Beitragsübersicht
+3. Zeichenanzahl im Editor
 
 == Changelog ==
+
+= 1.1 =
+* Spalte VG Wort in Beitragsübersich angepasst
 
 = 1.0 =
 * start of Plugin
