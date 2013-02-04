@@ -277,7 +277,8 @@ class WP_VGWORT {
 		$marke = get_post_meta( $post->ID , VGWORTMETA , true );
 		if(!empty($marke))
 		{
-			echo "<strong>Vorhandene Zählmarke</strong>: ".htmlspecialchars($marke);
+			echo '<strong>Vorhandene Zählmarke</strong>: '.htmlspecialchars($marke);
+			echo '<input type="hidden" name="markein" value="1" />';
 		}
 		
 		echo '<input type="input" size="150" name="wp_vgwortmarke" value="" />';
@@ -322,10 +323,16 @@ class WP_VGWORT {
 
 		// vars übergeben
 		
-		if(!empty($_POST['wp_vgwortmarke'])){
-			update_post_meta($post_id , VGWORTMETA , stripslashes($_POST['wp_vgwortmarke']) );
-		}else{
-			delete_post_meta($post_id , VGWORTMETA , stripslashes($_POST['wp_vgwortmarke']));
+		if(!isset($_POST['markein'])){
+			if(!empty($_POST['wp_vgwortmarke'])){
+				update_post_meta($post_id , VGWORTMETA , stripslashes($_POST['wp_vgwortmarke']) );
+			}else{
+				delete_post_meta($post_id , VGWORTMETA , stripslashes($_POST['wp_vgwortmarke']));
+			}
+		} else {
+			if(!empty($_POST['wp_vgwortmarke'])){
+				update_post_meta($post_id , VGWORTMETA , stripslashes($_POST['wp_vgwortmarke']) );
+			}
 		}
 	}
 }	
