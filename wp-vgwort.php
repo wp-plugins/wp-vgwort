@@ -4,7 +4,7 @@
 Plugin Name: WP VG WORT
 Plugin URI: http://www.mywebcheck.de/wp-vgwort.zip
 Description: Verwaltung der VG Wort Zählpixel
-Version: 1.1
+Version: 1.2
 Author: Marcus Franke
 Author URI: http://mywebcheck.de
 */
@@ -240,6 +240,8 @@ class WP_VGWORT {
 	
 	public function wpVGWortFrontendDisplay( $content ) {
 
+		global $post; 
+	
 		$vgwort = get_post_meta( $post->ID , VGWORTMETA , true );
 		
 		if(!empty( $vgwort )){
@@ -272,8 +274,14 @@ class WP_VGWORT {
 		wp_nonce_field( plugin_basename(__FILE__) , PLUGINNAME );
 
 		// The actual fields for data entry
+		$marke = get_post_meta( $post->ID , VGWORTMETA , true );
+		if(!empty($marke))
+		{
+			echo "<strong>Vorhandene Zählmarke</strong>: ".htmlspecialchars($marke);
+		}
 		
-		echo '<input type="input" size="150" name="wp_vgwortmarke" value="'.get_post_meta( $post->ID , VGWORTMETA , true ).'" /><br />';
+		echo '<input type="input" size="150" name="wp_vgwortmarke" value="" />';
+		echo '<input type="submit" name="Sender" value="speichern" /><br />';
 		echo '<a href="http://www.vgwort.de/" target="_blank">VG WORT Marke erstellen</a>';
 
 	}
@@ -313,11 +321,11 @@ class WP_VGWORT {
 		}
 
 		// vars übergeben
-
+		
 		if(!empty($_POST['wp_vgwortmarke'])){
-			update_post_meta($post_id , VGWORTMETA , $_POST['wp_vgwortmarke'] );
+			update_post_meta($post_id , VGWORTMETA , stripslashes($_POST['wp_vgwortmarke']) );
 		}else{
-			delete_post_meta($post_id , VGWORTMETA , $_POST['wp_vgwortmarke'] );
+			delete_post_meta($post_id , VGWORTMETA , stripslashes($_POST['wp_vgwortmarke']));
 		}
 	}
 }	
