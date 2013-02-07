@@ -4,12 +4,13 @@
 Plugin Name: WP VG WORT
 Plugin URI: http://www.mywebcheck.de/vg-wort-plugin-wordpress/
 Description: Verwaltung der VG Wort Zählpixel
-Version: 1.3
+Version: 1.4
 Author: Marcus Franke
 Author URI: http://mywebcheck.de
 */
 
 define(PLUGINNAME,'wp-vgwort');
+define(REQUIREDCHARS,1800);
 define(VGWORTMETA, get_option('wp_vgwortmetaname', 'wp_vgwortmarke'));
 
 new WP_VGWORT();
@@ -22,6 +23,10 @@ class WP_VGWORT {
 
 		add_action( 'edit_user_profile' , array( &$this , 'wpVGWortaddProfileData' ));
 		add_action( 'show_user_profile' , array( &$this , 'wpVGWortaddProfileData' ));
+		add_action( 'personal_options_update', array( &$this,'wpVGWortSaveExtraUserProfileFields' ));
+		add_action( 'edit_user_profile_update', array( &$this,'wpVGWortSaveExtraUserProfileFields' ));
+		
+		
 		add_action( 'add_meta_boxes' , array( &$this , 'wpVGWortAddCustomMeta' ));
 		add_action( 'save_post' , array( &$this , 'wpVGWortSavePost' ));
 		add_action( 'the_content' , array( &$this , 'wpVGWortFrontendDisplay' ));
@@ -78,7 +83,7 @@ class WP_VGWORT {
 			<span class="description">Dieses Feld kann genutzt werden um ein kompatible Lösung für andere Plugins zu erhalten
 			<ul>
 				<li>Default: "wp_vgworkmarke"</li>
-				<li><a href="http://maheo.eu/355-vg-wort-plugin-fuer-wordpress.php" title="VG Wort Plugin -  Heiner Otterstedt">VG-Wort Krimskram</a>  -> "vgwpixel"</li>
+				<li><a href="http://maheo.eu/355-vg-wort-plugin-fuer-wordpress.php" title="VG Wort Plugin - Heiner Otterstedt" target="_blank">VG-Wort Krimskram</a>  -> "vgwpixel"</li>
 				<li>...</li>
 			</ul>
 			</span>
@@ -91,6 +96,21 @@ class WP_VGWORT {
 		</td>
 		</tr>
 		</form>
+		<tr valign="top">
+		<th scope="row"> <label for="paypal">Fehler und Bugs:</label> </th>
+		<td>
+			Wenn Fehler Ihr Fehler in unserem Plugin gefunden habt, dann wäre es sehr nett wenn Ihr uns diese mitteilt.<br />
+			Dazu könnt Ihr auf unserer Plugin Seite kommentieren oder eine E-Mail an uns senden.
+			
+			<ul>
+				<li>Kontakt</li>
+				<li><a href="http://www.mywebcheck.de/vg-wort-plugin-wordpress/" title="MyWebcheck - Plugin Seite" target="_blank">Plugin Seite</a></li>
+				<li><a href="wgwortplugin@mywebcheck.de">wgwortplugin@mywebcheck.de</li>
+				<li>...</li>
+			</ul>
+			
+		</td>
+		</tr>
 		<tr valign="top">
 		<th scope="row"> <label for="paypal">Cooles Plugin?:</label> </th>
 		<td>
@@ -120,7 +140,7 @@ class WP_VGWORT {
 		global $post;
 
 	  if(!empty( $post->post_content )) { 
-		printf('<script language="javascript" type="text/javascript"> var div = document.getElementById("post-status-info"); if (div != undefined) { div.innerHTML = div.innerHTML + \'%s\'; } </script>', str_replace("'", "\'", sprintf('<span class="inside">Zeichen:'.' %d'.'</span> ', $this->getCharCount( $post->post_content ) )));
+		printf('<script language="javascript" type="text/javascript"> var div = document.getElementById("wp-word-count"); if (div != undefined) { div.innerHTML = div.innerHTML + \'%s\'; } </script>', str_replace("'", "\'", sprintf('<span class="inside"> / Zeichen:'.' %d'.'</span> ', $this->getCharCount( $post->post_title.$post->post_content ) )));
 	  }
 	}
 	
@@ -182,11 +202,32 @@ class WP_VGWORT {
 			<td>
 				
 			<?php
-			$requiredChars = 1800;
-		
-			$results = $wpdb->get_results($wpdb->prepare("SELECT * , CHAR_LENGTH(`post_content`) as charlength FROM ".$wpdb->posts." WHERE post_status = 'publish' AND post_type IN ('post','page') AND post_author = '%d' HAVING charlength > '%d'",$user->ID,$requiredChars));
+			
+			$currentFilter = get_user_meta( $user->ID, 'wp-wort-filter', true);
+			
+			if(empty($currentFilter) OR $currentFilter == 'all'){
+				$currentFilter = "all";
+				$results = $wpdb->get_results($wpdb->prepare("SELECT * , CHAR_LENGTH(`post_content`) as charlength FROM ".$wpdb->posts." WHERE post_status = 'publish' AND post_type NOT IN ('attachment','nav_menu_item','revison') AND post_author = '%d' HAVING charlength > '%d'",$user->ID,REQUIREDCHARS));
+			}else{
+				$results = $wpdb->get_results($wpdb->prepare("SELECT * , CHAR_LENGTH(`post_content`) as charlength FROM ".$wpdb->posts." WHERE post_status = 'publish' AND post_type = %s AND post_author = '%d' HAVING charlength > '%d'",$currentFilter,$user->ID,REQUIREDCHARS));
+			}
 
+			$postTypes = $wpdb->get_results("SELECT post_type  FROM ".$wpdb->posts." WHERE post_type NOT IN ('attachment','nav_menu_item','revison') group by post_type  ORDER BY FIELD(post_type,'post','page') DESC ");
 		
+			echo 'Filtern nach Posttype:<select name="wpvgwortcurrentposttype" size="1"><option value="all">Alle</option>';
+		
+			foreach($postTypes as $postType) {
+			
+				if($postType->post_type != $currentFilter){
+					echo '<option value="'.$postType->post_type.'">'.$postType->post_type.'</option>';
+				}else{
+					echo '<option selected="selected" value="'.$postType->post_type.'">'.$postType->post_type.'</option>';
+				}
+			
+				
+			}
+			echo '</select><input type="submit" name="Sender" value="filtern" />';
+				
 			if(!empty($results)) {
 				?>
 					<ul>
@@ -201,7 +242,7 @@ class WP_VGWORT {
 					if(empty($vgwort)){
 				
 						// Just Text nothing more :)
-						$clearContentCount = $this->getCharCount( $result->post_content );
+						$clearContentCount = $this->getCharCount( $result->post_title.$result->post_content );
 						if($clearContentCount > $requiredChars){			
 							echo '<li><a href="'.get_admin_url().'post.php?post='.$result->ID.'&action=edit" title="jetzt VG Wort einfügen">'.$result->post_title.' ('.$clearContentCount.' Zeichen)</a></li>';
 						}
@@ -220,6 +261,24 @@ class WP_VGWORT {
 
 	/**
 	* 
+	* Save the current FilterOption
+	* @param: int $user_id
+	* @return int
+	*
+	*/
+
+	public function wpVGWortSaveExtraUserProfileFields( $user_id ) {
+ 
+		if ( !current_user_can( 'edit_user', $user_id ) ) { return false; }
+		 
+		update_user_meta( $user_id, 'wp-wort-filter', $_POST['wpvgwortcurrentposttype'] );
+		
+	}
+
+
+
+	/**
+	* 
 	* Calculate the Chars of the delivered content
 	* @param: string $content
 	* @return int
@@ -227,7 +286,7 @@ class WP_VGWORT {
 	*/
 
 	private function getCharCount( $content ) {
-		return mb_strlen(preg_replace("/\\015\\012|\\015|\\012| {2,}|\[[a-zA-Z0-9\_=\"\' \/]*\]/", "", strip_tags(html_entity_decode($result->post_title . "" . $content ))));
+		return mb_strlen(preg_replace("/\\015\\012|\\015|\\012| {2,}|\[[a-zA-Z0-9\_=\"\'\. \/]*\]/", "", strip_tags(html_entity_decode($content ))));
 	}
 
 	/**
