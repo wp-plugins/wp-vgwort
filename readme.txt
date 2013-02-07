@@ -54,7 +54,7 @@ Diskussion unter http://www.mywebcheck.de/vg-wort-plugin-wordpress/
 * Bugfix - Einbau Wortmarke
 
 = 1.1 =
-* Spalte VG Wort in Beitragsübersich angepasst
+* Spalte VG Wort in Beitragsübersicht angepasst
 
 = 1.0 =
 * start of Plugin
