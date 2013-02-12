@@ -4,7 +4,7 @@ Donate link: http://mywebcheck.de/
 Tags: VG-Wort, VGW, Zählpixel
 Requires at least: 3.0
 Tested up to: 3.5
-Stable tag: 1.4
+Stable tag: 1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -40,6 +40,9 @@ Diskussion unter http://www.mywebcheck.de/vg-wort-plugin-wordpress/
 3. Zeichenanzahl im Editor
 
 == Changelog ==
+
+= 1.5 = 
+* Bugfix - Anzeige von Inhalten mit weniger als 1800 Zeichen 
 
 = 1.4 =
 * Bugfix -  Probleme mit Shortcode behoben

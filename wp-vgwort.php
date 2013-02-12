@@ -4,7 +4,7 @@
 Plugin Name: WP VG WORT
 Plugin URI: http://www.mywebcheck.de/vg-wort-plugin-wordpress/
 Description: Verwaltung der VG Wort Zählpixel
-Version: 1.4
+Version: 1.5
 Author: Marcus Franke
 Author URI: http://mywebcheck.de
 */
@@ -234,7 +234,7 @@ class WP_VGWORT {
 						<li><h4>Mögliche Beiträge</h4></li>
 				<?php 
 			
-				$clearContentCount = "";
+				$clearContentCount = 0;
 				
 				foreach($results as $result){
 
@@ -243,7 +243,7 @@ class WP_VGWORT {
 				
 						// Just Text nothing more :)
 						$clearContentCount = $this->getCharCount( $result->post_title.$result->post_content );
-						if($clearContentCount > $requiredChars){			
+						if($clearContentCount > REQUIREDCHARS){			
 							echo '<li><a href="'.get_admin_url().'post.php?post='.$result->ID.'&action=edit" title="jetzt VG Wort einfügen">'.$result->post_title.' ('.$clearContentCount.' Zeichen)</a></li>';
 						}
 					}
