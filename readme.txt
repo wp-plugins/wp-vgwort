@@ -42,7 +42,7 @@ Diskussion unter http://www.mywebcheck.de/vg-wort-plugin-wordpress/
 == Changelog ==
 
 = 1.5 = 
-* Bugfix - Anzeige von Inhalten mit weniger als 1800 Zeichen 
+* Bugfix - Anzeige von Inhalten mit weniger als 1800 Zeichen im Nutzerprofil
 
 = 1.4 =
 * Bugfix -  Probleme mit Shortcode behoben
