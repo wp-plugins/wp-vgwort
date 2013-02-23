@@ -136,7 +136,6 @@ class WP_VGWORT {
 	*/
 	
 	function wpVGWortAdminFooter() {
-		global $wpdb;
 		global $post;
 
 	  if(!empty( $post->post_content )) { 
