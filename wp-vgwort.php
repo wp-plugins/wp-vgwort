@@ -320,7 +320,7 @@ class WP_VGWORT {
 	*/
 	
 	public function wpVGWortAddCustomMeta() {
-		add_meta_box( 'VGWortCustomMeta', __( 'VG Wort', 'VG Wort' ), array( &$this , 'createVGWortCustomMeta' ), array('post','page') , 'advanced','high' );
+		add_meta_box( 'VGWortCustomMeta', __( 'VG Wort', 'VG Wort' ), array( &$this , 'createVGWortCustomMeta' ), '' , 'advanced','high' );
 	} 
 	
 	/**
