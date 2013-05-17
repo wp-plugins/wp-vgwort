@@ -4,7 +4,7 @@
 Plugin Name: WP VG WORT
 Plugin URI: http://www.mywebcheck.de/vg-wort-plugin-wordpress/
 Description: Verwaltung der VG Wort Zählpixel
-Version: 1.8
+Version: 1.9
 Author: Marcus Franke
 Author URI: http://mywebcheck.de
 */
@@ -62,8 +62,13 @@ class WP_VGWORT {
 		// REQUEST
 		
 		if(isset($_POST[ 'save' ])){
-		
-			update_option('wp_vgwortmetaname' , $_POST['wpvgwortmetaname']);
+			$ctypes = array('post','page');
+			foreach($_POST['cpt'] as $key => $value){
+				$ctypes[] = sanitize_title( $key );
+			}
+			
+			update_option('wp_cpt' , $ctypes,array());
+			update_option('wp_vgwortmetaname' , esc_html($_POST['wpvgwortmetaname']));
 			
 		}
 		
@@ -77,27 +82,54 @@ class WP_VGWORT {
 			
 		<table class="form-table">
 		<tr valign="top">
-		<th scope="row"> <label for="Metaname">MetaName:</label> </th>
+		<th scope="row"> <h3>Konfiguration:</h3> </th>
 		<td>
-			<input size="25" name="wpvgwortmetaname" value="<?php echo VGWORTMETA; ?>" /><br /><br />
-			<span class="description">Dieses Feld kann genutzt werden um ein kompatible Lösung für andere Plugins zu erhalten
-			<ul>
-				<li>Default: "wp_vgworkmarke"</li>
-				<li><a href="http://maheo.eu/355-vg-wort-plugin-fuer-wordpress.php" title="VG Wort Plugin - Heiner Otterstedt" target="_blank">VG-Wort Krimskram</a>  -> "vgwpixel"</li>
-				<li>...</li>
-			</ul>
-			</span>
+		
+			<?php
+
+			$types = get_post_types( array('public' => true,'show_ui' => true,'_builtin' => false) );
+			$myTypes = get_option( 'wp_cpt');
+			
+			echo '<h4>Custom Post Types</h4>';
+			echo'<p>Markierte Custom Post Types werden mit der VG Wort Funktion versehen</p>';
+			echo '<ul>';
+			foreach($types as $type){
+				if(in_array($type,$myTypes)){
+					echo '<li><input checked="checked" type="checkbox" name="cpt['.$type.']"> '.$type.' </li>';
+				} else {
+					echo '<li><input type="checkbox" name="cpt['.$type.']"> '.$type.' </li>';
+				}
+			}
+			
+			echo '</ul>';
+			
+			?>
+			<span class="description">In Beiträge und Seiten sind immer vorhanden!</span>
+			<br />
+			<br />
 		</td>
 		</tr>
 		<tr valign="top">
-		<th scope="row"> <label for="speichern">Speichern:</label> </th>
+		<th scope="row"> <h3>MetaName:</h3> </th>
+		<td>
+			<input size="25" name="wpvgwortmetaname" value="<?php echo VGWORTMETA; ?>" /><br /><br />
+			<span class="description">Dieses Feld kann genutzt werden um ein kompatible Lösung für andere Plugins zu erhalten</span>
+			<ul>
+				<li>Default: "wp_vgworkmarke"</li>
+				<li><a href="http://maheo.eu/355-vg-wort-plugin-fuer-wordpress.php" title="VG Wort Plugin - Heiner Otterstedt" target="_blank">VG-Wort Krimskram</a>  -> "vgwpixel"</li>
+			</ul>
+			
+		</td>
+		</tr>
+		<tr valign="top">
+		<th scope="row"> <h3>Speichern:</h3> </th>
 		<td>
 			<input type="submit" name="save" value="Einstellung speichern" class="button-primary" / >
 		</td>
 		</tr>
 		</form>
 		<tr valign="top">
-		<th scope="row"> <label for="paypal">Fehler und Bugs:</label> </th>
+		<th scope="row"> <h3>Fehler und Bugs:</h3> </th>
 		<td>
 			Wenn Fehler Ihr Fehler in unserem Plugin gefunden habt, dann wäre es sehr nett wenn Ihr uns diese mitteilt.<br />
 			Dazu könnt Ihr auf unserer Plugin Seite kommentieren oder eine E-Mail an uns senden.
@@ -106,13 +138,12 @@ class WP_VGWORT {
 				<li>Kontakt</li>
 				<li><a href="http://www.mywebcheck.de/vg-wort-plugin-wordpress/" title="MyWebcheck - Plugin Seite" target="_blank">Plugin Seite</a></li>
 				<li><a href="wgwortplugin@mywebcheck.de">wgwortplugin@mywebcheck.de</li>
-				<li>...</li>
 			</ul>
 			
 		</td>
 		</tr>
 		<tr valign="top">
-		<th scope="row"> <label for="paypal">Cooles Plugin?:</label> </th>
+		<th scope="row"> <h3>Cooles Plugin?:</h3> </th>
 		<td>
 			<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 			<input type="hidden" name="cmd" value="_s-xclick">
@@ -151,7 +182,12 @@ class WP_VGWORT {
 	*/
 	
 	function wpVGWortColumn( $defaults )	{ 
-		$defaults['vgwort'] = 'VG Wort';
+
+		$currentPostType = get_post_type();
+		$allowedTypes = get_option( 'wp_cpt',array('post','page'));
+		if(in_array($currentPostType,$allowedTypes)){
+			$defaults['vgwort'] = 'VG Wort';
+		}
 		return $defaults;
 	}
 	
@@ -164,7 +200,7 @@ class WP_VGWORT {
 	
 	function wpVGWortCustomColumn( $column ) { 
 		global $post;
-		
+
 		if($column == 'vgwort') { 
 	  
 			// VG vorhanden?
@@ -178,6 +214,7 @@ class WP_VGWORT {
 			  echo '<br/><span style="color:red">nicht vorhanden</span><br />';
 			}
 		}
+		
 	}
 	
 	/**
@@ -206,9 +243,9 @@ class WP_VGWORT {
 			
 			if(empty($currentFilter) OR $currentFilter == 'all'){
 				$currentFilter = "all";
-				$results = $wpdb->get_results($wpdb->prepare("SELECT * , CHAR_LENGTH(`post_content`) as charlength FROM ".$wpdb->posts." WHERE post_status = 'publish' AND post_type NOT IN ('attachment','nav_menu_item','revison') AND post_author = '%d' HAVING charlength > '%d'",$user->ID,REQUIREDCHARS));
+				$results = $wpdb->get_results($wpdb->prepare("SELECT * , CHAR_LENGTH(`post_content`) as charlength , post_type FROM ".$wpdb->posts." WHERE post_status = 'publish' AND post_type NOT IN ('attachment','nav_menu_item','revison') AND post_author = '%d' HAVING charlength > '%d'",$user->ID,REQUIREDCHARS));
 			}else{
-				$results = $wpdb->get_results($wpdb->prepare("SELECT * , CHAR_LENGTH(`post_content`) as charlength FROM ".$wpdb->posts." WHERE post_status = 'publish' AND post_type = %s AND post_author = '%d' HAVING charlength > '%d'",$currentFilter,$user->ID,REQUIREDCHARS));
+				$results = $wpdb->get_results($wpdb->prepare("SELECT * , CHAR_LENGTH(`post_content`) as charlength , post_type FROM ".$wpdb->posts." WHERE post_status = 'publish' AND post_type = %s AND post_author = '%d' HAVING charlength > '%d'",$currentFilter,$user->ID,REQUIREDCHARS));
 			}
 
 			$postTypes = $wpdb->get_results("SELECT post_type  FROM ".$wpdb->posts." WHERE post_type NOT IN ('attachment','nav_menu_item','revison') group by post_type  ORDER BY FIELD(post_type,'post','page') DESC ");
@@ -243,7 +280,7 @@ class WP_VGWORT {
 						// Just Text nothing more :)
 						$clearContentCount = $this->getCharCount( $result->post_title.$result->post_content );
 						if($clearContentCount > REQUIREDCHARS){			
-							echo '<li><a href="'.get_admin_url().'post.php?post='.$result->ID.'&action=edit" title="jetzt VG Wort einfügen">'.$result->post_title.' ('.$clearContentCount.' Zeichen)</a></li>';
+							echo '<li><a href="'.get_admin_url().'post.php?post='.$result->ID.'&action=edit" title="jetzt VG Wort einfügen">'.$result->post_title.' ('.$clearContentCount.' Zeichen) ('.$result->post_type.')</a></li>';
 						}
 					}
 				}
@@ -320,7 +357,11 @@ class WP_VGWORT {
 	*/
 	
 	public function wpVGWortAddCustomMeta() {
-		add_meta_box( 'VGWortCustomMeta', __( 'VG Wort', 'VG Wort' ), array( &$this , 'createVGWortCustomMeta' ), '' , 'advanced','high' );
+		$currentPostType = get_post_type();
+		$allowedTypes = get_option( 'wp_cpt',array('post','page'));
+		if(in_array($currentPostType,$allowedTypes)){
+			add_meta_box( 'VGWortCustomMeta', __( 'VG Wort', 'VG Wort' ), array( &$this , 'createVGWortCustomMeta' ), $currentPostType , 'advanced','high' );
+		}
 	} 
 	
 	/**
@@ -359,7 +400,7 @@ class WP_VGWORT {
 
 		
 		// Erweiterung bei Einstellungen 
-		$available_post = array( 'page' , 'post' );
+		$allowedTypes = get_option( 'wp_cpt',array('post','page'));
 	
 		// AutoSave Methode
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ){ 
@@ -374,7 +415,7 @@ class WP_VGWORT {
 
 		// Check permissions
 
-		if ( in_array($_POST['post_type'],$available_post)) {
+		if ( in_array($_POST['post_type'],$allowedTypes)) {
 			if ( !current_user_can( 'edit_page', $post_id ) )
 				return;
 		}
