@@ -41,6 +41,15 @@ Diskussion unter http://www.mywebcheck.de/vg-wort-plugin-wordpress/
 
 == Changelog ==
 
+= 2.0.0 = 
+* new features
+
+= 1.9 = 
+* Bugfix 
+
+= 1.8 = 
+* Bugfix 
+
 = 1.7 = 
 * Bugfix - Zaehlpixel wird nur in Beitraegen und Seiten angezeigt
 
