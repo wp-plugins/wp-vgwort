@@ -23,7 +23,7 @@ class WP_VGWORT {
 	 *
 	 * @var     string
 	 */
-	protected $version = '2.0.0';
+	protected $version = '2.0.1';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -84,14 +84,6 @@ class WP_VGWORT {
 		add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
 
 		$this->vgWortMeta = get_option('wp_vgwortmetaname', 'wp_vgwortmarke');
-		
-		// Load admin style sheet and JavaScript.
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
-
-		// Load public-facing style sheet and JavaScript.
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
 		add_action( 'edit_user_profile' , array( &$this , 'add_profile_data' ));
 		add_action( 'show_user_profile' , array( &$this , 'add_profile_data' ));
@@ -129,64 +121,6 @@ class WP_VGWORT {
 		}
 
 		return self::$instance;
-	}
-
-	/**
-	 * Register and enqueue admin-specific style sheet.
-	 *
-	 * @since     1.0.0
-	 *
-	 * @return    null    Return early if no settings page is registered.
-	 */
-	public function enqueue_admin_styles() {
-
-		if ( ! isset( $this->plugin_screen_hook_suffix ) ) {
-			return;
-		}
-
-		$screen = get_current_screen();
-		if ( $screen->id == $this->plugin_screen_hook_suffix ) {
-			wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( 'css/admin.css', __FILE__ ), $this->version );
-		}
-
-	}
-
-	/**
-	 * Register and enqueue admin-specific JavaScript.
-	 *
-	 * @since     1.0.0
-	 *
-	 * @return    null    Return early if no settings page is registered.
-	 */
-	public function enqueue_admin_scripts() {
-
-		if ( ! isset( $this->plugin_screen_hook_suffix ) ) {
-			return;
-		}
-
-		$screen = get_current_screen();
-		if ( $screen->id == $this->plugin_screen_hook_suffix ) {
-			wp_enqueue_script( $this->plugin_slug . '-admin-script', plugins_url( 'js/admin.js', __FILE__ ), array( 'jquery' ), $this->version );
-		}
-
-	}
-
-	/**
-	 * Register and enqueue public-facing style sheet.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueue_styles() {
-		wp_enqueue_style( $this->plugin_slug . '-plugin-styles', plugins_url( 'css/public.css', __FILE__ ), $this->version );
-	}
-
-	/**
-	 * Register and enqueues public-facing JavaScript files.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueue_scripts() {
-		wp_enqueue_script( $this->plugin_slug . '-plugin-script', plugins_url( 'js/public.js', __FILE__ ), array( 'jquery' ), $this->version );
 	}
 
 	/**

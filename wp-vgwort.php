@@ -12,7 +12,7 @@
  * Plugin Name: WP VG WORT
  * Plugin URI:  http://www.mywebcheck.de/vg-wort-plugin-wordpress/
  * Description: Verwaltung der VG Wort Zählpixel
- * Version:     2.0.0
+ * Version:     2.0.1
  * Author:      Marcus Franke
  * Author URI:  http://mywebcheck.de
  * Text Domain: wp-vgwort-locale
