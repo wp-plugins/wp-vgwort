@@ -1,0 +1,353 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP VG WORT v2.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2013-06-29 00:11:57+0000\n"
+"Last-Translator: Marcus Franke <wgwortplugin@mywebcheck.de>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: CSL v1.x\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: class-wp-vgwort.php:211
+#: class-wp-vgwort.php:212
+#@ wp-vgwort-locale
+msgid "VG WORT"
+msgstr ""
+
+#: class-wp-vgwort.php:290
+#@ wp-vgwort-locale
+msgid "Zeichen - vorhanden"
+msgstr ""
+
+#: class-wp-vgwort.php:292
+#@ wp-vgwort-locale
+msgid "Zeichen - nicht vorhanden"
+msgstr ""
+
+#: class-wp-vgwort.php:295
+#@ wp-vgwort-locale
+msgid "Zeichen - Limit nicht erreicht"
+msgstr ""
+
+#: class-wp-vgwort.php:312
+#: class-wp-vgwort.php:418
+#@ wp-vgwort-locale
+msgid "VG Wort"
+msgstr ""
+
+#: class-wp-vgwort.php:316
+#@ wp-vgwort-locale
+msgid "Bisher eingebunden Wortmarken"
+msgstr ""
+
+#: class-wp-vgwort.php:331
+#@ wp-vgwort-locale
+msgid "Alle"
+msgstr ""
+
+#: class-wp-vgwort.php:343
+#@ wp-vgwort-locale
+msgid "Mögliche Beiträge"
+msgstr ""
+
+#: class-wp-vgwort.php:347
+#: class-wp-vgwort.php:355
+#: views/admin.php:96
+#: views/admin.php:104
+#: views/admin.php:226
+#: views/admin.php:234
+#@ wp-vgwort-locale
+msgid "Titel"
+msgstr ""
+
+#: class-wp-vgwort.php:348
+#: class-wp-vgwort.php:356
+#: views/admin.php:97
+#: views/admin.php:105
+#@ wp-vgwort-locale
+msgid "Anzahl Zeichen"
+msgstr ""
+
+#: class-wp-vgwort.php:349
+#: class-wp-vgwort.php:357
+#: views/admin.php:98
+#: views/admin.php:106
+#@ wp-vgwort-locale
+msgid "Type"
+msgstr ""
+
+#: class-wp-vgwort.php:350
+#: class-wp-vgwort.php:358
+#: views/admin.php:99
+#: views/admin.php:107
+#@ wp-vgwort-locale
+msgid "Aktion"
+msgstr ""
+
+#: class-wp-vgwort.php:373
+#: views/admin.php:122
+#@ wp-vgwort-locale
+msgid "Jetzt VG Wort einfügen"
+msgstr ""
+
+#: class-wp-vgwort.php:374
+#: views/admin.php:123
+#@ wp-vgwort-locale
+msgid "Wortmarken einfügen"
+msgstr ""
+
+#: class-wp-vgwort.php:385
+#@ wp-vgwort-locale
+msgid "Diesen Beiträge sollten VG Wortmarken hinzugefügt werden"
+msgstr ""
+
+#: class-wp-vgwort.php:437
+#@ wp-vgwort-locale
+msgid "Vorhandene Zählmarke"
+msgstr ""
+
+#: class-wp-vgwort.php:441
+#@ wp-vgwort-locale
+msgid "speichern"
+msgstr ""
+
+#: class-wp-vgwort.php:442
+#@ wp-vgwort-locale
+msgid "VG WORT Marke erstellen"
+msgstr ""
+
+#: views/admin.php:62
+#: views/admin.php:262
+#@ wp-vgwort-locale
+msgid "Konfiguration"
+msgstr ""
+
+#: views/admin.php:65
+#@ wp-vgwort-locale
+msgid "Export"
+msgstr ""
+
+#: views/admin.php:68
+#@ wp-vgwort-locale
+msgid "Allgemein"
+msgstr ""
+
+#: views/admin.php:71
+#@ wp-vgwort-locale
+msgid "Übersicht"
+msgstr ""
+
+#: views/admin.php:74
+#@ wp-vgwort-locale
+msgid "Beiträge"
+msgstr ""
+
+#: views/admin.php:91
+#@ wp-vgwort-locale
+msgid "Hier können Wortmarken eingefügt werden"
+msgstr ""
+
+#: views/admin.php:140
+#@ wp-vgwort-locale
+msgid "VG Wort Marken Export"
+msgstr ""
+
+#: views/admin.php:151
+#@ wp-vgwort-locale
+msgid "Die Export Funktion dient zur Ausgabe der genutzten VG Wort Marken in eine CSV."
+msgstr ""
+
+#: views/admin.php:152
+#@ wp-vgwort-locale
+msgid "Diese Datei kann mit einen Tabellen Programm wie Excel geöffnet werden."
+msgstr ""
+
+#: views/admin.php:156
+#@ wp-vgwort-locale
+msgid "exportieren"
+msgstr ""
+
+#: views/admin.php:168
+#@ wp-vgwort-locale
+msgid "Fehler und Bugs"
+msgstr ""
+
+#: views/admin.php:173
+#@ wp-vgwort-locale
+msgid "Wenn Fehler Ihr Fehler in unserem Plugin gefunden habt, dann wäre es sehr nett wenn Ihr uns diese mitteilt."
+msgstr ""
+
+#: views/admin.php:174
+#@ wp-vgwort-locale
+msgid "Dazu könnt Ihr auf unserer Plugin Seite kommentieren oder eine E-Mail an uns senden."
+msgstr ""
+
+#: views/admin.php:177
+#@ wp-vgwort-locale
+msgid "Kontakt"
+msgstr ""
+
+#: views/admin.php:180
+#: views/admin.php:181
+#@ wp-vgwort-locale
+msgid "Plugin Seite"
+msgstr ""
+
+#: views/admin.php:185
+#@ wp-vgwort-locale
+msgid "Schreib mir eine Mail"
+msgstr ""
+
+#: views/admin.php:191
+#@ wp-vgwort-locale
+msgid "Cooles Plugin?"
+msgstr ""
+
+#: views/admin.php:201
+#@ wp-vgwort-locale
+msgid "Jetzt einfach, schnell und sicher online bezahlen – mit PayPal."
+msgstr ""
+
+#: views/admin.php:225
+#: views/admin.php:233
+#@ wp-vgwort-locale
+msgid "ID"
+msgstr ""
+
+#: views/admin.php:227
+#: views/admin.php:235
+#@ wp-vgwort-locale
+msgid "Url"
+msgstr ""
+
+#: views/admin.php:228
+#: views/admin.php:236
+#@ wp-vgwort-locale
+msgid "Wortmarke"
+msgstr ""
+
+#: views/admin.php:258
+#@ wp-vgwort-locale
+msgid "Einstellungen VG-Wort Plugin"
+msgstr ""
+
+#: views/admin.php:269
+#@ wp-vgwort-locale
+msgid "Custom Post Types"
+msgstr ""
+
+#: views/admin.php:270
+#@ wp-vgwort-locale
+msgid "Markierte Custom Post Types werden mit der VG Wort Funktion versehen"
+msgstr ""
+
+#: views/admin.php:283
+#@ wp-vgwort-locale
+msgid "Keine anderen Typen vorhanden!"
+msgstr ""
+
+#: views/admin.php:288
+#@ wp-vgwort-locale
+msgid "In Beiträge und Seiten sind immer vorhanden!"
+msgstr ""
+
+#: views/admin.php:294
+#@ wp-vgwort-locale
+msgid "MetaName"
+msgstr ""
+
+#: views/admin.php:297
+#@ wp-vgwort-locale
+msgid "Dieses Feld kann genutzt werden um ein kompatible Lösung für andere Plugins zu erhalten"
+msgstr ""
+
+#: views/admin.php:299
+#@ wp-vgwort-locale
+msgid "Default"
+msgstr ""
+
+#: views/admin.php:302
+#@ wp-vgwort-locale
+msgid "VG-Wort Krimskram"
+msgstr ""
+
+#: views/admin.php:309
+#@ wp-vgwort-locale
+msgid "Zeichen anzeigen"
+msgstr ""
+
+#: views/admin.php:323
+#@ wp-vgwort-locale
+msgid "Soll in den ausgewählten Beiträgen die Zeichen Anzahl angezeigt werden?"
+msgstr ""
+
+#: views/admin.php:326
+#: views/admin.php:329
+#@ wp-vgwort-locale
+msgid "Nein"
+msgstr ""
+
+#: views/admin.php:327
+#: views/admin.php:330
+#@ wp-vgwort-locale
+msgid "Ja"
+msgstr ""
+
+#: views/admin.php:335
+#@ wp-vgwort-locale
+msgid "Speichern"
+msgstr ""
+
+#: views/admin.php:338
+#@ wp-vgwort-locale
+msgid "Einstellung speichern"
+msgstr ""
+
+#. translators: plugin header field 'Name'
+#: wp-vgwort.php:0
+#@ wp-vgwort-locale
+msgid "WP VG WORT"
+msgstr ""
+
+#. translators: plugin header field 'PluginURI'
+#: wp-vgwort.php:0
+#@ wp-vgwort-locale
+msgid "http://www.mywebcheck.de/vg-wort-plugin-wordpress/"
+msgstr ""
+
+#. translators: plugin header field 'Description'
+#: wp-vgwort.php:0
+#@ wp-vgwort-locale
+msgid "Verwaltung der VG Wort Zählpixel"
+msgstr ""
+
+#. translators: plugin header field 'Author'
+#: wp-vgwort.php:0
+#@ wp-vgwort-locale
+msgid "Marcus Franke"
+msgstr ""
+
+#. translators: plugin header field 'AuthorURI'
+#: wp-vgwort.php:0
+#@ wp-vgwort-locale
+msgid "http://mywebcheck.de"
+msgstr ""
+
+#. translators: plugin header field 'Version'
+#: wp-vgwort.php:0
+#@ wp-vgwort-locale
+msgid "2.0.0"
+msgstr ""
+
