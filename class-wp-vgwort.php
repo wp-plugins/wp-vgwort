@@ -349,7 +349,7 @@ class WP_VGWORT {
 		$currentPostType = get_post_type();
 		$allowedTypes = get_option( 'wp_cpt', array( 'post', 'page' ) );
 		if( in_array( $currentPostType, $allowedTypes ) ) {
-			add_meta_box( 'CustomMeta', __( 'VG Wort', 'wp-vgwort-locale' ), array( &$this, 'create_custom_meta' ), $currentPostType, 'side', 'high' );
+			add_meta_box( 'CustomMeta', __( 'VG Wort', 'wp-vgwort-locale' ), array( &$this, 'create_custom_meta' ), $currentPostType, 'advanced', 'high' );
 		}
 	} 	
 	
