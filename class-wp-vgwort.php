@@ -2,7 +2,7 @@
 /**
  * WP VG Wort.
  *
- * @package   PluginName
+ * @package   WP_VGWORT
  * @author    Marcus Franke <wgwortplugin@mywebcheck.de>
  * @license   GPL-2.0+
  * @link      http://mywebcheck.de
@@ -23,7 +23,7 @@ class WP_VGWORT {
 	 *
 	 * @var     string
 	 */
-	protected $version = '2.0.2';
+	protected $version = '2.0.3';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -372,8 +372,9 @@ class WP_VGWORT {
 			echo '<input type="hidden" name="markein" value="1" />';
 		} ?>
 		<input type="input" size="16" name="wp_vgwortmarke" id="wp_vgwortmarke" value="" class="form-input-tip" />
-		<input type="submit" name="Sender" id="wp_vgwort_send_marker" value="<?php _e( 'speichern', 'wp-vgwort-locale' ); ?>" class="button" /><br />
-		<a href="http://www.vgwort.de/" target="_blank" title="<?php _e( 'VG WORT Marke erstellen', 'wp-vgwort-locale' ); ?>"><?php _e( 'VG WORT Marke erstellen', 'wp-vgwort-locale' ); ?></a>
+		<input type="submit" class="button button-primary" name="sender" id="wp_vgwort_send_marker" value="<?php _e( 'speichern', 'wp-vgwort-locale' ); ?>"  />
+		<input type="submit" name="delete" id="wp_vgwort_delete_marker" value="<?php _e( 'löschen', 'wp-vgwort-locale' ); ?>" class="button" /><br />
+		<a href="http://www.vgwort.de/" target="_blank" title="<?php _e( 'VG WORT Marke erstellen', 'wp-vgwort-locale' ); ?>"><?php _e( 'VG WORT Marke erstellen', 'wp-vgwort-locale' ); ?></a><br />
 	<?php }
 	
 	/**
@@ -408,23 +409,26 @@ class WP_VGWORT {
 		} else {
 			return;
 		}
+		
+	
 
-		// vars übergeben
-		$markeIn = sanitize_text_field( $_POST['markein'] );
-		$vgWortMarke = $_POST['wp_vgwortmarke'];
-
-		if( ! isset( $markeIn ) ) {
-			if( !empty( $vgWortMarke ) ) {
-				update_post_meta( $post_id, $this->vgWortMeta, $vgWortMarke );
-			} else {
-				delete_post_meta( $post_id, $this->vgWortMeta, $vgWortMarke );
-			}
-		} else {
+		if(!isset($_POST['delete'])){
+			// New/Update
+		
+			$markeIn = sanitize_text_field( $_POST['markein'] );
+			$vgWortMarke = $_POST['wp_vgwortmarke'];
+			
 			if( ! empty( $_POST['wp_vgwortmarke'] ) ) {
 				update_post_meta( $post_id, $this->vgWortMeta, $vgWortMarke );
 			}
+		} else {
+			
+			// Delete 
+			delete_post_meta( $post_id, $this->vgWortMeta, $vgWortMarke );
+				
+			
+		
 		}
-
 	}
 	
 	/**

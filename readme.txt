@@ -3,8 +3,8 @@ Contributors: smoo1337
 Donate link: http://mywebcheck.de/
 Tags: VG-Wort, VGW, Zählpixel
 Requires at least: 3.0
-Tested up to: 3.5
-Stable tag: 2.0.2
+Tested up to: 3.6
+Stable tag: 2.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,6 +22,8 @@ Folgende Funktionen bietet das Plugin
 - Kompatibel mit anderen VG WORT Plugins, durch Konfigurationsmöglichkeiten
 - Übersicht in der Beitragsübersicht ob VG Wort Zählmarken eingebunden sind
 - Übersicht im Profil in welchen Beiträgen VG Wort Zählmarken noch fehlen, welche die Bedingungen von VG Wort erfüllen
+
+- Kritik und Features bitte auf <a href="https://plus.google.com/100640944983138345674?rel=author">Google+</a> mitteilen.
 
 == Installation ==
 
@@ -41,9 +43,14 @@ Diskussion unter http://www.mywebcheck.de/vg-wort-plugin-wordpress/
 
 == Changelog ==
 
+
+= 2.0.3 = 
+* Add Delete Button
+* 
+
 = 2.0.2 = 
 * Bugfix
-* better codestyte
+* better codestyle
 * Multi-Language
 
 = 2.0.1 = 
