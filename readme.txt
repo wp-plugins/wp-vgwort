@@ -23,7 +23,7 @@ Folgende Funktionen bietet das Plugin
 - Übersicht in der Beitragsübersicht ob VG Wort Zählmarken eingebunden sind
 - Übersicht im Profil in welchen Beiträgen VG Wort Zählmarken noch fehlen, welche die Bedingungen von VG Wort erfüllen
 
-- Kritik und Features bitte auf <a href="https://plus.google.com/100640944983138345674?rel=author">Google+</a> mitteilen.
+- Kritik und Features bitte auf https://plus.google.com/100640944983138345674?rel=author mitteilen.
 
 == Installation ==
 
