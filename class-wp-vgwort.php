@@ -23,7 +23,7 @@ class WP_VGWORT {
 	 *
 	 * @var     string
 	 */
-	protected $version = '2.0.3';
+	protected $version = '2.0.4';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -96,7 +96,7 @@ class WP_VGWORT {
 		
 		add_action( 'add_meta_boxes', array( $this, 'add_custom_meta' ) );
 		add_action( 'save_post', array( $this, 'save_post' ) );
-		add_action( 'the_content', array( $this, 'frontend_display' ) );
+		add_action( 'wp_footer', array( $this, 'frontend_display' ) , 100 );
 
 		add_filter( 'manage_posts_columns', array( $this, 'column' ) );
 		add_filter( 'manage_pages_columns', array( $this, 'column' ) );
@@ -444,7 +444,7 @@ class WP_VGWORT {
 		
 	/**
 	 *
-	 * append the Value of $this->vgWortMeta on the end of content
+	 * append the Value of $this->vgWortMeta in the wp_footer
 	 * just insert $this->vgWortMeta on page.php and single.php
 	 * @param: string $content
 	 * @return string $content
@@ -458,11 +458,9 @@ class WP_VGWORT {
 
 		if( is_single() OR is_page() ) {
 			if( ! empty( $vgwort ) ) {
-				$content .= $vgwort;
+				echo $vgwort;
 			}
 		}
-
-		return $content;
 	}
 
 	public function get_vg_wort_meta() {

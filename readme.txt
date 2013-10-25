@@ -43,6 +43,9 @@ Diskussion unter http://www.mywebcheck.de/vg-wort-plugin-wordpress/
 
 == Changelog ==
 
+= 2.0.4 = 
+* Zaehlpixel werden direkt vor dem </body> Tag eingefügt
+* 
 
 = 2.0.3 = 
 * Add Delete Button

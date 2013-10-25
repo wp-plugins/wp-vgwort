@@ -2,7 +2,7 @@
 
 /**
  *
- * @package   PluginName
+ * @package   WP_VGWORT
  * @author    Marcus Franke <wgwortplugin@mywebcheck.de>
  * @license   GPL-2.0+
  * @link      http://mywebcheck.de
@@ -12,7 +12,7 @@
  * Plugin Name: WP VG WORT
  * Plugin URI:  http://www.mywebcheck.de/vg-wort-plugin-wordpress/
  * Description: Verwaltung der VG Wort Zählpixel
- * Version:     2.0.3
+ * Version:     2.0.4
  * Author:      Marcus Franke
  * Author URI:  http://mywebcheck.de
  * Text Domain: wp-vgwort-locale
