@@ -23,7 +23,7 @@ class WP_VGWORT {
 	 *
 	 * @var     string
 	 */
-	protected $version = '2.1.0';
+	protected $version = '2.1.1';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -69,6 +69,9 @@ class WP_VGWORT {
 	 */
 	protected $requiredChars = 1800;
 
+	protected $frontendDisplayFilterPriority = 1800;
+
+
 	/**
 	 * Initialize the plugin by setting localization, filters, and administration functions.
 	 *
@@ -94,7 +97,7 @@ class WP_VGWORT {
 
 		add_action( 'add_meta_boxes', array( $this, 'add_custom_meta' ) );
 		add_action( 'save_post', array( $this, 'save_post' ) );
-		add_action( 'wp_footer', array( $this, 'frontend_display' ), 100 );
+		add_action( 'wp_footer', array( $this, 'display_marker' ), $this->frontendDisplayFilterPriority );
 
 		add_filter( 'manage_posts_columns', array( $this, 'column' ) );
 		add_filter( 'manage_pages_columns', array( $this, 'column' ) );
@@ -168,7 +171,12 @@ class WP_VGWORT {
 		global $post;
 
 		if ( !empty( $post->post_content ) ) {
-			printf( '<script language="javascript" type="text/javascript"> var div = document.getElementById("wp-word-count"); if (div != undefined) { div.innerHTML = div.innerHTML + \'%s\'; } </script>', str_replace( "'", "\'", sprintf( '<span class="inside"> / Zeichen:' . ' %d' . '</span> ', $this->get_char_count( $post->post_title . $post->post_content ) ) ) );
+			$charCount = $this->get_char_count( $post->post_title . $post->post_content );
+			$missingCharCount = $this->requiredChars - $charCount;
+
+			printf( '<script language="javascript" type="text/javascript"> var div = document.getElementById("wp-word-count"); if (div != undefined) { div.innerHTML = div.innerHTML + \'%s\'; } </script>',
+				str_replace( "'", '\'', sprintf( '<span class="inside"> / Zeichen:  %d (nötig: %s)</span> ', $charCount, $missingCharCount > 0 ? $missingCharCount : 'keine' ) )
+			);
 		}
 	}
 
@@ -183,12 +191,13 @@ class WP_VGWORT {
 
 		$vgWortOptions = get_option( 'wp_vgwort_options' );
 
-		if ( !( isset( $vgWortOptions['showChars'] ) AND !$vgWortOptions['showChars'] ) ) {
+		if ( !( isset( $vgWortOptions['showChars'] ) && !$vgWortOptions['showChars'] ) ) {
 
 			$currentPostType = get_post_type();
 			$allowedTypes = get_option( 'wp_cpt', array( 'post', 'page' ) );
 			if ( in_array( $currentPostType, $allowedTypes ) ) {
-				$defaults['vgwort'] = 'VG Wort';
+				$defaults['vgwort-mark'] = __( 'Zählmarke', 'wp-vgwort-locale' );
+				$defaults['vgwort-char-count'] = __( 'Zeichenanzahl', 'wp-vgwort-locale' );
 			}
 
 		}
@@ -197,7 +206,7 @@ class WP_VGWORT {
 
 	/**
 	 *
-	 * Add a custom row for displaying the WGWort status.
+	 * Add a custom row for displaying the VG WORT status.
 	 *
 	 * @param string $column
 	 *
@@ -205,30 +214,43 @@ class WP_VGWORT {
 	function custom_column( $column ) {
 		global $post;
 
-		if ( $column == 'vgwort' ) {
+		if ( $column == 'vgwort-mark' || $column == 'vgwort-char-count' ) {
 
 			// is in Config?
 			$vgWortOptions = get_option( 'wp_vgwort_options' );
 
 			// Zeichen Anzeigen:
-			if ( !( isset( $vgWortOptions['showChars'] ) AND !$vgWortOptions['showChars'] ) ) {
+			if ( !( isset( $vgWortOptions['showChars'] ) && !$vgWortOptions['showChars'] ) ) {
 
 				$charCount = $this->get_char_count( $post->post_title . $post->post_content );
 
-				if ( $charCount > $this->requiredChars ) {
+				if ( $column == 'vgwort-mark' ) {
 
-					// VG vorhanden?
-					$vgwort = get_post_meta( $post->ID, $this->vgWortMeta, true );
+					if ( $charCount > $this->requiredChars ) {
 
-					if ( $vgwort ) {
-						echo '<span style="color:green">' . $charCount . ' ' . __( 'Zeichen - vorhanden', 'wp-vgwort-locale' ) . '</span>';
+						// VG vorhanden?
+						$vgwort = get_post_meta( $post->ID, $this->vgWortMeta, true );
+
+						if ( $vgwort ) {
+							echo( sprintf( '<span style="font-style: italic">%s</span>', __( 'vorhanden', 'wp-vgwort-locale' ) ) );
+						}
+						else {
+							echo( sprintf( '<span style="font-weight:bold">%s</span>', __( 'nicht hinzugefügt', 'wp-vgwort-locale' ) ) );
+						}
 					}
 					else {
-						echo '<span style="color:red">' . $charCount . ' ' . __( 'Zeichen - nicht vorhanden', 'wp-vgwort-locale' ) . '</span>';
+						echo( sprintf( '<span>%s</span>', __( 'zu wenig Zeichen', 'wp-vgwort-locale' ) ) );
 					}
 				}
-				else {
-					echo '<span style="color:blue">' . $charCount . ' ' . __( 'Zeichen - Limit nicht erreicht', 'wp-vgwort-locale' ) . '</span>';
+				elseif ( $column == 'vgwort-char-count' ) {
+					if ( $charCount > $this->requiredChars ) {
+						// output number of chars in post
+						echo( $charCount );
+					}
+					else {
+						// output number of missing chars in post
+						echo( sprintf( __( '%s nötig' ), $this->requiredChars - $charCount ) );
+					}
 				}
 			}
 		}
@@ -248,17 +270,17 @@ class WP_VGWORT {
 
 		if ( user_can( $user->ID, 'edit_posts' ) ) {
 			?>
-			<h3 id="vgwortanchor"><?php _e( 'VG Wort', 'wp-vgwort-locale' ); ?></h3>
+			<h3 id="vgwortanchor"><?php _e( 'VG Wort Zählmarken', 'wp-vgwort-locale' ); ?></h3>
 			<table class="form-table">
 			<tr>
 			<th>
-						<label for="vgwort"><?php _e( 'Bisher eingebunden Wortmarken', 'wp-vgwort-locale' ); ?>: <?php echo $wpdb->get_var( $wpdb->prepare( "SELECT count(P.ID) as count FROM wp_postmeta PM INNER JOIN wp_posts P ON P.ID = PM.post_id WHERE PM.meta_key = 'wp_vgwortmarke' AND PM.meta_value != '' AND P.post_author = '%d'", $user->ID ) ); ?></label>
+						<label for="vgwort"><?php _e( 'Beiträge/Seiten ohne Zählmarke', 'wp-vgwort-locale' ); ?>: <?php echo( $wpdb->get_var( $wpdb->prepare( "SELECT count(P.ID) as count FROM wp_postmeta PM INNER JOIN wp_posts P ON P.ID = PM.post_id WHERE PM.meta_key = 'wp_vgwortmarke' AND PM.meta_value != '' AND P.post_author = '%d'", $user->ID ) ) ); ?></label>
 					</th>
 			<td>
 						<?php
 			$currentFilter = get_user_meta( $user->ID, 'wp-wort-filter', true );
 
-			if ( empty( $currentFilter ) OR $currentFilter == 'all' ) {
+			if ( empty( $currentFilter ) || $currentFilter == 'all' ) {
 				$currentFilter = 'all';
 				$results = $wpdb->get_results( $wpdb->prepare( "SELECT * , CHAR_LENGTH(`post_content`) as charlength , post_type FROM " . $wpdb->posts . " WHERE post_status = 'publish' AND post_type NOT IN ('attachment','nav_menu_item','revision') AND post_author = '%d' HAVING charlength > '%d'", $user->ID, $this->requiredChars ) );
 			}
@@ -268,35 +290,34 @@ class WP_VGWORT {
 
 			$postTypes = $wpdb->get_results( "SELECT post_type  FROM " . $wpdb->posts . " WHERE post_type NOT IN ('attachment','nav_menu_item','revision') group by post_type  ORDER BY FIELD(post_type,'post','page') DESC " );
 
-			echo 'Filtern nach Posttype:<select name="wpvgwortcurrentposttype" size="1"><option value="all">' . __( 'Alle', 'wp-vgwort-locale' ) . '</option>';
+			echo( __( 'Nach Seiten-Typ filtern', 'wp-vgwort-locale' ) . ': <select name="wpvgwortcurrentposttype" size="1"><option value="all">' . __( 'Alle', 'wp-vgwort-locale' ) . '</option>' );
 
 			foreach ( $postTypes as $postType ) {
 				if ( $postType->post_type != $currentFilter ) {
-					echo '<option value="' . $postType->post_type . '">' . $postType->post_type . '</option>';
+					echo( '<option value="' . $postType->post_type . '">' . $postType->post_type . '</option>' );
 				}
 				else {
-					echo '<option selected="selected" value="' . $postType->post_type . '">' . $postType->post_type . '</option>';
+					echo( '<option selected="selected" value="' . $postType->post_type . '">' . $postType->post_type . '</option>' );
 				}
 			}
-			echo '</select><input type="submit" name="Sender" value="filtern" />';
+			echo( '</select> <input type="submit" class="button" name="Sender" value="Filtern" />' );
 
 			if ( !empty( $results ) ) {
 				?>
-				<h4><?php _e( 'Mögliche Beiträge', 'wp-vgwort-locale' ); ?></h4>
 				<table class="widefat">
 								<thead>
 									<tr>
 										<th><?php _e( 'Titel', 'wp-vgwort-locale' ); ?></th>
-										<th><?php _e( 'Anzahl Zeichen', 'wp-vgwort-locale' ); ?></th>
-										<th><?php _e( 'Type', 'wp-vgwort-locale' ); ?></th>
+										<th><?php _e( 'Zeichenanzahl', 'wp-vgwort-locale' ); ?></th>
+										<th><?php _e( 'Seiten-Typ', 'wp-vgwort-locale' ); ?></th>
 										<th><?php _e( 'Aktion', 'wp-vgwort-locale' ); ?></th>
 									</tr>
 								</thead>
 								<tfoot>
 									<tr>
 										<th><?php _e( 'Titel', 'wp-vgwort-locale' ); ?></th>
-										<th><?php _e( 'Anzahl Zeichen', 'wp-vgwort-locale' ); ?></th>
-										<th><?php _e( 'Type', 'wp-vgwort-locale' ); ?></th>
+										<th><?php _e( 'Zeichenanzahl', 'wp-vgwort-locale' ); ?></th>
+										<th><?php _e( 'Seiten-Typ', 'wp-vgwort-locale' ); ?></th>
 										<th><?php _e( 'Aktion', 'wp-vgwort-locale' ); ?></th>
 									</tr>
 								</tfoot>
@@ -307,16 +328,16 @@ class WP_VGWORT {
 											// Just Text nothing more :)
 											$clearContentCount = $this->get_char_count( $result->post_title . $result->post_content );
 											if ( $clearContentCount > $this->requiredChars ) {
-												echo '<tr>';
-												echo '<td>' . $result->post_title . '</td>';
-												echo '<td>' . $clearContentCount . '</td>';
-												echo '<td>' . $result->post_type . '</td>';
-												echo '<td>';
-												echo '<a href="' . get_admin_url() . 'post.php?post=' . $result->ID . '&action=edit" title="' . __( 'Jetzt VG Wort einfügen', 'wp-vgwort-locale' ) . '">';
-												echo __( 'Wortmarken einfügen', 'wp-vgwort-locale' );
-												echo '</a>';
-												echo '</td>';
-												echo '</tr>';
+												echo( '<tr>' );
+												echo( '<td>' . $result->post_title . '</td>' );
+												echo( '<td>' . $clearContentCount . '</td>' );
+												echo( '<td>' . $result->post_type . '</td>' );
+												echo( '<td>' );
+												echo( '<a href="' . get_admin_url() . 'post.php?post=' . $result->ID . '&action=edit" title="' . __( 'Beitrag/Seite bearbeiten', 'wp-vgwort-locale' ) . '">' );
+												echo( __( 'Zählmarke einfügen', 'wp-vgwort-locale' ) );
+												echo( '</a>' );
+												echo( '</td>' );
+												echo( '</tr>' );
 											}
 										}
 									} ?>
@@ -325,7 +346,7 @@ class WP_VGWORT {
 			<?php
 			}
 		} ?>
-		<span class="description"><?php _e( 'Diesen Beiträge sollten VG Wortmarken hinzugefügt werden', 'wp-vgwort-locale' ); ?></span>
+		<span class="description"><?php _e( 'Diesen Beiträgen/Seiten können Sie Zählmarken hinzufügen.', 'wp-vgwort-locale' ); ?></span>
 		</td>
 		</tr>
 		</table>
@@ -359,7 +380,7 @@ class WP_VGWORT {
 		$allowedTypes = get_option( 'wp_cpt', array( 'post', 'page' ) );
 
 		if ( in_array( $currentPostType, $allowedTypes ) ) {
-			add_meta_box( 'CustomMeta', __( 'VG Wort', 'wp-vgwort-locale' ), array( &$this, 'create_custom_meta' ), $currentPostType, 'advanced', 'high' );
+			add_meta_box( 'CustomMeta', __( 'Zählmarke für VG WORT', 'wp-vgwort-locale' ), array( &$this, 'create_custom_meta' ), $currentPostType, 'advanced', 'high' );
 		}
 	}
 
@@ -379,21 +400,23 @@ class WP_VGWORT {
 		$marke = get_post_meta( $post->ID, $this->vgWortMeta, true );
 
 		if ( !empty( $marke ) ) {
-			echo '<strong>' . __( 'Vorhandene Zählmarke', 'wp-vgwort-locale' ) . '</strong>: ' . htmlspecialchars( $marke );
-			echo '<input type="hidden" name="markein" value="1" />';
+
+			echo( sprintf( '<p><strong>%s</strong>: %s</p>', __( 'Vorhandene Zählmarke', 'wp-vgwort-locale' ), htmlspecialchars( $marke ) ) );
+			echo( '<input type="hidden" name="markein" value="1" />' );
 		} ?>
-		<input type="input" size="16" name="wp_vgwortmarke" id="wp_vgwortmarke" value="" class="form-input-tip"/>
-		<input type="submit" class="button button-primary" name="sender" id="wp_vgwort_send_marker" value="<?php _e( 'speichern', 'wp-vgwort-locale' ); ?>"/>
-		<input type="submit" name="delete" id="wp_vgwort_delete_marker" value="<?php _e( 'löschen', 'wp-vgwort-locale' ); ?>" class="button"/>
-		<br/>
-		<a href="http://www.vgwort.de/" target="_blank" title="<?php _e( 'VG WORT Marke erstellen', 'wp-vgwort-locale' ); ?>"><?php _e( 'VG WORT Marke erstellen', 'wp-vgwort-locale' ); ?></a>
-		<br/>
+		<label for="wp_vgwortmarke"><?php _e( 'Zählmarke:', 'wp-vgwort-locale' ) ?></label>
+		<input type="text" size="16" name="wp_vgwortmarke" id="wp_vgwortmarke" value="" class="form-input-tip"/>
+		<input type="submit" class="button button-primary" name="sender" id="wp_vgwort_send_marker" value="<?php _e( 'Speichern', 'wp-vgwort-locale' ); ?>"/>
+		<input type="submit" class="button button-small" name="delete" id="wp_vgwort_delete_marker" value="<?php _e( 'Löschen', 'wp-vgwort-locale' ); ?>"/>
+		<p>
+		<a href="http://www.vgwort.de/" target="_blank" title="<?php _e( 'VG WORT Marke erstellen', 'wp-vgwort-locale' ); ?>"><?php _e( 'Zählmarken bei VG WORT erhalten', 'wp-vgwort-locale' ); ?></a>
+		</p>
 	<?php
 	}
 
 	/**
 	 *
-	 * Save the values of VGWort Meta.
+	 * Save the values of VG Wort Meta.
 	 *
 	 * @param: int $post_id
 	 *
@@ -410,7 +433,7 @@ class WP_VGWORT {
 
 		// verify this came from the our screen and with proper authorization,
 		// because save_post can be triggered at other times
-		if ( !wp_verify_nonce( $_POST[$this->plugin_slug], plugin_basename( __FILE__ ) ) )
+		if ( !isset( $_POST[$this->plugin_slug] ) || !wp_verify_nonce( $_POST[$this->plugin_slug], plugin_basename( __FILE__ ) ) )
 			return;
 
 		// Check permissions
@@ -426,7 +449,8 @@ class WP_VGWORT {
 		if ( !isset( $_POST['delete'] ) ) {
 			// New/Update
 
-			$markeIn = sanitize_text_field( $_POST['markein'] );
+			// TODO: Auskommentiert, da irgendwie nicht verwendet.
+			//$markeIn = sanitize_text_field( $_POST['markein'] );
 			$vgWortMarke = $_POST['wp_vgwortmarke'];
 
 			if ( !empty( $_POST['wp_vgwortmarke'] ) ) {
@@ -453,9 +477,16 @@ class WP_VGWORT {
 	}
 
 	/**
+	 * Append the VG WORT marker to wp_footer.
 	 *
-	 * Append the VG-Wort-Marke to the wp_footer.
+	 * @param string $content
 	 *
+	 */
+	public function display_marker( $content ) {
+		echo( $this->get_marker() );
+	}
+
+	/**
 	 * It is possible to filter the output:
 	 * <code>
 	 * add_filter( 'wp_vgwort_frontend_display', 'my_frontend_display_filter' );
@@ -464,20 +495,24 @@ class WP_VGWORT {
 	 * }
 	 * </code>
 	 *
-	 * @param string $content
-	 *
+	 * @return string The VG WORT marker.
 	 */
-	public function frontend_display( $content ) {
-
+	public function get_marker() {
 		global $post;
 
 		$vgwort = get_post_meta( $post->ID, $this->vgWortMeta, true );
 
-		if ( is_single() OR is_page() ) {
+		if ( is_single() || is_page() ) {
 			if ( !empty( $vgwort ) ) {
-				echo( apply_filters( 'wp_vgwort_frontend_display', $vgwort ) );
+				return apply_filters( 'wp_vgwort_frontend_display', $vgwort );
 			}
 		}
+
+		return '';
+	}
+
+	public function remove_display_marker() {
+		remove_action( 'wp_footer', array( $this, 'display_marker' ), $this->frontendDisplayFilterPriority );
 	}
 
 	public function get_vg_wort_meta() {

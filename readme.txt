@@ -1,35 +1,33 @@
-=== WP-VGWORT ===
-Contributors: smoo1337
+=== VG WORT Zählmarken ===
+Contributors: smoo1337, raubvogel
 Donate link: http://mywebcheck.de/
-Tags: VG-Wort, VGW, Zählpixel
+Tags: VG WORT, VGW, Zählpixel
 Requires at least: 3.0
-Tested up to: 3.6
-Stable tag: 2.0.4
+Tested up to: 3.8.1
+Stable tag: 2.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-WP_VGWORT add the "VG Wort Zaehlpixel" to your posts/pages.
+Integrieren Sie Zählmarken der VG WORT in Wordpress.
 
 == Description ==
 
-VG Wort Plugin ist ein Plugin mit den man die VG Wort Zählmarken schnell in einen Beitrag einfügen kann.
+Mit dem VG-WORT-Plugin können Sie bequem Zählmarken der VG WORT in Beiträgen und Seiten einfügen.
 
-Folgende Funktionen bietet das Plugin
+Folgende Funktionen bietet das Plugin:
+- Zählung der Zeichen inkl. Leerzeichen eines Beitrags (Shortcodes, Bilder und HTML-Elemente werden dabei ignoriert)
+- Einfügen einer VG-WORT-Zählmarke in einen Beitrag
+- Kompatibel mit anderen VG-WORT-Plugins (siehe Einstellungen)
+- Hinweis in der Beitragsübersicht, ob Zählmarken eingebunden sind
+- Übersicht im Benutzer-Profil, in welchen Beiträgen Zählmarken noch eingefügt werden können
 
-- Zählung der Zeichen inkl. Leerzeichen im Beitrag
-- (Besonderheit) Shortcodes, Bilder und HTML Elemente werden nicht eingerechnet
-- Einfügen einer VG Wort Zählmarke im Beitrag
-- Kompatibel mit anderen VG WORT Plugins, durch Konfigurationsmöglichkeiten
-- Übersicht in der Beitragsübersicht ob VG Wort Zählmarken eingebunden sind
-- Übersicht im Profil in welchen Beiträgen VG Wort Zählmarken noch fehlen, welche die Bedingungen von VG Wort erfüllen
-
-- Kritik und Features bitte auf https://plus.google.com/100640944983138345674?rel=author mitteilen.
+Kritik und Wünsche bitte auf [Google+](https://plus.google.com/100640944983138345674?rel=author "Add me on Google+") mitteilen.
 
 == Installation ==
 
-* Entpacke das Archiv ins Wordpress Plugin Verzeichnis (wp-content/plugins/)
-* Aktiviere das Plugin im Wordpress Backend.
-* Fertig, nun befindet sich in Beiträgen und Seiten die Eingabemaske 
+* Entpacken Sie das Archiv ins Wordpress-Plugin-Verzeichnis (wp-content/plugins/).
+* Aktivieren Sie das Plugin im Wordpress-Backend.
+* Zählmarken können nun direkt bei Beiträgen und Seiten hinzugefügt werden.
 
 == Frequently Asked Questions ==
 
@@ -37,63 +35,68 @@ Diskussion unter http://www.mywebcheck.de/vg-wort-plugin-wordpress/
 
 == Screenshots ==
 
-1. Übersicht möglicher Beiträge für VG Wortzählmarke
-2. VG Wort Spalte in Beitragsübersicht
+1. Übersicht möglicher Beiträge für Zählmarken
+2. Spalte für Zählmarken in Beitragsübersicht
 3. Zeichenanzahl im Editor
 
 == Changelog ==
 
+= 2.1.1 =
+* Diverse PHP Warnings behoben.
+* Rechtschreibung und Ausdruck verbessert.
+* PO-Datei für Übersetzer aktualisiert.
+* Admin-Bereich auf Wordpress 3.8 angepasst.
+
+= 2.1.0 =
+* Kleinere Fehler behoben.
+* Filterfunktion für Zählmarkenausgabe hinzugefügt.
+* System der Versionsnummer-Vergabe umgestellt (http://semver.org/).
+
 = 2.0.4 = 
-* Zaehlpixel werden direkt vor dem </body> Tag eingefügt
-* 
+* Zählmarke werden direkt vor dem </body>-Tag eingefügt.
 
 = 2.0.3 = 
-* Add Delete Button
-* 
+* Löschen-Schaltfläche hinzugefügt.
 
 = 2.0.2 = 
-* Bugfix
-* better codestyle
-* Multi-Language
+* Bugfix.
+* Multi-Language.
 
 = 2.0.1 = 
-* fixes compatibility issue with wp_minify
+* Kompatibilität-Problem mit wp_minify behoben.
 
 = 2.0.0 = 
-* new features
+* Neues Feature.
 
 = 1.9 = 
-* Bugfix 
+* Bugfix.
 
 = 1.8 = 
-* Bugfix 
+* Bugfix.
 
 = 1.7 = 
-* Bugfix - Zaehlpixel wird nur in Beitraegen und Seiten angezeigt
+* Bugfix: Zählmarke wird nur in Beiträgen und Seiten angezeigt.
 
 = 1.6 = 
-* Bugfix - Zaehlpixel auch auf Seiten möglich
+* Bugfix: Zählmarke auch auf Seiten möglich.
 
 = 1.5 = 
-* Bugfix - Anzeige von Inhalten mit weniger als 1800 Zeichen im Nutzerprofil
-
-= 1.5 = 
-* Bugfix - Anzeige von Inhalten mit weniger als 1800 Zeichen im Nutzerprofil
+* Bugfix: Anzeige von Inhalten mit weniger als 1800 Zeichen im Benutzerprofil.
 
 = 1.4 =
-* Bugfix -  Probleme mit Shortcode behoben
-			Ausgabe der Zeichen im Editor angepasst
-			Filterfunktion für Wortmarken im Benutzerprofil 
-			Feedback Funktionen hinzugefügt
+* Bugfix: Probleme mit Shortcode behoben,
+			Ausgabe der Zeichen im Editor angepasst,
+			Filterfunktion für Zählmarke im Benutzerprofil,
+			Feedback-Funktionen hinzugefügt.
 
 = 1.3 =
-* Bugfix - Speichern der Zählmarke bei vorhandener Zählmarke
+* Bugfix: Speichern der Zählmarke bei vorhandener Zählmarke.
 
 = 1.2 =
-* Bugfix - Einbau Wortmarke
+* Bugfix: Einbau Zählmarke.
 
 = 1.1 =
-* Spalte VG Wort in Beitragsübersicht angepasst
+* Spalte für Zählmarken in Beitragsübersicht angepasst.
 
 = 1.0 =
-* start of Plugin
+* Initial-Release.

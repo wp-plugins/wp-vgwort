@@ -1,19 +1,18 @@
 <?php
-
 /**
  *
  * @package   WP_VGWORT
- * @author    Marcus Franke <wgwortplugin@mywebcheck.de>
+ * @author    Marcus Franke <wgwortplugin@mywebcheck.de>, Ronny Harbich
  * @license   GPL-2.0+
  * @link      http://mywebcheck.de
- * @copyright 2013 MyWebcheck
+ * @copyright 2014 Marcus Franke, Ronny Harbich
  *
  * @wordpress-plugin
- * Plugin Name: WP VG WORT
+ * Plugin Name: VG WORT Zählmarken
  * Plugin URI:  http://www.mywebcheck.de/vg-wort-plugin-wordpress/
- * Description: Verwaltung der VG Wort Zählpixel
- * Version:     2.1.0
- * Author:      Marcus Franke
+ * Description: Integrieren Sie Zählmarken der VG WORT in Wordpress.
+ * Version:     2.1.1
+ * Author:      Marcus Franke, Ronny Harbich
  * Author URI:  http://mywebcheck.de
  * Text Domain: wp-vgwort-locale
  * License:     GPL-2.0+
