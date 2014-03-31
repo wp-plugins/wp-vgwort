@@ -4,7 +4,7 @@ Donate link: http://mywebcheck.de/
 Tags: VG WORT, VGW, Zählpixel
 Requires at least: 3.0
 Tested up to: 3.8.1
-Stable tag: 2.1.1
+Stable tag: 2.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -40,6 +40,9 @@ Diskussion unter http://www.mywebcheck.de/vg-wort-plugin-wordpress/
 3. Zeichenanzahl im Editor
 
 == Changelog ==
+
+= 2.1.1 =
+* Export Bug behoben
 
 = 2.1.1 =
 * Diverse PHP Warnings behoben.

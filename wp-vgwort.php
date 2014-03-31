@@ -11,7 +11,7 @@
  * Plugin Name: VG WORT Zählmarken
  * Plugin URI:  http://www.mywebcheck.de/vg-wort-plugin-wordpress/
  * Description: Integrieren Sie Zählmarken der VG WORT in Wordpress.
- * Version:     2.1.1
+ * Version:     2.1.2
  * Author:      Marcus Franke, Ronny Harbich
  * Author URI:  http://mywebcheck.de
  * Text Domain: wp-vgwort-locale
