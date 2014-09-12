@@ -1,4 +1,4 @@
-=== VG WORT Zählmarken ===
+=== VGW Plugin für VGWORT Zählmarken ===
 Contributors: smoo1337, raubvogel
 Donate link: http://vgw-plugin.de/
 Tags: VG WORT, VGW, Zählpixel
