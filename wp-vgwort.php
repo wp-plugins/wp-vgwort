@@ -8,12 +8,12 @@
  * @copyright 2014 Marcus Franke, Ronny Harbich
  *
  * @wordpress-plugin
- * Plugin Name: VG WORT Zählmarken
- * Plugin URI:  http://www.mywebcheck.de/vg-wort-plugin-wordpress/
+ * Plugin Name: VGW Zählmarken Plugin
+ * Plugin URI:  http://vgw-plugin.de/
  * Description: Integrieren Sie Zählmarken der VG WORT in Wordpress.
- * Version:     2.1.2
+ * Version:     2.1.3
  * Author:      Marcus Franke, Ronny Harbich
- * Author URI:  http://mywebcheck.de
+ * Author URI:  http://vgw-plugin.de/
  * Text Domain: wp-vgwort-locale
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt

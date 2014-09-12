@@ -36,7 +36,8 @@ if ( $action !== null ) {
 			$this->vgWortMeta = esc_html( $_POST['wp_vgwort_meta'] );
 
 			$vgWortOptions = array(
-			  'showChars' => esc_attr( $_POST['showchars'] )
+			  'showChars' => esc_attr( $_POST['showchars'] ),
+			  'datenschutz' => esc_attr( $_POST['datenschutz'] )
 			);
 
 			update_option( 'wp_vgwort_options', $vgWortOptions );
@@ -49,7 +50,7 @@ if ( $action !== null ) {
 
 // TODO: Wozu ist das hier gut?
 $this->vgWortMetaOption = get_option( 'wp_vgwortmetaname', 'wp_vgwortmarke' );
-
+$datenschutz = "";
 $vgWortOptions = get_option( 'wp_vgwort_options' );
 
 ?>
@@ -85,7 +86,11 @@ $vgWortOptions = get_option( 'wp_vgwort_options' );
 		} ?>">
 		  <?php _e( 'Sonstiges', 'wp-vgwort-locale' ); ?>
 		</a>
-
+		<a href="<?php echo( admin_url( 'options-general.php?page=' . $this->plugin_slug . '&section=datenschutz' ) ); ?>" class="nav-tab <?php if ( $section == 'datenschutz' ) {
+			echo( 'nav-tab-active' );
+		} ?>">
+		  <?php _e( 'Datenschutz', 'wp-vgwort-locale' ); ?>
+		</a>
 	</h2>
 
 	<?php switch ( $section ) {
@@ -251,6 +256,35 @@ $vgWortOptions = get_option( 'wp_vgwort_options' );
 			<?php
 			break;
 
+		case "datenschutz":
+			?>
+			
+			<p>
+				<b><?php _e( 'Wir empfehlen bei Einsatz der VG WORT Zählenmarken die Datenschutzerklärung zu erweitern.', 'wp-vgwort-locale' ); ?></b>
+			</p>
+			<p>
+				<?php _e( 'Den entsprechenden Absatz zur Datenschutzerklärung finden Sie in diesem <a href="http://tom.vgwort.de/portal/showParticipationCondition">PDF</a>.', 'wp-vgwort-locale' ); ?>
+			</p>
+			
+			<form method="POST" action="">
+			
+			<?php 
+			
+			if ( isset( $vgWortOptions['datenschutz'] ) ) {
+				if ( $vgWortOptions['datenschutz'] != '' ) {
+					$datenschutz = 'checked="checked"';
+				}
+			}
+			?>
+			
+				<input type="checkbox" <?php echo $datenschutz; ?> name="datenschutz" value="1" /> Ich habe diesen Hinweis zur Kenntnis genommen!<br /><br />
+				<input type="hidden" name="action" value="save"/>
+				<input type="submit" name="save" value="<?php _e( 'Einstellungen speichern', 'wp-vgwort-locale' ); ?>" class="button-primary" / >
+				
+			</form>
+			
+			<?php break;	
+			
 		default:
 			?>
 				<form method="POST" action="">

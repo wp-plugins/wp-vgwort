@@ -3,9 +3,9 @@
  * WP VG Wort.
  *
  * @package   WP_VGWORT
- * @author    Marcus Franke <wgwortplugin@mywebcheck.de>
+ * @author    Marcus Franke <wgwortplugin@mywebcheck.de>, Ronny Harbich
  * @license   GPL-2.0+
- * @link      http://mywebcheck.de
+ * @link      http://vgw-plugin.de
  * @copyright 2013 MyWebcheck
  *
  */
@@ -23,7 +23,7 @@ class WP_VGWORT {
 	 *
 	 * @var     string
 	 */
-	protected $version = '2.1.1';
+	protected $version = '2.1.3';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -105,8 +105,36 @@ class WP_VGWORT {
 		add_action( 'manage_posts_custom_column', array( $this, 'custom_column' ) );
 		add_action( 'manage_pages_custom_column', array( $this, 'custom_column' ) );
 
+		add_action( 'admin_notices', array( $this, 'privacy_notification' ) );
+		
+
+
+		
 	}
 
+	
+	/**
+	 * Admin notification of privacy
+	 *
+	 * @since 2.1.3
+	 */
+	
+	function privacy_notification() {
+		
+		$datenschutz = "";
+		$vgWortOptions = get_option( 'wp_vgwort_options' );
+		
+		if ( !isset( $vgWortOptions['datenschutz'] ) OR empty($vgWortOptions['datenschutz']) ) {
+			?>
+				<div class="error">
+					<p><b><?php _e( 'Bitte Datenschutzhinweis erweitern. Mehr unter <a href="">Datenschutz</a> im VGW Plugin', 'wp-vgwort-locale' ); ?></b></p>
+				</div>
+			<?php
+		}
+		
+	}
+	
+	
 	/**
 	 * Loads textdomain to translate
 	 *
@@ -144,8 +172,8 @@ class WP_VGWORT {
 
 		$this->plugin_screen_hook_suffix = add_submenu_page(
 			'options-general.php',
-			__( 'VG WORT', 'wp-vgwort-locale' ),
-			__( 'VG WORT', 'wp-vgwort-locale' ),
+			__( 'VGW Plugin', 'wp-vgwort-locale' ),
+			__( 'VGW Plugin', 'wp-vgwort-locale' ),
 			'add_users',
 			$this->plugin_slug,
 			array( $this, 'display_plugin_admin_page' )

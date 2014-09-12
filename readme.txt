@@ -1,10 +1,10 @@
 === VG WORT Zählmarken ===
 Contributors: smoo1337, raubvogel
-Donate link: http://mywebcheck.de/
+Donate link: http://vgw-plugin.de/
 Tags: VG WORT, VGW, Zählpixel
 Requires at least: 3.0
-Tested up to: 3.8.1
-Stable tag: 2.1.2
+Tested up to: 4.0.0
+Stable tag: 2.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -40,6 +40,10 @@ Diskussion unter http://www.mywebcheck.de/vg-wort-plugin-wordpress/
 3. Zeichenanzahl im Editor
 
 == Changelog ==
+
+= 2.1.3 =
+* Name des Plugin geändert
+* Hinweis auf Datenschutzrichtlinien hinterlegt.
 
 = 2.1.1 =
 * Export Bug behoben
