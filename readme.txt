@@ -12,7 +12,7 @@ Integrieren Sie Zählmarken der VG WORT in Wordpress.
 
 == Description ==
 
-Mit dem VG-WORT-Plugin können Sie bequem Zählmarken der VG WORT in Beiträgen und Seiten einfügen.
+Mit dem VGW-Plugin können Sie bequem Zählmarken der VG WORT in Beiträgen und Seiten einfügen.
 
 Folgende Funktionen bietet das Plugin:
 - Zählung der Zeichen inkl. Leerzeichen eines Beitrags (Shortcodes, Bilder und HTML-Elemente werden dabei ignoriert)
