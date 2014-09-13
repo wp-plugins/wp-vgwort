@@ -41,7 +41,7 @@ Diskussion unter http://www.mywebcheck.de/vg-wort-plugin-wordpress/
 
 == Changelog ==
 
-= 2.1.3 =
+= 2.1.4 =
 * Bugfix
 
 
