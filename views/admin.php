@@ -345,7 +345,7 @@ $vgWortOptions = get_option( 'wp_vgwort_options' );
 								<span class="description"><?php _e( 'Der Meta-Name kann genutzt werden, um Kompatibilität zu anderen Plugins zu erhalten.', 'wp-vgwort-locale' ); ?></span>
 								<ul>
 									<li><?php _e( 'Standard-Wert', 'wp-vgwort-locale' ); ?>
-										: wp_vgworkmarke</li>
+										: wp_vgwortmarke</li>
 								</ul>
 							</td>
 						</tr>
