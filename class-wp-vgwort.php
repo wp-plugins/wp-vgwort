@@ -23,7 +23,7 @@ class WP_VGWORT {
 	 *
 	 * @var     string
 	 */
-	protected $version = '2.1.3';
+	protected $version = '2.1.5';
 
 	/**
 	 * Unique identifier for your plugin.

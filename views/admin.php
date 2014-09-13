@@ -35,15 +35,26 @@ if ( $action !== null ) {
 
 			$this->vgWortMeta = esc_html( $_POST['wp_vgwort_meta'] );
 
-			$vgWortOptions = array(
-			  'showChars' => esc_attr( $_POST['showchars'] ),
-			  'datenschutz' => esc_attr( $_POST['datenschutz'] )
-			);
-
+			$vgWortOptions = get_option('wp_vgwort_options');
+			
+			$vgWortOptions['showChars'] = esc_attr( $_POST['showchars'] );
+		
 			update_option( 'wp_vgwort_options', $vgWortOptions );
 			update_option( 'wp_vgwortmetaname', $this->vgWortMeta );
 
 			break;
+			
+			case "save_datenschutz":
+
+				
+			$vgWortOptions = get_option('wp_vgwort_options');
+			
+			$vgWortOptions['datenschutz'] = esc_attr( $_POST['datenschutz'] );
+						
+			update_option( 'wp_vgwort_options', $vgWortOptions );
+			
+			break;
+			
 	}
 
 }
@@ -278,7 +289,7 @@ $vgWortOptions = get_option( 'wp_vgwort_options' );
 			?>
 			
 				<input type="checkbox" <?php echo $datenschutz; ?> name="datenschutz" value="1" /> Ich habe diesen Hinweis zur Kenntnis genommen!<br /><br />
-				<input type="hidden" name="action" value="save"/>
+				<input type="hidden" name="action" value="save_datenschutz"/>
 				<input type="submit" name="save" value="<?php _e( 'Einstellungen speichern', 'wp-vgwort-locale' ); ?>" class="button-primary" / >
 				
 			</form>
