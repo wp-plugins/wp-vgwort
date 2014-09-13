@@ -86,7 +86,10 @@ class WP_VGWORT {
 		add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
 
 		$this->vgWortMeta = get_option( 'wp_vgwortmetaname', 'wp_vgwortmarke' );
-
+		if(empty($this->vgWortMeta)){
+			$this->vgWortMeta = 'wp_vgwortmarke';
+		}
+			
 		add_action( 'edit_user_profile', array( &$this, 'add_profile_data' ) );
 		add_action( 'show_user_profile', array( &$this, 'add_profile_data' ) );
 
@@ -427,6 +430,8 @@ class WP_VGWORT {
 		// The actual fields for data entry
 		$marke = get_post_meta( $post->ID, $this->vgWortMeta, true );
 
+		print_r($marke);
+		
 		if ( !empty( $marke ) ) {
 
 			echo( sprintf( '<p><strong>%s</strong>: %s</p>', __( 'Vorhandene Zählmarke', 'wp-vgwort-locale' ), htmlspecialchars( $marke ) ) );
