@@ -11,7 +11,7 @@
  * Plugin Name: VGW Zählmarken Plugin
  * Plugin URI:  http://vgw-plugin.de/
  * Description: Integrieren Sie Zählmarken der VG WORT in Wordpress.
- * Version:     2.1.5
+ * Version:     2.1.6
  * Author:      Marcus Franke, Ronny Harbich
  * Author URI:  http://vgw-plugin.de/
  * Text Domain: wp-vgwort-locale

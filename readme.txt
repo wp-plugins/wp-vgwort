@@ -4,7 +4,7 @@ Donate link: http://vgw-plugin.de/
 Tags: VG WORT, VGW, Zählpixel
 Requires at least: 3.0
 Tested up to: 4.0.0
-Stable tag: 2.1.5
+Stable tag: 2.1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,6 +41,9 @@ Diskussion unter http://www.mywebcheck.de/vg-wort-plugin-wordpress/
 
 == Changelog ==
 
+
+= 2.1.6 =
+* fixed broken Link "Datenschutz" Thx to Jan Eric Hellbusch
 
 = 2.1.5 =
 * Bugfix Thx to rrho

@@ -23,7 +23,7 @@ class WP_VGWORT {
 	 *
 	 * @var     string
 	 */
-	protected $version = '2.1.5';
+	protected $version = '2.1.6';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -130,7 +130,7 @@ class WP_VGWORT {
 		if ( !isset( $vgWortOptions['datenschutz'] ) OR empty($vgWortOptions['datenschutz']) ) {
 			?>
 				<div class="error">
-					<p><b><?php _e( 'Bitte Datenschutzhinweis erweitern. Mehr unter <a href="">Datenschutz</a> im VGW Plugin', 'wp-vgwort-locale' ); ?></b></p>
+					<p><b><?php _e( 'Bitte Datenschutzhinweis erweitern. Mehr unter <a href="' . admin_url('/options-general.php?page=wp-vgwort&amp;section=datenschutz') . '">Datenschutz</a> im VGW Plugin', 'wp-vgwort-locale' ); ?></b></p>
 				</div>
 			<?php
 		}
