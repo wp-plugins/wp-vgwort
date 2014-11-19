@@ -657,6 +657,7 @@ class WPVGW_MarkersManager {
 		return WPVGW_InsertMarkerResults::Inserted;
 	}
 
+	// TODO: This function should be private, but in PHP 5.3 use $thisObject = $this in closures cannot access private members. This function is called in closures.
 	/**
 	 * Tries to parse a marker from VG WORT marker strings like "<img src="http://vg02.met.vgwort.de/na/c662364dcf614454aea6160a00000000" width="1" height="1" alt="">".
 	 * It parses plain markers like "c662364dcf614454aea6160a00000000" too.
@@ -666,7 +667,7 @@ class WPVGW_MarkersManager {
 	 * @throws Exception Thrown if a Regex error occurred.
 	 * @return array|bool The marker got from the string, otherwise false.
 	 */
-	private function get_marker_from_string( $marker_string ) {
+	public function get_marker_from_string( $marker_string ) {
 		// try to match a marker from a specific string
 		// string should be something like "<img src="http://vg02.met.vgwort.de/na/c662364dcf614454aea6160a00000000" width="1" height="1" alt="">"
 		// string can be a plain marker like "c662364dcf614454aea6160a00000000" too
@@ -965,11 +966,9 @@ class WPVGW_MarkersManager {
 	 * @throws Exception Thrown if a database error occurred.
 	 */
 	public function import_markers_and_posts_from_tl_vgwort_plugin( $default_server ) {
-		$thisObject = $this;
-
 		// import markers with their corresponding posts
 		return $this->import_old_markers_and_posts(
-			function ( WP_Post $post ) use ( $thisObject ) {
+			function ( WP_Post $post ) {
 				// get public marker
 				$metaValue = get_post_custom_values( 'vgwort-public', $post->ID );
 				$marker['public_marker'] = $metaValue[0];
@@ -1016,7 +1015,7 @@ class WPVGW_MarkersManager {
 				// get marker from marker string
 				return $thisObject->get_marker_from_string( $matches[0] );
 			},
-			function ( WP_Post $post ) use ( $thisObject, $match_marker_regex, $delete_manual_marker ) {
+			function ( WP_Post $post ) use ( $match_marker_regex, $delete_manual_marker ) {
 				// delete manual marker?
 				if ( !$delete_manual_marker )
 					return;
