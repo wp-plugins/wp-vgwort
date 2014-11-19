@@ -1,0 +1,1215 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Prosodia VGW OS 3.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-11-19 01:06+0100\n"
+"PO-Revision-Date: 2014-11-19 01:06+0100\n"
+"Last-Translator: Ronny <info@falconiform.de>\n"
+"Language-Team: Prosodia <developer@prosodia.de>\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 1.6.10\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ../\n"
+"X-Textdomain-Support: yes\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: includes/helper.php:48
+msgid "Cheatin&#8217; uh?"
+msgstr ""
+
+#: includes/helper.php:182
+msgid "Nachricht schließen"
+msgstr ""
+
+#: includes/helper.php:183
+msgid "[Schließen]"
+msgstr ""
+
+#: includes/helper.php:363
+msgid ""
+"Fehlerdetails dürfen nur im Debug-Modus angezeigt werden. Bitte kontaktieren "
+"Sie ihren Administrator oder die VG-WORT-Plugin-Entwickler."
+msgstr ""
+
+#: includes/helper.php:365
+#, php-format
+msgid "Datenbankfehler: %s"
+msgstr ""
+
+#: includes/helper.php:381
+msgid ""
+"Ein regulärer Ausdruck ist ungültig. Bitte wenden Sie sich an die VG-WORT-"
+"Plugin-Entwickler."
+msgstr ""
+
+#: views/admin/about-admin-view.php:27
+msgid "Impressum Prosodia VGW OS"
+msgstr ""
+
+#: views/admin/about-admin-view.php:34
+msgid "Impressum"
+msgstr ""
+
+#: views/admin/about-admin-view.php:74
+msgid "Autor"
+msgstr ""
+
+#: views/admin/about-admin-view.php:82
+msgid ""
+"Max Heckel, Ronny Harbich, Rebekka Hempel, Torsten Klein – Prosodia GbR<br/"
+">Max Heckel z. Hd. Ronny Harbich<br/>Arneburger Straße 37T<br/>39590 "
+"Tangermünde"
+msgstr ""
+
+#: views/admin/about-admin-view.php:85
+msgid ""
+"E-Mail: <a href=\"mailto:info@prosodia.de\">info@prosodia.de</a><br/"
+">Website: <a href=\"http://prosodia.de/\">prosodia.de</a>"
+msgstr ""
+
+#: views/admin/about-admin-view.php:90
+msgid "Partner"
+msgstr ""
+
+#: views/admin/about-admin-view.php:98
+msgid ""
+"Conversion Junkies 2.0 Gesellschaft mit beschränkter Haftung (GmbH)<br/"
+">Marcus Franke, Ronny Siegel<br/>Gutzkowstr. 30<br/>01069 Dresden"
+msgstr ""
+
+#: views/admin/about-admin-view.php:101
+msgid ""
+"E-Mail: <a href=\"mailto:info@conversion-junkies.de\">info@conversion-"
+"junkies.de</a><br/>Website: <a href=\"http://conversion-junkies.de/"
+"\">conversion-junkies.de</a>"
+msgstr ""
+
+#: views/admin/about-admin-view.php:106
+msgid "Lizenz und Haftung"
+msgstr ""
+
+#: views/admin/about-admin-view.php:109
+msgid ""
+"Prosodia VGW OS wird von der Max Heckel, Ronny Harbich, Rebekka Hempel, "
+"Torsten Klein – Prosodia GbR unter der GPLv2-Lizenz vertrieben, die unter <a "
+"href=\"http://www.gnu.org/licenses/gpl-2.0.html\">http://www.gnu.org/"
+"licenses/gpl-2.0.html</a> nachzulesen ist. Sie vertreibt diese Software "
+"vollständig kostenlos und übernimmt für diese daher keine Haftung außer die "
+"vom Bürgerlichen Gesetzbuch (BGB) zwingend erforderliche. Der "
+"Haftungsausschluss soll – soweit wie mit dem BGB vereinbar – der GPLv2-"
+"Lizenz entsprechen."
+msgstr ""
+
+#: views/admin/about-admin-view.php:114
+msgid "Hinweis"
+msgstr ""
+
+#: views/admin/about-admin-view.php:117
+msgid ""
+"Prosodia VGW OS wird von der VG WORT weder unterstützt noch von ihr "
+"vertrieben."
+msgstr ""
+
+#: views/admin/admin-view-base.php:179
+#, php-format
+msgid ""
+"hinzugefügt %s, aktualisiert %s, bereits vorhanden %s, mit ungültigem Format "
+"%s, die Integrität verletzten %s, insgesamt gefunden %s"
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:27
+#: views/admin/configuration-admin-view.php:34 wpvgw.php:528
+msgid "Einstellungen"
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:71
+msgid "Hier können allgemeine Einstellungen vorgenommen werden."
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:78
+msgid "Nötige Zeichenanzahl"
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:83
+msgid ""
+"Die Mindestanzahl an Zeichen, die ein Beitrag haben muss, damit eine "
+"Zählmarke zugeordnet werden darf (wird von der VG WORT vorgegeben)."
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:85
+#: views/admin/configuration-admin-view.php:99
+#: views/admin/configuration-admin-view.php:111
+#: views/admin/configuration-admin-view.php:143
+#: views/admin/operations-admin-view.php:165
+#, php-format
+msgid "Der Standardwert ist: %s"
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:90
+msgid "Ausgabe-Format Zählmarke"
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:95
+msgid ""
+"So wie in diesem Textfeld angegeben, wird eine Zählmarke auf Ihrer Website "
+"ausgegeben. Dies ist in der Regel ein HTML-Code."
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:97
+#, php-format
+msgid ""
+"%1$s wird durch den Server ersetzt (ohne http://); %2$s wird durch die "
+"öffentliche Zählmarke ersetzt."
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:104
+msgid "Standard-Server"
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:109
+msgid ""
+"Wenn für Zählmarken nicht explizit ein Server angegeben wurde (z. B. beim "
+"Importieren), wird dieser Server verwendet."
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:116
+msgid "Plugin-Warnungen"
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:119
+msgid ""
+"Bei Aktivierung der jeweiligen Einstellung wird eine entsprechende Warnung "
+"im Administrationsbereich angezeigt."
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:123
+msgid "Warnung, falls andere VG-WORT-Plugins aktiviert sind"
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:125
+msgid ""
+"Wird angezeigt, falls andere Plugins zur Integration von Zählmarken der VG "
+"WORT aktiviert sind."
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:129
+msgid ""
+"Warnung, falls Zählmarken aus früherer Plugin-Version importiert werden "
+"sollten"
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:131
+msgid ""
+"Wird angezeigt, falls Zählmarken aus einer früheren Version des Plugins "
+"importiert werden sollten. Diese Warnung wird nach dem Import automatisch "
+"deaktiviert."
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:136
+msgid "Zählmarken pro Seite"
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:141
+msgid ""
+"Die Anzahl der Zählmarken, die auf einer Seite in der Zählmarken-Übersicht "
+"(Tabelle) angezeigt werden soll."
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:148
+msgid "Deinstallation"
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:152
+msgid "Daten bei Plugin-Deaktivierung löschen"
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:154
+msgid ""
+"<strong>Achtung</strong>: Bei Aktivierung werden sämtlichen Daten "
+"(Zählmarken, Zuordnungen usw.) unwiderruflich gelöscht, sobald das VG-WORT-"
+"Plugin deaktiviert wird!"
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:161
+msgid "Einstellungen speichern"
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:194
+msgid "Die nötige Zeichenanzahl muss einen Wert größer oder gleich 0 haben."
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:197
+msgid ""
+"Die nötige Zeichenanzahl muss eine natürliche Zahl größer oder gleich 0 sein."
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:214
+msgid "Der eingegebene Standard-Server hat ein ungültiges Format."
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:229
+msgid ""
+"Die Anzahl der Zählmarken pro Seite muss einen Wert größer oder gleich 1 "
+"haben."
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:232
+msgid ""
+"Die Anzahl der Zählmarken pro Seite muss eine natürliche Zahl größer oder "
+"gleich 1 sein."
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:254
+#: views/admin/data-privacy-admin-view.php:167
+msgid "Einstellungen erfolgreich übernommen."
+msgstr ""
+
+#: views/admin/data-privacy-admin-view.php:27
+#: views/admin/data-privacy-admin-view.php:79
+msgid "Datenschutz-Hinweis"
+msgstr ""
+
+#: views/admin/data-privacy-admin-view.php:34
+msgid "Datenschutz"
+msgstr ""
+
+#: views/admin/data-privacy-admin-view.php:72
+msgid ""
+"Sobald Zählmarken der VG WORT durch dieses Plugin verwendet werden, sollte "
+"der nachstehenden Datenschutz-Hinweis der VG WORT auf die Website eingefügt "
+"werden."
+msgstr ""
+
+#: views/admin/data-privacy-admin-view.php:123
+#, php-format
+msgid "Quelle: %s"
+msgstr ""
+
+#: views/admin/data-privacy-admin-view.php:124
+msgid "PDF „Teilnahmebedingungen – T.O.M. (Stand Dezember 2013)“ von VG WORT"
+msgstr ""
+
+#: views/admin/data-privacy-admin-view.php:128
+msgid ""
+"Die Autoren dieses Plugins übernehmen keine Haftung für die Korrektheit und "
+"Aktualität des zitierten Datenschutz-Hinweises."
+msgstr ""
+
+#: views/admin/data-privacy-admin-view.php:132
+msgid "Datenschutz-Hinweis zur Kenntnis genommen"
+msgstr ""
+
+#: views/admin/data-privacy-admin-view.php:134
+msgid ""
+"Es wird keine Warnung mehr im Administrationsbereich angezeigt, wenn "
+"aktiviert."
+msgstr ""
+
+#: views/admin/data-privacy-admin-view.php:141
+msgid "Einstellung speichern"
+msgstr ""
+
+#: views/admin/import-admin-view.php:27
+msgid "Import von Zählmarken"
+msgstr ""
+
+#: views/admin/import-admin-view.php:34
+msgid "Import"
+msgstr ""
+
+#: views/admin/import-admin-view.php:72
+msgid ""
+"Zählmarken der VG WORT können auf bis zu 3 verschiedene Arten importiert "
+"werden. Es wird empfohlen, CSV-Dateien zu importieren, die übers Online-"
+"Konto bei der VG WORT zur Verfügung gestellt werden."
+msgstr ""
+
+#: views/admin/import-admin-view.php:79
+msgid "Zählmarken aus CSV-Datei (von VG WORT)"
+msgstr ""
+
+#: views/admin/import-admin-view.php:84
+msgid ""
+"Hier kann eine CSV-Datei mit Zählmarken der VG WORT hochgeladen werden, "
+"welche über das Online-Konto der VG WORT bezogen werden kann."
+msgstr ""
+
+#: views/admin/import-admin-view.php:89
+msgid "Zählmarken aus CSV-Text (von VG WORT)"
+msgstr ""
+
+#: views/admin/import-admin-view.php:94
+msgid ""
+"Hier kann der gesamte Inhalt einer CSV-Datei mit Zählmarken der VG WORT "
+"hineinkopiert werden (falls das Hochladen der CSV-Datei nicht funktioniert)."
+msgstr ""
+
+#: views/admin/import-admin-view.php:99
+msgid "Zählmarke manuell eingeben (nicht empfohlen)"
+msgstr ""
+
+#: views/admin/import-admin-view.php:102
+#: views/admin/markers-admin-view.php:272 views/markers-table.php:447
+#: views/post-view.php:273
+msgid "Öffentliche Zählmarke"
+msgstr ""
+
+#: views/admin/import-admin-view.php:107
+#: views/admin/markers-admin-view.php:264 views/markers-table.php:450
+#: views/post-view.php:278
+msgid "Private Zählmarke"
+msgstr ""
+
+#: views/admin/import-admin-view.php:112
+#: views/admin/markers-admin-view.php:177
+#: views/admin/markers-admin-view.php:273 views/markers-table.php:454
+msgid "Server"
+msgstr ""
+
+#: views/admin/import-admin-view.php:116
+#: views/admin/markers-admin-view.php:184
+#, php-format
+msgid ""
+"Wenn der Server nicht angegeben wird, wird der Standard-Server (%s) "
+"verwendet."
+msgstr ""
+
+#: views/admin/import-admin-view.php:123
+msgid "Zählmarken importieren"
+msgstr ""
+
+#: views/admin/import-admin-view.php:173
+#, php-format
+msgid "Fehler beim Importieren der CSV-Datei: %s"
+msgstr ""
+
+#: views/admin/import-admin-view.php:177
+msgid "Zählmarken aus CSV-Datei: "
+msgstr ""
+
+#: views/admin/import-admin-view.php:181
+msgid "Hochgeladene Datei konnte nicht gelöscht werden."
+msgstr ""
+
+#: views/admin/import-admin-view.php:193
+#, php-format
+msgid "Fehler beim Importieren des CSV-Texts: %s"
+msgstr ""
+
+#: views/admin/import-admin-view.php:197
+msgid "Zählmarken aus CSV-Text: "
+msgstr ""
+
+#: views/admin/import-admin-view.php:208
+#, php-format
+msgid "Fehler beim Importieren der Zählmarke: %s"
+msgstr ""
+
+#: views/admin/import-admin-view.php:212
+msgid "Zählmarke: "
+msgstr ""
+
+#: views/admin/markers-admin-view.php:33
+msgid "Zählmarken und Export"
+msgstr ""
+
+#: views/admin/markers-admin-view.php:40
+msgid "Zählmarken"
+msgstr ""
+
+#: views/admin/markers-admin-view.php:117
+msgid "Das Fenster schließen"
+msgstr ""
+
+#: views/admin/markers-admin-view.php:117
+msgid "Schließen"
+msgstr ""
+
+#: views/admin/markers-admin-view.php:119
+msgid "Bitte warten …"
+msgstr ""
+
+#: views/admin/markers-admin-view.php:136
+msgid "Suchen"
+msgstr ""
+
+#: views/admin/markers-admin-view.php:143
+msgid "Alle ausgewählten Zählmarken bearbeiten"
+msgstr ""
+
+#: views/admin/markers-admin-view.php:147
+msgid "Aktionen"
+msgstr ""
+
+#: views/admin/markers-admin-view.php:151 views/post-table-view.php:96
+#: views/post-view.php:319
+msgid "Zählmarken-Zuordnung aufheben"
+msgstr ""
+
+#: views/admin/markers-admin-view.php:153 views/post-view.php:321
+msgid ""
+"In der Regel sollte die Zuordnung nicht aufgehoben, sondern die Zählmarke "
+"inaktiv gesetzt werden."
+msgstr ""
+
+#: views/admin/markers-admin-view.php:157 views/markers-table.php:221
+msgid "Löschen (nicht empfohlen)"
+msgstr ""
+
+#: views/admin/markers-admin-view.php:159
+msgid "In der Regel sollten nur falsch importierte Zählmarken gelöscht werden."
+msgstr ""
+
+#: views/admin/markers-admin-view.php:164
+msgid "Aktivierung"
+msgstr ""
+
+#: views/admin/markers-admin-view.php:168 views/markers-table.php:173
+#: views/post-table-view.php:142 views/post-view.php:284
+#: views/post-view.php:305
+msgid "Inaktiv"
+msgstr ""
+
+#: views/admin/markers-admin-view.php:170
+#: views/admin/markers-admin-view.php:182
+msgid "Wert ändern"
+msgstr ""
+
+#: views/admin/markers-admin-view.php:172 views/post-view.php:286
+#: views/post-view.php:307
+msgid ""
+"Inaktive Zählmarken werden für den zugeordneten Beitrag nicht mehr "
+"ausgegeben (keine Zählung mehr bei VG WORT)."
+msgstr ""
+
+#: views/admin/markers-admin-view.php:191
+msgid "Ausgewählte Zählmarken bearbeiten"
+msgstr ""
+
+#: views/admin/markers-admin-view.php:192
+msgid "Abbrechen"
+msgstr ""
+
+#: views/admin/markers-admin-view.php:194
+msgid "Die Bearbeitung kann nicht Rückgängig gemacht werden!"
+msgstr ""
+
+#: views/admin/markers-admin-view.php:204
+msgid "Zählmarken exportieren"
+msgstr ""
+
+#: views/admin/markers-admin-view.php:206
+msgid ""
+"Es werden <em>alle</em> Zählmarken entsprend der in der Tabelle ausgewählten "
+"Filter und Sortierung exportiert."
+msgstr ""
+
+#: views/admin/markers-admin-view.php:211
+msgid "Export als CSV-Datei"
+msgstr ""
+
+#: views/admin/markers-admin-view.php:214
+msgid ""
+"CSV-Dateien können mit Tabellenprogrammen wie LibreOffice Calc oder "
+"Microsoft Excel geöffnet werden."
+msgstr ""
+
+#: views/admin/markers-admin-view.php:218
+msgid "Tabellenkopf ausgeben"
+msgstr ""
+
+#: views/admin/markers-admin-view.php:220
+msgid ""
+"Gibt an, ob der Tabellenkopf (Beschreibung der einzelnen Spalten) als erste "
+"Zeile ausgegeben werden soll."
+msgstr ""
+
+#: views/admin/markers-admin-view.php:223
+msgid "Zählmarken als CSV-Datei exportieren"
+msgstr ""
+
+#: views/admin/markers-admin-view.php:265
+msgid "Beitrags-Titel"
+msgstr ""
+
+#: views/admin/markers-admin-view.php:266
+msgid "Beitrags-Text"
+msgstr ""
+
+#: views/admin/markers-admin-view.php:267
+msgid "Link"
+msgstr ""
+
+#: views/admin/markers-admin-view.php:268
+msgid "Beitrags-Datum"
+msgstr ""
+
+#: views/admin/markers-admin-view.php:269 views/markers-table.php:86
+msgid "Beitrags-Autor"
+msgstr ""
+
+#: views/admin/markers-admin-view.php:270 views/markers-table.php:112
+msgid "Beitrags-Typ"
+msgstr ""
+
+#: views/admin/markers-admin-view.php:271 views/markers-table.php:84
+#: views/markers-table.php:198 views/post-table-view.php:116
+msgid "Zeichenanzahl"
+msgstr ""
+
+#: views/admin/markers-admin-view.php:274 views/post-table-view.php:360
+msgid "Zählmarke inaktiv"
+msgstr ""
+
+#: views/admin/markers-admin-view.php:275
+msgid "Beitrag gelöscht"
+msgstr ""
+
+#: views/admin/markers-admin-view.php:276
+msgid "Titel gelöschter Beitrag"
+msgstr ""
+
+#: views/admin/markers-admin-view.php:495
+msgid "Das Format für den eingegeben Server ist ungültig."
+msgstr ""
+
+#: views/admin/markers-admin-view.php:508
+msgid "Der ausgewählte Benutzer ist ungültig."
+msgstr ""
+
+#: views/admin/markers-admin-view.php:518
+msgid ""
+"Die ausgewählten Zählmarken wurde nicht bearbeitet, da Fehler aufgetreten "
+"sind."
+msgstr ""
+
+#: views/admin/operations-admin-view.php:27
+msgid "Komplexe Operationen und Einstellungen"
+msgstr ""
+
+#: views/admin/operations-admin-view.php:34
+msgid "Operationen"
+msgstr ""
+
+#: views/admin/operations-admin-view.php:78
+msgid ""
+"An dieser Stelle können aufwendigere Operationen und Einstellungen "
+"vorgenommen werden. Die Bearbeitung einzelner Operationen und Einstellungen "
+"kann mehrere Sekunden in Anspruch nehmen."
+msgstr ""
+
+#: views/admin/operations-admin-view.php:85
+msgid "Zugelassene Beitrags-Typen"
+msgstr ""
+
+#: views/admin/operations-admin-view.php:88
+msgid ""
+"Die ausgewählten Beitrags-Typen werden mit der Zählmarken-Funktion versehen:"
+msgstr ""
+
+#: views/admin/operations-admin-view.php:116
+msgid "Keine anderen Typen vorhanden."
+msgstr ""
+
+#: views/admin/operations-admin-view.php:123
+msgid ""
+"Beim abwählen eines Beitrag-Typs werden die Zählmarken-Zuordnungen "
+"entsprechender Beiträge nicht gelöscht."
+msgstr ""
+
+#: views/admin/operations-admin-view.php:126
+msgid ""
+"Die Zeichenanzahlen aller Beiträge der ausgewählten Beitrags-Typen werden "
+"automatisch neuberechnet."
+msgstr ""
+
+#: views/admin/operations-admin-view.php:129
+msgid "Beitrags-Typen zulassen"
+msgstr ""
+
+#: views/admin/operations-admin-view.php:134
+msgid "Zeichenanzahl neuberechnen"
+msgstr ""
+
+#: views/admin/operations-admin-view.php:137
+msgid "Die Zeichenanzahlen aller Beiträge werden separat gespeichert."
+msgstr ""
+
+#: views/admin/operations-admin-view.php:140
+msgid ""
+"Wenn die Zeichenanzahl eines Beitrags falsch oder nicht vorhanden ist, kann "
+"sie hier neuberechnet werden."
+msgstr ""
+
+#: views/admin/operations-admin-view.php:143
+msgid "Zeichenanzahl aller Beiträge neuberechnen"
+msgstr ""
+
+#: views/admin/operations-admin-view.php:148
+msgid "Alte Zählmarken importieren"
+msgstr ""
+
+#: views/admin/operations-admin-view.php:152
+msgid "Zählmarken aus altem VG-WORT-Plugin vor Version 3.0.0 importieren"
+msgstr ""
+
+#: views/admin/operations-admin-view.php:154
+msgid ""
+"Wenn dieses VG-WORT-Plugin bereits vor Version 3.0.0 verwendet wurde, können "
+"hier die zuvor verwendeten Zählmarken importiert werden. Es werden keine "
+"Daten gelöscht."
+msgstr ""
+
+#: views/admin/operations-admin-view.php:158
+msgid "Zählmarken (manuelle) aus Beiträgen erkennen und importieren"
+msgstr ""
+
+#: views/admin/operations-admin-view.php:160
+msgid "Gefundene Zählmarken aus Beiträgen (deren Inhalt) entfernen (empfohlen)"
+msgstr ""
+
+#: views/admin/operations-admin-view.php:162
+msgid "Regulärer Ausdruck (PHP-Stil) zur Zählmarkenerkennung: "
+msgstr ""
+
+#: views/admin/operations-admin-view.php:167
+#, php-format
+msgid ""
+"Wenn bereits Zählmarken der Form %s manuell in Beiträgen (deren Inhalt) "
+"eingefügt wurden, können diese hier importiert und entfernt werden."
+msgstr ""
+
+#: views/admin/operations-admin-view.php:169
+msgid ""
+"<strong>Achtung:</strong> Aus Beiträgen (deren Inhalt) entfernte Zählmarken "
+"können nicht wiederhergestellt werden. Bitte sämtliche Beiträge sichern "
+"(Backup), bevor diese Operation durchgeführt wird."
+msgstr ""
+
+#: views/admin/operations-admin-view.php:173
+msgid "Zählmarken aus dem Plugin „VG Wort“ von T. Leuschner importieren"
+msgstr ""
+
+#: views/admin/operations-admin-view.php:175
+msgid ""
+"Wenn das Plugin „VG Wort“ von T. Leuschner zuvor verwendet wurde, können die "
+"dort zugeordneten Zählmarken hier importiert werden. Es werden keine Daten "
+"gelöscht."
+msgstr ""
+
+#: views/admin/operations-admin-view.php:178
+msgid ""
+"Diese Operationen sollten (jeweils) nur ein Mal ausgeführt werden. Es werden "
+"sowohl Zählmarken als auch deren Zuordnung zu Beiträgen importiert."
+msgstr ""
+
+#: views/admin/operations-admin-view.php:181
+msgid ""
+"Falls es zu Konflikten mit bereits vorhandenen Beitrags-Zuordnungen kommt, "
+"wird keine Überschreibung vorgenommen."
+msgstr ""
+
+#: views/admin/operations-admin-view.php:184
+msgid "Alte Zählmarken und Beitrags-Zuordnungen importieren"
+msgstr ""
+
+#: views/admin/operations-admin-view.php:245
+#, php-format
+msgid ""
+"aktualisiert %s, bereits vorhanden %s, die Integrität verletzten %s, "
+"Beiträge durchsucht %s"
+msgstr ""
+
+#: views/admin/operations-admin-view.php:281
+msgid ""
+"Die ausgewählten Beitrags-Typen wurde mit der Zählmarken-Funktion versehen."
+msgstr ""
+
+#: views/admin/operations-admin-view.php:307
+msgid "Zählmarken aus altem VG-WORT-Plugin importiert: "
+msgstr ""
+
+#: views/admin/operations-admin-view.php:308
+msgid "Zählmarken-Zuordnungen aus altem VG-WORT-Plugin importiert: "
+msgstr ""
+
+#: views/admin/operations-admin-view.php:321
+msgid ""
+"Der Reguläre Ausdruck hat eine ungültige Syntax. Zählmarken (manuelle) aus "
+"Beiträgen wurden nicht importiert."
+msgstr ""
+
+#: views/admin/operations-admin-view.php:329
+msgid "Zählmarken (manuelle) aus Beiträgen importiert: "
+msgstr ""
+
+#: views/admin/operations-admin-view.php:330
+msgid "Zählmarken-Zuordnungen aus Beiträgen importiert: "
+msgstr ""
+
+#: views/admin/operations-admin-view.php:340
+msgid "Zählmarken aus Plugin „VG Wort“ von T. Leuschner importiert: "
+msgstr ""
+
+#: views/admin/operations-admin-view.php:341
+msgid ""
+"Zählmarken-Zuordnungen aus Plugin „VG Wort“ von T. Leuschner importiert: "
+msgstr ""
+
+#: views/admin/support-admin-view.php:27
+msgid "Hilfe und Support"
+msgstr ""
+
+#: views/admin/support-admin-view.php:34
+msgid "Hilfe"
+msgstr ""
+
+#: views/admin/support-admin-view.php:74
+msgid "Neue Funktionen und Hilfe"
+msgstr ""
+
+#: views/admin/support-admin-view.php:77
+msgid ""
+"Wenn Sie einen Wunsch für eine neue Funktion haben oder einfach nur Hilfe "
+"benötigen, treten Sie bitte mit uns in Kontakt:"
+msgstr ""
+
+#: views/admin/support-admin-view.php:80
+#, php-format
+msgid "Websites: %s, %s (WordPress.org) oder alternativ %s"
+msgstr ""
+
+#: views/admin/support-admin-view.php:81
+msgid "FAQ"
+msgstr ""
+
+#: views/admin/support-admin-view.php:82
+msgid "Support"
+msgstr ""
+
+#: views/admin/support-admin-view.php:83
+msgid "Plugin-Seite auf my Webcheck"
+msgstr ""
+
+#: views/admin/support-admin-view.php:87
+#: views/admin/support-admin-view.php:100
+#, php-format
+msgid "E-Mail: %s"
+msgstr ""
+
+#: views/admin/support-admin-view.php:94
+msgid "Fehler melden"
+msgstr ""
+
+#: views/admin/support-admin-view.php:97
+msgid ""
+"Wenn Sie einen kritischen Fehler im Plugin entdeckt haben, können Sie sich "
+"auch direkt an die Entwickler wenden:"
+msgstr ""
+
+#: views/markers-table.php:82 views/markers-table.php:183
+msgid "Beitrag"
+msgstr ""
+
+#: views/markers-table.php:83
+msgid "Datum"
+msgstr ""
+
+#: views/markers-table.php:87 views/markers-table.php:166
+#: views/post-table-view.php:131 views/post-view.php:267
+#: views/post-view.php:292
+msgid "Zählmarke"
+msgstr ""
+
+#: views/markers-table.php:115
+msgid "Zugelassen"
+msgstr ""
+
+#: views/markers-table.php:119
+msgid "Nicht Zugelassen"
+msgstr ""
+
+#: views/markers-table.php:132
+#, php-format
+msgid "Typ: %s"
+msgstr ""
+
+#: views/markers-table.php:141
+msgid "Beitrags-Jahr"
+msgstr ""
+
+#: views/markers-table.php:150 views/markers-table.php:371
+#, php-format
+msgid "%s"
+msgstr ""
+
+#: views/markers-table.php:169
+msgid "Aktiv"
+msgstr ""
+
+#: views/markers-table.php:186
+msgid "Nicht gelöscht"
+msgstr ""
+
+#: views/markers-table.php:190
+msgid "Gelöscht"
+msgstr ""
+
+#: views/markers-table.php:201 views/post-table-view.php:119
+msgid "Genügend"
+msgstr ""
+
+#: views/markers-table.php:205 views/post-table-view.php:123
+msgid "Zu wenig"
+msgstr ""
+
+#: views/markers-table.php:217 views/markers-table.php:311
+msgid "Bearbeiten"
+msgstr ""
+
+#: views/markers-table.php:218 views/markers-table.php:294
+msgid "Aktiv setzen"
+msgstr ""
+
+#: views/markers-table.php:219 views/markers-table.php:302
+msgid "Inaktiv setzen"
+msgstr ""
+
+#: views/markers-table.php:220
+msgid "Zuordnung aufheben"
+msgstr ""
+
+#: views/markers-table.php:241
+msgid "–"
+msgstr ""
+
+#: views/markers-table.php:293
+msgid "Diese Zählmarke aktiv setzen"
+msgstr ""
+
+#: views/markers-table.php:301
+msgid "Diese Zählmarke inaktiv setzen"
+msgstr ""
+
+#: views/markers-table.php:310
+msgid "Den zugeordneten Beitrag bearbeiten"
+msgstr ""
+
+#: views/markers-table.php:317
+msgid "Inaktiv: "
+msgstr ""
+
+#: views/markers-table.php:320
+msgid "Kein Beitrag zugeordnet"
+msgstr ""
+
+#: views/markers-table.php:322
+#, php-format
+msgid "gelöscht (%s)"
+msgstr ""
+
+#: views/markers-table.php:323
+msgid "unbekannt"
+msgstr ""
+
+#: views/markers-table.php:323
+msgid "kein Titel)"
+msgstr ""
+
+#: views/markers-table.php:326
+msgid "gelöscht? (Titel unbekannt)"
+msgstr ""
+
+#: views/markers-table.php:330
+msgid "Die Zugriffe auf diesen Beitrag werden nicht gezählt"
+msgstr ""
+
+#: views/markers-table.php:333
+msgid "(kein Titel)"
+msgstr ""
+
+#: views/markers-table.php:345
+#, php-format
+msgid "Beitrags-Typ unbekannt (%s)"
+msgstr ""
+
+#: views/markers-table.php:350
+msgid "Beitrags-Typ nicht zugelassen"
+msgstr ""
+
+#: views/markers-table.php:371
+msgid "d.m.Y"
+msgstr ""
+
+#: views/markers-table.php:388 views/markers-table.php:420
+msgid "gelöscht?"
+msgstr ""
+
+#: views/markers-table.php:393 views/markers-table.php:424
+#: views/post-table-view.php:333
+msgid "Autor nicht zugelassen"
+msgstr ""
+
+#: views/markers-table.php:396
+msgid "Autor nicht für diese Zählmarke bestimmt"
+msgstr ""
+
+#: views/markers-table.php:415
+msgid "beliebiger"
+msgstr ""
+
+#: views/markers-table.php:446
+msgid "Zählmarke ist inaktiv"
+msgstr ""
+
+#: views/markers-table.php:448
+msgid "Ö"
+msgstr ""
+
+#: views/markers-table.php:451
+msgid "P"
+msgstr ""
+
+#: views/markers-table.php:455
+msgid "S"
+msgstr ""
+
+#: views/markers-table.php:473
+msgid "nicht berechnet"
+msgstr ""
+
+#: views/markers-table.php:480 views/post-table-view.php:343
+#, php-format
+msgid "genügend, %s"
+msgstr ""
+
+#: views/markers-table.php:484 views/post-table-view.php:345
+#, php-format
+msgid "zu wenig, %s"
+msgstr ""
+
+#: views/markers-table.php:516
+msgid "Auswählen"
+msgstr ""
+
+#: views/post-table-view.php:94 views/post-table-view.php:403
+msgid "Zählmarke zuordnen"
+msgstr ""
+
+#: views/post-table-view.php:134
+msgid "Zugeordnet"
+msgstr ""
+
+#: views/post-table-view.php:138
+msgid "Nicht zugeordnet"
+msgstr ""
+
+#: views/post-table-view.php:295
+msgid "Zeichen"
+msgstr ""
+
+#: views/post-table-view.php:352
+msgid "Zählmarke zugeordnet"
+msgstr ""
+
+#: views/post-table-view.php:354
+msgid "Zählmarke möglich"
+msgstr ""
+
+#: views/post-table-view.php:402
+msgid "Diesem Beitrag automatisch eine Zählmarke zuordnen"
+msgstr ""
+
+#: views/post-table-view.php:593
+msgid ""
+"Es sind nicht mehr genügend Zählmarken für einen oder mehrere Beitrags-Autor "
+"vorhanden. Fügen Sie bitte zunächst neue Zählmarken für die betreffenden "
+"Beitrags-Autoren hinzu und wiederholen Sie den Vorgang."
+msgstr ""
+
+#: views/post-view.php:86
+msgid "Zählmarke für VG WORT"
+msgstr ""
+
+#: views/post-view.php:117
+msgid "<strong>ja</strong>"
+msgstr ""
+
+#: views/post-view.php:117
+msgid "nein"
+msgstr ""
+
+#: views/post-view.php:183
+msgid ""
+"Die Zählmarke entsprechend Ihrer Vorgaben ist bereits einem anderem Beitrag "
+"zugeordnet."
+msgstr ""
+
+#: views/post-view.php:186
+msgid ""
+"Es wurde keine Zählmarke entsprechend Ihrer Vorgaben gefunden. Die Zählmarke "
+"muss ggf. zunächst der Liste der verfügbaren Zählmarken hinzugefügt werden."
+msgstr ""
+
+#: views/post-view.php:189
+msgid ""
+"Sie dürfen die Zählmarke entsprechend Ihrer Vorgaben nicht verwenden, da sie "
+"für einen anderen Benutzer bestimmt ist."
+msgstr ""
+
+#: views/post-view.php:212
+msgid "Diesem Beitrag ist keine Zählmarke zugeordnet."
+msgstr ""
+
+#: views/post-view.php:216
+msgid ""
+"Diesem Beitrag ist eine Zählmarke zugeordnet. In der Regel sollte die "
+"Zuordnung nicht mehr aufgehoben werden."
+msgstr ""
+
+#: views/post-view.php:223
+msgid "Zeichenanzahl im Text"
+msgstr ""
+
+#: views/post-view.php:228
+#, php-format
+msgid "Genügend: %1$s, %2$s fehlen"
+msgstr ""
+
+#: views/post-view.php:237
+#, php-format
+msgid "Vorhanden: %1$s von %2$s nötigen"
+msgstr ""
+
+#: views/post-view.php:247
+msgid "jetzt aktualisieren"
+msgstr ""
+
+#: views/post-view.php:248
+msgid "(sonst alle paar Sekunden automatisch)"
+msgstr ""
+
+# @ wp-vgwort-locale
+#: views/post-view.php:256 views/post-view.php:315
+msgid "Aktion"
+msgstr ""
+
+#: views/post-view.php:260
+msgid "Diesem Beitrag eine Zählmarke zuordnen"
+msgstr ""
+
+#: views/post-view.php:262
+msgid ""
+"Weisen Sie diesem Beitrag eine Zählmarke zu, um Ihre Leser bei der VG WORT "
+"zählen zu lassen."
+msgstr ""
+
+#: views/post-view.php:270
+msgid ""
+"Um automatisch eine Zählmarke zuzuordnen, bitte die beiden nachstehenden "
+"Felder leer lassen (empfohlen)."
+msgstr ""
+
+#: views/post-view.php:295
+msgid "Öffentlich: "
+msgstr ""
+
+#: views/post-view.php:298
+msgid "Privat: "
+msgstr ""
+
+#: views/post-view.php:301
+msgid "Server: "
+msgstr ""
+
+#: views/post-view.php:345
+#, php-format
+msgid ""
+"Dieser Beitrag enthält weniger als %s Zeichen (es fehlen noch %s) und "
+"verstößt damit gegen die von der VG WORT vorgegebene Mindestzeichenanzahl. "
+"Eine Zählmarke wurde dennoch zugeordnet."
+msgstr ""
+
+#: views/post-view.php:395
+msgid "Die öffentliche Zählmarke hat ein ungültiges Format."
+msgstr ""
+
+#: views/post-view.php:402
+msgid "Die private Zählmarke hat ein ungültiges Format."
+msgstr ""
+
+#: views/post-view.php:423
+msgid ""
+"Eine Zählmarke konnte nicht automatisch zugeordnet werden, da für den "
+"Beitrags-Autor keine mehr verfügbar sind. Bitte fügen Sie zunächst neue "
+"Zählmarken für den Beitrags-Autor hinzu."
+msgstr ""
+
+#: views/post-view.php:500
+msgid ""
+"Die Zuordnung zwischen Zählmarke und Beitrag konnte nicht aufgehoben werden."
+msgstr ""
+
+#: wpvgw.php:558
+#, php-format
+msgid ""
+"Der Datenschutz-Hinweis der VG WORT sollte in die Website eingefügt werden. "
+"%s"
+msgstr ""
+
+#: wpvgw.php:563
+msgid "Datenschutz-Hinweis hier zur Kenntnis nehmen."
+msgstr ""
+
+#: wpvgw.php:579
+#, php-format
+msgid ""
+"Die Zeichenanzahl der Beiträge müssen nach Plugin-Aktivierung neuberechnet "
+"werden. %s"
+msgstr ""
+
+#: wpvgw.php:584
+msgid "Zeichenanzahl hier neuberechnen."
+msgstr ""
+
+#: wpvgw.php:600
+#, php-format
+msgid ""
+"Die Zählmarken aus einer früheren Version des Plugins sollten importiert "
+"werden, da sie sonst fehlen. %s"
+msgstr ""
+
+#: wpvgw.php:605
+msgid "Zählmarken hier importieren."
+msgstr ""
+
+#: wpvgw.php:638
+#, php-format
+msgid "„%s“ (%s)"
+msgstr ""
+
+#: wpvgw.php:643
+msgid ", "
+msgstr ""
+
+#: wpvgw.php:650
+#, php-format
+msgid ""
+"Es sind folgende, andere Plugins zur Integration von Zählmarken der VG WORT "
+"aktiviert: %s. Diese sollten besser deaktiviert werden, um Zählmarken nicht "
+"mehrfach auszugeben. %s"
+msgstr ""
+
+#: wpvgw.php:654
+msgid "Plugins hier deaktivieren."
+msgstr ""
+
+#: wpvgw.php:769 wpvgw.php:770
+msgid "Prosodia VGW OS"
+msgstr ""

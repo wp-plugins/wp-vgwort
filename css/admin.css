@@ -1,0 +1,157 @@
+/*
+* Styles for administration interface.
+*/
+
+/* icons font */
+@font-face {
+	font-family: 'wpvgwicons';
+	src: url('../fonts/wpvgwicons.eot');
+}
+
+@font-face {
+	font-family: 'wpvgwicons';
+	src: url(data:application/x-font-ttf;charset=utf-8;base64,AAEAAAALAIAAAwAwT1MvMggi/LYAAAC8AAAAYGNtYXAaVcxXAAABHAAAAExnYXNwAAAAEAAAAWgAAAAIZ2x5Zkbs4mkAAAFwAAABXGhlYWQApIdJAAACzAAAADZoaGVhA1IB5gAAAwQAAAAkaG10eAJwAAAAAAMoAAAAFGxvY2EAKADCAAADPAAAAAxtYXhwAAcAZQAAA0gAAAAgbmFtZVcZpu4AAANoAAABRXBvc3QAAwAAAAAEsAAAACAAAwIAAZAABQAAAUwBZgAAAEcBTAFmAAAA9QAZAIQAAAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAAAAAAAABAAADmAAHg/+D/4AHgACAAAAABAAAAAAAAAAAAAAAgAAAAAAACAAAAAwAAABQAAwABAAAAFAAEADgAAAAKAAgAAgACAAEAIOYA//3//wAAAAAAIOYA//3//wAB/+MaBAADAAEAAAAAAAAAAAAAAAEAAf//AA8AAQAAAAAAAAAAAAIAADc5AQAAAAABAAAAAAAAAAAAAgAANzkBAAAAAAEAAAAAAAAAAAACAAA3OQEAAAAAAQAA/+ABcAHgAGIAACUnDgEHDgEjIiYnLgEnLgEnLgEnMzcjNCY1NDY1MzcjPgE3PgE3PgE3PgEzMhYXHgEXNy4BJy4BIyIGBw4BBw4BBw4BByMHMxwBFRwBFSMHMx4BFx4BFx4BFx4BMzI2Nz4BNwFwBQ0XDQwcEw8bDAwVCAYLBAQGArQIwgEBygfLAgYEBAsGCBUMDBsPDxkLCxULCw4ZDAwbDxUoExIhDQsQBwcKAzIHMywHOQMKBwcQCw0hEhMoFRQcDQwZDwc1DREFBQMJCAkWDAoUCgsVCyoFDAUGCwUqCxYKChQKDRYICAkEBAUOCj4HCQMDAgsKCRwQDR0ODx8QKgULBgUMBSoQHw8OHA0RGwoKCwMFBA8MAAAAAQAAAAEAALAGX8RfDzz1AAsCAAAAAADQCqNGAAAAANAKo0YAAP/gAXAB4AAAAAgAAgAAAAAAAAABAAAB4P/gAAACAAAAAAABcAABAAAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAAAEAAAABcAAAAAAAAAAKABQAHgCuAAEAAAAFAGMAAQAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAOAK4AAQAAAAAAAQAOAAAAAQAAAAAAAgAOAEcAAQAAAAAAAwAOACQAAQAAAAAABAAOAFUAAQAAAAAABQAWAA4AAQAAAAAABgAHADIAAQAAAAAACgA0AGMAAwABBAkAAQAOAAAAAwABBAkAAgAOAEcAAwABBAkAAwAOACQAAwABBAkABAAOAFUAAwABBAkABQAWAA4AAwABBAkABgAOADkAAwABBAkACgA0AGMAaQBjAG8AbQBvAG8AbgBWAGUAcgBzAGkAbwBuACAAMQAuADAAaQBjAG8AbQBvAG8Abmljb21vb24AaQBjAG8AbQBvAG8AbgBSAGUAZwB1AGwAYQByAGkAYwBvAG0AbwBvAG4ARgBvAG4AdAAgAGcAZQBuAGUAcgBhAHQAZQBkACAAYgB5ACAASQBjAG8ATQBvAG8AbgAuAAAAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=) format('truetype'), url(data:application/font-woff;charset=utf-8;base64,d09GRk9UVE8AAAS0AAoAAAAABGwAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABDRkYgAAAA9AAAASwAAAEsYz/6bU9TLzIAAAIgAAAAYAAAAGAIIvy2Y21hcAAAAoAAAABMAAAATBpVzFdnYXNwAAACzAAAAAgAAAAIAAAAEGhlYWQAAALUAAAANgAAADYApIdJaGhlYQAAAwwAAAAkAAAAJANSAeZobXR4AAADMAAAABQAAAAUAnAAAG1heHAAAANEAAAABgAAAAYABVAAbmFtZQAAA0wAAAFFAAABRVcZpu5wb3N0AAAElAAAACAAAAAgAAMAAAEABAQAAQEBCGljb21vb24AAQIAAQA6+BwC+BsD+BgEHgoAGVP/i4seCgAZU/+LiwwHi2v4lPh0BR0AAAB2Dx0AAAB7ER0AAAAJHQAAASMSAAYBAQgPERMWG2ljb21vb25pY29tb29udTB1MXUyMHVFNjAwAAACAYkAAwAFAQEEBwoNoPyUDvyUDvyUDvuUDvsk+ASSFYbABWdodYNZi2SLaaZ1rHqlgaeFqAj3SIuTtftWiwWKkouTi5KLk4uSjJII916LkrX7X4sFkaiVqJykoa2tpbKLsoumgadwCJbJBWadcJFii1KLWG1nX29oemKCYQhZi4RhvosFi4SLhIuDi4SLg4uECF+LhGHEiwWUYZxip2mvX75sxIu/i6CTs6oIDviUFPiUFYsMCgADAgABkAAFAAABTAFmAAAARwFMAWYAAAD1ABkAhAAAAAAAAAAAAAAAAAAAAAEQAAAAAAAAAAAAAAAAAAAAAEAAAOYAAeD/4P/gAeAAIAAAAAEAAAAAAAAAAAAAACAAAAAAAAIAAAADAAAAFAADAAEAAAAUAAQAOAAAAAoACAACAAIAAQAg5gD//f//AAAAAAAg5gD//f//AAH/4xoEAAMAAQAAAAAAAAAAAAAAAQAB//8ADwABAAAAAQAAuPbXSF8PPPUACwIAAAAAANAKo0YAAAAA0AqjRgAA/+ABcAHgAAAACAACAAAAAAAAAAEAAAHg/+AAAAIAAAAAAAFwAAEAAAAAAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAAAQAAAAFwAAAAAFAAAAUAAAAAAA4ArgABAAAAAAABAA4AAAABAAAAAAACAA4ARwABAAAAAAADAA4AJAABAAAAAAAEAA4AVQABAAAAAAAFABYADgABAAAAAAAGAAcAMgABAAAAAAAKADQAYwADAAEECQABAA4AAAADAAEECQACAA4ARwADAAEECQADAA4AJAADAAEECQAEAA4AVQADAAEECQAFABYADgADAAEECQAGAA4AOQADAAEECQAKADQAYwBpAGMAbwBtAG8AbwBuAFYAZQByAHMAaQBvAG4AIAAxAC4AMABpAGMAbwBtAG8AbwBuaWNvbW9vbgBpAGMAbwBtAG8AbwBuAFIAZQBnAHUAbABhAHIAaQBjAG8AbQBvAG8AbgBGAG8AbgB0ACAAZwBlAG4AZQByAGEAdABlAGQAIABiAHkAIABJAGMAbwBNAG8AbwBuAC4AAAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==) format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* menu icon */
+.dashicons-admin-wpvgw:before {
+	content: "\e600";
+	font-family: 'wpvgwicons', sans-serif;
+}
+
+/* common */
+
+a.wpvgw-disabled {
+	color: gray;
+	cursor: default;
+	border: none;
+	box-shadow: none;
+}
+
+/* admin messages dismiss link */
+p.wpvgw-admin-message-dismiss-paragraph {
+	float: right;
+	margin-left: 1em !important;
+}
+
+/* posts table */
+
+.column-wpvgw_posts_extras_character_count {
+	width: 15%;
+}
+
+/* markers table */
+
+form#wpvgw-markers .tablenav select option:first-child {
+	font-style: italic;
+}
+
+table.wpvgw_markers .column-post_date,
+table.wpvgw_markers .column-e_character_count,
+table.wpvgw_markers .column-up_display_name,
+table.wpvgw_markers .column-um_display_name {
+	width: 12%;
+}
+
+table.wpvgw_markers .column-marker {
+	cursor: text;
+	width: 20em;
+}
+
+table.wpvgw_markers .wpvgw-invalid-data {
+	color: #aa0000;
+}
+
+table.wpvgw_markers .wpvgw-marker-disabled {
+	color: #aaaaaa;
+}
+
+table.wpvgw_markers .wpvgw-marker-disabled > a:link {
+	color: #aaaaaa;
+}
+
+#wpvgw-markers-view-copy-window-background {
+	position: fixed;
+	display: none;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.20);
+	z-index: 99997; /* WordPress Admin bar is 99999 */
+}
+
+#wpvgw-markers-view-copy-window {
+	padding: 1em;
+	margin: 50px;
+	height: 70%; /* just a fallback */
+	height: calc(100% - 100px); /* 100% - margin-top + margin-bottom */
+	overflow: auto;
+	background-color: #ffffff;
+	z-index: 99998; /* 1 more than background */
+	box-shadow: 0 10px 18px 8px rgba(0, 0, 0, 0.75);
+}
+
+#wpvgw-markers-view-post-title {
+	font-size: 2.5em;
+	margin-top: 1em;
+	margin-bottom: 0.7em;
+}
+
+#wpvgw-markers-view-post-content-loading {
+	text-align: center;
+	font-size: 2em;
+}
+
+div.wpvgw-markers-bulk-edit {
+	clear: both;
+	background-color: #ffffff;
+	border: 1px solid #e5e5e5;
+	padding: 0 1em;
+	margin: 0.5em 0;
+}
+
+/* list box with checkboxes */
+
+.wpvgw-check-list-box {
+	background-color: #ffffff;
+	border: 1px solid #dddddd;
+	height: 10em;
+	margin: 0;
+	overflow-y: scroll;
+	padding: 0 5px;
+	width: 30em;
+}
+
+.wpvgw-check-list-box li:first-child {
+	margin-top: 6px;
+}
+
+#wpvgw_refresh_character_count_spinner {
+	margin: 0;
+}
+
+/* text boxes like */
+
+.wpvgw-quote-text {
+	background-color: #ffffff;
+	border: 1px solid #dddddd;
+	margin: 4px 0 0 0;
+	overflow-y: scroll;
+	padding: 0 10px;
+	max-width: 60em;
+	height: 30em;
+}
+
+.wpvgw-quote-text h1
+{
+	font-size: 1.5em;
+}
+
+/* about page */
+
+.wpvgw-about-logo {
+	float: right;
+}
