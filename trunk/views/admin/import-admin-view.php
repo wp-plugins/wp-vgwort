@@ -1,0 +1,216 @@
+<?php
+/**
+ * Product: Prosodia VGW OS
+ * URL: http://prosodia.de/
+ * Author: Ronny Harbich
+ * Copyright: 2014 Ronny Harbich
+ * License: GPLv2 or later
+ */
+
+
+/**
+ * Represents the import markers view.
+ */
+class WPVGW_ImportAdminView extends WPVGW_AdminViewBase {
+
+	/**
+	 * See {@link WPVGW_AdminViewBase::get_slug()}.
+	 */
+	public static function get_slug_static() {
+		return 'import';
+	}
+
+	/**
+	 * See {@link WPVGW_AdminViewBase::get_long_name()}.
+	 */
+	public static function get_long_name_static() {
+		return __( 'Import von Zählmarken', WPVGW_TEXT_DOMAIN );
+	}
+
+	/**
+	 * See {@link WPVGW_AdminViewBase::get_short_name()}.
+	 */
+	public static function get_short_name_static() {
+		return __( 'Import', WPVGW_TEXT_DOMAIN );
+	}
+
+
+	/**
+	 * Creates a new instance of {@link WPVGW_ImportAdminView}.
+	 *
+	 * @param WPVGW_MarkersManager $markers_manager A markers manager.
+	 * @param WPVGW_PostsExtras $posts_extras The posts extras.
+	 * @param WPVGW_Options $options The options.
+	 */
+	public function __construct( WPVGW_MarkersManager $markers_manager, WPVGW_PostsExtras $posts_extras, WPVGW_Options $options ) {
+		parent::__construct( self::get_slug_static(), self::get_long_name_static(), self::get_short_name_static(), $markers_manager, $posts_extras, $options );
+	}
+
+	/**
+	 * Initializes the view. This function must be called before using the view.
+	 */
+	public function init() {
+		// has to be called
+		parent::init_base(
+		// javascript data
+			array()
+		);
+	}
+
+
+	/**
+	 * Renders the view.
+	 *
+	 * @throws Exception Thrown if view is not initialized.
+	 */
+	public function render() {
+		// has to be called
+		parent::begin_render_base();
+
+		?>
+		<p>
+			<?php _e( 'Zählmarken der VG WORT können auf bis zu 3 verschiedene Arten importiert werden. Es wird empfohlen, CSV-Dateien zu importieren, die übers Online-Konto bei der VG WORT zur Verfügung gestellt werden.', WPVGW_TEXT_DOMAIN ); ?>
+		</p>
+		<form method="post" enctype="multipart/form-data">
+			<?php echo( parent::get_wp_number_once_field() ) ?>
+			<table class="form-table">
+				<tbody>
+					<tr>
+						<th scope="row"><label for="wpvgw_import_file"><?php _e( 'Zählmarken aus CSV-Datei (von VG WORT)', WPVGW_TEXT_DOMAIN ); ?></label></th>
+						<td>
+							<p>
+								<input type="file" name="wpvgw_import_file" id="wpvgw_import_file"/>
+								<br/>
+								<span class="description"><?php _e( 'Hier kann eine CSV-Datei mit Zählmarken der VG WORT hochgeladen werden, welche über das Online-Konto der VG WORT bezogen werden kann.', WPVGW_TEXT_DOMAIN ) ?></span>
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row"><label for="wpvgw_import_csv"><?php _e( 'Zählmarken aus CSV-Text (von VG WORT)', WPVGW_TEXT_DOMAIN ); ?></label></th>
+						<td>
+							<p>
+								<textarea name="wpvgw_import_csv" id="wpvgw_import_csv" style="overflow: auto;" wrap="off" cols="36" rows="7"></textarea>
+								<br/>
+								<span class="description"><?php _e( 'Hier kann der gesamte Inhalt einer CSV-Datei mit Zählmarken der VG WORT hineinkopiert werden (falls das Hochladen der CSV-Datei nicht funktioniert).', WPVGW_TEXT_DOMAIN ) ?></span>
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row"><?php _e( 'Zählmarke manuell eingeben (nicht empfohlen)', WPVGW_TEXT_DOMAIN ); ?></th>
+						<td>
+							<p>
+								<label for="wpvgw_import_public_marker"><?php _e( 'Öffentliche Zählmarke', WPVGW_TEXT_DOMAIN ); ?></label>
+								<br/>
+								<input type="text" name="wpvgw_import_public_marker" id="wpvgw_import_public_marker" class="regular-text"/>
+							</p>
+							<p>
+								<label for="wpvgw_import_private_marker"><?php _e( 'Private Zählmarke', WPVGW_TEXT_DOMAIN ); ?></label>
+								<br/>
+								<input type="text" name="wpvgw_import_private_marker" id="wpvgw_import_private_marker" class="regular-text"/>
+							</p>
+							<p>
+								<label for="wpvgw_import_server"><?php _e( 'Server', WPVGW_TEXT_DOMAIN ); ?></label>
+								<br/>
+								<input type="text" name="wpvgw_import_server" id="wpvgw_import_server" class="regular-text"/>
+								<br/>
+								<span class="description"><?php echo( sprintf( __( 'Wenn der Server nicht angegeben wird, wird der Standard-Server (%s) verwendet.', WPVGW_TEXT_DOMAIN ), $this->options->get_default_server() ) ); ?></span>
+							</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<p class="submit">
+				<input type="submit" name="wpvgw_import" value="<?php _e( 'Zählmarken importieren', WPVGW_TEXT_DOMAIN ); ?>" class="button-primary" / >
+			</p>
+		</form>
+		<?php
+
+		// has to be called
+		parent::end_render_base();
+	}
+
+	/**
+	 * Handles the actions for the view.
+	 *
+	 * @throws Exception Thrown if view is not initialized or if a database error occurred.
+	 */
+	public function do_action() {
+		// has to be called
+		if ( !parent::do_action_base() )
+			// do no actions
+			return;
+
+
+		// CSV text field
+		$csvText = isset( $_POST['wpvgw_import_csv'] ) ? stripslashes( $_POST['wpvgw_import_csv'] ) : '';
+
+		// marker text fields
+		$publicMarker = isset( $_POST['wpvgw_import_public_marker'] ) ? stripslashes( $_POST['wpvgw_import_public_marker'] ) : '';
+		$privateMarker = isset( $_POST['wpvgw_import_private_marker'] ) ? stripslashes( $_POST['wpvgw_import_private_marker'] ) : null;
+		$server = isset( $_POST['wpvgw_import_server'] ) ? stripslashes( $_POST['wpvgw_import_server'] ) : null;
+
+		if ( $privateMarker === '' )
+			$privateMarker = null;
+
+		if ( $server === '' )
+			$server = null;
+
+
+		// CSV file
+		if ( array_key_exists( 'wpvgw_import_file', $_FILES ) ) {
+			$uploadedFile = $_FILES['wpvgw_import_file'];
+
+			// look only for uploaded files
+			if ( $uploadedFile['error'] == 0 ) {
+
+				$filePath = $uploadedFile['tmp_name'];
+
+				$importStats = null;
+				try {
+					// try to import markers from CSV file
+					$importStats = $this->markersManager->import_markers_from_csv_file( $filePath, $this->options->get_default_server(), null );
+				} catch ( Exception $e ) {
+					$this->add_admin_message( sprintf( __( 'Fehler beim Importieren der CSV-Datei: %s', WPVGW_TEXT_DOMAIN ), $e->getMessage() ) );
+				}
+
+				if ( $importStats !== null )
+					$this->add_admin_message( __( 'Zählmarken aus CSV-Datei: ', WPVGW_TEXT_DOMAIN ) . $this->create_import_markers_stats_message( $importStats ), WPVGW_ErrorType::Update );
+
+				// delete uploaded file
+				if ( !unlink( $filePath ) )
+					$this->add_admin_message( __( 'Hochgeladene Datei konnte nicht gelöscht werden.', WPVGW_TEXT_DOMAIN ) );
+			}
+		}
+
+
+		// CSV text
+		if ( $csvText != '' ) {
+			$importStats = null;
+			try {
+				// try to import markers from CSV text
+				$importStats = $this->markersManager->import_markers_from_csv( $csvText, null );
+			} catch ( Exception $e ) {
+				$this->add_admin_message( sprintf( __( 'Fehler beim Importieren des CSV-Texts: %s', WPVGW_TEXT_DOMAIN ), $e->getMessage() ) );
+			}
+
+			if ( $importStats !== null )
+				$this->add_admin_message( __( 'Zählmarken aus CSV-Text: ', WPVGW_TEXT_DOMAIN ) . $this->create_import_markers_stats_message( $importStats ), WPVGW_ErrorType::Update );
+		}
+
+
+		// manual marker import
+		if ( $publicMarker != '' ) {
+			$importStats = null;
+			try {
+				// try to import markers from marker fields
+				$importStats = $this->markersManager->import_marker( $this->options->get_default_server(), $publicMarker, $privateMarker, $server, null );
+			} catch ( Exception $e ) {
+				$this->add_admin_message( sprintf( __( 'Fehler beim Importieren der Zählmarke: %s', WPVGW_TEXT_DOMAIN ), $e->getMessage() ) );
+			}
+
+			if ( $importStats !== null )
+				$this->add_admin_message( __( 'Zählmarke: ', WPVGW_TEXT_DOMAIN ) . $this->create_import_markers_stats_message( $importStats ), WPVGW_ErrorType::Update );
+		}
+	}
+
+}
