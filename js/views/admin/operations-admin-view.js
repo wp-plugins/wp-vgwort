@@ -21,6 +21,20 @@ var wpvgw_admin_view_operations;
 					checkBoxDeleteManualMarkers.prop('disabled', true);
 				}
 			});
+
+
+			var textBoxImportOldMarkersMetaName = $('#wpvgw_operation_import_old_plugin_markers_meta_name');
+			var checkBoxImportOldMarkers = $('#wpvgw_operation_import_old_plugin_markers');
+
+			textBoxImportOldMarkersMetaName.prop('disabled', true);
+
+			checkBoxImportOldMarkers.click(function () {
+				if ($(this).prop('checked')) {
+					textBoxImportOldMarkersMetaName.prop('disabled', false);
+				} else {
+					textBoxImportOldMarkersMetaName.prop('disabled', true);
+				}
+			});
 		}
 	};
 

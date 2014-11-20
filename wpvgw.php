@@ -419,7 +419,8 @@ class WPVGW {
 			$this->markersManager->set_allowed_post_types( array_unique( array_merge( $oldAllowedPostTypes, array( 'post', 'page' ) ) ) );
 
 			// get old admin options and store them in new options
-			$this->options->set_meta_name( get_option( 'wp_vgwortmetaname', 'wp_vgwortmarke' ) );
+			$metaName = get_option( 'wp_vgwortmetaname', 'wp_vgwortmarke' );
+			$this->options->set_meta_name( $metaName == '' ? 'wp_vgwortmarke' : $metaName );
 
 
 			// delete old options
@@ -432,6 +433,19 @@ class WPVGW {
 
 			// import of markers from old plugin is necessary
 			$this->options->set_operation_old_plugin_import_necessary( true );
+		}
+
+
+		// upgrade to version 3.1.1
+		if ( version_compare( $oldVersion, '3.1.1', '<' ) ) {
+			// fix empty meta name options
+			// try to validate current meta name value
+			try {
+				$this->options->set_meta_name( $this->options->get_meta_name() );
+			} catch ( Exception $e ) {
+				// if not valid set default value
+				$this->options->set_meta_name( 'wp_vgwortmarke' );
+			}
 		}
 
 

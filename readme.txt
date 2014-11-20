@@ -4,7 +4,7 @@ Donate link: http://prosodia.de/
 Tags: VG WORT, Zählmarke, T.O.M., Zählpixel, Geld, VGW, Verwertungsgesellschaft WORT, Prosodia, Verlag
 Requires at least: 3.8
 Tested up to: 4.0
-Stable tag: 3.1.0
+Stable tag: 3.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -120,6 +120,10 @@ Sollte das Plugin die ältere Version nicht erkennen, so führen Sie bitte manue
 
 = Änderungen =
 
+= 3.1.1 =
+* Fehler bezüglich leerer Meta-Name-Option aus Plugin-Version < 3.0.0 behoben. Import aus alter Plugin-Version sollte nun in diesem Fall wieder möglich sein.
+* Option „Meta-Name“ unter „Operationen“ hinzugefügt.
+
 = 3.1.0 =
 * Leistungsverbesserung (insbesondere geringere Arbeitsspeichernutzung) der Funktionen im Bereich „Operationen“.
 
@@ -209,6 +213,9 @@ Sollte das Plugin die ältere Version nicht erkennen, so führen Sie bitte manue
 * Initial-Release.
 
 == Upgrade Notice ==
+
+= 3.1.1 =
+Fehler bezüglich leerer Meta-Name-Option aus Plugin-Version < 3.0.0 behoben. Import aus alter Plugin-Version wieder möglich.
 
 = 3.1.0 =
 Leistungsverbesserung (insbesondere geringere Arbeitsspeichernutzung) der Funktionen im Bereich „Operationen“.

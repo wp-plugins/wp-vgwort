@@ -270,13 +270,19 @@ class WPVGW_Options {
 	/**
 	 * Sets the meta name. This is need to retrieve options for old versions of the plugin.
 	 *
-	 * @param string $value The meta name.
+	 * @param string $value The meta name. Must not be empty or whitespaces only.
 	 *
-	 * @throws Exception Thrown if $value is invalid.
+*@throws Exception Thrown if $value is invalid.
 	 */
 	public function set_meta_name( $value ) {
 		if ( !is_string( $value ) )
 			throw new Exception( 'Value is not a string.' );
+
+		// remove whitespace form beginning and end of value
+		$value = trim( $value );
+
+		if ( $value === '' )
+			throw new Exception( 'Value must not be empty or whitespaces only.' );
 
 		if ( $this->options[self::$metaName] !== $value ) {
 			$this->options[self::$metaName] = $value;
