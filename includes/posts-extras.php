@@ -6,7 +6,7 @@
  * Copyright: 2014 Ronny Harbich
  * License: GPLv2 or later
  */
- 
+
 
 /**
  * Manages extra data for WordPress posts in a separate database table.
@@ -166,39 +166,19 @@ class WPVGW_PostsExtras {
 	 * @throws Exception Thrown if a database error occurred.
 	 */
 	public function recalculate_post_character_count_in_db() {
-
-		/** @var wpdb $wpdb */
-		//global $wpdb;
-
 		$postsExtrasFillStats = new WPVGW_RecalculatePostCharacterCountStats();
 
-
-		/*
-		 // see below …
-		$postTypesValues = WPVGW_Helper::sql_values( $postTypes );
-		$postStatusesValues = WPVGW_Helper::sql_values( $post_statuses );
-
-		$success = mysqli_query($LINK,  WPVGW_Helper::prepare_with_null(
-				"SELECT ID AS id, post_title, post_content, post_type, post_status FROM $wpdb->posts WHERE post_type IN ($postTypesValues) AND post_status IN ($postStatusesValues)",
-				$postTypes + $post_statuses
-			)
-		);*/
-
-
-		// TODO: WP_Query will store all database results in array which can cause too much memory consumption (WTF! Why no iterated fetch?)
-		// get posts
-		$postQuery = new WP_Query(
+		// get all posts
+		$postQuery = new WPVGW_Uncached_WP_Query(
 			array(
-				'nopaging'    => true,
 				'post_status' => $this->markersManager->get_allowed_post_statuses(),
 				'post_type'   => $this->markersManager->get_possible_post_types(),
-				//'fields'      => 'ids',
 			)
 		);
 
 		// iterate posts
-		while ( $postQuery->have_posts() ) {
-			$post = $postQuery->next_post();
+		while ( $postQuery->has_post() ) {
+			$post = $postQuery->get_post();
 
 			$postsExtrasFillStats->numberOfPosts++;
 
@@ -218,18 +198,12 @@ class WPVGW_PostsExtras {
 				$postsExtrasFillStats->numberOfPostExtrasUpdates++;
 			}
 			else {
+				// delete post extra because it’s type is not allowed
 				$this->delete_post_extra( $post->ID );
 
 				$postsExtrasFillStats->numberOfIgnoredPosts++;
 			}
-
-			// try to import marker from marker string and add import stats
-			//$importStats->add( $this->import_marker_from_string( $markerString, $user_id ) );
 		}
-
-		// restore global post data stomped by the_post()
-		wp_reset_query();
-
 
 		return $postsExtrasFillStats;
 	}

@@ -391,12 +391,11 @@ class WPVGW_MarkersManager {
 
 	/**
 	 * Removes a post from a marker and resets the marker in the database, i. e., sets marker to enabled.
-
 	 *
-*@param int $id A non-negative id.
+	 * @param int $id A non-negative id.
 	 * @param string $id_type The type of the given ID. Has to be 'post' or 'marker'.
 	 *
-*@return bool True if post was removed from marker, otherwise false.
+	 * @return bool True if post was removed from marker, otherwise false.
 	 * @throws Exception Thrown if $id_type is invalid. Thrown if a database error occurred.
 	 */
 	public function remove_post_from_marker_in_db( $id, $id_type = 'post' ) {
@@ -847,14 +846,11 @@ class WPVGW_MarkersManager {
 		$importOldMarkersAndPostsStats = new WPVGW_ImportOldMarkersAndPostsStats();
 		$importOldMarkersAndPostsStats->importMarkersStats = $importMarkersStats;
 
-		// TODO: WP_Query will store all database results in array which can cause too much memory consumption (WTF! Why no iterated fetch?)
 		// get posts
-		$postQuery = new WP_Query(
+		$postQuery = new WPVGW_Uncached_WP_Query(
 		// merge defaults and values to override
 			array_merge(
 				array(
-					'numberposts' => -1,
-					'nopaging'    => true,
 					'post_status' => $this->allowedPostStatuses,
 					'post_type'   => $this->possiblePostTypes,
 				),
@@ -863,8 +859,8 @@ class WPVGW_MarkersManager {
 		);
 
 		// iterate found posts
-		while ( $postQuery->have_posts() ) {
-			$post = $postQuery->next_post();
+		while ( $postQuery->has_post() ) {
+			$post = $postQuery->get_post();
 
 			$importOldMarkersAndPostsStats->numberOfPosts++;
 
@@ -916,11 +912,7 @@ class WPVGW_MarkersManager {
 						break;
 				}
 			}
-
 		}
-
-		// restore global post data stomped by the_post()
-		wp_reset_query();
 
 		return $importOldMarkersAndPostsStats;
 	}
