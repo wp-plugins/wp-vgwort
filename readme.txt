@@ -4,7 +4,7 @@ Donate link: http://prosodia.de/
 Tags: VG WORT, Zählmarke, T.O.M., Zählpixel, Geld, VGW, Verwertungsgesellschaft WORT, Prosodia, Verlag
 Requires at least: 3.8
 Tested up to: 4.0
-Stable tag: 3.0.0
+Stable tag: 3.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -120,6 +120,12 @@ Sollte das Plugin die ältere Version nicht erkennen, so führen Sie bitte manue
 
 = Änderungen =
 
+= 3.1.0 =
+* Leistungsverbesserung (insbesondere geringere Arbeitsspeichernutzung) der Funktionen im Bereich „Operationen“.
+
+= 3.0.1 =
+* Fehler Behoben, der Import aus anderen Plugins verhinderte (closures unterstützen keinen Zugriff auf private members in PHP 5.3).
+
 = 3.0.0 =
 * Plugin wurde vollständig neu entwickelt.
 * Viele neue Funktionen. Siehe Plugin-Beschreibung.
@@ -203,6 +209,12 @@ Sollte das Plugin die ältere Version nicht erkennen, so führen Sie bitte manue
 * Initial-Release.
 
 == Upgrade Notice ==
+
+= 3.1.0 =
+Leistungsverbesserung (insbesondere geringere Arbeitsspeichernutzung) der Funktionen im Bereich „Operationen“.
+
+= 3.0.1 =
+Fehler Behoben, der Import aus anderen Plugins verhinderte (closures unterstützen keinen Zugriff auf private members in PHP 5.3).
 
 = 3.0.0 =
 PLUGIN VOLLSTÄNDIG NEU ENTWICKELT! Nach der Aktualisierung werden Warnungen erscheinen, was normal ist. Diese bitte einfach abarbeiten. Weitere Informationen: https://wordpress.org/plugins/wp-vgwort/faq/

@@ -479,7 +479,7 @@ class WPVGW_PostTableView extends WPVGW_ViewBase {
 			}
 
 
-			if ( !$do_action( $this, $post, $postUserId ) )
+			if ( !$do_action( $this->markersManager, $this->postsExtras, $this->options, $post, $postUserId ) )
 				break;
 		}
 
@@ -519,30 +519,32 @@ class WPVGW_PostTableView extends WPVGW_ViewBase {
 
 
 		$processedPostCount = $this->iterate_posts_for_actions( $post_ids, true,
-			function ( $thisObject, $post, $postUserId ) use ( &$noFreeMarker, &$markerAddedCount, &$markerAlreadyExistsCount, &$markerNotAddedCount, &$postCharacterCountUnknownCount, &$postCharacterCountNotSufficientCount ) {
-				/** @var WPVGW_PostTableView $thisObject */
+			function ( $markersManager, $postsExtras, $options, $post, $postUserId ) use ( &$noFreeMarker, &$markerAddedCount, &$markerAlreadyExistsCount, &$markerNotAddedCount, &$postCharacterCountUnknownCount, &$postCharacterCountNotSufficientCount ) {
+				/** @var WPVGW_MarkersManager $markersManager */
+				/** @var WPVGW_PostsExtras $postsExtras */
+				/** @var WPVGW_Options $options */
 				/** @var WP_Post $post */
 				/** @var int $postUserId */
 
 				$postId = $post->ID;
 
 				// get post’s extras.
-				$postExtras = $thisObject->postsExtras->get_post_extras_from_db( $postId );
+				$postExtras = $postsExtras->get_post_extras_from_db( $postId );
 				// get post’s character count
 				$postCharacterCount = ( $postExtras === false ? null : $postExtras['character_count'] );
 
 				if ( $postCharacterCount === null )
 					$postCharacterCountUnknownCount++;
-				else if ( !$thisObject->markersManager->is_character_count_sufficient( $postCharacterCount, $thisObject->options->get_vg_wort_minimum_character_count() ) )
+				else if ( $markersManager->is_character_count_sufficient( $postCharacterCount, $options->get_vg_wort_minimum_character_count() ) )
 					$postCharacterCountNotSufficientCount++;
 
 
 				// get a free marker for the post author
-				$marker = $thisObject->markersManager->get_free_marker_from_db( $postUserId );
+				$marker = $markersManager->get_free_marker_from_db( $postUserId );
 
 				if ( $marker === false )
 					// get a free marker for arbitrary author
-					$marker = $thisObject->markersManager->get_free_marker_from_db();
+					$marker = $markersManager->get_free_marker_from_db();
 
 				if ( $marker === false ) {
 					// no free marker found
@@ -553,7 +555,7 @@ class WPVGW_PostTableView extends WPVGW_ViewBase {
 				else {
 					// add marker to post
 					$markerUpdateResult =
-						$thisObject->markersManager->update_marker_in_db(
+						$markersManager->update_marker_in_db(
 							$marker['public_marker'], // key
 							'public_marker', // column
 							array( // marker
@@ -719,13 +721,15 @@ class WPVGW_PostTableView extends WPVGW_ViewBase {
 
 		// don’t check for allowed user because we want to allow removing post from markers for any author
 		$processedPostCount = $this->iterate_posts_for_actions( $postIds, false,
-			function ( $thisObject, $post, $postUserId ) use ( &$removedPostFromMarkerCount ) {
-				/** @var WPVGW_PostTableView $thisObject */
+			function ( $markersManager, $postsExtras, $options, $post, $postUserId ) use ( &$removedPostFromMarkerCount ) {
+				/** @var WPVGW_MarkersManager $markersManager */
+				/** @var WPVGW_PostsExtras $postsExtras */
+				/** @var WPVGW_Options $options */
 				/** @var WP_Post $post */
 				/** @var int $postUserId */
 
 				// remove marker from post
-				if ( $thisObject->markersManager->remove_post_from_marker_in_db( $post->ID ) )
+				if ( $markersManager->remove_post_from_marker_in_db( $post->ID ) )
 					$removedPostFromMarkerCount++;
 
 				return true;

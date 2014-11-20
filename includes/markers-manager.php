@@ -391,12 +391,11 @@ class WPVGW_MarkersManager {
 
 	/**
 	 * Removes a post from a marker and resets the marker in the database, i. e., sets marker to enabled.
-
 	 *
-*@param int $id A non-negative id.
+	 * @param int $id A non-negative id.
 	 * @param string $id_type The type of the given ID. Has to be 'post' or 'marker'.
 	 *
-*@return bool True if post was removed from marker, otherwise false.
+	 * @return bool True if post was removed from marker, otherwise false.
 	 * @throws Exception Thrown if $id_type is invalid. Thrown if a database error occurred.
 	 */
 	public function remove_post_from_marker_in_db( $id, $id_type = 'post' ) {
@@ -657,6 +656,7 @@ class WPVGW_MarkersManager {
 		return WPVGW_InsertMarkerResults::Inserted;
 	}
 
+	// TODO: This function should be private, but in PHP 5.3 use $thisObject = $this in closures cannot access private members. This function is called in closures.
 	/**
 	 * Tries to parse a marker from VG WORT marker strings like "<img src="http://vg02.met.vgwort.de/na/c662364dcf614454aea6160a00000000" width="1" height="1" alt="">".
 	 * It parses plain markers like "c662364dcf614454aea6160a00000000" too.
@@ -666,7 +666,7 @@ class WPVGW_MarkersManager {
 	 * @throws Exception Thrown if a Regex error occurred.
 	 * @return array|bool The marker got from the string, otherwise false.
 	 */
-	private function get_marker_from_string( $marker_string ) {
+	public function get_marker_from_string( $marker_string ) {
 		// try to match a marker from a specific string
 		// string should be something like "<img src="http://vg02.met.vgwort.de/na/c662364dcf614454aea6160a00000000" width="1" height="1" alt="">"
 		// string can be a plain marker like "c662364dcf614454aea6160a00000000" too
@@ -846,14 +846,11 @@ class WPVGW_MarkersManager {
 		$importOldMarkersAndPostsStats = new WPVGW_ImportOldMarkersAndPostsStats();
 		$importOldMarkersAndPostsStats->importMarkersStats = $importMarkersStats;
 
-		// TODO: WP_Query will store all database results in array which can cause too much memory consumption (WTF! Why no iterated fetch?)
 		// get posts
-		$postQuery = new WP_Query(
+		$postQuery = new WPVGW_Uncached_WP_Query(
 		// merge defaults and values to override
 			array_merge(
 				array(
-					'numberposts' => -1,
-					'nopaging'    => true,
 					'post_status' => $this->allowedPostStatuses,
 					'post_type'   => $this->possiblePostTypes,
 				),
@@ -862,8 +859,8 @@ class WPVGW_MarkersManager {
 		);
 
 		// iterate found posts
-		while ( $postQuery->have_posts() ) {
-			$post = $postQuery->next_post();
+		while ( $postQuery->has_post() ) {
+			$post = $postQuery->get_post();
 
 			$importOldMarkersAndPostsStats->numberOfPosts++;
 
@@ -915,11 +912,7 @@ class WPVGW_MarkersManager {
 						break;
 				}
 			}
-
 		}
-
-		// restore global post data stomped by the_post()
-		wp_reset_query();
 
 		return $importOldMarkersAndPostsStats;
 	}
@@ -965,11 +958,9 @@ class WPVGW_MarkersManager {
 	 * @throws Exception Thrown if a database error occurred.
 	 */
 	public function import_markers_and_posts_from_tl_vgwort_plugin( $default_server ) {
-		$thisObject = $this;
-
 		// import markers with their corresponding posts
 		return $this->import_old_markers_and_posts(
-			function ( WP_Post $post ) use ( $thisObject ) {
+			function ( WP_Post $post ) {
 				// get public marker
 				$metaValue = get_post_custom_values( 'vgwort-public', $post->ID );
 				$marker['public_marker'] = $metaValue[0];
@@ -1016,7 +1007,7 @@ class WPVGW_MarkersManager {
 				// get marker from marker string
 				return $thisObject->get_marker_from_string( $matches[0] );
 			},
-			function ( WP_Post $post ) use ( $thisObject, $match_marker_regex, $delete_manual_marker ) {
+			function ( WP_Post $post ) use ( $match_marker_regex, $delete_manual_marker ) {
 				// delete manual marker?
 				if ( !$delete_manual_marker )
 					return;
