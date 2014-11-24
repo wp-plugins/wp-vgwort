@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prosodia VGW OS 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-19 01:06+0100\n"
-"PO-Revision-Date: 2014-11-19 01:06+0100\n"
+"POT-Creation-Date: 2014-11-24 16:16+0100\n"
+"PO-Revision-Date: 2014-11-24 16:16+0100\n"
 "Last-Translator: Ronny <info@falconiform.de>\n"
 "Language-Team: Prosodia <developer@prosodia.de>\n"
 "Language: de_DE\n"
@@ -124,7 +124,7 @@ msgid ""
 msgstr ""
 
 #: views/admin/configuration-admin-view.php:27
-#: views/admin/configuration-admin-view.php:34 wpvgw.php:528
+#: views/admin/configuration-admin-view.php:34 wpvgw.php:556
 msgid "Einstellungen"
 msgstr ""
 
@@ -146,7 +146,8 @@ msgstr ""
 #: views/admin/configuration-admin-view.php:99
 #: views/admin/configuration-admin-view.php:111
 #: views/admin/configuration-admin-view.php:143
-#: views/admin/operations-admin-view.php:165
+#: views/admin/operations-admin-view.php:157
+#: views/admin/operations-admin-view.php:170
 #, php-format
 msgid "Der Standardwert ist: %s"
 msgstr ""
@@ -356,13 +357,11 @@ msgstr ""
 
 #: views/admin/import-admin-view.php:102
 #: views/admin/markers-admin-view.php:272 views/markers-table.php:447
-#: views/post-view.php:273
 msgid "Öffentliche Zählmarke"
 msgstr ""
 
 #: views/admin/import-admin-view.php:107
 #: views/admin/markers-admin-view.php:264 views/markers-table.php:450
-#: views/post-view.php:278
 msgid "Private Zählmarke"
 msgstr ""
 
@@ -384,34 +383,42 @@ msgstr ""
 msgid "Zählmarken importieren"
 msgstr ""
 
-#: views/admin/import-admin-view.php:173
+#: views/admin/import-admin-view.php:139
+msgid ""
+"Es wurden keine Zählmarken für den Import in den CSV-Daten gefunden. Stellen "
+"Sie bitte sicher, dass Sie die von der VG WORT erhaltenen CSV-Daten "
+"unverändert eingeben haben. Die Spalten der CSV-Daten müssen mit Semikolon "
+"(;) getrennt sein."
+msgstr ""
+
+#: views/admin/import-admin-view.php:183
 #, php-format
 msgid "Fehler beim Importieren der CSV-Datei: %s"
 msgstr ""
 
-#: views/admin/import-admin-view.php:177
+#: views/admin/import-admin-view.php:187
 msgid "Zählmarken aus CSV-Datei: "
 msgstr ""
 
-#: views/admin/import-admin-view.php:181
+#: views/admin/import-admin-view.php:193
 msgid "Hochgeladene Datei konnte nicht gelöscht werden."
 msgstr ""
 
-#: views/admin/import-admin-view.php:193
+#: views/admin/import-admin-view.php:205
 #, php-format
 msgid "Fehler beim Importieren des CSV-Texts: %s"
 msgstr ""
 
-#: views/admin/import-admin-view.php:197
+#: views/admin/import-admin-view.php:209
 msgid "Zählmarken aus CSV-Text: "
 msgstr ""
 
-#: views/admin/import-admin-view.php:208
+#: views/admin/import-admin-view.php:222
 #, php-format
 msgid "Fehler beim Importieren der Zählmarke: %s"
 msgstr ""
 
-#: views/admin/import-admin-view.php:212
+#: views/admin/import-admin-view.php:226
 msgid "Zählmarke: "
 msgstr ""
 
@@ -448,11 +455,11 @@ msgid "Aktionen"
 msgstr ""
 
 #: views/admin/markers-admin-view.php:151 views/post-table-view.php:96
-#: views/post-view.php:319
+#: views/post-view.php:336
 msgid "Zählmarken-Zuordnung aufheben"
 msgstr ""
 
-#: views/admin/markers-admin-view.php:153 views/post-view.php:321
+#: views/admin/markers-admin-view.php:153 views/post-view.php:338
 msgid ""
 "In der Regel sollte die Zuordnung nicht aufgehoben, sondern die Zählmarke "
 "inaktiv gesetzt werden."
@@ -471,8 +478,8 @@ msgid "Aktivierung"
 msgstr ""
 
 #: views/admin/markers-admin-view.php:168 views/markers-table.php:173
-#: views/post-table-view.php:142 views/post-view.php:284
-#: views/post-view.php:305
+#: views/post-table-view.php:142 views/post-view.php:301
+#: views/post-view.php:322
 msgid "Inaktiv"
 msgstr ""
 
@@ -481,8 +488,8 @@ msgstr ""
 msgid "Wert ändern"
 msgstr ""
 
-#: views/admin/markers-admin-view.php:172 views/post-view.php:286
-#: views/post-view.php:307
+#: views/admin/markers-admin-view.php:172 views/post-view.php:303
+#: views/post-view.php:324
 msgid ""
 "Inaktive Zählmarken werden für den zugeordneten Beitrag nicht mehr "
 "ausgegeben (keine Zählung mehr bei VG WORT)."
@@ -563,7 +570,7 @@ msgstr ""
 msgid "Zeichenanzahl"
 msgstr ""
 
-#: views/admin/markers-admin-view.php:274 views/post-table-view.php:360
+#: views/admin/markers-admin-view.php:274 views/post-table-view.php:363
 msgid "Zählmarke inaktiv"
 msgstr ""
 
@@ -601,7 +608,8 @@ msgstr ""
 msgid ""
 "An dieser Stelle können aufwendigere Operationen und Einstellungen "
 "vorgenommen werden. Die Bearbeitung einzelner Operationen und Einstellungen "
-"kann mehrere Sekunden in Anspruch nehmen."
+"kann mehrere Sekunden in Anspruch nehmen. <strong>Gestartete Operationen "
+"sollten nicht abgebrochen werden!</strong>"
 msgstr ""
 
 #: views/admin/operations-admin-view.php:85
@@ -660,104 +668,114 @@ msgid "Zählmarken aus altem VG-WORT-Plugin vor Version 3.0.0 importieren"
 msgstr ""
 
 #: views/admin/operations-admin-view.php:154
+msgid "Meta-Name aus altem Plugin: "
+msgstr ""
+
+#: views/admin/operations-admin-view.php:159
 msgid ""
 "Wenn dieses VG-WORT-Plugin bereits vor Version 3.0.0 verwendet wurde, können "
 "hier die zuvor verwendeten Zählmarken importiert werden. Es werden keine "
 "Daten gelöscht."
 msgstr ""
 
-#: views/admin/operations-admin-view.php:158
+#: views/admin/operations-admin-view.php:163
 msgid "Zählmarken (manuelle) aus Beiträgen erkennen und importieren"
 msgstr ""
 
-#: views/admin/operations-admin-view.php:160
+#: views/admin/operations-admin-view.php:165
 msgid "Gefundene Zählmarken aus Beiträgen (deren Inhalt) entfernen (empfohlen)"
 msgstr ""
 
-#: views/admin/operations-admin-view.php:162
+#: views/admin/operations-admin-view.php:167
 msgid "Regulärer Ausdruck (PHP-Stil) zur Zählmarkenerkennung: "
 msgstr ""
 
-#: views/admin/operations-admin-view.php:167
+#: views/admin/operations-admin-view.php:172
 #, php-format
 msgid ""
 "Wenn bereits Zählmarken der Form %s manuell in Beiträgen (deren Inhalt) "
 "eingefügt wurden, können diese hier importiert und entfernt werden."
 msgstr ""
 
-#: views/admin/operations-admin-view.php:169
+#: views/admin/operations-admin-view.php:174
 msgid ""
 "<strong>Achtung:</strong> Aus Beiträgen (deren Inhalt) entfernte Zählmarken "
 "können nicht wiederhergestellt werden. Bitte sämtliche Beiträge sichern "
 "(Backup), bevor diese Operation durchgeführt wird."
 msgstr ""
 
-#: views/admin/operations-admin-view.php:173
+#: views/admin/operations-admin-view.php:178
 msgid "Zählmarken aus dem Plugin „VG Wort“ von T. Leuschner importieren"
 msgstr ""
 
-#: views/admin/operations-admin-view.php:175
+#: views/admin/operations-admin-view.php:180
 msgid ""
 "Wenn das Plugin „VG Wort“ von T. Leuschner zuvor verwendet wurde, können die "
 "dort zugeordneten Zählmarken hier importiert werden. Es werden keine Daten "
 "gelöscht."
 msgstr ""
 
-#: views/admin/operations-admin-view.php:178
+#: views/admin/operations-admin-view.php:183
 msgid ""
 "Diese Operationen sollten (jeweils) nur ein Mal ausgeführt werden. Es werden "
 "sowohl Zählmarken als auch deren Zuordnung zu Beiträgen importiert."
 msgstr ""
 
-#: views/admin/operations-admin-view.php:181
+#: views/admin/operations-admin-view.php:186
 msgid ""
 "Falls es zu Konflikten mit bereits vorhandenen Beitrags-Zuordnungen kommt, "
 "wird keine Überschreibung vorgenommen."
 msgstr ""
 
-#: views/admin/operations-admin-view.php:184
+#: views/admin/operations-admin-view.php:189
 msgid "Alte Zählmarken und Beitrags-Zuordnungen importieren"
 msgstr ""
 
-#: views/admin/operations-admin-view.php:245
+#: views/admin/operations-admin-view.php:236
 #, php-format
 msgid ""
 "aktualisiert %s, bereits vorhanden %s, die Integrität verletzten %s, "
 "Beiträge durchsucht %s"
 msgstr ""
 
-#: views/admin/operations-admin-view.php:281
+#: views/admin/operations-admin-view.php:272
 msgid ""
 "Die ausgewählten Beitrags-Typen wurde mit der Zählmarken-Funktion versehen."
 msgstr ""
 
-#: views/admin/operations-admin-view.php:307
+#: views/admin/operations-admin-view.php:299
+msgid ""
+"Der Meta-Name ist ungültig und wurde zurückgesetzt. Zählmarken aus altem VG-"
+"WORT-Plugin wurden nicht importiert."
+msgstr ""
+
+#: views/admin/operations-admin-view.php:310
 msgid "Zählmarken aus altem VG-WORT-Plugin importiert: "
 msgstr ""
 
-#: views/admin/operations-admin-view.php:308
+#: views/admin/operations-admin-view.php:311
 msgid "Zählmarken-Zuordnungen aus altem VG-WORT-Plugin importiert: "
 msgstr ""
 
-#: views/admin/operations-admin-view.php:321
+#: views/admin/operations-admin-view.php:325
 msgid ""
-"Der Reguläre Ausdruck hat eine ungültige Syntax. Zählmarken (manuelle) aus "
-"Beiträgen wurden nicht importiert."
+"Der Reguläre Ausdruck hat eine ungültige Syntax und wurde zurückgesetzt. "
+"Zählmarken (manuelle) aus Beiträgen wurden nicht importiert."
 msgstr ""
 
-#: views/admin/operations-admin-view.php:329
+#: views/admin/operations-admin-view.php:333
 msgid "Zählmarken (manuelle) aus Beiträgen importiert: "
 msgstr ""
 
-#: views/admin/operations-admin-view.php:330
+#: views/admin/operations-admin-view.php:334
 msgid "Zählmarken-Zuordnungen aus Beiträgen importiert: "
 msgstr ""
 
-#: views/admin/operations-admin-view.php:340
+#: views/admin/operations-admin-view.php:344
 msgid "Zählmarken aus Plugin „VG Wort“ von T. Leuschner importiert: "
 msgstr ""
 
-#: views/admin/operations-admin-view.php:341
+#: views/admin/operations-admin-view.php:345
 msgid ""
 "Zählmarken-Zuordnungen aus Plugin „VG Wort“ von T. Leuschner importiert: "
 msgstr ""
@@ -822,8 +840,7 @@ msgid "Datum"
 msgstr ""
 
 #: views/markers-table.php:87 views/markers-table.php:166
-#: views/post-table-view.php:131 views/post-view.php:267
-#: views/post-view.php:292
+#: views/post-table-view.php:131
 msgid "Zählmarke"
 msgstr ""
 
@@ -980,16 +997,16 @@ msgstr ""
 msgid "S"
 msgstr ""
 
-#: views/markers-table.php:473
+#: views/markers-table.php:473 views/post-table-view.php:344
 msgid "nicht berechnet"
 msgstr ""
 
-#: views/markers-table.php:480 views/post-table-view.php:343
+#: views/markers-table.php:480 views/post-table-view.php:346
 #, php-format
 msgid "genügend, %s"
 msgstr ""
 
-#: views/markers-table.php:484 views/post-table-view.php:345
+#: views/markers-table.php:484 views/post-table-view.php:348
 #, php-format
 msgid "zu wenig, %s"
 msgstr ""
@@ -998,7 +1015,7 @@ msgstr ""
 msgid "Auswählen"
 msgstr ""
 
-#: views/post-table-view.php:94 views/post-table-view.php:403
+#: views/post-table-view.php:94 views/post-table-view.php:406
 msgid "Zählmarke zuordnen"
 msgstr ""
 
@@ -1014,121 +1031,148 @@ msgstr ""
 msgid "Zeichen"
 msgstr ""
 
-#: views/post-table-view.php:352
+#: views/post-table-view.php:355
 msgid "Zählmarke zugeordnet"
 msgstr ""
 
-#: views/post-table-view.php:354
+#: views/post-table-view.php:357
 msgid "Zählmarke möglich"
 msgstr ""
 
-#: views/post-table-view.php:402
+#: views/post-table-view.php:405
 msgid "Diesem Beitrag automatisch eine Zählmarke zuordnen"
 msgstr ""
 
-#: views/post-table-view.php:593
+#: views/post-table-view.php:598
 msgid ""
 "Es sind nicht mehr genügend Zählmarken für einen oder mehrere Beitrags-Autor "
 "vorhanden. Fügen Sie bitte zunächst neue Zählmarken für die betreffenden "
 "Beitrags-Autoren hinzu und wiederholen Sie den Vorgang."
 msgstr ""
 
-#: views/post-view.php:86
-msgid "Zählmarke für VG WORT"
+#: views/post-view.php:85
+msgid "Zählmarken für VG WORT"
 msgstr ""
 
-#: views/post-view.php:117
+#: views/post-view.php:116
 msgid "<strong>ja</strong>"
 msgstr ""
 
-#: views/post-view.php:117
+#: views/post-view.php:116
 msgid "nein"
 msgstr ""
 
-#: views/post-view.php:183
+#: views/post-view.php:182
 msgid ""
 "Die Zählmarke entsprechend Ihrer Vorgaben ist bereits einem anderem Beitrag "
 "zugeordnet."
 msgstr ""
 
-#: views/post-view.php:186
+#: views/post-view.php:187
+#, php-format
 msgid ""
 "Es wurde keine Zählmarke entsprechend Ihrer Vorgaben gefunden. Die Zählmarke "
-"muss ggf. zunächst der Liste der verfügbaren Zählmarken hinzugefügt werden."
+"muss ggf. zunächst importiert werden. %s"
 msgstr ""
 
-#: views/post-view.php:189
+#: views/post-view.php:192 views/post-view.php:436 wpvgw.php:633
+msgid "Zählmarken hier importieren."
+msgstr ""
+
+#: views/post-view.php:198
 msgid ""
 "Sie dürfen die Zählmarke entsprechend Ihrer Vorgaben nicht verwenden, da sie "
 "für einen anderen Benutzer bestimmt ist."
 msgstr ""
 
-#: views/post-view.php:212
+#: views/post-view.php:221
 msgid "Diesem Beitrag ist keine Zählmarke zugeordnet."
 msgstr ""
 
-#: views/post-view.php:216
+#: views/post-view.php:225
 msgid ""
 "Diesem Beitrag ist eine Zählmarke zugeordnet. In der Regel sollte die "
 "Zuordnung nicht mehr aufgehoben werden."
 msgstr ""
 
-#: views/post-view.php:223
+#: views/post-view.php:232
 msgid "Zeichenanzahl im Text"
-msgstr ""
-
-#: views/post-view.php:228
-#, php-format
-msgid "Genügend: %1$s, %2$s fehlen"
 msgstr ""
 
 #: views/post-view.php:237
 #, php-format
+msgid "Genügend: %1$s, %2$s fehlen"
+msgstr ""
+
+#: views/post-view.php:246
+#, php-format
 msgid "Vorhanden: %1$s von %2$s nötigen"
 msgstr ""
 
-#: views/post-view.php:247
+#: views/post-view.php:256
 msgid "jetzt aktualisieren"
 msgstr ""
 
-#: views/post-view.php:248
+#: views/post-view.php:257
 msgid "(sonst alle paar Sekunden automatisch)"
 msgstr ""
 
 # @ wp-vgwort-locale
-#: views/post-view.php:256 views/post-view.php:315
+#: views/post-view.php:265 views/post-view.php:332
 msgid "Aktion"
 msgstr ""
 
-#: views/post-view.php:260
+#: views/post-view.php:269
 msgid "Diesem Beitrag eine Zählmarke zuordnen"
 msgstr ""
 
-#: views/post-view.php:262
+#: views/post-view.php:271
 msgid ""
 "Weisen Sie diesem Beitrag eine Zählmarke zu, um Ihre Leser bei der VG WORT "
 "zählen zu lassen."
 msgstr ""
 
-#: views/post-view.php:270
-msgid ""
-"Um automatisch eine Zählmarke zuzuordnen, bitte die beiden nachstehenden "
-"Felder leer lassen (empfohlen)."
+#: views/post-view.php:276 views/post-view.php:309
+msgid "Zählmarken-Zuordnung"
 msgstr ""
 
-#: views/post-view.php:295
+#: views/post-view.php:280
+msgid "Zählmarke automatisch zuordnen"
+msgstr ""
+
+#: views/post-view.php:282
+msgid ""
+"Aktivieren, um dem Beitrag automatisch eine unbenutzte Zählmarke zuordnen zu "
+"lassen (empfohlen), ansonsten manuell."
+msgstr ""
+
+#: views/post-view.php:286
+msgid ""
+"Nur bereits importierte Zählmarken können manuell zugeordnet werden. Es "
+"mindestens eine Marke angegeben werden."
+msgstr ""
+
+#: views/post-view.php:289
+msgid "Öffentliche Zählmarke manuell zuordnen"
+msgstr ""
+
+#: views/post-view.php:294
+msgid "Private Zählmarke manuell zuordnen"
+msgstr ""
+
+#: views/post-view.php:312
 msgid "Öffentlich: "
 msgstr ""
 
-#: views/post-view.php:298
+#: views/post-view.php:315
 msgid "Privat: "
 msgstr ""
 
-#: views/post-view.php:301
+#: views/post-view.php:318
 msgid "Server: "
 msgstr ""
 
-#: views/post-view.php:345
+#: views/post-view.php:362
 #, php-format
 msgid ""
 "Dieser Beitrag enthält weniger als %s Zeichen (es fehlen noch %s) und "
@@ -1136,69 +1180,76 @@ msgid ""
 "Eine Zählmarke wurde dennoch zugeordnet."
 msgstr ""
 
-#: views/post-view.php:395
-msgid "Die öffentliche Zählmarke hat ein ungültiges Format."
-msgstr ""
-
-#: views/post-view.php:402
-msgid "Die private Zählmarke hat ein ungültiges Format."
-msgstr ""
-
-#: views/post-view.php:423
+#: views/post-view.php:431
+#, php-format
 msgid ""
 "Eine Zählmarke konnte nicht automatisch zugeordnet werden, da für den "
-"Beitrags-Autor keine mehr verfügbar sind. Bitte fügen Sie zunächst neue "
-"Zählmarken für den Beitrags-Autor hinzu."
+"Beitrags-Autor keine mehr verfügbar sind. Bitte importieren Sie zunächst "
+"neue Zählmarken für den Beitrags-Autor. %s"
 msgstr ""
 
-#: views/post-view.php:500
+#: views/post-view.php:462
+msgid ""
+"Die öffentliche Zählmarke hat ein ungültiges Format. Bitte nehmen Sie eine "
+"Korrektur vor."
+msgstr ""
+
+#: views/post-view.php:469
+msgid ""
+"Die private Zählmarke hat ein ungültiges Format. Bitte nehmen Sie eine "
+"Korrektur vor."
+msgstr ""
+
+#: views/post-view.php:477
+msgid ""
+"Öffentliche und private Zählmarke dürfen nicht gleichzeitig leer sein, da "
+"sonst keine Zählmarke zugeordnet werden kann."
+msgstr ""
+
+#: views/post-view.php:538
 msgid ""
 "Die Zuordnung zwischen Zählmarke und Beitrag konnte nicht aufgehoben werden."
 msgstr ""
 
-#: wpvgw.php:558
+#: wpvgw.php:586
 #, php-format
 msgid ""
 "Der Datenschutz-Hinweis der VG WORT sollte in die Website eingefügt werden. "
 "%s"
 msgstr ""
 
-#: wpvgw.php:563
+#: wpvgw.php:591
 msgid "Datenschutz-Hinweis hier zur Kenntnis nehmen."
 msgstr ""
 
-#: wpvgw.php:579
+#: wpvgw.php:607
 #, php-format
 msgid ""
 "Die Zeichenanzahl der Beiträge müssen nach Plugin-Aktivierung neuberechnet "
 "werden. %s"
 msgstr ""
 
-#: wpvgw.php:584
+#: wpvgw.php:612
 msgid "Zeichenanzahl hier neuberechnen."
 msgstr ""
 
-#: wpvgw.php:600
+#: wpvgw.php:628
 #, php-format
 msgid ""
 "Die Zählmarken aus einer früheren Version des Plugins sollten importiert "
 "werden, da sie sonst fehlen. %s"
 msgstr ""
 
-#: wpvgw.php:605
-msgid "Zählmarken hier importieren."
-msgstr ""
-
-#: wpvgw.php:638
+#: wpvgw.php:666
 #, php-format
 msgid "„%s“ (%s)"
 msgstr ""
 
-#: wpvgw.php:643
+#: wpvgw.php:671
 msgid ", "
 msgstr ""
 
-#: wpvgw.php:650
+#: wpvgw.php:678
 #, php-format
 msgid ""
 "Es sind folgende, andere Plugins zur Integration von Zählmarken der VG WORT "
@@ -1206,10 +1257,10 @@ msgid ""
 "mehrfach auszugeben. %s"
 msgstr ""
 
-#: wpvgw.php:654
+#: wpvgw.php:682
 msgid "Plugins hier deaktivieren."
 msgstr ""
 
-#: wpvgw.php:769 wpvgw.php:770
+#: wpvgw.php:797 wpvgw.php:798
 msgid "Prosodia VGW OS"
 msgstr ""

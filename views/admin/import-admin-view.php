@@ -130,6 +130,16 @@ class WPVGW_ImportAdminView extends WPVGW_AdminViewBase {
 	}
 
 	/**
+	 * Adds an admin message that no marker in CSV was found, but only if no marker was found.
+	 *
+	 * @param WPVGW_ImportMarkersStats $import_markers_stats
+	 */
+	private function add_no_csv_markers_found_admin_message( WPVGW_ImportMarkersStats $import_markers_stats ) {
+		if ( $import_markers_stats->numberOfMarkers == 0 )
+			$this->add_admin_message( __( 'Es wurden keine Zählmarken für den Import in den CSV-Daten gefunden. Stellen Sie bitte sicher, dass Sie die von der VG WORT erhaltenen CSV-Daten unverändert eingeben haben. Die Spalten der CSV-Daten müssen mit Semikolon (;) getrennt sein.', WPVGW_TEXT_DOMAIN ) );
+	}
+
+	/**
 	 * Handles the actions for the view.
 	 *
 	 * @throws Exception Thrown if view is not initialized or if a database error occurred.
@@ -176,6 +186,8 @@ class WPVGW_ImportAdminView extends WPVGW_AdminViewBase {
 				if ( $importStats !== null )
 					$this->add_admin_message( __( 'Zählmarken aus CSV-Datei: ', WPVGW_TEXT_DOMAIN ) . $this->create_import_markers_stats_message( $importStats ), WPVGW_ErrorType::Update );
 
+				$this->add_no_csv_markers_found_admin_message( $importStats );
+
 				// delete uploaded file
 				if ( !unlink( $filePath ) )
 					$this->add_admin_message( __( 'Hochgeladene Datei konnte nicht gelöscht werden.', WPVGW_TEXT_DOMAIN ) );
@@ -195,6 +207,8 @@ class WPVGW_ImportAdminView extends WPVGW_AdminViewBase {
 
 			if ( $importStats !== null )
 				$this->add_admin_message( __( 'Zählmarken aus CSV-Text: ', WPVGW_TEXT_DOMAIN ) . $this->create_import_markers_stats_message( $importStats ), WPVGW_ErrorType::Update );
+
+			$this->add_no_csv_markers_found_admin_message( $importStats );
 		}
 
 

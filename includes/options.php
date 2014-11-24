@@ -73,6 +73,10 @@ class WPVGW_Options {
 	 * @var string
 	 */
 	private static $operationOldPluginImportNecessary = 'operation_old_plugin_import_necessary';
+	/**
+	 * @var string
+	 */
+	private static $postViewAutoMarker = 'post_view_auto_marker';
 
 
 	/**
@@ -143,21 +147,22 @@ class WPVGW_Options {
 
 		// set default values of the options
 		$this->defaultOptions = array(
-			self::$allowedPostTypes                                => array( 'post', 'page' ),
-			self::$outputFormat                                    => '<img src="http://%1$s/%2$s" width="1" height="1" alt="" style="display:none" />',
-			self::$defaultServer                                   => 'vg02.met.vgwort.de/na',
-			self::$metaName                                        => 'wp_vgwortmarke',
-			self::$vgWortMinimumCharacterCount                     => 1800,
-			self::$numberOfMarkersPerPage                          => 10,
-			self::$removeDataOnUninstall                           => false,
-			self::$exportCsvOutputHeadlines                        => true,
-			self::$exportCsvDelimiter                              => ';',
-			self::$exportCsvEnclosure                              => '"',
-			self::$importFromPostRegex                             => '%<img.*?src\s*=\s*"http://vg[0-9]+\.met\.vgwort.de/na/[a-z0-9]+".*?>%si',
+			self::$allowedPostTypes                                   => array( 'post', 'page' ),
+			self::$outputFormat                                       => '<img src="http://%1$s/%2$s" width="1" height="1" alt="" style="display:none" />',
+			self::$defaultServer                                      => 'vg02.met.vgwort.de/na',
+			self::$metaName                                           => 'wp_vgwortmarke',
+			self::$vgWortMinimumCharacterCount                        => 1800,
+			self::$numberOfMarkersPerPage                             => 10,
+			self::$removeDataOnUninstall                              => false,
+			self::$exportCsvOutputHeadlines                           => true,
+			self::$exportCsvDelimiter                                 => ';',
+			self::$exportCsvEnclosure                                 => '"',
+			self::$importFromPostRegex                                => '%<img.*?src\s*=\s*"http://vg[0-9]+\.met\.vgwort.de/na/[a-z0-9]+".*?>%si',
 			self::$privacyHideWarning                                 => false,
-			self::$showOtherActiveVgWortPluginsWarning             => true,
+			self::$showOtherActiveVgWortPluginsWarning                => true,
 			self::$operationPostCharacterCountRecalculationsNecessary => false,
-			self::$operationOldPluginImportNecessary               => false,
+			self::$operationOldPluginImportNecessary                  => false,
+			self::$postViewAutoMarker                                 => true,
 		);
 
 		// get options from WordPress database
@@ -270,13 +275,19 @@ class WPVGW_Options {
 	/**
 	 * Sets the meta name. This is need to retrieve options for old versions of the plugin.
 	 *
-	 * @param string $value The meta name.
+	 * @param string $value The meta name. Must not be empty or whitespaces only.
 	 *
 	 * @throws Exception Thrown if $value is invalid.
 	 */
 	public function set_meta_name( $value ) {
 		if ( !is_string( $value ) )
 			throw new Exception( 'Value is not a string.' );
+
+		// remove whitespace form beginning and end of value
+		$value = trim( $value );
+
+		if ( $value === '' )
+			throw new Exception( 'Value must not be empty or whitespaces only.' );
 
 		if ( $this->options[self::$metaName] !== $value ) {
 			$this->options[self::$metaName] = $value;
@@ -706,5 +717,41 @@ class WPVGW_Options {
 	 */
 	public function default_operation_old_plugin_import_necessary() {
 		return $this->defaultOptions[self::$operationOldPluginImportNecessary];
+	}
+
+
+	/**
+	 * Sets whether auto marker is enabled on post view.
+	 *
+	 * @param bool $value If true, auto marker is enabled on post view, otherwise not.
+	 *
+	 * @throws Exception Thrown if $value is invalid.
+	 */
+	public function set_post_view_auto_marker( $value ) {
+		if ( !is_bool( $value ) )
+			throw new Exception( 'Value is not a bool.' );
+
+		if ( $this->options[self::$postViewAutoMarker] !== $value ) {
+			$this->options[self::$postViewAutoMarker] = $value;
+			$this->optionsChanged = true;
+		}
+	}
+
+	/**
+	 * Gets whether auto marker in enabled os post view.
+	 *
+	 * @return bool If true, auto marker is enabled on post view, otherwise not.
+	 */
+	public function get_view_auto_marker() {
+		return $this->options[self::$postViewAutoMarker];
+	}
+
+	/**
+	 * Gets the default whether auto marker is enabled on post view.
+	 *
+	 * @return bool If true, auto marker is enabled on post view, otherwise not.
+	 */
+	public function default_view_auto_marker() {
+		return $this->defaultOptions[self::$postViewAutoMarker];
 	}
 }

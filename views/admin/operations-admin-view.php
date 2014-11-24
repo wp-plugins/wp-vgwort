@@ -151,6 +151,11 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 								<input type="checkbox" name="wpvgw_operation_import_old_plugin_markers" id="wpvgw_operation_import_old_plugin_markers" value="1" class="checkbox"/>
 								<label for="wpvgw_operation_import_old_plugin_markers"><?php _e( 'Zählmarken aus altem VG-WORT-Plugin vor Version 3.0.0 importieren', WPVGW_TEXT_DOMAIN ); ?></label>
 								<br/>
+								<label for="wpvgw_operation_import_old_plugin_markers_meta_name"><?php _e( 'Meta-Name aus altem Plugin: ', WPVGW_TEXT_DOMAIN ); ?></label>
+								<input type="text" name="wpvgw_operation_import_old_plugin_markers_meta_name" id="wpvgw_operation_import_old_plugin_markers_meta_name" class="regular-text" value="<?php echo( esc_attr( $this->options->get_meta_name() ) ) ?>"/>
+								<br/>
+								<span class="description"><?php echo( sprintf( __( 'Der Standardwert ist: %s', WPVGW_TEXT_DOMAIN ), esc_html( $this->options->default_meta_name() ) ) ); ?></span>
+								<br/>
 								<span class="description"><?php _e( 'Wenn dieses VG-WORT-Plugin bereits vor Version 3.0.0 verwendet wurde, können hier die zuvor verwendeten Zählmarken importiert werden. Es werden keine Daten gelöscht.', WPVGW_TEXT_DOMAIN ) ?></span>
 							</p>
 							<p>
@@ -204,25 +209,11 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 
 		// add stats admin message
 		$this->add_admin_message(
-		// number of posts
-			_n(
-				'Es wurde ein Beitrag für die Neuberechnung der Zeichenanzahl ausgewählt.',
-				sprintf( 'Es wurden %s Beiträge für die Neuberechnung der Zeichenanzahlen ausgewählt.', number_format_i18n( $postsExtrasFillStats->numberOfPosts ) ),
-				$postsExtrasFillStats->numberOfPosts,
-				WPVGW_TEXT_DOMAIN
-			) . ' ' .
-			// number of filled posts
+		// number of filled posts
 			_n(
 				'Für einen Beitrag wurde die Zeichenanzahl neuberechnet.',
-				sprintf( 'Für %s Beiträge wurde die Zeichenanzahlen neuberechnet.', number_format_i18n( $postsExtrasFillStats->numberOfPostExtrasUpdates ) ),
+				sprintf( 'Für %s Beiträge wurden die Zeichenanzahlen neuberechnet.', number_format_i18n( $postsExtrasFillStats->numberOfPostExtrasUpdates ) ),
 				$postsExtrasFillStats->numberOfPostExtrasUpdates,
-				WPVGW_TEXT_DOMAIN
-			) . ' ' .
-			// number of ignored posts
-			_n(
-				'Für einen Beitrag wurde die Zeichenanzahl nicht neuberechnet, da er nicht den ausgewählten Beitrags-Typen entspricht.',
-				sprintf( 'Für %s Beiträge wurde die Zeichenanzahl nicht neuberechnet, da sie nicht den ausgewählten Beitrags-Typen entsprechen.', number_format_i18n( $postsExtrasFillStats->numberOfIgnoredPosts ) ),
-				$postsExtrasFillStats->numberOfIgnoredPosts,
 				WPVGW_TEXT_DOMAIN
 			),
 			WPVGW_ErrorType::Update
@@ -297,15 +288,28 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 		if ( isset( $_POST['wpvgw_operation_import_old_markers'] ) ) {
 			// import from old plugin version
 			if ( isset( $_POST['wpvgw_operation_import_old_plugin_markers'] ) ) {
-				// import old markers from WordPress posts meta
-				$importOldMarkersAndPostsStats = $this->markersManager->import_markers_and_posts_from_old_version( $this->options->get_meta_name(), $this->options->get_default_server() );
 
-				// import of markers from old plugin is not necessary anymore
-				$this->options->set_operation_old_plugin_import_necessary( false );
+				$metaName = isset( $_POST['wpvgw_operation_import_old_plugin_markers_meta_name'] ) ? stripslashes( $_POST['wpvgw_operation_import_old_plugin_markers_meta_name'] ) : null;
 
-				// add admin messages
-				$this->add_admin_message( __( 'Zählmarken aus altem VG-WORT-Plugin importiert: ', WPVGW_TEXT_DOMAIN ) . $this->create_import_markers_stats_message( $importOldMarkersAndPostsStats->importMarkersStats ), WPVGW_ErrorType::Update );
-				$this->add_admin_message( __( 'Zählmarken-Zuordnungen aus altem VG-WORT-Plugin importiert: ', WPVGW_TEXT_DOMAIN ) . $this->create_import_old_markers_and_posts_stats( $importOldMarkersAndPostsStats ), WPVGW_ErrorType::Update );
+				$invalidMetaName = false;
+				try {
+					$this->options->set_meta_name( $metaName );
+				} catch ( Exception $e ) {
+					$invalidMetaName = true;
+					$this->add_admin_message( __( 'Der Meta-Name ist ungültig und wurde zurückgesetzt. Zählmarken aus altem VG-WORT-Plugin wurden nicht importiert.', WPVGW_TEXT_DOMAIN ) );
+				}
+
+				if ( !$invalidMetaName ) {
+					// import old markers from WordPress posts meta
+					$importOldMarkersAndPostsStats = $this->markersManager->import_markers_and_posts_from_old_version( $this->options->get_meta_name(), $this->options->get_default_server() );
+
+					// import of markers from old plugin is not necessary anymore
+					$this->options->set_operation_old_plugin_import_necessary( false );
+
+					// add admin messages
+					$this->add_admin_message( __( 'Zählmarken aus altem VG-WORT-Plugin importiert: ', WPVGW_TEXT_DOMAIN ) . $this->create_import_markers_stats_message( $importOldMarkersAndPostsStats->importMarkersStats ), WPVGW_ErrorType::Update );
+					$this->add_admin_message( __( 'Zählmarken-Zuordnungen aus altem VG-WORT-Plugin importiert: ', WPVGW_TEXT_DOMAIN ) . $this->create_import_old_markers_and_posts_stats( $importOldMarkersAndPostsStats ), WPVGW_ErrorType::Update );
+				}
 			}
 
 			// import manual markers from posts
@@ -318,7 +322,7 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 					$this->options->set_import_from_post_regex( $manualMarkersRegex );
 				} catch ( Exception $e ) {
 					$invalidRegex = true;
-					$this->add_admin_message( __( 'Der Reguläre Ausdruck hat eine ungültige Syntax. Zählmarken (manuelle) aus Beiträgen wurden nicht importiert.', WPVGW_TEXT_DOMAIN ) );
+					$this->add_admin_message( __( 'Der Reguläre Ausdruck hat eine ungültige Syntax und wurde zurückgesetzt. Zählmarken (manuelle) aus Beiträgen wurden nicht importiert.', WPVGW_TEXT_DOMAIN ) );
 				}
 
 				if ( !$invalidRegex ) {
