@@ -47,26 +47,44 @@ var wpvgw_post_view;
 		hideShowControls: function () {
 			// find marker check box
 			var checkBoxSetMarker = $('#wpvgw_set_marker');
+			var checkBoxAutoMarker = $('#wpvgw_auto_marker');
 
 			// test if marker check box was found
 			if (checkBoxSetMarker.length === 0)
 				return;
 
 			// find controls to hide by CSS class
-			var controlsToHide = $('.wpvgw-js-hide');
+			var trAddMarkerToPost = $('#wpvgw_add_marker_to_post');
 
 			// hide controls if marker check box is not checked
 			if (!checkBoxSetMarker.prop('checked'))
-				controlsToHide.hide();
+				trAddMarkerToPost.hide();
 
 			// bind show and hide controls to marker check box click event
 			checkBoxSetMarker.click(function () {
 				if ($(this).prop('checked')) {
-					controlsToHide.show();
+					trAddMarkerToPost.show();
 				} else {
-					controlsToHide.hide();
+					trAddMarkerToPost.hide();
 				}
 			});
+
+
+			// show hide manual marker
+			var divManualMarker = $('#wpvgw_manual_marker');
+			var hideManualMarkerFunction = function () {
+				if (checkBoxAutoMarker.prop('checked')) {
+					divManualMarker.hide();
+				} else {
+					divManualMarker.show();
+				}
+			};
+
+			// initial hide
+			hideManualMarkerFunction();
+
+			// bind show and hide controls to auto marker check box click event
+			checkBoxAutoMarker.click(hideManualMarkerFunction);
 		},
 
 		/**

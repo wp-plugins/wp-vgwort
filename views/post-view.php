@@ -6,7 +6,6 @@
  * Copyright: 2014 Ronny Harbich
  * License: GPLv2 or later
  */
- 
 
 
 /**
@@ -83,7 +82,7 @@ class WPVGW_PostView extends WPVGW_ViewBase {
 		// add VG WORT meta box
 		add_meta_box(
 			WPVGW . '-meta-box',
-			__( 'Zählmarke für VG WORT', WPVGW_TEXT_DOMAIN ),
+			__( 'Zählmarken für VG WORT', WPVGW_TEXT_DOMAIN ),
 			array( $this, 'render' ),
 			$post_type,
 			'advanced',
@@ -183,7 +182,17 @@ class WPVGW_PostView extends WPVGW_ViewBase {
 				$this->add_admin_message( 'marker-not-free', __( 'Die Zählmarke entsprechend Ihrer Vorgaben ist bereits einem anderem Beitrag zugeordnet.', WPVGW_TEXT_DOMAIN ) );
 				break;
 			case WPVGW_UpdateMarkerResults::MarkerNotFound:
-				$this->add_admin_message( 'marker-not-found', __( 'Es wurde keine Zählmarke entsprechend Ihrer Vorgaben gefunden. Die Zählmarke muss ggf. zunächst der Liste der verfügbaren Zählmarken hinzugefügt werden.', WPVGW_TEXT_DOMAIN ) );
+				$this->add_admin_message( 'marker-not-found',
+					sprintf(
+						__( 'Es wurde keine Zählmarke entsprechend Ihrer Vorgaben gefunden. Die Zählmarke muss ggf. zunächst importiert werden. %s',
+							WPVGW_TEXT_DOMAIN
+						),
+						sprintf( '<a href="%s">%s</a>',
+							esc_attr( WPVGW_AdminViewsManger::create_admin_view_url( WPVGW_ImportAdminView::get_slug_static() ) ),
+							__( 'Zählmarken hier importieren.', WPVGW_TEXT_DOMAIN )
+						)
+					)
+				);
 				break;
 			case WPVGW_UpdateMarkerResults::UserNotAllowed:
 				$this->add_admin_message( 'marker-user-not-allowed', __( 'Sie dürfen die Zählmarke entsprechend Ihrer Vorgaben nicht verwenden, da sie für einen anderen Benutzer bestimmt ist.', WPVGW_TEXT_DOMAIN ) );
@@ -263,23 +272,31 @@ class WPVGW_PostView extends WPVGW_ViewBase {
 							</p>
 						</td>
 					</tr>
-					<tr class="wpvgw-js-hide">
-						<th><?php _e( 'Zählmarke', WPVGW_TEXT_DOMAIN ) ?></th>
+					<tr id="wpvgw_add_marker_to_post">
+						<th><?php _e( 'Zählmarken-Zuordnung', WPVGW_TEXT_DOMAIN ) ?></th>
 						<td>
-							<p class="description">
-								<?php _e( 'Um automatisch eine Zählmarke zuzuordnen, bitte die beiden nachstehenden Felder leer lassen (empfohlen).', WPVGW_TEXT_DOMAIN ); ?>
-							</p>
 							<p>
-								<label for="wpvgw_public_marker"><?php _e( 'Öffentliche Zählmarke', WPVGW_TEXT_DOMAIN ) ?></label>
+								<input type="checkbox" name="wpvgw_auto_marker" id="wpvgw_auto_marker" value="1" class="checkbox" <?php echo( WPVGW_Helper::get_html_checkbox_checked( $this->options->get_view_auto_marker() ) ) ?>/>
+								<label for="wpvgw_auto_marker"><?php _e( 'Zählmarke automatisch zuordnen' ) ?></label>
 								<br/>
-								<input type="text" name="wpvgw_public_marker" id="wpvgw_public_marker" class="regular-text" value=""/>
+								<span class="description"><?php _e( 'Aktivieren, um dem Beitrag automatisch eine unbenutzte Zählmarke zuordnen zu lassen (empfohlen), ansonsten manuell.', WPVGW_TEXT_DOMAIN ) ?></span>
 							</p>
+							<div id="wpvgw_manual_marker">
+								<p class="description">
+									<?php _e( 'Nur bereits importierte Zählmarken können manuell zugeordnet werden. Es mindestens eine Marke angegeben werden.', WPVGW_TEXT_DOMAIN ) ?>
+								</p>
+								<p>
+									<label for="wpvgw_public_marker"><?php _e( 'Öffentliche Zählmarke manuell zuordnen', WPVGW_TEXT_DOMAIN ) ?></label>
+									<br/>
+									<input type="text" name="wpvgw_public_marker" id="wpvgw_public_marker" class="regular-text" value=""/>
+								</p>
+								<p>
+									<label for="wpvgw_private_marker"><?php _e( 'Private Zählmarke manuell zuordnen', WPVGW_TEXT_DOMAIN ) ?></label>
+									<br/>
+									<input type="text" name="wpvgw_private_marker" id="wpvgw_private_marker" class="regular-text" value=""/>
+								</p>
+							</div>
 							<p>
-								<label for="wpvgw_private_marker"><?php _e( 'Private Zählmarke', WPVGW_TEXT_DOMAIN ) ?></label>
-								<br/>
-								<input type="text" name="wpvgw_private_marker" id="wpvgw_private_marker" class="regular-text" value=""/>
-							</p>
-							<p class="wpvgw-js-hide">
 								<input type="checkbox" name="wpvgw_marker_disabled" id="wpvgw_marker_disabled" value="1" class="checkbox"/>
 								<label for="wpvgw_marker_disabled"><?php _e( 'Inaktiv' ) ?></label>
 								<br/>
@@ -289,7 +306,7 @@ class WPVGW_PostView extends WPVGW_ViewBase {
 					</tr>
 				<?php else : ?>
 					<tr>
-						<th><?php _e( 'Zählmarke', WPVGW_TEXT_DOMAIN ) ?></th>
+						<th><?php _e( 'Zählmarken-Zuordnung', WPVGW_TEXT_DOMAIN ) ?></th>
 						<td>
 							<p>
 								<?php echo( __( 'Öffentlich: ', WPVGW_TEXT_DOMAIN ) . esc_html( $marker['public_marker'] ) ) ?>
@@ -384,33 +401,22 @@ class WPVGW_PostView extends WPVGW_ViewBase {
 			// add admin message if character count of the post is not sufficient
 			$this->check_post_character_count( $post );
 
-			$publicMarker = isset( $_POST['wpvgw_public_marker'] ) ? $_POST['wpvgw_public_marker'] : '';
-			$privateMarker = isset( $_POST['wpvgw_private_marker'] ) ? $_POST['wpvgw_private_marker'] : '';
+
+			$isAutoMarker = isset( $_POST['wpvgw_auto_marker'] );
+			$publicMarker = isset( $_POST['wpvgw_public_marker'] ) ? trim( $_POST['wpvgw_public_marker'] ) : '';
+			$privateMarker = isset( $_POST['wpvgw_private_marker'] ) ? trim( $_POST['wpvgw_private_marker'] ) : '';
+
+			// remember auto marker checkbox status
+			$this->options->set_post_view_auto_marker( $isAutoMarker );
 
 
 			// the do-while makes the code easier to read ^^
 			do {
-				// validation
-				if ( !$this->markersManager->public_marker_validator( $publicMarker ) && $publicMarker !== '' ) {
-					$this->add_admin_message( 'public-marker-invalid-format', __( 'Die öffentliche Zählmarke hat ein ungültiges Format.', WPVGW_TEXT_DOMAIN ) );
-					break;
-				}
-				if ( $publicMarker === '' )
-					$publicMarker = null;
-
-				if ( !$this->markersManager->private_marker_validator( $privateMarker ) && $privateMarker !== '' ) {
-					$this->add_admin_message( 'private-marker-invalid-format', __( 'Die private Zählmarke hat ein ungültiges Format.', WPVGW_TEXT_DOMAIN ) );
-					break;
-				}
-				if ( $privateMarker === '' )
-					$privateMarker = null;
-
-
 				// get post author/user
 				$postUserId = (int)$post->post_author;
 
 				// try to find next free marker automatically
-				if ( $publicMarker === null && $privateMarker === null ) {
+				if ( $isAutoMarker ) {
 					// get free marker for the author
 					$marker = $this->markersManager->get_free_marker_from_db( $postUserId );
 
@@ -420,7 +426,17 @@ class WPVGW_PostView extends WPVGW_ViewBase {
 
 					if ( $marker === false )
 						// no free marker found
-						$this->add_admin_message( '-no-free-marker', __( 'Eine Zählmarke konnte nicht automatisch zugeordnet werden, da für den Beitrags-Autor keine mehr verfügbar sind. Bitte fügen Sie zunächst neue Zählmarken für den Beitrags-Autor hinzu.', WPVGW_TEXT_DOMAIN ) );
+						$this->add_admin_message( '-no-free-marker',
+							sprintf(
+								__( 'Eine Zählmarke konnte nicht automatisch zugeordnet werden, da für den Beitrags-Autor keine mehr verfügbar sind. Bitte importieren Sie zunächst neue Zählmarken für den Beitrags-Autor. %s',
+									WPVGW_TEXT_DOMAIN
+								),
+								sprintf( '<a href="%s">%s</a>',
+									esc_attr( WPVGW_AdminViewsManger::create_admin_view_url( WPVGW_ImportAdminView::get_slug_static() ) ),
+									__( 'Zählmarken hier importieren.', WPVGW_TEXT_DOMAIN )
+								)
+							)
+						);
 					else {
 						$this->create_error_from_update_result(
 						// add post to the found marker
@@ -441,6 +457,28 @@ class WPVGW_PostView extends WPVGW_ViewBase {
 				}
 				// try to find the marker that was specified by user
 				else {
+					// validation
+					if ( !$this->markersManager->public_marker_validator( $publicMarker ) && $publicMarker !== '' ) {
+						$this->add_admin_message( 'public-marker-invalid-format', __( 'Die öffentliche Zählmarke hat ein ungültiges Format. Bitte nehmen Sie eine Korrektur vor.', WPVGW_TEXT_DOMAIN ) );
+						break;
+					}
+					if ( $publicMarker === '' )
+						$publicMarker = null;
+
+					if ( !$this->markersManager->private_marker_validator( $privateMarker ) && $privateMarker !== '' ) {
+						$this->add_admin_message( 'private-marker-invalid-format', __( 'Die private Zählmarke hat ein ungültiges Format. Bitte nehmen Sie eine Korrektur vor.', WPVGW_TEXT_DOMAIN ) );
+						break;
+					}
+					if ( $privateMarker === '' )
+						$privateMarker = null;
+
+
+					if ( $publicMarker === null && $privateMarker === null ) {
+						$this->add_admin_message( 'public-and-private-marker-empty', __( 'Öffentliche und private Zählmarke dürfen nicht gleichzeitig leer sein, da sonst keine Zählmarke zugeordnet werden kann.', WPVGW_TEXT_DOMAIN ) );
+						break;
+					}
+
+
 					// create update marker
 					$marker = array(
 						'post_id'            => $post->ID,

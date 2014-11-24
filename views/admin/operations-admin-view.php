@@ -209,25 +209,11 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 
 		// add stats admin message
 		$this->add_admin_message(
-		// number of posts
-			_n(
-				'Es wurde ein Beitrag für die Neuberechnung der Zeichenanzahl ausgewählt.',
-				sprintf( 'Es wurden %s Beiträge für die Neuberechnung der Zeichenanzahlen ausgewählt.', number_format_i18n( $postsExtrasFillStats->numberOfPosts ) ),
-				$postsExtrasFillStats->numberOfPosts,
-				WPVGW_TEXT_DOMAIN
-			) . ' ' .
-			// number of filled posts
+		// number of filled posts
 			_n(
 				'Für einen Beitrag wurde die Zeichenanzahl neuberechnet.',
-				sprintf( 'Für %s Beiträge wurde die Zeichenanzahlen neuberechnet.', number_format_i18n( $postsExtrasFillStats->numberOfPostExtrasUpdates ) ),
+				sprintf( 'Für %s Beiträge wurden die Zeichenanzahlen neuberechnet.', number_format_i18n( $postsExtrasFillStats->numberOfPostExtrasUpdates ) ),
 				$postsExtrasFillStats->numberOfPostExtrasUpdates,
-				WPVGW_TEXT_DOMAIN
-			) . ' ' .
-			// number of ignored posts
-			_n(
-				'Für einen Beitrag wurde die Zeichenanzahl nicht neuberechnet, da er nicht den ausgewählten Beitrags-Typen entspricht.',
-				sprintf( 'Für %s Beiträge wurde die Zeichenanzahl nicht neuberechnet, da sie nicht den ausgewählten Beitrags-Typen entsprechen.', number_format_i18n( $postsExtrasFillStats->numberOfIgnoredPosts ) ),
-				$postsExtrasFillStats->numberOfIgnoredPosts,
 				WPVGW_TEXT_DOMAIN
 			),
 			WPVGW_ErrorType::Update

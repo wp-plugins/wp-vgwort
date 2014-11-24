@@ -116,35 +116,14 @@ class WPVGW {
 		/** @var wpdb $wpdb */
 		//global $wpdb;
 
-		// set slugs and names
-		$this->markersTableName = $this->create_markers_table_name();
-		$this->postsExtrasTableName = $this->create_posts_extras_table_name();
-
 		// load translations
 		load_plugin_textdomain( WPVGW_TEXT_DOMAIN, false, WPVGW_PLUGIN_PATH_RELATIVE . '/languages' );
 
-		// get options and merge with default options
-		$this->options = WPVGW_Options::get_instance();
-		$this->options->init( $this->optionsName );
-
-		// create markers manager
-		$this->markersManager = new WPVGW_MarkersManager(
-			$this->markersTableName,
-			$this->options->get_allowed_user_roles(),
-			$this->options->get_allowed_post_types()
-		);
-
-		// create post extras
-		$this->postsExtras = new WPVGW_PostsExtras( $this->postsExtrasTableName, $this->markersManager );
-
+		// hook triggered when WordPress and all plugins as loaded
+		add_action( 'wp_loaded', array( $this, 'on_wordpress_loaded' ) );
 
 		// administration interface?
 		if ( is_admin() ) {
-			// create views for the administration interface
-			$this->adminViewsManager = new WPVGW_AdminViewsManger( $this->markersManager, $this->postsExtras, $this->options );
-			$this->postView = new WPVGW_PostView( $this->markersManager, $this->options );
-			$this->postTableView = new WPVGW_PostTableView( $this->markersManager, $this->postsExtras, $this->options );
-
 			// hook triggered before any other hook when a user accesses the administration interface
 			add_action( 'admin_init', array( $this, 'on_admin_init' ) );
 			// hook for admin messages
@@ -260,6 +239,41 @@ class WPVGW {
 
 		return in_array( $roles, $this->options->get_allowed_user_roles() );
 	}*/
+
+
+	/**
+	 * Called by WordPress if WordPress and all plugins as loaded.
+	 * Warning: This function is called by a WordPress hook. Do not call it directly.
+	 */
+	public function on_wordpress_loaded() {
+		// set slugs and names
+		$this->markersTableName = $this->create_markers_table_name();
+		$this->postsExtrasTableName = $this->create_posts_extras_table_name();
+
+		// get options and merge with default options
+		$this->options = WPVGW_Options::get_instance();
+		$this->options->init( $this->optionsName );
+
+		// create markers manager
+		$this->markersManager = new WPVGW_MarkersManager(
+			$this->markersTableName,
+			$this->options->get_allowed_user_roles(),
+			$this->options->get_allowed_post_types()
+		);
+
+		// create post extras
+		$this->postsExtras = new WPVGW_PostsExtras( $this->postsExtrasTableName, $this->markersManager );
+
+
+		// administration interface?
+		if ( is_admin() ) {
+			// create views for the administration interface
+			$this->adminViewsManager = new WPVGW_AdminViewsManger( $this->markersManager, $this->postsExtras, $this->options );
+			$this->postView = new WPVGW_PostView( $this->markersManager, $this->options );
+			$this->postTableView = new WPVGW_PostTableView( $this->markersManager, $this->postsExtras, $this->options );
+		}
+	}
+
 
 	/**
 	 * Called by WordPress if the plugin will be deinitialized
@@ -560,7 +574,7 @@ class WPVGW {
 		$this->render_operations_old_plugin_import_necessary_notice();
 		$this->render_data_privacy_warning_notice();
 	}
-	
+
 	/**
 	 * Renders an admin message if data privacy warning is not hidden.
 	 */

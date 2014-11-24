@@ -334,12 +334,15 @@ class WPVGW_PostTableView extends WPVGW_ViewBase {
 		}
 		else {
 			// get data that was retrieved by manipulated SQL
-			$characterCount = $post->{$this->characterCountColumnName};
+			/** @var int|NULL $characterCount */
+			$characterCount = $post->{$this->characterCountColumnName} === null ? null : intval( $post->{$this->characterCountColumnName} );
 			$hasMarker = $post->{$this->postIdColumnName} !== null;
 			$isMakerDisabled = $post->{$this->isMarkerDisabledColumnName} == '1';
 
 			// echo character count and too less or enough characters indicator
-			if ( $this->markersManager->is_character_count_sufficient( $characterCount, $this->options->get_vg_wort_minimum_character_count() ) )
+			if ( $characterCount === null )
+				echo( __( 'nicht berechnet', WPVGW_TEXT_DOMAIN ) );
+			elseif ( $this->markersManager->is_character_count_sufficient( $characterCount, $this->options->get_vg_wort_minimum_character_count() ) )
 				echo( sprintf( __( 'genügend, %s', WPVGW_TEXT_DOMAIN ), number_format_i18n( $characterCount ) ) );
 			else
 				echo( sprintf( __( 'zu wenig, %s', WPVGW_TEXT_DOMAIN ), number_format_i18n( $characterCount ) ) );
@@ -350,7 +353,7 @@ class WPVGW_PostTableView extends WPVGW_ViewBase {
 			// echo post has marker assigned or not
 			if ( $hasMarker )
 				_e( 'Zählmarke zugeordnet', WPVGW_TEXT_DOMAIN );
-			elseif ( $this->markersManager->is_character_count_sufficient( $characterCount, $this->options->get_vg_wort_minimum_character_count() ) )
+			elseif ( $characterCount !== null && $this->markersManager->is_character_count_sufficient( $characterCount, $this->options->get_vg_wort_minimum_character_count() ) )
 				echo( sprintf( '<em>%s</em>', __( 'Zählmarke möglich', WPVGW_TEXT_DOMAIN ) ) );
 
 			// echo marker is disabled?

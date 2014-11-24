@@ -172,7 +172,7 @@ class WPVGW_PostsExtras {
 		$postQuery = new WPVGW_Uncached_WP_Query(
 			array(
 				'post_status' => $this->markersManager->get_allowed_post_statuses(),
-				'post_type'   => $this->markersManager->get_possible_post_types(),
+				'post_type'   => $this->markersManager->get_allowed_post_types(),
 			)
 		);
 
@@ -180,29 +180,18 @@ class WPVGW_PostsExtras {
 		while ( $postQuery->has_post() ) {
 			$post = $postQuery->get_post();
 
-			$postsExtrasFillStats->numberOfPosts++;
+			// count post characters
+			$characterCount = $this->markersManager->calculate_character_count( $post->post_title, $post->post_content );
 
-			// is allowed post type?
-			if ( $this->markersManager->is_post_type_allowed( $post->post_type ) ) {
-				// count post characters
-				$characterCount = $this->markersManager->calculate_character_count( $post->post_title, $post->post_content );
+			// insert or update post extras
+			$this->insert_update_post_extras_in_db(
+				array(
+					'post_id'         => $post->ID,
+					'character_count' => $characterCount,
+				)
+			);
 
-				// insert or update post extras
-				$this->insert_update_post_extras_in_db(
-					array(
-						'post_id'         => $post->ID,
-						'character_count' => $characterCount,
-					)
-				);
-
-				$postsExtrasFillStats->numberOfPostExtrasUpdates++;
-			}
-			else {
-				// delete post extra because it’s type is not allowed
-				$this->delete_post_extra( $post->ID );
-
-				$postsExtrasFillStats->numberOfIgnoredPosts++;
-			}
+			$postsExtrasFillStats->numberOfPostExtrasUpdates++;
 		}
 
 		return $postsExtrasFillStats;
@@ -215,15 +204,7 @@ class WPVGW_PostsExtras {
  */
 class WPVGW_RecalculatePostCharacterCountStats {
 	/**
-	 * @var int The number of found posts.
-	 */
-	public $numberOfPosts = 0;
-	/**
 	 * @var int The number of post for which the post extras were updated.
 	 */
 	public $numberOfPostExtrasUpdates = 0;
-	/**
-	 * @var int The number of ignored posts, i. e., posts that have a wrong post types.
-	 */
-	public $numberOfIgnoredPosts = 0;
 }

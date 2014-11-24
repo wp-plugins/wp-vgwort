@@ -3,8 +3,8 @@ Contributors: raubvogel, smoo1337
 Donate link: http://prosodia.de/
 Tags: VG WORT, Zählmarke, T.O.M., Zählpixel, Geld, VGW, Verwertungsgesellschaft WORT, Prosodia, Verlag
 Requires at least: 3.8
-Tested up to: 4.0
-Stable tag: 3.1.1
+Tested up to: 4.0.1
+Stable tag: 3.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,10 +28,10 @@ Die Hauptaufgabe von Prosodia VGW OS ist, Zählmarken und deren Zuordnungen zu B
 * importieren von Zählmarken aus CSV-Dateien, die von der VG WORT bereitgestellt werden
 * importieren von Zählmarken aus CSV-Text oder manueller Eingabe
 * importieren von Zählmarken und Beitrags-Zuordnungen aus dem Plugin „VG Wort“ von Torben Leuschner
-* importieren von manuell zugeordneten Zählmarken aus Beiträgen – „&lt;img&gt;“-Tag wird erkannt und optional gelöscht
+* importieren von manuell zugeordneten Zählmarken aus Beiträgen – `<img>`-Tag wird erkannt und optional gelöscht
 * nachträglicher Import von fehlenden privaten Zählmarken, falls die entsprechend öffentlichen bereits vorhanden sind
 * exportieren von Zählmarken, Beitrags-Zuordnungen und weiterer Daten als CSV-Datei mit Filter- und Sortierfunktionen
-* Zählmarken („&lt;img&gt;“-Tags) werden in den Beiträgen auf Ihrer Website ausgegeben
+* Zählmarken (`<img>`-Tags) werden in den Beiträgen auf Ihrer Website ausgegeben
 * Format der Zählmarkenausgabe kann frei angegeben werden (Platzhalter für Server und öffentliche Zählmarke)
 * Datenintegrität der Zählmarken und Beitrags-Zuordnungen wird stets gewährleistet
 * Zählmarken und Beitrags-Zuordnungen werden in einer eigenen Datenbanktabelle gespeichert – hohe Leistung
@@ -96,13 +96,25 @@ Automatische Installation über den Plugin-Bereich im Administrationsbereich von
 
 == Frequently Asked Questions ==
 
-= Häufig gestellt Fragen =
+= Häufige Probleme und wissenswertes =
 
 = Aktualisierung auf Version 3.0.0 oder höher =
 
 Da das Plugin ab Version 3.0.0 vollständig neu entwickelt wurde, ist es nicht mehr direkt mit den vorherigen Versionen kompatibel. Allerdings werden sämtliche Daten und Einstellungen aus den Vorgängerversionen nach der Aktualisierung übernommen – insbesondere die Zählmarken und deren Zuordnungen zu Beiträgen. Dies funktioniert nicht vollautomatisch, sondern erst nach einigen, wenigen Mausklicks. So werden nach der Aktualisierung im Administrationsbereich einige Warnungen angezeigt. Diese Warnungen enthalten Anweisungen und Links, wie die dargelegten Sachverhalte zu lösen sind – keine Sorge, dies ist mit wenigen Mausklicks erledigt. Und selbst wenn dabei etwas schief gehen sollte – wovon wir nicht ausgehen –, werden die alten Daten und Einstellungen nicht gelöscht. Das Einsetzen einer Version vor 3.0.0 ist stets möglich: [alte Versionen](/plugins/wp-vgwort/developers/).
 
 Sollte das Plugin die ältere Version nicht erkennen, so führen Sie bitte manuell „Prosodia VGW OS“ → „Operationen“ → „Zählmarken aus altem VG-WORT-Plugin vor Version 3.0.0 importieren“ (Haken setzen) → „Alte Zählmarken und Beitrags-Zuordnungen importieren“ (Schaltfläche) aus.
+
+= „Parse error“ nach Update auf Version 3.0.0 oder höher =
+
+Es erscheint der Fehler `Parse error: syntax error, unexpected T_FUNCTION, expecting ')' in …` nach dem Update des Plugins auf Version 3.0.0 oder höher. Dieser tritt in der Regel auf, wenn eine PHP-Version kleiner als 5.3 eingesetzt wird. Das Plugin setzt allerdings mindestens Version 5.3 voraus. Um das Problem zu beheben, sollten Sie sich an Ihren Systemadministrator wenden (siehe auch [PHP auf der englischen Wikipedia](http://en.wikipedia.org/wiki/PHP#Release_history)).
+
+= Es werden keine Zählmarken aus CSV-Dateien importiert =
+
+Die Spalten der [CSV-Dateien](http://de.wikipedia.org/wiki/CSV_%28Dateiformat%29), die von der VG WORT heruntergeladen werden können, sind mit Semikolon (;) getrennt. Werden CSV-Dateien mit [LibreOffice Calc](https://de.libreoffice.org/) oder Microsoft Excel geöffnet und wieder abgespeichert, kann es ja nach Einstellung vorkommen, dass das Semikolon durch einen Tabulator, Komma oder anderes Zeichen ersetzt wird. In diesem Fall kann das Plugin die Zählmarken in der CSV-Datei nicht mehr erkennen. Bitte verwenden Sie ausschließlich unveränderte CSV-Dateien für den Import.
+
+= Zählmarken lassen sich nicht beim Bearbeiten eines Beitrags einfügen =
+
+Im Gegensatz zu alten Plugin-Versionen sind die Felder im Bereich „Zählmarke für VG WORT“ beim Bearbeiten eines Beitrags nicht dazu da, um Zählmarken in das System einzufügen / zu importieren, sondern dienen lediglich der Zuordnung. Hier dürfen nur bereits importierte Zählmarken angeben werden. Normalerweise findet die Zuordnung durch Setzen des Häkchens „Zählmarke automatisch zuordnen“ (Standardeinstellung) automatisch statt. Am besten, Sie verfahren so: Importieren Sie zunächst Zählmarken der VG WORT als CSV-Datei unter „Import“. Dann sind neue Zählmarken im System. Als nächstes gehen Sie zum Beitrag und weisen diesem automatisch eine neue Zählmarke zu. Eine manuelle Zuordnung ist ebenfalls möglich: Dazu können Sie die bereits importierte, öffentliche Zählmarke angeben (die private findet das Plugin automatisch). Öffentliche Zählmarken sind Codes wie „00a0f12e1113423cc56ff5“ und keine `<img>`-HTML-Tags wie `<img src="http://vg04.met.vgwort.de/na/00a0f12e1113423cc56ff5" width="1" height="1" alt="">`. Zusammenfassend: unbenutzte Zählmarken von der VG WORT importieren, dann automatisch zu Beiträgen zuordnen lassen.
 
 == Screenshots ==
 
@@ -119,6 +131,13 @@ Sollte das Plugin die ältere Version nicht erkennen, so führen Sie bitte manue
 == Changelog ==
 
 = Änderungen =
+
+= 3.2.0 =
+* Es sollte nun leichter verständlich sein, dass Zählmarken beim Bearbeiten eines Beitrags nur zugeordnet werden und nicht eingeben/importiert werden können (Benutzeroberfläche verbessert).
+* Leistungsverbesserung bei der Auswahl der Beitrags-Typen und der Neuberechnung der Zeichenanzahlen aller Beiträge.
+* In der Beitrags-Übersicht „Alle Beiträge“ wird jetzt „nicht berechnet“ angezeigt anstatt „0“, wenn die Zeichenanzahl noch nicht berechnet wurde.
+* Fehler behoben, der das Anzeigen aller Beitrags-Typen unter „Operationen“ verhinderte.
+* Nachricht im Administrationsbereich hinzugefügt, falls die zu importierende CSV-Datei (oder CSV-Text) ein ungültiges Format hat.
 
 = 3.1.1 =
 * Fehler bezüglich leerer Meta-Name-Option aus Plugin-Version < 3.0.0 behoben. Import aus alter Plugin-Version sollte nun in diesem Fall wieder möglich sein.
@@ -213,6 +232,9 @@ Sollte das Plugin die ältere Version nicht erkennen, so führen Sie bitte manue
 * Initial-Release.
 
 == Upgrade Notice ==
+
+= 3.2.0 =
+Benutzeroberfläche verbessert. Leistungsverbesserung für Berechnung der Zeichenanzahlen aller Beiträge. Einen Fehler behoben.
 
 = 3.1.1 =
 Fehler bezüglich leerer Meta-Name-Option aus Plugin-Version < 3.0.0 behoben. Import aus alter Plugin-Version wieder möglich.
