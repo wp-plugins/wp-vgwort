@@ -234,7 +234,7 @@ Im Gegensatz zu alten Plugin-Versionen sind die Felder im Bereich „Zählmarke 
 == Upgrade Notice ==
 
 = 3.2.0 =
-Benutzeroberfläche verbessert. Leistungsverbesserung für Berechnung der Zeichenanzahlen aller Beiträge. Einen Fehler behoben.
+Benutzeroberfläche verbessert, Leistungsverbesserung für Berechnung der Zeichenanzahlen aller Beiträge, einen Fehler behoben.
 
 = 3.1.1 =
 Fehler bezüglich leerer Meta-Name-Option aus Plugin-Version < 3.0.0 behoben. Import aus alter Plugin-Version wieder möglich.
