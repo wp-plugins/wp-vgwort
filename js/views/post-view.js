@@ -105,14 +105,16 @@ var wpvgw_post_view;
 
 			var source = '';
 			var postTitle = $('#title').val();
-			var postContent;
+			var postContent = '';
 
-			// get post content from tiny mce or from HTML textarea
+			// get post content from tiny mce
 			if (tinyMCE && tinyMCE.activeEditor && !tinyMCE.activeEditor.isHidden()) {
 				postContent = tinyMCE.activeEditor.getContent();
 				source = 'tinymce';
 			}
-			else {
+
+			// if no post content was found take from HTML textarea
+			if (postContent == '') {
 				postContent = $('#content').val();
 				source = 'textarea';
 			}
