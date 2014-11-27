@@ -37,6 +37,11 @@ class WPVGW_MarkersManager {
 	 */
 	private $allowedPostTypes = null;
 
+	/**
+	 * @var bool Whether shortcodes will be parsed if character count is calculated.
+	 */
+	private $doShortcodesForCharacterCountCalculation = false;
+
 
 	/**
 	 * Gets the database name of the marker table.
@@ -100,8 +105,9 @@ class WPVGW_MarkersManager {
 	 * @param string $markers_table_name The database name of the marker table.
 	 * @param string[] $allowed_user_roles The allowed WordPress user roles.
 	 * @param string[] $allowed_post_types An array of post types. Only post of these types can have markers. Unknown post types will be removed.
+	 * @param bool $do_shortcodes_for_character_count_calculation Whether shortcodes will be parsed if character count is calculated.
 	 */
-	public function __construct( $markers_table_name, $allowed_user_roles, $allowed_post_types ) {
+	public function __construct( $markers_table_name, $allowed_user_roles, $allowed_post_types, $do_shortcodes_for_character_count_calculation ) {
 		$this->markersTableName = $markers_table_name;
 		$this->allowedUserRoles = $allowed_user_roles;
 
@@ -113,6 +119,7 @@ class WPVGW_MarkersManager {
 
 
 		$this->set_allowed_post_types( $allowed_post_types );
+		$this->doShortcodesForCharacterCountCalculation = $do_shortcodes_for_character_count_calculation;
 	}
 
 
@@ -147,7 +154,7 @@ class WPVGW_MarkersManager {
 	 * @return bool True if $user_id is one of the allowed user IDs or null, otherwise false.
 	 */
 	public function is_user_allowed( $user_id ) {
-		if( $user_id === null )
+		if ( $user_id === null )
 			return true;
 
 		$user = get_userdata( $user_id );
@@ -186,27 +193,30 @@ class WPVGW_MarkersManager {
 	 * @return int The number of characters of the post content.
 	 */
 	public function calculate_character_count( $post_title, $post_content ) {
+		// remove caption shortcodes and its content
+		$post_content = preg_replace( WPVGW_Helper::$captionShortcodeRegex, '', $post_content );
+
+		// do shortcodes and other filters on post content
+		//$post_content = apply_filters( 'the_content', $post_content ); // this filter runs far too long
+		if ( $this->doShortcodesForCharacterCountCalculation )
+			$post_content = do_shortcode( $post_content );
+
 		// replace <br> tags by new lines (\n)
 		$post_content = preg_replace(
 			'%<br\s*/?>%si',
-			"\n",
+			' ',
 			$post_content
 		);
 
 		// remove all HTML tags, but not the content between the tags;
 		$post_content = strip_tags( $post_content );
 
-		// remove whitespaces from the beginning and end
-		$post_content = trim( $post_content );
-
 		// remove shortcodes and whitespaces sequences
 		$post_content = preg_replace( array(
-				WPVGW_Helper::$captionShortcodeRegex, // remove caption shortcodes and its content
 				WPVGW_Helper::$shortcodeRegex, // remove shortcodes, but not content between shortcodes; it is escaping aware
 				'/\s{2,}/i' // remove sequences of 2 or more whitespaces
 			),
 			array(
-				'',
 				'',
 				' '
 			),
@@ -215,6 +225,10 @@ class WPVGW_MarkersManager {
 
 		// convert html entities (e. g. &amp; to &)
 		$post_content = html_entity_decode( $post_content );
+
+		// remove whitespaces from the beginning and end
+		$post_content = trim( $post_content );
+
 
 		// return the number of characters of the cleaned post content
 		return ( mb_strlen( $post_title ) + mb_strlen( $post_content ) );

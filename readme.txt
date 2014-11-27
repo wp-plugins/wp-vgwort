@@ -4,7 +4,7 @@ Donate link: http://prosodia.de/
 Tags: VG WORT, Zählmarke, T.O.M., Zählpixel, Geld, VGW, Verwertungsgesellschaft WORT, Prosodia, Verlag
 Requires at least: 3.8
 Tested up to: 4.0.1
-Stable tag: 3.2.0
+Stable tag: 3.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -132,6 +132,11 @@ Im Gegensatz zu alten Plugin-Versionen sind die Felder im Bereich „Zählmarke 
 
 = Änderungen =
 
+= 3.3.0 =
+* Möglichkeit hinzugefügt, Shortcodes bei Berechnung der Zeichenanzahl mit auswerten zu lassen („Prosodia VGW OS“ → „Einstellungen“ → „Zeichenanzahl“).
+* Möglichkeit hinzugefügt, die maximale Ausführungszeit für Operationen zu ändern, falls Operationen abbrechen („Prosodia VGW OS“ → „Einstellungen“ → „Verschiedenes“).
+* Workaround für die Berechnung der Zeichenanzahl bei der Beitrags-Bearbeitung (manche Plugins manipulieren den visuellen Editor).
+
 = 3.2.0 =
 * Es sollte nun leichter verständlich sein, dass Zählmarken beim Bearbeiten eines Beitrags nur zugeordnet werden und nicht eingeben/importiert werden können (Benutzeroberfläche verbessert).
 * Leistungsverbesserung bei der Auswahl der Beitrags-Typen und der Neuberechnung der Zeichenanzahlen aller Beiträge.
@@ -233,8 +238,11 @@ Im Gegensatz zu alten Plugin-Versionen sind die Felder im Bereich „Zählmarke 
 
 == Upgrade Notice ==
 
+= 3.3.0 =
+Shortcodes können bei Zeichenanzahl-Berechnung ausgewertet werden. Maximale Ausführungszeit für Operationen änderbar. Workaround für Zeichenanzahl-Berechnung in der Beitrags-Bearbeitung.
+
 = 3.2.0 =
-Benutzeroberfläche verbessert, Leistungsverbesserung für Berechnung der Zeichenanzahlen aller Beiträge, einen Fehler behoben.
+Benutzeroberfläche verbessert. Leistungsverbesserung für Berechnung der Zeichenanzahlen aller Beiträge. Einen Fehler behoben.
 
 = 3.1.1 =
 Fehler bezüglich leerer Meta-Name-Option aus Plugin-Version < 3.0.0 behoben. Import aus alter Plugin-Version wieder möglich.

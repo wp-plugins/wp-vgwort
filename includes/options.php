@@ -72,7 +72,15 @@ class WPVGW_Options {
 	/**
 	 * @var string
 	 */
+	private static $operationMaxExecutionTime = 'operations_max_execution_time';
+	/**
+	 * @var string
+	 */
 	private static $operationOldPluginImportNecessary = 'operation_old_plugin_import_necessary';
+	/**
+	 * @var string
+	 */
+	private static $doShortcodesForCharacterCountCalculation = 'do_shortcodes_for_character_count_calculation';
 	/**
 	 * @var string
 	 */
@@ -162,6 +170,8 @@ class WPVGW_Options {
 			self::$showOtherActiveVgWortPluginsWarning                => true,
 			self::$operationPostCharacterCountRecalculationsNecessary => false,
 			self::$operationOldPluginImportNecessary                  => false,
+			self::$operationMaxExecutionTime                          => 300, // 5 minutes
+			self::$doShortcodesForCharacterCountCalculation           => false,
 			self::$postViewAutoMarker                                 => true,
 		);
 
@@ -717,6 +727,78 @@ class WPVGW_Options {
 	 */
 	public function default_operation_old_plugin_import_necessary() {
 		return $this->defaultOptions[self::$operationOldPluginImportNecessary];
+	}
+
+
+	/**
+	 * Sets the maximum number of seconds operations can be executed.
+	 *
+	 * @param int $value The maximum number of seconds operations can be executed, i. e., a positive integer.
+	 *
+	 * @throws Exception Thrown if $value is invalid.
+	 */
+	public function set_operation_max_execution_time( $value ) {
+		if ( !is_int( $value ) && $value < 1 )
+			throw new Exception( 'Value is not a positive integer.' );
+
+		if ( $this->options[self::$operationMaxExecutionTime] !== $value ) {
+			$this->options[self::$operationMaxExecutionTime] = $value;
+			$this->optionsChanged = true;
+		}
+	}
+
+	/**
+	 * Gets the maximum number of seconds operations can be executed.
+	 *
+	 * @return int The maximum number of seconds operations can be executed, i. e., a positive integer.
+	 */
+	public function get_operation_max_execution_time() {
+		return $this->options[self::$operationMaxExecutionTime];
+	}
+
+	/**
+	 * Gets the maximum number of seconds operations can be executed.
+	 *
+	 * @return int The maximum number of seconds operations can be executed, i. e., a positive integer.
+	 */
+	public function default_operation_max_execution_time() {
+		return $this->defaultOptions[self::$operationMaxExecutionTime];
+	}
+
+
+	/**
+	 * Sets whether shortcodes will be parsed if character count is calculated.
+	 *
+	 * @param bool $value If true, shortcodes will be parsed if character count is calculated, otherwise not.
+	 *
+	 * @throws Exception Thrown if $value is invalid.
+	 */
+	public function set_do_shortcodes_for_character_count_calculation( $value ) {
+		if ( !is_bool( $value ) )
+			throw new Exception( 'Value is not a bool.' );
+
+		if ( $this->options[self::$doShortcodesForCharacterCountCalculation] !== $value ) {
+			$this->options[self::$doShortcodesForCharacterCountCalculation] = $value;
+			$this->optionsChanged = true;
+		}
+	}
+
+	/**
+	 * Gets whether shortcodes will be parsed if character count is calculated.
+	 *
+	 * @return bool If true, shortcodes will be parsed if character count is calculated, otherwise not.
+	 */
+	public function get_do_shortcodes_for_character_count_calculation() {
+		return $this->options[self::$doShortcodesForCharacterCountCalculation];
+	}
+
+	/**
+	 * Gets the default whether shortcodes will be parsed if character count is calculated.
+	 *
+	 * @return bool If true, shortcodes will be parsed if character count is calculated, otherwise not.
+	 */
+	public function default_do_shortcodes_for_character_count_calculation() {
+		return $this->defaultOptions[self::$doShortcodesForCharacterCountCalculation];
 	}
 
 

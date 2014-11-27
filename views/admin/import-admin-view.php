@@ -183,10 +183,11 @@ class WPVGW_ImportAdminView extends WPVGW_AdminViewBase {
 					$this->add_admin_message( sprintf( __( 'Fehler beim Importieren der CSV-Datei: %s', WPVGW_TEXT_DOMAIN ), $e->getMessage() ) );
 				}
 
-				if ( $importStats !== null )
+				if ( $importStats !== null ) {
 					$this->add_admin_message( __( 'Zählmarken aus CSV-Datei: ', WPVGW_TEXT_DOMAIN ) . $this->create_import_markers_stats_message( $importStats ), WPVGW_ErrorType::Update );
+					$this->add_no_csv_markers_found_admin_message( $importStats );
+				}
 
-				$this->add_no_csv_markers_found_admin_message( $importStats );
 
 				// delete uploaded file
 				if ( !unlink( $filePath ) )
@@ -205,10 +206,10 @@ class WPVGW_ImportAdminView extends WPVGW_AdminViewBase {
 				$this->add_admin_message( sprintf( __( 'Fehler beim Importieren des CSV-Texts: %s', WPVGW_TEXT_DOMAIN ), $e->getMessage() ) );
 			}
 
-			if ( $importStats !== null )
+			if ( $importStats !== null ) {
 				$this->add_admin_message( __( 'Zählmarken aus CSV-Text: ', WPVGW_TEXT_DOMAIN ) . $this->create_import_markers_stats_message( $importStats ), WPVGW_ErrorType::Update );
-
-			$this->add_no_csv_markers_found_admin_message( $importStats );
+				$this->add_no_csv_markers_found_admin_message( $importStats );
+			}
 		}
 
 

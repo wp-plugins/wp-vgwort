@@ -252,6 +252,11 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 			return;
 
 
+		// TODO: Seems to be a hack.
+		// set maximum number of seconds operations can be executed to avoid aborts
+		set_time_limit( $this->options->get_operation_max_execution_time() );
+
+
 		// allowed post types
 		if ( isset( $_POST['wpvgw_operation_allowed_post_types'] ) ) {
 			// allowed post types

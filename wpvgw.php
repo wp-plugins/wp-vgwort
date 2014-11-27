@@ -258,7 +258,8 @@ class WPVGW {
 		$this->markersManager = new WPVGW_MarkersManager(
 			$this->markersTableName,
 			$this->options->get_allowed_user_roles(),
-			$this->options->get_allowed_post_types()
+			$this->options->get_allowed_post_types(),
+			$this->options->get_do_shortcodes_for_character_count_calculation()
 		);
 
 		// create post extras
@@ -604,7 +605,7 @@ class WPVGW {
 		if ( $this->options->get_operations_post_character_count_recalculations_necessary() )
 			WPVGW_Helper::render_admin_message(
 				sprintf(
-					__( 'Die Zeichenanzahl der Beiträge müssen nach Plugin-Aktivierung neuberechnet werden. %s',
+					__( 'Die Zeichenanzahlen der Beiträge müssen neuberechnet werden. %s',
 						WPVGW_TEXT_DOMAIN
 					),
 					sprintf( '<a href="%s">%s</a>',
