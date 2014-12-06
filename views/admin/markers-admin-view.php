@@ -158,6 +158,12 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 									<br/>
 									<span class="description"><?php _e( 'In der Regel sollten nur falsch importierte Zählmarken gelöscht werden.', WPVGW_TEXT_DOMAIN ) ?></span>
 								</p>
+								<p>
+									<input type="checkbox" name="wpvgw_e_recalculate_post_character_count" id="wpvgw_e_recalculate_post_character_count" value="1" class="checkbox"/>
+									<label for="wpvgw_e_recalculate_post_character_count"><?php _e( 'Zeichenanzahl neuberechnen', WPVGW_TEXT_DOMAIN ); ?></label>
+									<br/>
+									<span class="description"><?php _e( 'Zeichenanzahlen der Beiträge neuberechnen. Sinnvoll, wenn die Zeichenanzahlen falsch oder nicht vorhanden sind.', WPVGW_TEXT_DOMAIN ) ?></span>
+								</p>
 							</td>
 						</tr>
 						<tr>
@@ -425,6 +431,8 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 
 		$deleteMarker = false;
 
+		$recalculatePostCharacterCount = false;
+
 		$setServer = false;
 		$server = null;
 
@@ -434,6 +442,7 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 
 		// bulk actions
 		if ( $isBulkEdit ) {
+
 			if ( isset( $_REQUEST['wpvgw_e_marker_disabled_set'] ) ) {
 				$setMarkerDisabled = true;
 				$markerDisabled = isset( $_REQUEST['wpvgw_e_marker_disabled'] );
@@ -444,6 +453,9 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 
 			if ( isset( $_REQUEST['wpvgw_e_delete_marker'] ) )
 				$deleteMarker = true;
+
+			if ( isset( $_REQUEST['wpvgw_e_recalculate_post_character_count'] ) )
+				$recalculatePostCharacterCount = true;
 
 			if ( isset( $_REQUEST['wpvgw_e_server_set'] ) ) {
 				$setServer = true;
@@ -466,6 +478,9 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 				break;
 			case WPVGW . '_delete_marker':
 				$deleteMarker = true;
+				break;
+			case WPVGW . '_recalculate_post_character_count';
+				$recalculatePostCharacterCount = true;
 				break;
 			default:
 				break;
@@ -524,6 +539,7 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 			$numberOfMarkers = 0;
 			$numberOfRemovedPostsFromMarkers = 0;
 			$numberOfDeletedMarkers = 0;
+			$numberOfRecalculatedPostCharacterCount = 0;
 			$numberOfUpdatedMarkers = 0;
 			$numberOfUpToDateMarkers = 0;
 
@@ -542,6 +558,26 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 
 					// continue because deleted markers cannot be updated anymore
 					continue;
+				}
+
+				// recalculate post character count
+				if ( $recalculatePostCharacterCount ) {
+					// get current marker
+					$marker = $this->markersManager->get_marker_from_db( $markerId, 'id' );
+
+					// marker has post?
+					if ( $marker['post_id'] !== null ) {
+						// get post
+						$post = get_post( $marker['post_id'] );
+
+						// post found?
+						if ( $post !== false ) {
+							// recalculate post character count
+							$this->postsExtras->recalculate_post_character_count_in_db( $post );
+
+							$numberOfRecalculatedPostCharacterCount++;
+						}
+					}
 				}
 
 				// remove marker from post
@@ -622,6 +658,19 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 						)
 					);
 				}
+			}
+
+
+			if ( $recalculatePostCharacterCount ) {
+				if ( $numberOfRecalculatedPostCharacterCount > 0 )
+					$this->add_admin_message(
+						_n( 'Die Zeichenanzahl eines Beitrags wurde neuberechnet.',
+							sprintf( 'Die Zeichenanzahlen von %s Beiträgen wurden neuberechnet.', number_format_i18n( $numberOfRecalculatedPostCharacterCount ) ),
+							$numberOfRecalculatedPostCharacterCount,
+							WPVGW_TEXT_DOMAIN
+						),
+						WPVGW_ErrorType::Update
+					);
 			}
 
 

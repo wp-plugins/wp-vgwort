@@ -201,7 +201,7 @@ class WPVGW_MarkersManager {
 		if ( $this->doShortcodesForCharacterCountCalculation )
 			$post_content = do_shortcode( $post_content );
 
-		// replace <br> tags by new lines (\n)
+		// replace <br> tags by space
 		$post_content = preg_replace(
 			'%<br\s*/?>%si',
 			' ',
@@ -785,23 +785,54 @@ class WPVGW_MarkersManager {
 	}
 
 	/**
+	 * Imports a CSV file into the database.
+	 *
+	 * @param bool $is_author_csv If true, CSV data is formatted for authors, otherwise it is formatted for publishers.
+	 * @param string $markers_csv_file_path A VG WORT CSV file that contains markers.
+	 * @param string $default_server A default server. Used if no servers are found in the CSV file.
+	 * @param int|null $user_id An user (ID) for the marker.
+	 *
+	 * @return WPVGW_ImportMarkersStats Import stats.
+	 * @throws Exception Thrown if the csv file was not found. Thrown if a database error occurred.
+	 */
+	public function import_markers_from_csv_file( $is_author_csv, $markers_csv_file_path, $default_server, $user_id = null ) {
+		// throw exception if file does not exist
+		if ( !file_exists( $markers_csv_file_path ) )
+			throw new Exception( __( sprintf( 'Die Datei %s existiert nicht.', WPVGW_TEXT_DOMAIN ) ) );
+
+		// read whole file
+		$fileContents = file_get_contents( $markers_csv_file_path );
+
+		return $this->import_markers_from_csv( $is_author_csv, $fileContents, $default_server, $user_id );
+	}
+
+	/**
 	 * Imports a CSV string into the database.
 	 *
+	 * @param bool $is_author_csv If true, CSV data is formatted for authors, otherwise it is formatted for publishers.
 	 * @param string $markers_csv A VG WORT CSV string that contains markers.
 	 * @param string $default_server A default server. Used if no servers are found in the CSV string.
 	 * @param int|null $user_id An user (ID) for the marker.
 	 *
+	 * @throws Exception
 	 * @return WPVGW_ImportMarkersStats Import stats.
-	 * @throws Exception Thrown if a database error occurred.
 	 */
-	public function import_markers_from_csv( $markers_csv, $default_server, $user_id = null ) {
+	public function import_markers_from_csv( $is_author_csv, $markers_csv, $default_server, $user_id = null ) {
 		$importMarkersStats = new WPVGW_ImportMarkersStats();
 
-		// extract server, public marker and private marker from the file contents
-		WPVGW_Helper::validate_regex_result( preg_match_all( '%.*?;<img.*?"http://(?P<server>[a-z0-9./-]+?)/(?P<public_marker>[a-z0-9]+?)".*?(?:\r\n|\r|\n);.*?;(?P<private_marker>[a-z0-9]+?)(?:;|\Z)%i',
-				$markers_csv, $matches, PREG_SET_ORDER
-			)
-		);
+		if ( $is_author_csv )
+			// extract server, public marker and private marker from csv data for authors
+			WPVGW_Helper::validate_regex_result( preg_match_all( '%.*?;<img.*?"http://(?P<server>[a-z0-9./-]+?)/(?P<public_marker>[a-z0-9]+?)".*?(?:\r\n|\r|\n);.*?;(?P<private_marker>[a-z0-9]+?)(?:;|\Z)%i',
+					$markers_csv, $matches, PREG_SET_ORDER
+				)
+			);
+		else
+			// extract public marker and private marker from csv data for publishers
+			WPVGW_Helper::validate_regex_result( preg_match_all( '/^(?P<public_marker>[a-z0-9]+?);(?P<private_marker>[a-z0-9]+?)(?:\s|\Z)/im',
+					$markers_csv, $matches, PREG_SET_ORDER
+				)
+			);
+
 
 		// iterate found markers
 		foreach ( $matches as $match ) {
@@ -810,7 +841,7 @@ class WPVGW_MarkersManager {
 					$default_server,
 					$match['public_marker'],
 					$match['private_marker'],
-					$match['server'],
+					array_key_exists( 'server', $match ) ? $match['server'] : null, // server found/exists?
 					$user_id
 				)
 			);
@@ -818,27 +849,6 @@ class WPVGW_MarkersManager {
 
 		// return import stats
 		return $importMarkersStats;
-	}
-
-	/**
-	 * Imports a CSV file into the database.
-	 *
-	 * @param string $markers_csv_file_path A VG WORT CSV file that contains markers.
-	 * @param string $default_server A default server. Used if no servers are found in the CSV file.
-	 * @param int|null $user_id An user (ID) for the marker.
-	 *
-	 * @return WPVGW_ImportMarkersStats Import stats.
-	 * @throws Exception Thrown if the csv file was not found. Thrown if a database error occurred.
-	 */
-	public function import_markers_from_csv_file( $markers_csv_file_path, $default_server, $user_id = null ) {
-		// throw exception if file does not exist
-		if ( !file_exists( $markers_csv_file_path ) )
-			throw new Exception( __( sprintf( 'Die Datei %s existiert nicht.', WPVGW_TEXT_DOMAIN ) ) );
-
-		// read whole file
-		$fileContents = file_get_contents( $markers_csv_file_path );
-
-		return $this->import_markers_from_csv( $fileContents, $default_server, $user_id );
 	}
 
 	/**

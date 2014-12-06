@@ -60,6 +60,10 @@ class WPVGW_Options {
 	/**
 	 * @var string
 	 */
+	private static $importIsAuthorCsv = 'import_is_author_csv';
+	/**
+	 * @var string
+	 */
 	private static $privacyHideWarning = 'privacy_hide_warning';
 	/**
 	 * @var string
@@ -166,6 +170,7 @@ class WPVGW_Options {
 			self::$exportCsvDelimiter                                 => ';',
 			self::$exportCsvEnclosure                                 => '"',
 			self::$importFromPostRegex                                => '%<img.*?src\s*=\s*"http://vg[0-9]+\.met\.vgwort.de/na/[a-z0-9]+".*?>%si',
+			self::$importIsAuthorCsv                                  => true,
 			self::$privacyHideWarning                                 => false,
 			self::$showOtherActiveVgWortPluginsWarning                => true,
 			self::$operationPostCharacterCountRecalculationsNecessary => false,
@@ -583,6 +588,42 @@ class WPVGW_Options {
 	 */
 	public function default_import_from_post_regex() {
 		return $this->defaultOptions[self::$importFromPostRegex];
+	}
+
+
+	/**
+	 * Sets whether CSV data is formatted for authors (otherwise for publishers) for marker import.
+	 *
+	 * @param bool $value If true, CSV data is formatted for authors for marker import, otherwise for publishers.
+	 *
+	 * @throws Exception Thrown if $value is invalid.
+	 */
+	public function set_is_author_csv( $value ) {
+		if ( !is_bool( $value ) )
+			throw new Exception( 'Value is not a bool.' );
+
+		if ( $this->options[self::$importIsAuthorCsv] !== $value ) {
+			$this->options[self::$importIsAuthorCsv] = $value;
+			$this->optionsChanged = true;
+		}
+	}
+
+	/**
+	 * Gets whether CSV data is formatted for authors (otherwise for publishers) for marker import.
+	 *
+	 * @return bool If true, CSV data is formatted for authors for marker import, otherwise for publishers.
+	 */
+	public function get_is_author_csv() {
+		return $this->options[self::$importIsAuthorCsv];
+	}
+
+	/**
+	 * Gets the default whether CSV data is formatted for authors (otherwise for publishers) for marker import.
+	 *
+	 * @return bool If true, CSV data is formatted for authors for marker import, otherwise for publishers.
+	 */
+	public function default_is_author_csv() {
+		return $this->defaultOptions[self::$importIsAuthorCsv];
 	}
 
 

@@ -22,6 +22,10 @@ var wpvgw_post_table_view;
 				element.appendTo("select[name='action']");
 				element.clone().appendTo("select[name='action2']");
 			}
+
+			element = $('<option>').val('wpvgw_recalculate_post_character_count').text(wpvgw_translations.recalculate_post_character_count_title);
+			element.appendTo("select[name='action']");
+			element.clone().appendTo("select[name='action2']");
 		}
 	};
 

@@ -37,8 +37,13 @@ var wpvgw_post_view;
 			this.spinnerRefreshCharacterCount.show();
 			// disable refresh character count link
 			this.linkRefreshCharacterCount.addClass('wpvgw-disabled');
-			// start timer
-			this.printCharacterCount(true);
+			// start timer after 2 s
+			//this.printCharacterCount(true);
+			//this.printCharacterCountTimer();
+			// TODO: hack, 2 s delay to initialize tiny mce or textarea
+			setTimeout(function () {
+				wpvgw_post_view.printCharacterCount(true)
+			}, 2000);
 		},
 
 		/**
@@ -103,28 +108,22 @@ var wpvgw_post_view;
 			// disable update link
 			this.refreshCharacterCountLinkDisabled = true;
 
-			var source = '';
 			var postTitle = $('#title').val();
-			var postContent = '';
 
 			// get post content from tiny mce
-			if (tinyMCE && tinyMCE.activeEditor && !tinyMCE.activeEditor.isHidden()) {
-				postContent = tinyMCE.activeEditor.getContent();
-				source = 'tinymce';
+			if (typeof tinyMCE !== 'undefined' && tinyMCE.activeEditor && !tinyMCE.activeEditor.isHidden()) {
+				// save tiny mce content to textarea
+				tinyMCE.triggerSave();
 			}
 
-			// if no post content was found take from HTML textarea
-			if (postContent == '') {
-				postContent = $('#content').val();
-				source = 'textarea';
-			}
+			// get post content
+			var postContent = $('#content').val();
 
 			// collect AJAX post data
 			var ajaxPostData = {
 				action: 'wpvgw_get_character_count',
 				wpvgw_post_title: postTitle,
-				wpvgw_post_content: postContent,
-				wpvgw_source: source
+				wpvgw_post_content: postContent
 			};
 
 			// post AJAX data to WordPress AJAX url

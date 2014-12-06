@@ -4,7 +4,7 @@ Donate link: http://prosodia.de/
 Tags: VG WORT, Zählmarke, T.O.M., Zählpixel, Geld, VGW, Verwertungsgesellschaft WORT, Prosodia, Verlag
 Requires at least: 3.8
 Tested up to: 4.0.1
-Stable tag: 3.3.0
+Stable tag: 3.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -131,6 +131,14 @@ Im Gegensatz zu alten Plugin-Versionen sind die Felder im Bereich „Zählmarke 
 == Changelog ==
 
 = Änderungen =
+
+= 3.4.0 =
+* Es können nun optional auch Zählmarken vom einem Verlags-Konto bei der VG WORT importiert werden (anderes CSV-Format).
+* Die Zeichenanzahlen können nun in der Beitrags-Übersicht und in der Zählmarken-Übersicht für ausgewählte Beiträge neuberechnet werden.
+* Die Zeichenanzahl im visuellen Beitrags-Editor wird jetzt genauer berechnet und ist jetzt mit dem textuellen Beitrags-Editor synchron.
+* Fehler behoben (JavaScript), der den Beitrags-Editor unbrauchbar machte, wenn bei den Benutzereinstellungen „Beim Schreiben den WYSIWYG-Editor nicht benutzen“ aktiviert wurde.
+* Fehler behoben, der anzeigte, dass die Zeichenanzahl nicht genügte, wenn Zählmarken in der Beitrags-Übersicht zugeordnet wurden.
+* Fehler „Catchable fatal error: must be an instance of callable, instance of Closure given“ behoben (nur für PHP 5.3 relevant).
 
 = 3.3.0 =
 * Möglichkeit hinzugefügt, Shortcodes bei Berechnung der Zeichenanzahl mit auswerten zu lassen („Prosodia VGW OS“ → „Einstellungen“ → „Zeichenanzahl“).
