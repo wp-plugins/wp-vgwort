@@ -165,7 +165,7 @@ class WPVGW_PostsExtras {
 	 * @return WPVGW_RecalculatePostCharacterCountStats Stats.
 	 * @throws Exception Thrown if a database error occurred.
 	 */
-	public function recalculate_post_character_count_in_db() {
+	public function recalculate_all_post_character_count_in_db() {
 		$postsExtrasFillStats = new WPVGW_RecalculatePostCharacterCountStats();
 
 		// get all posts
@@ -180,21 +180,32 @@ class WPVGW_PostsExtras {
 		while ( $postQuery->has_post() ) {
 			$post = $postQuery->get_post();
 
-			// count post characters
-			$characterCount = $this->markersManager->calculate_character_count( $post->post_title, $post->post_content );
-
-			// insert or update post extras
-			$this->insert_update_post_extras_in_db(
-				array(
-					'post_id'         => $post->ID,
-					'character_count' => $characterCount,
-				)
-			);
+			$this->recalculate_post_character_count_in_db( $post );
 
 			$postsExtrasFillStats->numberOfPostExtrasUpdates++;
 		}
 
 		return $postsExtrasFillStats;
+	}
+
+	/**
+	 * The character count of a specified post will be recalculated and stored as post extra into the database.
+	 *
+	 * @param WP_Post $post A post.
+	 *
+	 * @throws Exception Thrown if a database error occurred.
+	 */
+	public function recalculate_post_character_count_in_db( $post ) {
+		// count post characters
+		$characterCount = $this->markersManager->calculate_character_count( $post->post_title, $post->post_content );
+
+		// insert or update post extras
+		$this->insert_update_post_extras_in_db(
+			array(
+				'post_id'         => $post->ID,
+				'character_count' => $characterCount,
+			)
+		);
 	}
 }
 
