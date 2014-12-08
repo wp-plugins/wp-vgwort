@@ -176,7 +176,7 @@ class WPVGW_ImportAdminView extends WPVGW_AdminViewBase {
 			return;
 
 		// CSV is author radio
-		$csvIsAuthorCSV = isset( $_POST['wpvgw_import_is_author_csv'] ) ? boolval( $_POST['wpvgw_import_is_author_csv'] ) : true;
+		$csvIsAuthorCSV = isset( $_POST['wpvgw_import_is_author_csv'] ) ? (bool)$_POST['wpvgw_import_is_author_csv'] : true;
 
 		// CSV text field
 		$csvText = isset( $_POST['wpvgw_import_csv'] ) ? stripslashes( $_POST['wpvgw_import_csv'] ) : '';

@@ -120,7 +120,7 @@ class WPVGW_Options {
 	/**
 	 * @var string[] The allowed WordPress user roles.
 	 */
-	private $allowedUserRoles = array( 'author', 'editor', 'administrator' );
+	private $allowedUserRoles = array( 'contributor', 'author', 'editor', 'administrator' );
 
 
 	/**
