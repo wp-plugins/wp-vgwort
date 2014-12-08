@@ -4,7 +4,7 @@ Donate link: http://prosodia.de/
 Tags: VG WORT, Zählmarke, T.O.M., Zählpixel, Geld, VGW, Verwertungsgesellschaft WORT, Prosodia, Verlag
 Requires at least: 3.8
 Tested up to: 4.0.1
-Stable tag: 3.2.0
+Stable tag: 3.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -132,6 +132,23 @@ Im Gegensatz zu alten Plugin-Versionen sind die Felder im Bereich „Zählmarke 
 
 = Änderungen =
 
+= 3.4.1 =
+* Benutzer mit der Rolle „Mitarbeiter“ können nun Zählmarken zuordnen.
+* Fehler behoben, der Import von CSV-Daten verhinderte (nur für PHP unter Version 5.5 relevant).
+
+= 3.4.0 =
+* Es können nun optional auch Zählmarken vom einem Verlags-Konto bei der VG WORT importiert werden (anderes CSV-Format).
+* Die Zeichenanzahlen können nun in der Beitrags-Übersicht und in der Zählmarken-Übersicht für ausgewählte Beiträge neuberechnet werden.
+* Die Zeichenanzahl im visuellen Beitrags-Editor wird jetzt genauer berechnet und ist jetzt mit dem textuellen Beitrags-Editor synchron.
+* Fehler behoben (JavaScript), der den Beitrags-Editor unbrauchbar machte, wenn bei den Benutzereinstellungen „Beim Schreiben den WYSIWYG-Editor nicht benutzen“ aktiviert wurde.
+* Fehler behoben, der anzeigte, dass die Zeichenanzahl nicht genügte, wenn Zählmarken in der Beitrags-Übersicht zugeordnet wurden.
+* Fehler „Catchable fatal error: must be an instance of callable, instance of Closure given“ behoben (nur für PHP 5.3 relevant).
+
+= 3.3.0 =
+* Möglichkeit hinzugefügt, Shortcodes bei Berechnung der Zeichenanzahl mit auswerten zu lassen („Prosodia VGW OS“ → „Einstellungen“ → „Zeichenanzahl“).
+* Möglichkeit hinzugefügt, die maximale Ausführungszeit für Operationen zu ändern, falls Operationen abbrechen („Prosodia VGW OS“ → „Einstellungen“ → „Verschiedenes“).
+* Workaround für die Berechnung der Zeichenanzahl bei der Beitrags-Bearbeitung (manche Plugins manipulieren den visuellen Editor).
+
 = 3.2.0 =
 * Es sollte nun leichter verständlich sein, dass Zählmarken beim Bearbeiten eines Beitrags nur zugeordnet werden und nicht eingeben/importiert werden können (Benutzeroberfläche verbessert).
 * Leistungsverbesserung bei der Auswahl der Beitrags-Typen und der Neuberechnung der Zeichenanzahlen aller Beiträge.
@@ -233,8 +250,17 @@ Im Gegensatz zu alten Plugin-Versionen sind die Felder im Bereich „Zählmarke 
 
 == Upgrade Notice ==
 
+= 3.4.1 =
+„Mitarbeiter“ können Zählmarken zuordnen. Einen Fehler behoben.
+
+= 3.4.0 =
+Zählmarken für Verlags-Konto importierbar. Zeichenanzahlen für ausgewählte Beiträge neuberechenbar. Berechnung Zeichenanzahl im visuellen Beitrags-Editor verbessert Drei Fehler behoben.
+
+= 3.3.0 =
+Shortcodes können bei Zeichenanzahl-Berechnung ausgewertet werden. Maximale Ausführungszeit für Operationen änderbar. Workaround für Zeichenanzahl-Berechnung in der Beitrags-Bearbeitung.
+
 = 3.2.0 =
-Benutzeroberfläche verbessert, Leistungsverbesserung für Berechnung der Zeichenanzahlen aller Beiträge, einen Fehler behoben.
+Benutzeroberfläche verbessert. Leistungsverbesserung für Berechnung der Zeichenanzahlen aller Beiträge. Einen Fehler behoben.
 
 = 3.1.1 =
 Fehler bezüglich leerer Meta-Name-Option aus Plugin-Version < 3.0.0 behoben. Import aus alter Plugin-Version wieder möglich.

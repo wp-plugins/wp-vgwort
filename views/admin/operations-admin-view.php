@@ -205,7 +205,7 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 	 */
 	private function recalculate_post_character_count() {
 		// recalculate the post character count
-		$postsExtrasFillStats = $this->postsExtras->recalculate_post_character_count_in_db();
+		$postsExtrasFillStats = $this->postsExtras->recalculate_all_post_character_count_in_db();
 
 		// add stats admin message
 		$this->add_admin_message(
@@ -250,6 +250,11 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 		if ( !parent::do_action_base() )
 			// do no actions
 			return;
+
+
+		// TODO: Seems to be a hack.
+		// set maximum number of seconds operations can be executed to avoid aborts
+		set_time_limit( $this->options->get_operation_max_execution_time() );
 
 
 		// allowed post types
