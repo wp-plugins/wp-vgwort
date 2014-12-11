@@ -259,6 +259,7 @@ class WPVGW {
 			$this->markersTableName,
 			$this->options->get_allowed_user_roles(),
 			$this->options->get_allowed_post_types(),
+			$this->options->get_removed_post_types(),
 			$this->options->get_do_shortcodes_for_character_count_calculation()
 		);
 
@@ -283,6 +284,7 @@ class WPVGW {
 	public function on_deinit() {
 		// delegate some settings back to the options object
 		$this->options->set_allowed_post_types( $this->markersManager->get_allowed_post_types() );
+		$this->options->set_removed_post_types( $this->markersManager->get_removed_post_types() );
 
 		// store options in database if changed
 		$this->options->store_in_db();

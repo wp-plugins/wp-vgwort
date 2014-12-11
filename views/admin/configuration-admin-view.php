@@ -172,6 +172,17 @@ class WPVGW_ConfigurationAdminView extends WPVGW_AdminViewBase {
 							</p>
 						</td>
 					</tr>
+					<tr>
+						<th scope="row"><?php _e( 'Deinstallation', WPVGW_TEXT_DOMAIN ); ?></th>
+						<td>
+							<p>
+								<input type="checkbox" name="wpvgw_remove_data_on_uninstall" id="wpvgw_remove_data_on_uninstall" value="1" class="checkbox" <?php echo( WPVGW_Helper::get_html_checkbox_checked( $this->options->get_remove_data_on_uninstall() ) ) ?>/>
+								<label for="wpvgw_remove_data_on_uninstall"><?php _e( 'Daten bei Plugin-Deaktivierung löschen', WPVGW_TEXT_DOMAIN ); ?></label>
+								<br/>
+								<span class="description"><?php _e( '<strong>Achtung</strong>: Bei Aktivierung werden sämtlichen Daten (Zählmarken, Zuordnungen usw.) unwiderruflich gelöscht, sobald das VG-WORT-Plugin deaktiviert wird!', WPVGW_TEXT_DOMAIN ) ?></span>
+							</p>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 			<p class="submit">

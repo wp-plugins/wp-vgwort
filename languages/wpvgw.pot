@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prosodia VGW OS 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-08 13:09+0100\n"
-"PO-Revision-Date: 2014-12-08 13:09+0100\n"
+"POT-Creation-Date: 2014-12-11 03:21+0100\n"
+"PO-Revision-Date: 2014-12-11 03:21+0100\n"
 "Last-Translator: Ronny <info@falconiform.de>\n"
 "Language-Team: Prosodia <developer@prosodia.de>\n"
 "Language: de_DE\n"
@@ -124,7 +124,7 @@ msgid ""
 msgstr ""
 
 #: views/admin/configuration-admin-view.php:27
-#: views/admin/configuration-admin-view.php:34 wpvgw.php:557
+#: views/admin/configuration-admin-view.php:34 wpvgw.php:559
 msgid "Einstellungen"
 msgstr ""
 
@@ -153,8 +153,8 @@ msgstr ""
 #: views/admin/configuration-admin-view.php:118
 #: views/admin/configuration-admin-view.php:150
 #: views/admin/configuration-admin-view.php:171
-#: views/admin/operations-admin-view.php:157
-#: views/admin/operations-admin-view.php:170
+#: views/admin/operations-admin-view.php:173
+#: views/admin/operations-admin-view.php:186
 #, php-format
 msgid "Der Standardwert ist: %s"
 msgstr ""
@@ -257,6 +257,7 @@ msgid "Zählmarken pro Seite in der Übersicht"
 msgstr ""
 
 #: views/admin/configuration-admin-view.php:162
+#: views/admin/configuration-admin-view.php:182
 msgid ""
 "<strong>Achtung</strong>: Bei Aktivierung werden sämtlichen Daten "
 "(Zählmarken, Zuordnungen usw.) unwiderruflich gelöscht, sobald das VG-WORT-"
@@ -275,48 +276,56 @@ msgid ""
 "\"_blank\">set_time_limit</a>)."
 msgstr ""
 
-#: views/admin/configuration-admin-view.php:178
+#: views/admin/configuration-admin-view.php:176
+msgid "Deinstallation"
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:180
+msgid "Daten bei Plugin-Deaktivierung löschen"
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:189
 msgid "Einstellungen speichern"
 msgstr ""
 
-#: views/admin/configuration-admin-view.php:211
+#: views/admin/configuration-admin-view.php:222
 msgid "Die nötige Zeichenanzahl muss einen Wert größer oder gleich 0 haben."
 msgstr ""
 
-#: views/admin/configuration-admin-view.php:214
+#: views/admin/configuration-admin-view.php:225
 msgid ""
 "Die nötige Zeichenanzahl muss eine natürliche Zahl größer oder gleich 0 sein."
 msgstr ""
 
-#: views/admin/configuration-admin-view.php:243
+#: views/admin/configuration-admin-view.php:254
 msgid "Der eingegebene Standard-Server hat ein ungültiges Format."
 msgstr ""
 
-#: views/admin/configuration-admin-view.php:258
+#: views/admin/configuration-admin-view.php:269
 msgid ""
 "Die Anzahl der Zählmarken pro Seite muss einen Wert größer oder gleich 1 "
 "haben."
 msgstr ""
 
-#: views/admin/configuration-admin-view.php:261
+#: views/admin/configuration-admin-view.php:272
 msgid ""
 "Die Anzahl der Zählmarken pro Seite muss eine natürliche Zahl größer oder "
 "gleich 1 sein."
 msgstr ""
 
-#: views/admin/configuration-admin-view.php:277
+#: views/admin/configuration-admin-view.php:288
 msgid ""
 "Die maximale Ausführungszeit für Operationen (in Sekunden) muss einen Wert "
 "größer 0 haben."
 msgstr ""
 
-#: views/admin/configuration-admin-view.php:280
+#: views/admin/configuration-admin-view.php:291
 msgid ""
 "Die maximale Ausführungszeit für Operationen (in Sekunden) muss eine "
 "natürliche Zahl größer als 0 sein."
 msgstr ""
 
-#: views/admin/configuration-admin-view.php:302
+#: views/admin/configuration-admin-view.php:313
 #: views/admin/data-privacy-admin-view.php:167
 msgid "Einstellungen erfolgreich übernommen."
 msgstr ""
@@ -547,7 +556,7 @@ msgid "In der Regel sollten nur falsch importierte Zählmarken gelöscht werden.
 msgstr ""
 
 #: views/admin/markers-admin-view.php:163
-#: views/admin/operations-admin-view.php:134 views/markers-table.php:222
+#: views/admin/operations-admin-view.php:150 views/markers-table.php:222
 #: views/post-table-view.php:98
 msgid "Zeichenanzahl neuberechnen"
 msgstr ""
@@ -701,157 +710,162 @@ msgid ""
 "Die ausgewählten Beitrags-Typen werden mit der Zählmarken-Funktion versehen:"
 msgstr ""
 
-#: views/admin/operations-admin-view.php:116
-msgid "Keine anderen Typen vorhanden."
+#: views/admin/operations-admin-view.php:100
+msgid "Keine Beitrags-Typen vorhanden!"
 msgstr ""
 
-#: views/admin/operations-admin-view.php:123
+#: views/admin/operations-admin-view.php:135
 msgid ""
-"Beim abwählen eines Beitrag-Typs werden die Zählmarken-Zuordnungen "
+"Beim Abwählen eines Beitrag-Typs werden die Zählmarken-Zuordnungen "
 "entsprechender Beiträge nicht gelöscht."
 msgstr ""
 
-#: views/admin/operations-admin-view.php:126
+#: views/admin/operations-admin-view.php:138
 msgid ""
 "Die Zeichenanzahlen aller Beiträge der ausgewählten Beitrags-Typen werden "
 "automatisch neuberechnet."
 msgstr ""
 
-#: views/admin/operations-admin-view.php:129
+#: views/admin/operations-admin-view.php:141
+msgid ""
+"Rotmarkierte Beitrags-Typen (entfernbar) sind nicht verfügbar, da Plugins/"
+"Themes, die diese definieren, deaktiviert oder deinstalliert wurden."
+msgstr ""
+
+#: views/admin/operations-admin-view.php:144
 msgid "Beitrags-Typen zulassen"
 msgstr ""
 
-#: views/admin/operations-admin-view.php:137
+#: views/admin/operations-admin-view.php:145
+msgid "Nicht verfügbare Beitrags-Typen entfernen"
+msgstr ""
+
+#: views/admin/operations-admin-view.php:153
 msgid "Die Zeichenanzahlen aller Beiträge werden separat gespeichert."
 msgstr ""
 
-#: views/admin/operations-admin-view.php:140
+#: views/admin/operations-admin-view.php:156
 msgid ""
 "Wenn die Zeichenanzahl eines Beitrags falsch oder nicht vorhanden ist, kann "
 "sie hier neuberechnet werden."
 msgstr ""
 
-#: views/admin/operations-admin-view.php:143
+#: views/admin/operations-admin-view.php:159
 msgid "Zeichenanzahl aller Beiträge neuberechnen"
 msgstr ""
 
-#: views/admin/operations-admin-view.php:148
+#: views/admin/operations-admin-view.php:164
 msgid "Alte Zählmarken importieren"
 msgstr ""
 
-#: views/admin/operations-admin-view.php:152
+#: views/admin/operations-admin-view.php:168
 msgid "Zählmarken aus altem VG-WORT-Plugin vor Version 3.0.0 importieren"
 msgstr ""
 
-#: views/admin/operations-admin-view.php:154
+#: views/admin/operations-admin-view.php:170
 msgid "Meta-Name aus altem Plugin: "
 msgstr ""
 
-#: views/admin/operations-admin-view.php:159
+#: views/admin/operations-admin-view.php:175
 msgid ""
 "Wenn dieses VG-WORT-Plugin bereits vor Version 3.0.0 verwendet wurde, können "
 "hier die zuvor verwendeten Zählmarken importiert werden. Es werden keine "
 "Daten gelöscht."
 msgstr ""
 
-#: views/admin/operations-admin-view.php:163
+#: views/admin/operations-admin-view.php:179
 msgid "Zählmarken (manuelle) aus Beiträgen erkennen und importieren"
 msgstr ""
 
-#: views/admin/operations-admin-view.php:165
+#: views/admin/operations-admin-view.php:181
 msgid "Gefundene Zählmarken aus Beiträgen (deren Inhalt) entfernen (empfohlen)"
 msgstr ""
 
-#: views/admin/operations-admin-view.php:167
+#: views/admin/operations-admin-view.php:183
 msgid "Regulärer Ausdruck (PHP-Stil) zur Zählmarkenerkennung: "
 msgstr ""
 
-#: views/admin/operations-admin-view.php:172
+#: views/admin/operations-admin-view.php:188
 #, php-format
 msgid ""
 "Wenn bereits Zählmarken der Form %s manuell in Beiträgen (deren Inhalt) "
 "eingefügt wurden, können diese hier importiert und entfernt werden."
 msgstr ""
 
-#: views/admin/operations-admin-view.php:174
+#: views/admin/operations-admin-view.php:190
 msgid ""
 "<strong>Achtung:</strong> Aus Beiträgen (deren Inhalt) entfernte Zählmarken "
 "können nicht wiederhergestellt werden. Bitte sämtliche Beiträge sichern "
 "(Backup), bevor diese Operation durchgeführt wird."
 msgstr ""
 
-#: views/admin/operations-admin-view.php:178
+#: views/admin/operations-admin-view.php:194
 msgid "Zählmarken aus dem Plugin „VG Wort“ von T. Leuschner importieren"
 msgstr ""
 
-#: views/admin/operations-admin-view.php:180
+#: views/admin/operations-admin-view.php:196
 msgid ""
 "Wenn das Plugin „VG Wort“ von T. Leuschner zuvor verwendet wurde, können die "
 "dort zugeordneten Zählmarken hier importiert werden. Es werden keine Daten "
 "gelöscht."
 msgstr ""
 
-#: views/admin/operations-admin-view.php:183
+#: views/admin/operations-admin-view.php:199
 msgid ""
 "Diese Operationen sollten (jeweils) nur ein Mal ausgeführt werden. Es werden "
 "sowohl Zählmarken als auch deren Zuordnung zu Beiträgen importiert."
 msgstr ""
 
-#: views/admin/operations-admin-view.php:186
+#: views/admin/operations-admin-view.php:202
 msgid ""
 "Falls es zu Konflikten mit bereits vorhandenen Beitrags-Zuordnungen kommt, "
 "wird keine Überschreibung vorgenommen."
 msgstr ""
 
-#: views/admin/operations-admin-view.php:189
+#: views/admin/operations-admin-view.php:205
 msgid "Alte Zählmarken und Beitrags-Zuordnungen importieren"
 msgstr ""
 
-#: views/admin/operations-admin-view.php:236
+#: views/admin/operations-admin-view.php:252
 #, php-format
 msgid ""
 "aktualisiert %s, bereits vorhanden %s, die Integrität verletzten %s, "
 "Beiträge durchsucht %s"
 msgstr ""
 
-#: views/admin/operations-admin-view.php:277
-msgid ""
-"Die ausgewählten Beitrags-Typen wurde mit der Zählmarken-Funktion versehen."
-msgstr ""
-
-#: views/admin/operations-admin-view.php:304
+#: views/admin/operations-admin-view.php:357
 msgid ""
 "Der Meta-Name ist ungültig und wurde zurückgesetzt. Zählmarken aus altem VG-"
 "WORT-Plugin wurden nicht importiert."
 msgstr ""
 
-#: views/admin/operations-admin-view.php:315
+#: views/admin/operations-admin-view.php:368
 msgid "Zählmarken aus altem VG-WORT-Plugin importiert: "
 msgstr ""
 
-#: views/admin/operations-admin-view.php:316
+#: views/admin/operations-admin-view.php:369
 msgid "Zählmarken-Zuordnungen aus altem VG-WORT-Plugin importiert: "
 msgstr ""
 
-#: views/admin/operations-admin-view.php:330
+#: views/admin/operations-admin-view.php:383
 msgid ""
 "Der Reguläre Ausdruck hat eine ungültige Syntax und wurde zurückgesetzt. "
 "Zählmarken (manuelle) aus Beiträgen wurden nicht importiert."
 msgstr ""
 
-#: views/admin/operations-admin-view.php:338
+#: views/admin/operations-admin-view.php:391
 msgid "Zählmarken (manuelle) aus Beiträgen importiert: "
 msgstr ""
 
-#: views/admin/operations-admin-view.php:339
+#: views/admin/operations-admin-view.php:392
 msgid "Zählmarken-Zuordnungen aus Beiträgen importiert: "
 msgstr ""
 
-#: views/admin/operations-admin-view.php:349
+#: views/admin/operations-admin-view.php:402
 msgid "Zählmarken aus Plugin „VG Wort“ von T. Leuschner importiert: "
 msgstr ""
 
-#: views/admin/operations-admin-view.php:350
+#: views/admin/operations-admin-view.php:403
 msgid ""
 "Zählmarken-Zuordnungen aus Plugin „VG Wort“ von T. Leuschner importiert: "
 msgstr ""
@@ -1151,7 +1165,7 @@ msgid ""
 "muss ggf. zunächst importiert werden. %s"
 msgstr ""
 
-#: views/post-view.php:187 views/post-view.php:431 wpvgw.php:634
+#: views/post-view.php:187 views/post-view.php:431 wpvgw.php:636
 msgid "Zählmarken hier importieren."
 msgstr ""
 
@@ -1287,43 +1301,43 @@ msgid ""
 "Die Zuordnung zwischen Zählmarke und Beitrag konnte nicht aufgehoben werden."
 msgstr ""
 
-#: wpvgw.php:587
+#: wpvgw.php:589
 #, php-format
 msgid ""
 "Der Datenschutz-Hinweis der VG WORT sollte in die Website eingefügt werden. "
 "%s"
 msgstr ""
 
-#: wpvgw.php:592
+#: wpvgw.php:594
 msgid "Datenschutz-Hinweis hier zur Kenntnis nehmen."
 msgstr ""
 
-#: wpvgw.php:608
+#: wpvgw.php:610
 #, php-format
 msgid "Die Zeichenanzahlen der Beiträge müssen neuberechnet werden. %s"
 msgstr ""
 
-#: wpvgw.php:613
+#: wpvgw.php:615
 msgid "Zeichenanzahl hier neuberechnen."
 msgstr ""
 
-#: wpvgw.php:629
+#: wpvgw.php:631
 #, php-format
 msgid ""
 "Die Zählmarken aus einer früheren Version des Plugins sollten importiert "
 "werden, da sie sonst fehlen. %s"
 msgstr ""
 
-#: wpvgw.php:667
+#: wpvgw.php:669
 #, php-format
 msgid "„%s“ (%s)"
 msgstr ""
 
-#: wpvgw.php:672
+#: wpvgw.php:674
 msgid ", "
 msgstr ""
 
-#: wpvgw.php:679
+#: wpvgw.php:681
 #, php-format
 msgid ""
 "Es sind folgende, andere Plugins zur Integration von Zählmarken der VG WORT "
@@ -1331,10 +1345,10 @@ msgid ""
 "mehrfach auszugeben. %s"
 msgstr ""
 
-#: wpvgw.php:683
+#: wpvgw.php:685
 msgid "Plugins hier deaktivieren."
 msgstr ""
 
-#: wpvgw.php:798 wpvgw.php:799
+#: wpvgw.php:800 wpvgw.php:801
 msgid "Prosodia VGW OS"
 msgstr ""

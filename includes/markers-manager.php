@@ -36,6 +36,10 @@ class WPVGW_MarkersManager {
 	 * @var string[] The allowed WordPress post types. A subset of {@link possiblePostTypes}.
 	 */
 	private $allowedPostTypes = null;
+	/**
+	 * @var string[] The removed WordPress post types, i. e., post types that were set but are not possible any more or just now.
+	 */
+	private $removedPostTypes = null;
 
 	/**
 	 * @var bool Whether shortcodes will be parsed if character count is calculated.
@@ -81,12 +85,26 @@ class WPVGW_MarkersManager {
 	 */
 	public function set_allowed_post_types( $value ) {
 		$this->allowedPostTypes = $value;
+		$this->build_valid_post_type_arrays();
+	}
 
-		// remove unknown post types
-		foreach ( $this->allowedPostTypes as $key => $allowedPostType ) {
-			if ( !in_array( $allowedPostType, $this->possiblePostTypes, true ) )
-				unset( $this->allowedPostTypes[$key] );
-		}
+	/**
+	 * Gets the removed WordPress post types, i. e., post types that were set but are not possible any more or just now.
+	 *
+	 * @return string[] The removed WordPress post types.
+	 */
+	public function get_removed_post_types() {
+		return $this->removedPostTypes;
+	}
+
+	/**
+	 * Sets the removed WordPress post types, i. e., post types that were set but are not possible any more or just now.
+	 *
+	 * @param string[] $value The removed WordPress post types.
+	 */
+	public function set_removed_post_types( $value ) {
+		$this->removedPostTypes = $value;
+		$this->build_valid_post_type_arrays();
 	}
 
 	/**
@@ -105,10 +123,13 @@ class WPVGW_MarkersManager {
 	 * @param string $markers_table_name The database name of the marker table.
 	 * @param string[] $allowed_user_roles The allowed WordPress user roles.
 	 * @param string[] $allowed_post_types An array of post types. Only post of these types can have markers. Unknown post types will be removed.
+	 * @param string[] $removed_post_types An array of removed post types, i. e., post types that were set but are not possible any more or just now.
 	 * @param bool $do_shortcodes_for_character_count_calculation Whether shortcodes will be parsed if character count is calculated.
 	 */
-	public function __construct( $markers_table_name, $allowed_user_roles, $allowed_post_types, $do_shortcodes_for_character_count_calculation ) {
+	public function __construct( $markers_table_name, $allowed_user_roles, $allowed_post_types, $removed_post_types, $do_shortcodes_for_character_count_calculation ) {
 		$this->markersTableName = $markers_table_name;
+		$this->allowedPostTypes = $allowed_post_types;
+		$this->removedPostTypes = $removed_post_types;
 		$this->allowedUserRoles = $allowed_user_roles;
 
 		// get all possible post types from WordPress
@@ -117,11 +138,39 @@ class WPVGW_MarkersManager {
 			array_values( get_post_types( array( 'public' => true, 'show_ui' => true, '_builtin' => false ) ) )
 		);
 
+		// make removed and allowed post types arrays valid
+		$this->build_valid_post_type_arrays();
 
-		$this->set_allowed_post_types( $allowed_post_types );
 		$this->doShortcodesForCharacterCountCalculation = $do_shortcodes_for_character_count_calculation;
 	}
 
+
+	/**
+	 * Creates valid {@link WPVGW_MarkersManager::allowedPostTypes} and {@link WPVGW_MarkersManager::removedPostTypes} arrays.
+	 */
+	private function build_valid_post_type_arrays() {
+		// iterate and check allowed post types
+		foreach ( $this->allowedPostTypes as $key => $allowedPostType ) {
+			// allowed post type possible?
+			if ( !in_array( $allowedPostType, $this->possiblePostTypes, true ) ) {
+				// remove post type form allowed post types
+				unset( $this->allowedPostTypes[$key] );
+				// add post type to removed post types
+				$this->removedPostTypes[] = $allowedPostType;
+			}
+		}
+
+		// iterate and check removed post types
+		foreach ( $this->removedPostTypes as $key => $removedPostType ) {
+			// removed post type possible (again)?
+			if ( in_array( $removedPostType, $this->possiblePostTypes, true ) ) {
+				// remove post type form removed post types
+				unset( $this->removedPostTypes[$key] );
+				// add post type to allowed post types (was allowed before removed)
+				$this->allowedPostTypes[] = $removedPostType;
+			}
+		}
+	}
 
 	/**
 	 * Checks whether a specified post type is one of the WordPress’ post types.

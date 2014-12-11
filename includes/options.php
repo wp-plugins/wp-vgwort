@@ -20,6 +20,10 @@ class WPVGW_Options {
 	/**
 	 * @var string
 	 */
+	private static $removedPostTypes = 'removed_post_types';
+	/**
+	 * @var string
+	 */
 	private static $outputFormat = 'output_format';
 	/**
 	 * @var string
@@ -160,6 +164,7 @@ class WPVGW_Options {
 		// set default values of the options
 		$this->defaultOptions = array(
 			self::$allowedPostTypes                                   => array( 'post', 'page' ),
+			self::$removedPostTypes                                   => array(),
 			self::$outputFormat                                       => '<img src="http://%1$s/%2$s" width="1" height="1" alt="" style="display:none" />',
 			self::$defaultServer                                      => 'vg02.met.vgwort.de/na',
 			self::$metaName                                           => 'wp_vgwortmarke',
@@ -248,6 +253,37 @@ class WPVGW_Options {
 	 */
 	public function default_allowed_post_types() {
 		return $this->defaultOptions[self::$allowedPostTypes];
+	}
+
+
+	/**
+	 * Sets the removed WordPress post types, i. e., post types that were set but are not possible any more or just now.
+	 *
+	 * @param string[] $value An array of removed custom post type strings.
+	 */
+	public function set_removed_post_types( array $value ) {
+		if ( $this->options[self::$removedPostTypes] !== $value ) {
+			$this->options[self::$removedPostTypes] = $value;
+			$this->optionsChanged = true;
+		}
+	}
+
+	/**
+	 * Gets the removed WordPress post types, i. e., post types that were set but are not possible any more or just now.
+	 *
+	 * @return string[] An array of removed custom post types strings.
+	 */
+	public function get_removed_post_types() {
+		return $this->options[self::$removedPostTypes];
+	}
+
+	/**
+	 * Gets the removed WordPress post types, i. e., post types that were set but are not possible any more or just now.
+	 *
+	 * @return string[] An array of removed custom post types strings.
+	 */
+	public function default_removed_post_types() {
+		return $this->defaultOptions[self::$removedPostTypes];
 	}
 
 
