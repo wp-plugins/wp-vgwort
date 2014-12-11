@@ -36,6 +36,15 @@ class WPVGW_MarkersManager {
 	 * @var string[] The allowed WordPress post types. A subset of {@link possiblePostTypes}.
 	 */
 	private $allowedPostTypes = null;
+	/**
+	 * @var string[] The removed WordPress post types, i. e., post types that were set but are not possible any more or just now.
+	 */
+	private $removedPostTypes = null;
+
+	/**
+	 * @var bool Whether shortcodes will be parsed if character count is calculated.
+	 */
+	private $doShortcodesForCharacterCountCalculation = false;
 
 
 	/**
@@ -76,12 +85,26 @@ class WPVGW_MarkersManager {
 	 */
 	public function set_allowed_post_types( $value ) {
 		$this->allowedPostTypes = $value;
+		$this->build_valid_post_type_arrays();
+	}
 
-		// remove unknown post types
-		foreach ( $this->allowedPostTypes as $key => $allowedPostType ) {
-			if ( !in_array( $allowedPostType, $this->possiblePostTypes, true ) )
-				unset( $this->allowedPostTypes[$key] );
-		}
+	/**
+	 * Gets the removed WordPress post types, i. e., post types that were set but are not possible any more or just now.
+	 *
+	 * @return string[] The removed WordPress post types.
+	 */
+	public function get_removed_post_types() {
+		return $this->removedPostTypes;
+	}
+
+	/**
+	 * Sets the removed WordPress post types, i. e., post types that were set but are not possible any more or just now.
+	 *
+	 * @param string[] $value The removed WordPress post types.
+	 */
+	public function set_removed_post_types( $value ) {
+		$this->removedPostTypes = $value;
+		$this->build_valid_post_type_arrays();
 	}
 
 	/**
@@ -100,9 +123,13 @@ class WPVGW_MarkersManager {
 	 * @param string $markers_table_name The database name of the marker table.
 	 * @param string[] $allowed_user_roles The allowed WordPress user roles.
 	 * @param string[] $allowed_post_types An array of post types. Only post of these types can have markers. Unknown post types will be removed.
+	 * @param string[] $removed_post_types An array of removed post types, i. e., post types that were set but are not possible any more or just now.
+	 * @param bool $do_shortcodes_for_character_count_calculation Whether shortcodes will be parsed if character count is calculated.
 	 */
-	public function __construct( $markers_table_name, $allowed_user_roles, $allowed_post_types ) {
+	public function __construct( $markers_table_name, $allowed_user_roles, $allowed_post_types, $removed_post_types, $do_shortcodes_for_character_count_calculation ) {
 		$this->markersTableName = $markers_table_name;
+		$this->allowedPostTypes = $allowed_post_types;
+		$this->removedPostTypes = $removed_post_types;
 		$this->allowedUserRoles = $allowed_user_roles;
 
 		// get all possible post types from WordPress
@@ -111,10 +138,39 @@ class WPVGW_MarkersManager {
 			array_values( get_post_types( array( 'public' => true, 'show_ui' => true, '_builtin' => false ) ) )
 		);
 
+		// make removed and allowed post types arrays valid
+		$this->build_valid_post_type_arrays();
 
-		$this->set_allowed_post_types( $allowed_post_types );
+		$this->doShortcodesForCharacterCountCalculation = $do_shortcodes_for_character_count_calculation;
 	}
 
+
+	/**
+	 * Creates valid {@link WPVGW_MarkersManager::allowedPostTypes} and {@link WPVGW_MarkersManager::removedPostTypes} arrays.
+	 */
+	private function build_valid_post_type_arrays() {
+		// iterate and check allowed post types
+		foreach ( $this->allowedPostTypes as $key => $allowedPostType ) {
+			// allowed post type possible?
+			if ( !in_array( $allowedPostType, $this->possiblePostTypes, true ) ) {
+				// remove post type form allowed post types
+				unset( $this->allowedPostTypes[$key] );
+				// add post type to removed post types
+				$this->removedPostTypes[] = $allowedPostType;
+			}
+		}
+
+		// iterate and check removed post types
+		foreach ( $this->removedPostTypes as $key => $removedPostType ) {
+			// removed post type possible (again)?
+			if ( in_array( $removedPostType, $this->possiblePostTypes, true ) ) {
+				// remove post type form removed post types
+				unset( $this->removedPostTypes[$key] );
+				// add post type to allowed post types (was allowed before removed)
+				$this->allowedPostTypes[] = $removedPostType;
+			}
+		}
+	}
 
 	/**
 	 * Checks whether a specified post type is one of the WordPress’ post types.
@@ -147,7 +203,7 @@ class WPVGW_MarkersManager {
 	 * @return bool True if $user_id is one of the allowed user IDs or null, otherwise false.
 	 */
 	public function is_user_allowed( $user_id ) {
-		if( $user_id === null )
+		if ( $user_id === null )
 			return true;
 
 		$user = get_userdata( $user_id );
@@ -186,27 +242,30 @@ class WPVGW_MarkersManager {
 	 * @return int The number of characters of the post content.
 	 */
 	public function calculate_character_count( $post_title, $post_content ) {
-		// replace <br> tags by new lines (\n)
+		// remove caption shortcodes and its content
+		$post_content = preg_replace( WPVGW_Helper::$captionShortcodeRegex, '', $post_content );
+
+		// do shortcodes and other filters on post content
+		//$post_content = apply_filters( 'the_content', $post_content ); // this filter runs far too long
+		if ( $this->doShortcodesForCharacterCountCalculation )
+			$post_content = do_shortcode( $post_content );
+
+		// replace <br> tags by space
 		$post_content = preg_replace(
 			'%<br\s*/?>%si',
-			"\n",
+			' ',
 			$post_content
 		);
 
 		// remove all HTML tags, but not the content between the tags;
 		$post_content = strip_tags( $post_content );
 
-		// remove whitespaces from the beginning and end
-		$post_content = trim( $post_content );
-
 		// remove shortcodes and whitespaces sequences
 		$post_content = preg_replace( array(
-				WPVGW_Helper::$captionShortcodeRegex, // remove caption shortcodes and its content
 				WPVGW_Helper::$shortcodeRegex, // remove shortcodes, but not content between shortcodes; it is escaping aware
 				'/\s{2,}/i' // remove sequences of 2 or more whitespaces
 			),
 			array(
-				'',
 				'',
 				' '
 			),
@@ -215,6 +274,10 @@ class WPVGW_MarkersManager {
 
 		// convert html entities (e. g. &amp; to &)
 		$post_content = html_entity_decode( $post_content );
+
+		// remove whitespaces from the beginning and end
+		$post_content = trim( $post_content );
+
 
 		// return the number of characters of the cleaned post content
 		return ( mb_strlen( $post_title ) + mb_strlen( $post_content ) );
@@ -771,23 +834,54 @@ class WPVGW_MarkersManager {
 	}
 
 	/**
+	 * Imports a CSV file into the database.
+	 *
+	 * @param bool $is_author_csv If true, CSV data is formatted for authors, otherwise it is formatted for publishers.
+	 * @param string $markers_csv_file_path A VG WORT CSV file that contains markers.
+	 * @param string $default_server A default server. Used if no servers are found in the CSV file.
+	 * @param int|null $user_id An user (ID) for the marker.
+	 *
+	 * @return WPVGW_ImportMarkersStats Import stats.
+	 * @throws Exception Thrown if the csv file was not found. Thrown if a database error occurred.
+	 */
+	public function import_markers_from_csv_file( $is_author_csv, $markers_csv_file_path, $default_server, $user_id = null ) {
+		// throw exception if file does not exist
+		if ( !file_exists( $markers_csv_file_path ) )
+			throw new Exception( __( sprintf( 'Die Datei %s existiert nicht.', WPVGW_TEXT_DOMAIN ) ) );
+
+		// read whole file
+		$fileContents = file_get_contents( $markers_csv_file_path );
+
+		return $this->import_markers_from_csv( $is_author_csv, $fileContents, $default_server, $user_id );
+	}
+
+	/**
 	 * Imports a CSV string into the database.
 	 *
+	 * @param bool $is_author_csv If true, CSV data is formatted for authors, otherwise it is formatted for publishers.
 	 * @param string $markers_csv A VG WORT CSV string that contains markers.
 	 * @param string $default_server A default server. Used if no servers are found in the CSV string.
 	 * @param int|null $user_id An user (ID) for the marker.
 	 *
+	 * @throws Exception
 	 * @return WPVGW_ImportMarkersStats Import stats.
-	 * @throws Exception Thrown if a database error occurred.
 	 */
-	public function import_markers_from_csv( $markers_csv, $default_server, $user_id = null ) {
+	public function import_markers_from_csv( $is_author_csv, $markers_csv, $default_server, $user_id = null ) {
 		$importMarkersStats = new WPVGW_ImportMarkersStats();
 
-		// extract server, public marker and private marker from the file contents
-		WPVGW_Helper::validate_regex_result( preg_match_all( '%.*?;<img.*?"http://(?P<server>[a-z0-9./-]+?)/(?P<public_marker>[a-z0-9]+?)".*?(?:\r\n|\r|\n);.*?;(?P<private_marker>[a-z0-9]+?)(?:;|\Z)%i',
-				$markers_csv, $matches, PREG_SET_ORDER
-			)
-		);
+		if ( $is_author_csv )
+			// extract server, public marker and private marker from csv data for authors
+			WPVGW_Helper::validate_regex_result( preg_match_all( '%.*?;<img.*?"http://(?P<server>[a-z0-9./-]+?)/(?P<public_marker>[a-z0-9]+?)".*?(?:\r\n|\r|\n);.*?;(?P<private_marker>[a-z0-9]+?)(?:;|\Z)%i',
+					$markers_csv, $matches, PREG_SET_ORDER
+				)
+			);
+		else
+			// extract public marker and private marker from csv data for publishers
+			WPVGW_Helper::validate_regex_result( preg_match_all( '/^(?P<public_marker>[a-z0-9]+?);(?P<private_marker>[a-z0-9]+?)(?:\s|\Z)/im',
+					$markers_csv, $matches, PREG_SET_ORDER
+				)
+			);
+
 
 		// iterate found markers
 		foreach ( $matches as $match ) {
@@ -796,7 +890,7 @@ class WPVGW_MarkersManager {
 					$default_server,
 					$match['public_marker'],
 					$match['private_marker'],
-					$match['server'],
+					array_key_exists( 'server', $match ) ? $match['server'] : null, // server found/exists?
 					$user_id
 				)
 			);
@@ -804,27 +898,6 @@ class WPVGW_MarkersManager {
 
 		// return import stats
 		return $importMarkersStats;
-	}
-
-	/**
-	 * Imports a CSV file into the database.
-	 *
-	 * @param string $markers_csv_file_path A VG WORT CSV file that contains markers.
-	 * @param string $default_server A default server. Used if no servers are found in the CSV file.
-	 * @param int|null $user_id An user (ID) for the marker.
-	 *
-	 * @return WPVGW_ImportMarkersStats Import stats.
-	 * @throws Exception Thrown if the csv file was not found. Thrown if a database error occurred.
-	 */
-	public function import_markers_from_csv_file( $markers_csv_file_path, $default_server, $user_id = null ) {
-		// throw exception if file does not exist
-		if ( !file_exists( $markers_csv_file_path ) )
-			throw new Exception( __( sprintf( 'Die Datei %s existiert nicht.', WPVGW_TEXT_DOMAIN ) ) );
-
-		// read whole file
-		$fileContents = file_get_contents( $markers_csv_file_path );
-
-		return $this->import_markers_from_csv( $fileContents, $default_server, $user_id );
 	}
 
 	/**

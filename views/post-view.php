@@ -98,13 +98,8 @@ class WPVGW_PostView extends WPVGW_ViewBase {
 	 * Warning: This function is called by a WordPress hook. Do not call it directly.
 	 */
 	public function ajax_get_character_count() {
-		$source = isset( $_POST['wpvgw_source'] ) ? $_POST['wpvgw_source'] : '';
 		$postTitle = isset( $_POST['wpvgw_post_title'] ) ? stripslashes( $_POST['wpvgw_post_title'] ) : '';
 		$postContent = isset( $_POST['wpvgw_post_content'] ) ? stripslashes( $_POST['wpvgw_post_content'] ) : '';
-
-		// remove paragraph tags if source is tiny mce
-		if ( $source == 'tinymce' )
-			$postContent = str_replace( array( '<p>', '</p>' ), array( ' ', '' ), $postContent );
 
 		// calculate character count
 		$characterCount = $this->markersManager->calculate_character_count( $postTitle, $postContent );

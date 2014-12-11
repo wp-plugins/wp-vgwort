@@ -67,6 +67,7 @@ class WPVGW_PostTableView extends WPVGW_ViewBase {
 		// add bulk marker actions
 		add_action( 'admin_action_' . WPVGW . '_add_markers', array( $this, 'do_add_markers_action' ) );
 		add_action( 'admin_action_' . WPVGW . '_remove_markers', array( $this, 'do_remove_markers_action' ) );
+		add_action( 'admin_action_' . WPVGW . '_recalculate_post_character_count', array( $this, 'do_recalculate_post_character_count' ) );
 	}
 
 
@@ -94,6 +95,7 @@ class WPVGW_PostTableView extends WPVGW_ViewBase {
 							'add_markers_title'     => __( 'Zählmarke zuordnen', WPVGW_TEXT_DOMAIN ),
 							'show_remove_markers'   => current_user_can( 'manage_options' ), // allow admin users only
 							'remove_markers_title'  => __( 'Zählmarken-Zuordnung aufheben', WPVGW_TEXT_DOMAIN ),
+							'recalculate_post_character_count_title' => __( 'Zeichenanzahl neuberechnen', WPVGW_TEXT_DOMAIN ),
 						)
 					)
 				)
@@ -443,7 +445,7 @@ class WPVGW_PostTableView extends WPVGW_ViewBase {
 	 *
 	 * @return int The number of processed posts. Iteration can be aborted, so this number is not always the number of the specified posts.
 	 */
-	private function iterate_posts_for_actions( array $post_ids, $check_user_allowed, callable $do_action ) {
+	private function iterate_posts_for_actions( array $post_ids, $check_user_allowed, $do_action ) {
 		// return if no post ids are given
 		if ( $post_ids === null )
 			return 0;
@@ -538,7 +540,7 @@ class WPVGW_PostTableView extends WPVGW_ViewBase {
 
 				if ( $postCharacterCount === null )
 					$postCharacterCountUnknownCount++;
-				else if ( $markersManager->is_character_count_sufficient( $postCharacterCount, $options->get_vg_wort_minimum_character_count() ) )
+				else if ( !$markersManager->is_character_count_sufficient( $postCharacterCount, $options->get_vg_wort_minimum_character_count() ) )
 					$postCharacterCountNotSufficientCount++;
 
 
@@ -770,6 +772,62 @@ class WPVGW_PostTableView extends WPVGW_ViewBase {
 		$this->redirect_to_last_page();
 	}
 
+	/**
+	 * Handles recalculate post character count action from the WordPress’ post table (GUI).
+	 * Warning: This function is called by a WordPress hook. Do not call it directly.
+	 */
+	public function  do_recalculate_post_character_count() {
+		// get post IDs chosen for bulk action
+		$postIds = $this->get_bulk_action_post_ids();
+
+		$postCharacterCountRecalculatedCount = 0;
+
+		$processedPostCount = $this->iterate_posts_for_actions( $postIds, true,
+			function ( $markersManager, $postsExtras, $options, $post, $postUserId ) use ( &$postCharacterCountRecalculatedCount ) {
+				/** @var WPVGW_MarkersManager $markersManager */
+				/** @var WPVGW_PostsExtras $postsExtras */
+				/** @var WPVGW_Options $options */
+				/** @var WP_Post $post */
+				/** @var int $postUserId */
+
+				// recalculate post character count
+				$postsExtras->recalculate_post_character_count_in_db( $post );
+
+				$postCharacterCountRecalculatedCount++;
+
+				return true;
+			}
+		);
+
+
+		// add admin messages
+
+		$failedPostCharacterCountRecalculatedCount = count( $postIds ) - $postCharacterCountRecalculatedCount;
+
+		if ( $postCharacterCountRecalculatedCount > 0 ) {
+			$this->add_admin_message(
+				_n( 'Die Zeichenanzahl eines Beitrags wurde neuberechnet.',
+					sprintf( 'Die Zeichenanzahlen von %s Beiträgen wurden neuberechnet.', number_format_i18n( $postCharacterCountRecalculatedCount ) ),
+					$postCharacterCountRecalculatedCount,
+					WPVGW_TEXT_DOMAIN
+				),
+				WPVGW_ErrorType::Update
+			);
+		}
+
+		if ( $failedPostCharacterCountRecalculatedCount > 0 ) {
+			$this->add_admin_message(
+				_n( 'Die Zeichenanzahl eines Beitrags konnte nicht neuberechnet werden.',
+					sprintf( 'Die Zeichenanzahlen von %s Beiträgen konnte nicht neuberechnet werden.', number_format_i18n( $failedPostCharacterCountRecalculatedCount ) ),
+					$failedPostCharacterCountRecalculatedCount,
+					WPVGW_TEXT_DOMAIN
+				)
+			);
+		}
+
+		// redirect to last page
+		$this->redirect_to_last_page();
+	}
 
 	/**
 	 * Renders WordPress admin notices.

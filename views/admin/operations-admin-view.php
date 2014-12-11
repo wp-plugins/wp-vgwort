@@ -92,41 +92,57 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 							// get WordPress post types
 							$postTypes = $this->markersManager->get_possible_post_types();
 
-							if ( count( $postTypes ) > 0 ) {
+							echo( '<ul class="wpvgw-check-list-box">' );
+
+							if ( count( $postTypes ) < 0 ) {
 								?>
-								<ul class="wpvgw-check-list-box"> <?php
-									// iterate post types
-									foreach ( $postTypes as $type ) {
-										$postTypeObject = get_post_type_object( $type );
-										// check checkbox if post type is allowed
-										$checked = WPVGW_Helper::get_html_checkbox_checked( $this->markersManager->is_post_type_allowed( $type ) );
-										?>
-										<li>
-											<input type="checkbox" <?php echo( $checked ) ?> id="wpvgw_allowed_post_types_<?php echo( $type ) ?>" name="wpvgw_allowed_post_types[<?php echo( $type ) ?>]"/>
-											<label for="wpvgw_allowed_post_types_<?php echo( $type ) ?>"><?php echo( esc_html( $postTypeObject->labels->name ) ) ?></label>
-										</li>
-									<?php
-									}
-									?>
-								</ul> <?php
-							}
-							else {
-								?>
-								<p>
-									<?php _e( 'Keine anderen Typen vorhanden.', WPVGW_TEXT_DOMAIN ); ?>
-								</p>
+								<li>
+									<?php _e( 'Keine Beitrags-Typen vorhanden!', WPVGW_TEXT_DOMAIN ); ?>
+								</li>
 							<?php
 							}
 
+							// iterate post types
+							foreach ( $postTypes as $type ) {
+								$postTypeObject = get_post_type_object( $type );
+								// check checkbox if post type is allowed
+								$checked = WPVGW_Helper::get_html_checkbox_checked( $this->markersManager->is_post_type_allowed( $type ) );
+								?>
+								<li>
+									<input type="checkbox" <?php echo( $checked ) ?> id="wpvgw_allowed_post_types_<?php echo( $type ) ?>" name="wpvgw_allowed_post_types[<?php echo( $type ) ?>]"/>
+									<label for="wpvgw_allowed_post_types_<?php echo( $type ) ?>"><?php echo( esc_html( $postTypeObject->labels->name ) ) ?></label>
+								</li>
+							<?php
+							}
+
+
+							// get removed post types
+							$removedPostTypes = $this->markersManager->get_removed_post_types();
+
+							// iterate removed post types
+							foreach ( $removedPostTypes as $type ) {
+								?>
+								<li class="wpvgw-invalid">
+									<input type="checkbox" id="wpvgw_removed_post_types_<?php echo( $type ) ?>" name="wpvgw_removed_post_types[<?php echo( $type ) ?>]"/>
+									<label for="wpvgw_removed_post_types_<?php echo( $type ) ?>"><?php echo( esc_html( $type ) ) ?></label>
+								</li>
+							<?php
+							}
+
+							echo( '</ul>' );
 							?>
 							<p>
-								<?php _e( 'Beim abwählen eines Beitrag-Typs werden die Zählmarken-Zuordnungen entsprechender Beiträge nicht gelöscht.', WPVGW_TEXT_DOMAIN ); ?>
+								<?php _e( 'Beim Abwählen eines Beitrag-Typs werden die Zählmarken-Zuordnungen entsprechender Beiträge nicht gelöscht.', WPVGW_TEXT_DOMAIN ); ?>
 							</p>
 							<p>
 								<?php _e( 'Die Zeichenanzahlen aller Beiträge der ausgewählten Beitrags-Typen werden automatisch neuberechnet.', WPVGW_TEXT_DOMAIN ); ?>
 							</p>
+							<p>
+								<?php _e( 'Rotmarkierte Beitrags-Typen (entfernbar) sind nicht verfügbar, da Plugins/Themes, die diese definieren, deaktiviert oder deinstalliert wurden.', WPVGW_TEXT_DOMAIN ); ?>
+							</p>
 							<p class="submit">
 								<input type="submit" name="wpvgw_operation_allowed_post_types" value="<?php _e( 'Beitrags-Typen zulassen', WPVGW_TEXT_DOMAIN ); ?>" class="button-primary" / >
+								<input type="submit" name="wpvgw_operation_removed_post_types" value="<?php _e( 'Nicht verfügbare Beitrags-Typen entfernen', WPVGW_TEXT_DOMAIN ); ?>" class="button" / >
 							</p>
 						</td>
 					</tr>
@@ -205,7 +221,7 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 	 */
 	private function recalculate_post_character_count() {
 		// recalculate the post character count
-		$postsExtrasFillStats = $this->postsExtras->recalculate_post_character_count_in_db();
+		$postsExtrasFillStats = $this->postsExtras->recalculate_all_post_character_count_in_db();
 
 		// add stats admin message
 		$this->add_admin_message(
@@ -252,6 +268,11 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 			return;
 
 
+		// TODO: Seems to be a hack.
+		// set maximum number of seconds operations can be executed to avoid aborts
+		set_time_limit( $this->options->get_operation_max_execution_time() );
+
+
 		// allowed post types
 		if ( isset( $_POST['wpvgw_operation_allowed_post_types'] ) ) {
 			// allowed post types
@@ -267,14 +288,51 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 			// set new allowed post types; unknown post types will be removed
 			$this->markersManager->set_allowed_post_types( $allowedPostTypes );
 
+			$allowedPostTypesCount = count( $allowedPostTypes );
+
 			// add admin message
 			$this->add_admin_message(
-				__( 'Die ausgewählten Beitrags-Typen wurde mit der Zählmarken-Funktion versehen.', WPVGW_TEXT_DOMAIN ),
+				_n(
+					'Der ausgewählte Beitrags-Typ wurde mit der Zählmarken-Funktion versehen.',
+					sprintf( '%s ausgewählte Beitrags-Typen wurden mit der Zählmarken-Funktion versehen.', number_format_i18n( $allowedPostTypesCount ) ),
+					$allowedPostTypesCount,
+					WPVGW_TEXT_DOMAIN
+				),
 				WPVGW_ErrorType::Update
 			);
 
 			// recalculate character count of posts
 			$this->recalculate_post_character_count();
+		}
+
+
+		// removed post types
+		if ( isset( $_POST['wpvgw_operation_removed_post_types'] ) ) {
+			// allowed post types
+			$removedPostTypes = array();
+
+			// get removed post types (strip slashes) from HTTP POST
+			if ( isset( $_POST['wpvgw_removed_post_types'] ) && is_array( $_POST['wpvgw_removed_post_types'] ) ) {
+				foreach ( $_POST['wpvgw_removed_post_types'] as $key => $value ) {
+					$removedPostTypes[] = stripslashes( $key );
+				}
+			}
+
+			// set new removed post types; choose all post types from current removed post types array without the selected post types (difference)
+			$this->markersManager->set_removed_post_types( array_diff( $this->markersManager->get_removed_post_types(), $removedPostTypes ) );
+
+			$removedPostTypesCount = count( $removedPostTypes );
+
+			// add admin message
+			$this->add_admin_message(
+				_n(
+					'Der ausgewählte nicht verfügbare Beitrags-Typ wurde entfernt.',
+					sprintf( '%s ausgewählte nicht verfügbare Beitrags-Typen wurden entfernt.', number_format_i18n( $removedPostTypesCount ) ),
+					$removedPostTypesCount,
+					WPVGW_TEXT_DOMAIN
+				),
+				WPVGW_ErrorType::Update
+			);
 		}
 
 
