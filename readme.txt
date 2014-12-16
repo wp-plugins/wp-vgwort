@@ -266,7 +266,7 @@ Es besteht die Möglichkeit, die Einstellung „Prosodia VGW OS“ → „Operat
 == Upgrade Notice ==
 
 = 3.4.3 =
-
+Filter „Zuordnung“ in der Zählmarken-Übersicht hinzugefügt. Alle Operationen sind nun auf die ausgewählten Beitrags-Typen beschränkt. Plugin auf WordPress 4.1 getestet. Zwei Fehler behoben.
 
 = 3.4.2 =
 Verbesserung der Handhabung von nicht verfügbaren Beitrags-Typen. Einen Fehler behoben.
