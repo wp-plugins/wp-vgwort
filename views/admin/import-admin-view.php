@@ -76,22 +76,47 @@ class WPVGW_ImportAdminView extends WPVGW_AdminViewBase {
 			<table class="form-table">
 				<tbody>
 					<tr>
-						<th scope="row"><label for="wpvgw_import_file"><?php _e( 'Zählmarken aus CSV-Datei (von VG WORT)', WPVGW_TEXT_DOMAIN ); ?></label></th>
+						<th scope="row"><?php _e( 'Zählmarken aus CSV-Daten', WPVGW_TEXT_DOMAIN ); ?></th>
 						<td>
 							<p>
+								<label for="wpvgw_import_file"><?php _e( 'CSV-Datei', WPVGW_TEXT_DOMAIN ); ?></label>
+								<br/>
 								<input type="file" name="wpvgw_import_file" id="wpvgw_import_file"/>
 								<br/>
-								<span class="description"><?php _e( 'Hier kann eine CSV-Datei mit Zählmarken der VG WORT hochgeladen werden, welche über das Online-Konto der VG WORT bezogen werden kann.', WPVGW_TEXT_DOMAIN ) ?></span>
+								<span class="description"><?php _e( 'Hier kann eine CSV-Datei mit Zählmarken der VG WORT hochgeladen werden, welche über das <a href="https://tom.vgwort.de/portal/login" target="_blank">Online-Konto der VG WORT</a> bezogen werden kann.', WPVGW_TEXT_DOMAIN ) ?></span>
 							</p>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row"><label for="wpvgw_import_csv"><?php _e( 'Zählmarken aus CSV-Text (von VG WORT)', WPVGW_TEXT_DOMAIN ); ?></label></th>
-						<td>
 							<p>
+								<label for="wpvgw_import_csv"><?php _e( 'Zählmarken aus CSV-Text (von VG WORT)', WPVGW_TEXT_DOMAIN ); ?></label>
+								<br/>
 								<textarea name="wpvgw_import_csv" id="wpvgw_import_csv" style="overflow: auto;" wrap="off" cols="36" rows="7"></textarea>
 								<br/>
 								<span class="description"><?php _e( 'Hier kann der gesamte Inhalt einer CSV-Datei mit Zählmarken der VG WORT hineinkopiert werden (falls das Hochladen der CSV-Datei nicht funktioniert).', WPVGW_TEXT_DOMAIN ) ?></span>
+							</p>
+							<p>
+								<input type="radio" name="wpvgw_import_is_author_csv" id="wpvgw_import_is_author_csv" value="1" <?php echo( WPVGW_Helper::get_html_checkbox_checked( $this->options->get_is_author_csv() ) ) ?> />
+								<label for="wpvgw_import_is_author_csv"><?php _e( 'CSV-Daten von Autor-Konto', WPVGW_TEXT_DOMAIN ); ?></label>
+								<input type="radio" name="wpvgw_import_is_author_csv" id="wpvgw_import_is_publisher_csv" value="0" <?php echo( WPVGW_Helper::get_html_checkbox_checked( !$this->options->get_is_author_csv() ) ) ?> />
+								<label for="wpvgw_import_is_publisher_csv"><?php _e( 'CSV-Daten von Verlags-Konto', WPVGW_TEXT_DOMAIN ); ?></label>
+								<br/>
+								<span class="description">
+									<?php _e( 'Bei der VG WORT unterscheiden sich CSV-Daten von Autoren-Konten und Verlags-Konten.', WPVGW_TEXT_DOMAIN ) ?>
+								</span>
+								<br/>
+								<span class="description">
+									<?php
+									echo(
+									sprintf(
+										__( 'CSV-Daten für Verlage enthalten keine Server-Angaben, daher muss der %s unter „Einstellungen“ korrekt angegeben sein.',
+											WPVGW_TEXT_DOMAIN
+										),
+										sprintf( '<a href="%s">%s</a>',
+											esc_attr( WPVGW_AdminViewsManger::create_admin_view_url( WPVGW_ConfigurationAdminView::get_slug_static() ) ),
+											__( 'Standard-Server', WPVGW_TEXT_DOMAIN )
+										)
+									)
+									)
+									?>
+								</span>
 							</p>
 						</td>
 					</tr>
@@ -136,7 +161,7 @@ class WPVGW_ImportAdminView extends WPVGW_AdminViewBase {
 	 */
 	private function add_no_csv_markers_found_admin_message( WPVGW_ImportMarkersStats $import_markers_stats ) {
 		if ( $import_markers_stats->numberOfMarkers == 0 )
-			$this->add_admin_message( __( 'Es wurden keine Zählmarken für den Import in den CSV-Daten gefunden. Stellen Sie bitte sicher, dass Sie die von der VG WORT erhaltenen CSV-Daten unverändert eingeben haben. Die Spalten der CSV-Daten müssen mit Semikolon (;) getrennt sein.', WPVGW_TEXT_DOMAIN ) );
+			$this->add_admin_message( __( 'Es wurden keine Zählmarken für den Import in den CSV-Daten gefunden. Stellen Sie bitte sicher, dass Sie die von der VG WORT erhaltenen CSV-Daten unverändert eingeben haben. Die Spalten der CSV-Daten müssen mit Semikolon (;) getrennt sein. Bei der VG WORT unterscheiden sich CSV-Daten von Autoren-Konten und Verlags-Konten, daher muss dies beim Import ausgewählt werden.', WPVGW_TEXT_DOMAIN ) );
 	}
 
 	/**
@@ -150,6 +175,8 @@ class WPVGW_ImportAdminView extends WPVGW_AdminViewBase {
 			// do no actions
 			return;
 
+		// CSV is author radio
+		$csvIsAuthorCSV = isset( $_POST['wpvgw_import_is_author_csv'] ) ? (bool)$_POST['wpvgw_import_is_author_csv'] : true;
 
 		// CSV text field
 		$csvText = isset( $_POST['wpvgw_import_csv'] ) ? stripslashes( $_POST['wpvgw_import_csv'] ) : '';
@@ -166,6 +193,10 @@ class WPVGW_ImportAdminView extends WPVGW_AdminViewBase {
 			$server = null;
 
 
+		// CSV is author
+		$this->options->set_is_author_csv( $csvIsAuthorCSV );
+
+
 		// CSV file
 		if ( array_key_exists( 'wpvgw_import_file', $_FILES ) ) {
 			$uploadedFile = $_FILES['wpvgw_import_file'];
@@ -178,15 +209,16 @@ class WPVGW_ImportAdminView extends WPVGW_AdminViewBase {
 				$importStats = null;
 				try {
 					// try to import markers from CSV file
-					$importStats = $this->markersManager->import_markers_from_csv_file( $filePath, $this->options->get_default_server(), null );
+					$importStats = $this->markersManager->import_markers_from_csv_file( $this->options->get_is_author_csv(), $filePath, $this->options->get_default_server(), null );
 				} catch ( Exception $e ) {
 					$this->add_admin_message( sprintf( __( 'Fehler beim Importieren der CSV-Datei: %s', WPVGW_TEXT_DOMAIN ), $e->getMessage() ) );
 				}
 
-				if ( $importStats !== null )
+				if ( $importStats !== null ) {
 					$this->add_admin_message( __( 'Zählmarken aus CSV-Datei: ', WPVGW_TEXT_DOMAIN ) . $this->create_import_markers_stats_message( $importStats ), WPVGW_ErrorType::Update );
+					$this->add_no_csv_markers_found_admin_message( $importStats );
+				}
 
-				$this->add_no_csv_markers_found_admin_message( $importStats );
 
 				// delete uploaded file
 				if ( !unlink( $filePath ) )
@@ -200,15 +232,15 @@ class WPVGW_ImportAdminView extends WPVGW_AdminViewBase {
 			$importStats = null;
 			try {
 				// try to import markers from CSV text
-				$importStats = $this->markersManager->import_markers_from_csv( $csvText, null );
+				$importStats = $this->markersManager->import_markers_from_csv( $this->options->get_is_author_csv(), $csvText, null );
 			} catch ( Exception $e ) {
 				$this->add_admin_message( sprintf( __( 'Fehler beim Importieren des CSV-Texts: %s', WPVGW_TEXT_DOMAIN ), $e->getMessage() ) );
 			}
 
-			if ( $importStats !== null )
+			if ( $importStats !== null ) {
 				$this->add_admin_message( __( 'Zählmarken aus CSV-Text: ', WPVGW_TEXT_DOMAIN ) . $this->create_import_markers_stats_message( $importStats ), WPVGW_ErrorType::Update );
-
-			$this->add_no_csv_markers_found_admin_message( $importStats );
+				$this->add_no_csv_markers_found_admin_message( $importStats );
+			}
 		}
 
 

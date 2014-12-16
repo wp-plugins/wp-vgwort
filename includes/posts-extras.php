@@ -165,36 +165,52 @@ class WPVGW_PostsExtras {
 	 * @return WPVGW_RecalculatePostCharacterCountStats Stats.
 	 * @throws Exception Thrown if a database error occurred.
 	 */
-	public function recalculate_post_character_count_in_db() {
+	public function recalculate_all_post_character_count_in_db() {
 		$postsExtrasFillStats = new WPVGW_RecalculatePostCharacterCountStats();
 
-		// get all posts
-		$postQuery = new WPVGW_Uncached_WP_Query(
-			array(
-				'post_status' => $this->markersManager->get_allowed_post_statuses(),
-				'post_type'   => $this->markersManager->get_allowed_post_types(),
-			)
-		);
+		$allowedPostTypes = $this->markersManager->get_allowed_post_types();
 
-		// iterate posts
-		while ( $postQuery->has_post() ) {
-			$post = $postQuery->get_post();
-
-			// count post characters
-			$characterCount = $this->markersManager->calculate_character_count( $post->post_title, $post->post_content );
-
-			// insert or update post extras
-			$this->insert_update_post_extras_in_db(
+		// allowed post types must not be empty
+		if ( !empty ( $allowedPostTypes ) ) {
+			// get all posts
+			$postQuery = new WPVGW_Uncached_WP_Query(
 				array(
-					'post_id'         => $post->ID,
-					'character_count' => $characterCount,
+					'post_status' => $this->markersManager->get_allowed_post_statuses(),
+					'post_type'   => $allowedPostTypes,
 				)
 			);
 
-			$postsExtrasFillStats->numberOfPostExtrasUpdates++;
+			// iterate posts
+			while ( $postQuery->has_post() ) {
+				$post = $postQuery->get_post();
+
+				$this->recalculate_post_character_count_in_db( $post );
+
+				$postsExtrasFillStats->numberOfPostExtrasUpdates++;
+			}
 		}
 
 		return $postsExtrasFillStats;
+	}
+
+	/**
+	 * The character count of a specified post will be recalculated and stored as post extra into the database.
+	 *
+	 * @param WP_Post $post A post.
+	 *
+	 * @throws Exception Thrown if a database error occurred.
+	 */
+	public function recalculate_post_character_count_in_db( $post ) {
+		// count post characters
+		$characterCount = $this->markersManager->calculate_character_count( $post->post_title, $post->post_content );
+
+		// insert or update post extras
+		$this->insert_update_post_extras_in_db(
+			array(
+				'post_id'         => $post->ID,
+				'character_count' => $characterCount,
+			)
+		);
 	}
 }
 

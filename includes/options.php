@@ -20,6 +20,10 @@ class WPVGW_Options {
 	/**
 	 * @var string
 	 */
+	private static $removedPostTypes = 'removed_post_types';
+	/**
+	 * @var string
+	 */
 	private static $outputFormat = 'output_format';
 	/**
 	 * @var string
@@ -60,6 +64,10 @@ class WPVGW_Options {
 	/**
 	 * @var string
 	 */
+	private static $importIsAuthorCsv = 'import_is_author_csv';
+	/**
+	 * @var string
+	 */
 	private static $privacyHideWarning = 'privacy_hide_warning';
 	/**
 	 * @var string
@@ -72,7 +80,15 @@ class WPVGW_Options {
 	/**
 	 * @var string
 	 */
+	private static $operationMaxExecutionTime = 'operations_max_execution_time';
+	/**
+	 * @var string
+	 */
 	private static $operationOldPluginImportNecessary = 'operation_old_plugin_import_necessary';
+	/**
+	 * @var string
+	 */
+	private static $doShortcodesForCharacterCountCalculation = 'do_shortcodes_for_character_count_calculation';
 	/**
 	 * @var string
 	 */
@@ -108,7 +124,7 @@ class WPVGW_Options {
 	/**
 	 * @var string[] The allowed WordPress user roles.
 	 */
-	private $allowedUserRoles = array( 'author', 'editor', 'administrator' );
+	private $allowedUserRoles = array( 'contributor', 'author', 'editor', 'administrator' );
 
 
 	/**
@@ -148,6 +164,7 @@ class WPVGW_Options {
 		// set default values of the options
 		$this->defaultOptions = array(
 			self::$allowedPostTypes                                   => array( 'post', 'page' ),
+			self::$removedPostTypes                                   => array(),
 			self::$outputFormat                                       => '<img src="http://%1$s/%2$s" width="1" height="1" alt="" style="display:none" />',
 			self::$defaultServer                                      => 'vg02.met.vgwort.de/na',
 			self::$metaName                                           => 'wp_vgwortmarke',
@@ -158,10 +175,13 @@ class WPVGW_Options {
 			self::$exportCsvDelimiter                                 => ';',
 			self::$exportCsvEnclosure                                 => '"',
 			self::$importFromPostRegex                                => '%<img.*?src\s*=\s*"http://vg[0-9]+\.met\.vgwort.de/na/[a-z0-9]+".*?>%si',
+			self::$importIsAuthorCsv                                  => true,
 			self::$privacyHideWarning                                 => false,
 			self::$showOtherActiveVgWortPluginsWarning                => true,
 			self::$operationPostCharacterCountRecalculationsNecessary => false,
 			self::$operationOldPluginImportNecessary                  => false,
+			self::$operationMaxExecutionTime                          => 300, // 5 minutes
+			self::$doShortcodesForCharacterCountCalculation           => false,
 			self::$postViewAutoMarker                                 => true,
 		);
 
@@ -233,6 +253,37 @@ class WPVGW_Options {
 	 */
 	public function default_allowed_post_types() {
 		return $this->defaultOptions[self::$allowedPostTypes];
+	}
+
+
+	/**
+	 * Sets the removed WordPress post types, i. e., post types that were set but are not possible any more or just now.
+	 *
+	 * @param string[] $value An array of removed custom post type strings.
+	 */
+	public function set_removed_post_types( array $value ) {
+		if ( $this->options[self::$removedPostTypes] !== $value ) {
+			$this->options[self::$removedPostTypes] = $value;
+			$this->optionsChanged = true;
+		}
+	}
+
+	/**
+	 * Gets the removed WordPress post types, i. e., post types that were set but are not possible any more or just now.
+	 *
+	 * @return string[] An array of removed custom post types strings.
+	 */
+	public function get_removed_post_types() {
+		return $this->options[self::$removedPostTypes];
+	}
+
+	/**
+	 * Gets the removed WordPress post types, i. e., post types that were set but are not possible any more or just now.
+	 *
+	 * @return string[] An array of removed custom post types strings.
+	 */
+	public function default_removed_post_types() {
+		return $this->defaultOptions[self::$removedPostTypes];
 	}
 
 
@@ -577,6 +628,42 @@ class WPVGW_Options {
 
 
 	/**
+	 * Sets whether CSV data is formatted for authors (otherwise for publishers) for marker import.
+	 *
+	 * @param bool $value If true, CSV data is formatted for authors for marker import, otherwise for publishers.
+	 *
+	 * @throws Exception Thrown if $value is invalid.
+	 */
+	public function set_is_author_csv( $value ) {
+		if ( !is_bool( $value ) )
+			throw new Exception( 'Value is not a bool.' );
+
+		if ( $this->options[self::$importIsAuthorCsv] !== $value ) {
+			$this->options[self::$importIsAuthorCsv] = $value;
+			$this->optionsChanged = true;
+		}
+	}
+
+	/**
+	 * Gets whether CSV data is formatted for authors (otherwise for publishers) for marker import.
+	 *
+	 * @return bool If true, CSV data is formatted for authors for marker import, otherwise for publishers.
+	 */
+	public function get_is_author_csv() {
+		return $this->options[self::$importIsAuthorCsv];
+	}
+
+	/**
+	 * Gets the default whether CSV data is formatted for authors (otherwise for publishers) for marker import.
+	 *
+	 * @return bool If true, CSV data is formatted for authors for marker import, otherwise for publishers.
+	 */
+	public function default_is_author_csv() {
+		return $this->defaultOptions[self::$importIsAuthorCsv];
+	}
+
+
+	/**
 	 * Sets whether to hide privacy warning in admin area.
 	 *
 	 * @param bool $value If true, privacy warning in admin area will be hidden, otherwise not.
@@ -717,6 +804,78 @@ class WPVGW_Options {
 	 */
 	public function default_operation_old_plugin_import_necessary() {
 		return $this->defaultOptions[self::$operationOldPluginImportNecessary];
+	}
+
+
+	/**
+	 * Sets the maximum number of seconds operations can be executed.
+	 *
+	 * @param int $value The maximum number of seconds operations can be executed, i. e., a positive integer.
+	 *
+	 * @throws Exception Thrown if $value is invalid.
+	 */
+	public function set_operation_max_execution_time( $value ) {
+		if ( !is_int( $value ) && $value < 1 )
+			throw new Exception( 'Value is not a positive integer.' );
+
+		if ( $this->options[self::$operationMaxExecutionTime] !== $value ) {
+			$this->options[self::$operationMaxExecutionTime] = $value;
+			$this->optionsChanged = true;
+		}
+	}
+
+	/**
+	 * Gets the maximum number of seconds operations can be executed.
+	 *
+	 * @return int The maximum number of seconds operations can be executed, i. e., a positive integer.
+	 */
+	public function get_operation_max_execution_time() {
+		return $this->options[self::$operationMaxExecutionTime];
+	}
+
+	/**
+	 * Gets the maximum number of seconds operations can be executed.
+	 *
+	 * @return int The maximum number of seconds operations can be executed, i. e., a positive integer.
+	 */
+	public function default_operation_max_execution_time() {
+		return $this->defaultOptions[self::$operationMaxExecutionTime];
+	}
+
+
+	/**
+	 * Sets whether shortcodes will be parsed if character count is calculated.
+	 *
+	 * @param bool $value If true, shortcodes will be parsed if character count is calculated, otherwise not.
+	 *
+	 * @throws Exception Thrown if $value is invalid.
+	 */
+	public function set_do_shortcodes_for_character_count_calculation( $value ) {
+		if ( !is_bool( $value ) )
+			throw new Exception( 'Value is not a bool.' );
+
+		if ( $this->options[self::$doShortcodesForCharacterCountCalculation] !== $value ) {
+			$this->options[self::$doShortcodesForCharacterCountCalculation] = $value;
+			$this->optionsChanged = true;
+		}
+	}
+
+	/**
+	 * Gets whether shortcodes will be parsed if character count is calculated.
+	 *
+	 * @return bool If true, shortcodes will be parsed if character count is calculated, otherwise not.
+	 */
+	public function get_do_shortcodes_for_character_count_calculation() {
+		return $this->options[self::$doShortcodesForCharacterCountCalculation];
+	}
+
+	/**
+	 * Gets the default whether shortcodes will be parsed if character count is calculated.
+	 *
+	 * @return bool If true, shortcodes will be parsed if character count is calculated, otherwise not.
+	 */
+	public function default_do_shortcodes_for_character_count_calculation() {
+		return $this->defaultOptions[self::$doShortcodesForCharacterCountCalculation];
 	}
 
 

@@ -118,7 +118,7 @@ div.wpvgw-markers-bulk-edit {
 .wpvgw-check-list-box {
 	background-color: #ffffff;
 	border: 1px solid #dddddd;
-	height: 10em;
+	height: 12em;
 	margin: 0;
 	overflow-y: scroll;
 	padding: 0 5px;
@@ -127,6 +127,10 @@ div.wpvgw-markers-bulk-edit {
 
 .wpvgw-check-list-box li:first-child {
 	margin-top: 6px;
+}
+
+.wpvgw-check-list-box li.wpvgw-invalid {
+	color: #aa0000;
 }
 
 #wpvgw_refresh_character_count_spinner {

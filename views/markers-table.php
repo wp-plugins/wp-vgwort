@@ -105,7 +105,15 @@ class WPVGW_MarkersListTable extends WP_List_Table {
 
 		// post type; used for HTML select (filter)
 		$allowedPostTypes = $markers_manager->get_allowed_post_types();
-		$sqlAllowedPostTypesSql = WPVGW_Helper::prepare_with_null( WPVGW_Helper::sql_values( $allowedPostTypes ), $allowedPostTypes );
+		
+		// allowed post types must not be empty
+		if ( empty ( $allowedPostTypes ) )
+			// set dummy value " " (space) that cannot be a post type
+			$sqlAllowedPostTypesSql = '" "';
+		else
+			// get sql list
+			$sqlAllowedPostTypesSql = WPVGW_Helper::prepare_with_null( WPVGW_Helper::sql_values( $allowedPostTypes ), $allowedPostTypes );
+
 		$allowedPostTypesOptions = array(
 			// default
 			array(
@@ -159,6 +167,21 @@ class WPVGW_MarkersListTable extends WP_List_Table {
 		// Warning: Indexes (integers) of the array items are used in the view links!
 		// HTML selects to filter markers
 		$this->filterableColumnsSelects = array(
+			// has marker filter
+			WPVGW . '_has_marker'            => array(
+				// default
+				array(
+					'label' => __( 'Zuordnung', WPVGW_TEXT_DOMAIN ),
+				),
+				array(
+					'label' => __( 'Zugeordnet', WPVGW_TEXT_DOMAIN ),
+					'where' => 'm.post_id IS NOT NULL',
+				),
+				array(
+					'label' => __( 'Nicht zugeordnet', WPVGW_TEXT_DOMAIN ),
+					'where' => 'm.post_id IS NULL',
+				),
+			),
 			// marker disabled filter
 			WPVGW . '_marker_disabled'       => array(
 				// default
@@ -214,11 +237,12 @@ class WPVGW_MarkersListTable extends WP_List_Table {
 
 		// set bulk actions
 		$this->bulkActions = array(
-			'edit'                            => __( 'Bearbeiten', WPVGW_TEXT_DOMAIN ), // special JavaScript bulk edit; have to be named "edit"
-			WPVGW . '_enable_marker'           => __( 'Aktiv setzen', WPVGW_TEXT_DOMAIN ),
-			WPVGW . '_disable_marker'          => __( 'Inaktiv setzen', WPVGW_TEXT_DOMAIN ),
-			WPVGW . '_remove_post_from_marker' => __( 'Zuordnung aufheben', WPVGW_TEXT_DOMAIN ),
-			WPVGW . '_delete_marker'           => __( 'Löschen (nicht empfohlen)', WPVGW_TEXT_DOMAIN ),
+			'edit'                                      => __( 'Bearbeiten', WPVGW_TEXT_DOMAIN ), // special JavaScript bulk edit; have to be named "edit"
+			WPVGW . '_enable_marker'                    => __( 'Aktiv setzen', WPVGW_TEXT_DOMAIN ),
+			WPVGW . '_disable_marker'                   => __( 'Inaktiv setzen', WPVGW_TEXT_DOMAIN ),
+			WPVGW . '_remove_post_from_marker'          => __( 'Zuordnung aufheben', WPVGW_TEXT_DOMAIN ),
+			WPVGW . '_delete_marker'                    => __( 'Löschen (nicht empfohlen)', WPVGW_TEXT_DOMAIN ),
+			WPVGW . '_recalculate_post_character_count' => __( 'Zeichenanzahl neuberechnen', WPVGW_TEXT_DOMAIN ),
 		);
 
 

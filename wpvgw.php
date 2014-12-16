@@ -14,7 +14,7 @@
 class WPVGW {
 
 	/**
-	 * @var WPVGW_Options The options.
+	 * @var WPVGW_Options|null The options.
 	 */
 	private $options;
 
@@ -258,7 +258,9 @@ class WPVGW {
 		$this->markersManager = new WPVGW_MarkersManager(
 			$this->markersTableName,
 			$this->options->get_allowed_user_roles(),
-			$this->options->get_allowed_post_types()
+			$this->options->get_allowed_post_types(),
+			$this->options->get_removed_post_types(),
+			$this->options->get_do_shortcodes_for_character_count_calculation()
 		);
 
 		// create post extras
@@ -280,11 +282,14 @@ class WPVGW {
 	 * Warning: This function is called by a WordPress hook. Do not call it directly.
 	 */
 	public function on_deinit() {
-		// delegate some settings back to the options object
-		$this->options->set_allowed_post_types( $this->markersManager->get_allowed_post_types() );
+		if ( $this->options !== null ) {
+			// delegate some settings back to the options object
+			$this->options->set_allowed_post_types( $this->markersManager->get_allowed_post_types() );
+			$this->options->set_removed_post_types( $this->markersManager->get_removed_post_types() );
 
-		// store options in database if changed
-		$this->options->store_in_db();
+			// store options in database if changed
+			$this->options->store_in_db();
+		}
 	}
 
 	/**
@@ -604,7 +609,7 @@ class WPVGW {
 		if ( $this->options->get_operations_post_character_count_recalculations_necessary() )
 			WPVGW_Helper::render_admin_message(
 				sprintf(
-					__( 'Die Zeichenanzahl der Beiträge müssen nach Plugin-Aktivierung neuberechnet werden. %s',
+					__( 'Die Zeichenanzahlen der Beiträge müssen neuberechnet werden. %s',
 						WPVGW_TEXT_DOMAIN
 					),
 					sprintf( '<a href="%s">%s</a>',
