@@ -140,18 +140,6 @@ class WPVGW_ConfigurationAdminView extends WPVGW_AdminViewBase {
 						</td>
 					</tr>
 					<tr>
-					<th scope="row"><label for="wpvgw_number_of_markers_per_page"><?php _e( 'Zählmarken pro Seite', WPVGW_TEXT_DOMAIN ); ?></label></th>
-						<td>
-							<p>
-								<input type="text" id="wpvgw_number_of_markers_per_page" name="wpvgw_number_of_markers_per_page" class="regular-text" value="<?php echo( esc_attr( $this->options->get_number_of_markers_per_page() ) ); ?>"/>
-								<br/>
-								<span class="description"><?php _e( 'Die Anzahl der Zählmarken, die auf einer Seite in der Zählmarken-Übersicht (Tabelle) angezeigt werden soll.', WPVGW_TEXT_DOMAIN ); ?></span>
-								<br/>
-								<span class="description"><?php echo( sprintf( __( 'Der Standardwert ist: %s', WPVGW_TEXT_DOMAIN ), esc_html( $this->options->default_number_of_markers_per_page() ) ) ) ?></span>
-							</p>
-						</td>
-					</tr>
-					<tr>
 					<th scope="row"><?php _e( 'Verschiedenes', WPVGW_TEXT_DOMAIN ); ?></th>
 						<td>
 							<p>
@@ -159,7 +147,9 @@ class WPVGW_ConfigurationAdminView extends WPVGW_AdminViewBase {
 								<br/>
 								<input type="text" id="wpvgw_number_of_markers_per_page" name="wpvgw_number_of_markers_per_page" class="regular-text" value="<?php echo( esc_attr( $this->options->get_number_of_markers_per_page() ) ); ?>"/>
 								<br/>
-								<span class="description"><?php _e( '<strong>Achtung</strong>: Bei Aktivierung werden sämtlichen Daten (Zählmarken, Zuordnungen usw.) unwiderruflich gelöscht, sobald das VG-WORT-Plugin deaktiviert wird!', WPVGW_TEXT_DOMAIN ) ?></span>
+								<span class="description"><?php _e( 'Die Anzahl der Zählmarken, die auf einer Seite in der Zählmarken-Übersicht (Tabelle) angezeigt werden soll.', WPVGW_TEXT_DOMAIN ); ?></span>
+								<br/>
+								<span class="description"><?php echo( sprintf( __( 'Der Standardwert ist: %s', WPVGW_TEXT_DOMAIN ), esc_html( $this->options->default_number_of_markers_per_page() ) ) ) ?></span>
 							</p>
 							<p>
 								<label for="wpvgw_operations_max_execution_time"><?php _e( 'Maximale Ausführungszeit für Operationen (in Sekunden)', WPVGW_TEXT_DOMAIN ); ?></label>

@@ -4,7 +4,7 @@ Donate link: http://prosodia.de/
 Tags: VG WORT, Zählmarke, T.O.M., Zählpixel, Geld, VGW, Verwertungsgesellschaft WORT, Prosodia, Verlag
 Requires at least: 3.8
 Tested up to: 4.1
-Stable tag: 3.4.3
+Stable tag: 3.4.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -136,6 +136,9 @@ Es besteht die Möglichkeit, die Einstellung „Prosodia VGW OS“ → „Operat
 
 = Änderungen =
 
+= 3.4.4 =
+* Fehler bei Code-Migration, die doppelte Einstellung „Zählmarken pro Seite in der Übersicht“ unter „Einstellungen“ verursacht hatte.
+
 = 3.4.3 =
 * Filter „Zuordnung“ in der Zählmarken-Übersicht hinzugefügt.
 * Alle Operationen sind nun auf die ausgewählten Beitrags-Typen beschränkt.
@@ -265,8 +268,11 @@ Es besteht die Möglichkeit, die Einstellung „Prosodia VGW OS“ → „Operat
 
 == Upgrade Notice ==
 
-= 3.4.3 =
+= 3.4.4 =
+Einen Fehler behoben.
 
+= 3.4.3 =
+Filter „Zuordnung“ in der Zählmarken-Übersicht hinzugefügt. Alle Operationen sind nun auf die ausgewählten Beitrags-Typen beschränkt. Plugin auf WordPress 4.1 getestet. Zwei Fehler behoben.
 
 = 3.4.2 =
 Verbesserung der Handhabung von nicht verfügbaren Beitrags-Typen. Einen Fehler behoben.
