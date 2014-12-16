@@ -14,7 +14,7 @@
 class WPVGW {
 
 	/**
-	 * @var WPVGW_Options The options.
+	 * @var WPVGW_Options|null The options.
 	 */
 	private $options;
 
@@ -282,12 +282,14 @@ class WPVGW {
 	 * Warning: This function is called by a WordPress hook. Do not call it directly.
 	 */
 	public function on_deinit() {
-		// delegate some settings back to the options object
-		$this->options->set_allowed_post_types( $this->markersManager->get_allowed_post_types() );
-		$this->options->set_removed_post_types( $this->markersManager->get_removed_post_types() );
+		if ( $this->options !== null ) {
+			// delegate some settings back to the options object
+			$this->options->set_allowed_post_types( $this->markersManager->get_allowed_post_types() );
+			$this->options->set_removed_post_types( $this->markersManager->get_removed_post_types() );
 
-		// store options in database if changed
-		$this->options->store_in_db();
+			// store options in database if changed
+			$this->options->store_in_db();
+		}
 	}
 
 	/**

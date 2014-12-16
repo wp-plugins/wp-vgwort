@@ -919,70 +919,73 @@ class WPVGW_MarkersManager {
 		$importOldMarkersAndPostsStats = new WPVGW_ImportOldMarkersAndPostsStats();
 		$importOldMarkersAndPostsStats->importMarkersStats = $importMarkersStats;
 
-		// get posts
-		$postQuery = new WPVGW_Uncached_WP_Query(
-		// merge defaults and values to override
-			array_merge(
-				array(
-					'post_status' => $this->allowedPostStatuses,
-					'post_type'   => $this->possiblePostTypes,
-				),
-				$query_override
-			)
-		);
-
-		// iterate found posts
-		while ( $postQuery->has_post() ) {
-			$post = $postQuery->get_post();
-
-			$importOldMarkersAndPostsStats->numberOfPosts++;
-
-			// get post author
-			$postUserId = (int)$post->post_author;
-
-			// get marker from specified function
-			$marker = $get_marker_function( $post );
-
-			/*if ( $marker === false ) {
-				// iterate import stats
-				$importMarkersStats->numberOfMarkers++;
-			}*/
-			if ( $marker !== false ) {
-				// try to import the marker add import stats; set to arbitrary user (null)
-				$importMarkersStats->add(
-					$this->import_marker( $default_server, $marker['public_marker'], $marker['private_marker'], $marker['server'], null )
-				);
-
-				// add post to marker
-				$updateMarkerResult = $this->update_marker_in_db(
-					$marker['public_marker'], // key
-					'public_marker', // column
-					array( // marker
-						'post_id' => $post->ID
+		// allowed post types must not be empty
+		if ( !empty ( $this->allowedPostTypes ) ) {
+			// get posts
+			$postQuery = new WPVGW_Uncached_WP_Query(
+			// merge defaults and values to override
+				array_merge(
+					array(
+						'post_status' => $this->allowedPostStatuses,
+						'post_type'   => $this->allowedPostTypes,
 					),
-					$postUserId, // current user
-					array( // conditions (just to be safe that the old post id is null or has the post ID already)
-						'post_id' => array( null, $post->ID )
-					)
-				);
+					$query_override
+				)
+			);
 
-				// iterate import stats
-				switch ( $updateMarkerResult ) {
-					case WPVGW_UpdateMarkerResults::Updated:
-						$importOldMarkersAndPostsStats->numberOfUpdates++;
-						// call after import function
-						if ( $after_import_function !== null )
-							$after_import_function( $post );
-						break;
-					case WPVGW_UpdateMarkerResults::UpdateNotNecessary:
-						$importOldMarkersAndPostsStats->numberOfDuplicates++;
-						// call after import function
-						if ( $after_import_function !== null )
-							$after_import_function( $post );
-						break;
-					default:
-						$importOldMarkersAndPostsStats->numberOfIntegrityErrors++;
-						break;
+			// iterate found posts
+			while ( $postQuery->has_post() ) {
+				$post = $postQuery->get_post();
+
+				$importOldMarkersAndPostsStats->numberOfPosts++;
+
+				// get post author
+				$postUserId = (int)$post->post_author;
+
+				// get marker from specified function
+				$marker = $get_marker_function( $post );
+
+				/*if ( $marker === false ) {
+					// iterate import stats
+					$importMarkersStats->numberOfMarkers++;
+				}*/
+				if ( $marker !== false ) {
+					// try to import the marker add import stats; set to arbitrary user (null)
+					$importMarkersStats->add(
+						$this->import_marker( $default_server, $marker['public_marker'], $marker['private_marker'], $marker['server'], null )
+					);
+
+					// add post to marker
+					$updateMarkerResult = $this->update_marker_in_db(
+						$marker['public_marker'], // key
+						'public_marker', // column
+						array( // marker
+							'post_id' => $post->ID
+						),
+						$postUserId, // current user
+						array( // conditions (just to be safe that the old post id is null or has the post ID already)
+							'post_id' => array( null, $post->ID )
+						)
+					);
+
+					// iterate import stats
+					switch ( $updateMarkerResult ) {
+						case WPVGW_UpdateMarkerResults::Updated:
+							$importOldMarkersAndPostsStats->numberOfUpdates++;
+							// call after import function
+							if ( $after_import_function !== null )
+								$after_import_function( $post );
+							break;
+						case WPVGW_UpdateMarkerResults::UpdateNotNecessary:
+							$importOldMarkersAndPostsStats->numberOfDuplicates++;
+							// call after import function
+							if ( $after_import_function !== null )
+								$after_import_function( $post );
+							break;
+						default:
+							$importOldMarkersAndPostsStats->numberOfIntegrityErrors++;
+							break;
+					}
 				}
 			}
 		}

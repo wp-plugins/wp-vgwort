@@ -4,7 +4,7 @@ Donate link: http://prosodia.de/
 Tags: VG WORT, Zählmarke, T.O.M., Zählpixel, Geld, VGW, Verwertungsgesellschaft WORT, Prosodia, Verlag
 Requires at least: 3.8
 Tested up to: 4.1
-Stable tag: 3.4.2
+Stable tag: 3.4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -136,6 +136,13 @@ Es besteht die Möglichkeit, die Einstellung „Prosodia VGW OS“ → „Operat
 
 = Änderungen =
 
+= 3.4.3 =
+* Filter „Zuordnung“ in der Zählmarken-Übersicht hinzugefügt.
+* Alle Operationen sind nun auf die ausgewählten Beitrags-Typen beschränkt.
+* Plugin auf WordPress 4.1 getestet.
+* Fehler behoben, die auftraten, wenn kein Beitrags-Typ ausgewählt wurde.
+* Fehler behoben, der bei der Plugin-Deinitialisierung auftrat (Null-Referenz, bei Verwendung mit „NextGEN Gallery“).
+
 = 3.4.2 =
 * Verbesserung der Handhabung von nicht verfügbaren Beitrags-Typen bei Deaktivierung und Aktualisierung von Plugins/Themes, die eigene Beitrags-Typen definieren.
 * Fehler bei Code-Migration, der die Deinstallationsmöglichkeit unter „Einstellungen“ entfernt hatte.
@@ -257,6 +264,9 @@ Es besteht die Möglichkeit, die Einstellung „Prosodia VGW OS“ → „Operat
 * Initial-Release.
 
 == Upgrade Notice ==
+
+= 3.4.3 =
+
 
 = 3.4.2 =
 Verbesserung der Handhabung von nicht verfügbaren Beitrags-Typen. Einen Fehler behoben.

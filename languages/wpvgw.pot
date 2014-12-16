@@ -1,23 +1,16 @@
+# Copyright (C) 2014 Prosodia VGW OS für Zählmarken (VG WORT)
+# This file is distributed under the same license as the Prosodia VGW OS für Zählmarken (VG WORT) package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Prosodia VGW OS 3.0.0\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-11 03:21+0100\n"
-"PO-Revision-Date: 2014-12-11 03:21+0100\n"
-"Last-Translator: Ronny <info@falconiform.de>\n"
-"Language-Team: Prosodia <developer@prosodia.de>\n"
-"Language: de_DE\n"
+"Project-Id-Version: Prosodia VGW OS für Zählmarken (VG WORT) 3.4.3\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wp-vgwort\n"
+"POT-Creation-Date: 2014-12-16 00:05:45+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 1.7.1\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
-"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
-"X-Poedit-Basepath: ../\n"
-"X-Textdomain-Support: yes\n"
-"X-Poedit-SearchPath-0: .\n"
+"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 
 #: includes/helper.php:48
 msgid "Cheatin&#8217; uh?"
@@ -38,7 +31,6 @@ msgid ""
 msgstr ""
 
 #: includes/helper.php:365
-#, php-format
 msgid "Datenbankfehler: %s"
 msgstr ""
 
@@ -117,14 +109,13 @@ msgid ""
 msgstr ""
 
 #: views/admin/admin-view-base.php:179
-#, php-format
 msgid ""
 "hinzugefügt %s, aktualisiert %s, bereits vorhanden %s, mit ungültigem Format "
 "%s, die Integrität verletzten %s, insgesamt gefunden %s"
 msgstr ""
 
 #: views/admin/configuration-admin-view.php:27
-#: views/admin/configuration-admin-view.php:34 wpvgw.php:559
+#: views/admin/configuration-admin-view.php:34 wpvgw.php:561
 msgid "Einstellungen"
 msgstr ""
 
@@ -134,7 +125,7 @@ msgstr ""
 
 #: views/admin/configuration-admin-view.php:78
 #: views/admin/markers-admin-view.php:277 views/markers-table.php:84
-#: views/markers-table.php:198 views/post-table-view.php:118
+#: views/markers-table.php:221 views/post-table-view.php:118
 msgid "Zeichenanzahl"
 msgstr ""
 
@@ -155,7 +146,6 @@ msgstr ""
 #: views/admin/configuration-admin-view.php:171
 #: views/admin/operations-admin-view.php:173
 #: views/admin/operations-admin-view.php:186
-#, php-format
 msgid "Der Standardwert ist: %s"
 msgstr ""
 
@@ -188,7 +178,6 @@ msgid ""
 msgstr ""
 
 #: views/admin/configuration-admin-view.php:107
-#, php-format
 msgid ""
 "%1$s wird durch den Server ersetzt (ohne http://); %2$s wird durch die "
 "öffentliche Zählmarke ersetzt."
@@ -347,7 +336,6 @@ msgid ""
 msgstr ""
 
 #: views/admin/data-privacy-admin-view.php:123
-#, php-format
 msgid "Quelle: %s"
 msgstr ""
 
@@ -430,7 +418,6 @@ msgid ""
 msgstr ""
 
 #: views/admin/import-admin-view.php:109
-#, php-format
 msgid ""
 "CSV-Daten für Verlage enthalten keine Server-Angaben, daher muss der %s "
 "unter „Einstellungen“ korrekt angegeben sein."
@@ -441,24 +428,23 @@ msgid "Zählmarke manuell eingeben (nicht empfohlen)"
 msgstr ""
 
 #: views/admin/import-admin-view.php:127
-#: views/admin/markers-admin-view.php:278 views/markers-table.php:448
+#: views/admin/markers-admin-view.php:278 views/markers-table.php:471
 msgid "Öffentliche Zählmarke"
 msgstr ""
 
 #: views/admin/import-admin-view.php:132
-#: views/admin/markers-admin-view.php:270 views/markers-table.php:451
+#: views/admin/markers-admin-view.php:270 views/markers-table.php:474
 msgid "Private Zählmarke"
 msgstr ""
 
 #: views/admin/import-admin-view.php:137
 #: views/admin/markers-admin-view.php:183
-#: views/admin/markers-admin-view.php:279 views/markers-table.php:455
+#: views/admin/markers-admin-view.php:279 views/markers-table.php:478
 msgid "Server"
 msgstr ""
 
 #: views/admin/import-admin-view.php:141
 #: views/admin/markers-admin-view.php:190
-#, php-format
 msgid ""
 "Wenn der Server nicht angegeben wird, wird der Standard-Server (%s) "
 "verwendet."
@@ -478,7 +464,6 @@ msgid ""
 msgstr ""
 
 #: views/admin/import-admin-view.php:214
-#, php-format
 msgid "Fehler beim Importieren der CSV-Datei: %s"
 msgstr ""
 
@@ -491,7 +476,6 @@ msgid "Hochgeladene Datei konnte nicht gelöscht werden."
 msgstr ""
 
 #: views/admin/import-admin-view.php:237
-#, php-format
 msgid "Fehler beim Importieren des CSV-Texts: %s"
 msgstr ""
 
@@ -500,7 +484,6 @@ msgid "Zählmarken aus CSV-Text: "
 msgstr ""
 
 #: views/admin/import-admin-view.php:254
-#, php-format
 msgid "Fehler beim Importieren der Zählmarke: %s"
 msgstr ""
 
@@ -547,7 +530,7 @@ msgid ""
 "inaktiv gesetzt werden."
 msgstr ""
 
-#: views/admin/markers-admin-view.php:157 views/markers-table.php:221
+#: views/admin/markers-admin-view.php:157 views/markers-table.php:244
 msgid "Löschen (nicht empfohlen)"
 msgstr ""
 
@@ -556,7 +539,7 @@ msgid "In der Regel sollten nur falsch importierte Zählmarken gelöscht werden.
 msgstr ""
 
 #: views/admin/markers-admin-view.php:163
-#: views/admin/operations-admin-view.php:150 views/markers-table.php:222
+#: views/admin/operations-admin-view.php:150 views/markers-table.php:245
 #: views/post-table-view.php:98
 msgid "Zeichenanzahl neuberechnen"
 msgstr ""
@@ -571,7 +554,7 @@ msgstr ""
 msgid "Aktivierung"
 msgstr ""
 
-#: views/admin/markers-admin-view.php:174 views/markers-table.php:173
+#: views/admin/markers-admin-view.php:174 views/markers-table.php:196
 #: views/post-table-view.php:144 views/post-view.php:296
 #: views/post-view.php:317
 msgid "Inaktiv"
@@ -655,7 +638,7 @@ msgstr ""
 msgid "Beitrags-Autor"
 msgstr ""
 
-#: views/admin/markers-admin-view.php:276 views/markers-table.php:112
+#: views/admin/markers-admin-view.php:276 views/markers-table.php:120
 msgid "Beitrags-Typ"
 msgstr ""
 
@@ -786,7 +769,6 @@ msgid "Regulärer Ausdruck (PHP-Stil) zur Zählmarkenerkennung: "
 msgstr ""
 
 #: views/admin/operations-admin-view.php:188
-#, php-format
 msgid ""
 "Wenn bereits Zählmarken der Form %s manuell in Beiträgen (deren Inhalt) "
 "eingefügt wurden, können diese hier importiert und entfernt werden."
@@ -827,7 +809,6 @@ msgid "Alte Zählmarken und Beitrags-Zuordnungen importieren"
 msgstr ""
 
 #: views/admin/operations-admin-view.php:252
-#, php-format
 msgid ""
 "aktualisiert %s, bereits vorhanden %s, die Integrität verletzten %s, "
 "Beiträge durchsucht %s"
@@ -889,7 +870,6 @@ msgid ""
 msgstr ""
 
 #: views/admin/support-admin-view.php:80
-#, php-format
 msgid "Websites: %s, %s (WordPress.org) oder alternativ %s"
 msgstr ""
 
@@ -907,7 +887,6 @@ msgstr ""
 
 #: views/admin/support-admin-view.php:87
 #: views/admin/support-admin-view.php:100
-#, php-format
 msgid "E-Mail: %s"
 msgstr ""
 
@@ -921,7 +900,7 @@ msgid ""
 "auch direkt an die Entwickler wenden:"
 msgstr ""
 
-#: views/markers-table.php:82 views/markers-table.php:183
+#: views/markers-table.php:82 views/markers-table.php:206
 msgid "Beitrag"
 msgstr ""
 
@@ -929,192 +908,190 @@ msgstr ""
 msgid "Datum"
 msgstr ""
 
-#: views/markers-table.php:87 views/markers-table.php:166
+#: views/markers-table.php:87 views/markers-table.php:189
 #: views/post-table-view.php:133
 msgid "Zählmarke"
 msgstr ""
 
-#: views/markers-table.php:115
+#: views/markers-table.php:123
 msgid "Zugelassen"
 msgstr ""
 
-#: views/markers-table.php:119
+#: views/markers-table.php:127
 msgid "Nicht Zugelassen"
 msgstr ""
 
-#: views/markers-table.php:132
-#, php-format
+#: views/markers-table.php:140
 msgid "Typ: %s"
 msgstr ""
 
-#: views/markers-table.php:141
+#: views/markers-table.php:149
 msgid "Beitrags-Jahr"
 msgstr ""
 
-#: views/markers-table.php:150 views/markers-table.php:372
-#, php-format
+#: views/markers-table.php:158 views/markers-table.php:395
 msgid "%s"
 msgstr ""
 
-#: views/markers-table.php:169
+#: views/markers-table.php:174
+msgid "Zuordnung"
+msgstr ""
+
+#: views/markers-table.php:177 views/post-table-view.php:136
+msgid "Zugeordnet"
+msgstr ""
+
+#: views/markers-table.php:181 views/post-table-view.php:140
+msgid "Nicht zugeordnet"
+msgstr ""
+
+#: views/markers-table.php:192
 msgid "Aktiv"
 msgstr ""
 
-#: views/markers-table.php:186
+#: views/markers-table.php:209
 msgid "Nicht gelöscht"
 msgstr ""
 
-#: views/markers-table.php:190
+#: views/markers-table.php:213
 msgid "Gelöscht"
 msgstr ""
 
-#: views/markers-table.php:201 views/post-table-view.php:121
+#: views/markers-table.php:224 views/post-table-view.php:121
 msgid "Genügend"
 msgstr ""
 
-#: views/markers-table.php:205 views/post-table-view.php:125
+#: views/markers-table.php:228 views/post-table-view.php:125
 msgid "Zu wenig"
 msgstr ""
 
-#: views/markers-table.php:217 views/markers-table.php:312
+#: views/markers-table.php:240 views/markers-table.php:335
 msgid "Bearbeiten"
 msgstr ""
 
-#: views/markers-table.php:218 views/markers-table.php:295
+#: views/markers-table.php:241 views/markers-table.php:318
 msgid "Aktiv setzen"
 msgstr ""
 
-#: views/markers-table.php:219 views/markers-table.php:303
+#: views/markers-table.php:242 views/markers-table.php:326
 msgid "Inaktiv setzen"
 msgstr ""
 
-#: views/markers-table.php:220
+#: views/markers-table.php:243
 msgid "Zuordnung aufheben"
 msgstr ""
 
-#: views/markers-table.php:242
+#: views/markers-table.php:265
 msgid "–"
 msgstr ""
 
-#: views/markers-table.php:294
+#: views/markers-table.php:317
 msgid "Diese Zählmarke aktiv setzen"
 msgstr ""
 
-#: views/markers-table.php:302
+#: views/markers-table.php:325
 msgid "Diese Zählmarke inaktiv setzen"
 msgstr ""
 
-#: views/markers-table.php:311
+#: views/markers-table.php:334
 msgid "Den zugeordneten Beitrag bearbeiten"
 msgstr ""
 
-#: views/markers-table.php:318
+#: views/markers-table.php:341
 msgid "Inaktiv: "
 msgstr ""
 
-#: views/markers-table.php:321
+#: views/markers-table.php:344
 msgid "Kein Beitrag zugeordnet"
 msgstr ""
 
-#: views/markers-table.php:323
-#, php-format
+#: views/markers-table.php:346
 msgid "gelöscht (%s)"
 msgstr ""
 
-#: views/markers-table.php:324
+#: views/markers-table.php:347
 msgid "unbekannt"
 msgstr ""
 
-#: views/markers-table.php:324
+#: views/markers-table.php:347
 msgid "kein Titel)"
 msgstr ""
 
-#: views/markers-table.php:327
+#: views/markers-table.php:350
 msgid "gelöscht? (Titel unbekannt)"
 msgstr ""
 
-#: views/markers-table.php:331
+#: views/markers-table.php:354
 msgid "Die Zugriffe auf diesen Beitrag werden nicht gezählt"
 msgstr ""
 
-#: views/markers-table.php:334
+#: views/markers-table.php:357
 msgid "(kein Titel)"
 msgstr ""
 
-#: views/markers-table.php:346
-#, php-format
+#: views/markers-table.php:369
 msgid "Beitrags-Typ unbekannt (%s)"
 msgstr ""
 
-#: views/markers-table.php:351
+#: views/markers-table.php:374
 msgid "Beitrags-Typ nicht zugelassen"
 msgstr ""
 
-#: views/markers-table.php:372
+#: views/markers-table.php:395
 msgid "d.m.Y"
 msgstr ""
 
-#: views/markers-table.php:389 views/markers-table.php:421
+#: views/markers-table.php:412 views/markers-table.php:444
 msgid "gelöscht?"
 msgstr ""
 
-#: views/markers-table.php:394 views/markers-table.php:425
+#: views/markers-table.php:417 views/markers-table.php:448
 #: views/post-table-view.php:335
 msgid "Autor nicht zugelassen"
 msgstr ""
 
-#: views/markers-table.php:397
+#: views/markers-table.php:420
 msgid "Autor nicht für diese Zählmarke bestimmt"
 msgstr ""
 
-#: views/markers-table.php:416
+#: views/markers-table.php:439
 msgid "beliebiger"
 msgstr ""
 
-#: views/markers-table.php:447
+#: views/markers-table.php:470
 msgid "Zählmarke ist inaktiv"
 msgstr ""
 
-#: views/markers-table.php:449
+#: views/markers-table.php:472
 msgid "Ö"
 msgstr ""
 
-#: views/markers-table.php:452
+#: views/markers-table.php:475
 msgid "P"
 msgstr ""
 
-#: views/markers-table.php:456
+#: views/markers-table.php:479
 msgid "S"
 msgstr ""
 
-#: views/markers-table.php:474 views/post-table-view.php:346
+#: views/markers-table.php:497 views/post-table-view.php:346
 msgid "nicht berechnet"
 msgstr ""
 
-#: views/markers-table.php:481 views/post-table-view.php:348
-#, php-format
+#: views/markers-table.php:504 views/post-table-view.php:348
 msgid "genügend, %s"
 msgstr ""
 
-#: views/markers-table.php:485 views/post-table-view.php:350
-#, php-format
+#: views/markers-table.php:508 views/post-table-view.php:350
 msgid "zu wenig, %s"
 msgstr ""
 
-#: views/markers-table.php:517
+#: views/markers-table.php:540
 msgid "Auswählen"
 msgstr ""
 
 #: views/post-table-view.php:95 views/post-table-view.php:408
 msgid "Zählmarke zuordnen"
-msgstr ""
-
-#: views/post-table-view.php:136
-msgid "Zugeordnet"
-msgstr ""
-
-#: views/post-table-view.php:140
-msgid "Nicht zugeordnet"
 msgstr ""
 
 #: views/post-table-view.php:297
@@ -1159,13 +1136,12 @@ msgid ""
 msgstr ""
 
 #: views/post-view.php:182
-#, php-format
 msgid ""
 "Es wurde keine Zählmarke entsprechend Ihrer Vorgaben gefunden. Die Zählmarke "
 "muss ggf. zunächst importiert werden. %s"
 msgstr ""
 
-#: views/post-view.php:187 views/post-view.php:431 wpvgw.php:636
+#: views/post-view.php:187 views/post-view.php:431 wpvgw.php:638
 msgid "Zählmarken hier importieren."
 msgstr ""
 
@@ -1190,12 +1166,10 @@ msgid "Zeichenanzahl im Text"
 msgstr ""
 
 #: views/post-view.php:232
-#, php-format
 msgid "Genügend: %1$s, %2$s fehlen"
 msgstr ""
 
 #: views/post-view.php:241
-#, php-format
 msgid "Vorhanden: %1$s von %2$s nötigen"
 msgstr ""
 
@@ -1207,7 +1181,6 @@ msgstr ""
 msgid "(sonst alle paar Sekunden automatisch)"
 msgstr ""
 
-# @ wp-vgwort-locale
 #: views/post-view.php:260 views/post-view.php:327
 msgid "Aktion"
 msgstr ""
@@ -1263,7 +1236,6 @@ msgid "Server: "
 msgstr ""
 
 #: views/post-view.php:357
-#, php-format
 msgid ""
 "Dieser Beitrag enthält weniger als %s Zeichen (es fehlen noch %s) und "
 "verstößt damit gegen die von der VG WORT vorgegebene Mindestzeichenanzahl. "
@@ -1271,7 +1243,6 @@ msgid ""
 msgstr ""
 
 #: views/post-view.php:426
-#, php-format
 msgid ""
 "Eine Zählmarke konnte nicht automatisch zugeordnet werden, da für den "
 "Beitrags-Autor keine mehr verfügbar sind. Bitte importieren Sie zunächst "
@@ -1301,54 +1272,71 @@ msgid ""
 "Die Zuordnung zwischen Zählmarke und Beitrag konnte nicht aufgehoben werden."
 msgstr ""
 
-#: wpvgw.php:589
-#, php-format
+#: wpvgw.php:591
 msgid ""
-"Der Datenschutz-Hinweis der VG WORT sollte in die Website eingefügt werden. "
-"%s"
+"Der Datenschutz-Hinweis der VG WORT sollte in die Website eingefügt werden. %"
+"s"
 msgstr ""
 
-#: wpvgw.php:594
+#: wpvgw.php:596
 msgid "Datenschutz-Hinweis hier zur Kenntnis nehmen."
 msgstr ""
 
-#: wpvgw.php:610
-#, php-format
+#: wpvgw.php:612
 msgid "Die Zeichenanzahlen der Beiträge müssen neuberechnet werden. %s"
 msgstr ""
 
-#: wpvgw.php:615
+#: wpvgw.php:617
 msgid "Zeichenanzahl hier neuberechnen."
 msgstr ""
 
-#: wpvgw.php:631
-#, php-format
+#: wpvgw.php:633
 msgid ""
 "Die Zählmarken aus einer früheren Version des Plugins sollten importiert "
 "werden, da sie sonst fehlen. %s"
 msgstr ""
 
-#: wpvgw.php:669
-#, php-format
+#: wpvgw.php:671
 msgid "„%s“ (%s)"
 msgstr ""
 
-#: wpvgw.php:674
+#: wpvgw.php:676
 msgid ", "
 msgstr ""
 
-#: wpvgw.php:681
-#, php-format
+#: wpvgw.php:683
 msgid ""
 "Es sind folgende, andere Plugins zur Integration von Zählmarken der VG WORT "
 "aktiviert: %s. Diese sollten besser deaktiviert werden, um Zählmarken nicht "
 "mehrfach auszugeben. %s"
 msgstr ""
 
-#: wpvgw.php:685
+#: wpvgw.php:687
 msgid "Plugins hier deaktivieren."
 msgstr ""
 
-#: wpvgw.php:800 wpvgw.php:801
+#: wpvgw.php:802 wpvgw.php:803
 msgid "Prosodia VGW OS"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Prosodia VGW OS für Zählmarken (VG WORT)"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://wordpress.org/plugins/wp-vgwort/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Verdienen Sie mit Ihren Beiträgen/Texten Geld durch die Integration von "
+"Zählmarken der VG WORT."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Prosodia – Verlag für Musik und Literatur"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://prosodia.de/"
 msgstr ""

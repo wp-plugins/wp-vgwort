@@ -168,21 +168,26 @@ class WPVGW_PostsExtras {
 	public function recalculate_all_post_character_count_in_db() {
 		$postsExtrasFillStats = new WPVGW_RecalculatePostCharacterCountStats();
 
-		// get all posts
-		$postQuery = new WPVGW_Uncached_WP_Query(
-			array(
-				'post_status' => $this->markersManager->get_allowed_post_statuses(),
-				'post_type'   => $this->markersManager->get_allowed_post_types(),
-			)
-		);
+		$allowedPostTypes = $this->markersManager->get_allowed_post_types();
 
-		// iterate posts
-		while ( $postQuery->has_post() ) {
-			$post = $postQuery->get_post();
+		// allowed post types must not be empty
+		if ( !empty ( $allowedPostTypes ) ) {
+			// get all posts
+			$postQuery = new WPVGW_Uncached_WP_Query(
+				array(
+					'post_status' => $this->markersManager->get_allowed_post_statuses(),
+					'post_type'   => $allowedPostTypes,
+				)
+			);
 
-			$this->recalculate_post_character_count_in_db( $post );
+			// iterate posts
+			while ( $postQuery->has_post() ) {
+				$post = $postQuery->get_post();
 
-			$postsExtrasFillStats->numberOfPostExtrasUpdates++;
+				$this->recalculate_post_character_count_in_db( $post );
+
+				$postsExtrasFillStats->numberOfPostExtrasUpdates++;
+			}
 		}
 
 		return $postsExtrasFillStats;
