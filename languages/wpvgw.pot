@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Prosodia VGW OS für Zählmarken (VG WORT) package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Prosodia VGW OS für Zählmarken (VG WORT) 3.4.4\n"
+"Project-Id-Version: Prosodia VGW OS für Zählmarken (VG WORT) 3.4.5\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wp-vgwort\n"
-"POT-Creation-Date: 2014-12-16 00:41:31+00:00\n"
+"POT-Creation-Date: 2014-12-19 12:33:43+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -115,7 +115,7 @@ msgid ""
 msgstr ""
 
 #: views/admin/configuration-admin-view.php:27
-#: views/admin/configuration-admin-view.php:34 wpvgw.php:561
+#: views/admin/configuration-admin-view.php:34 wpvgw.php:569
 msgid "Einstellungen"
 msgstr ""
 
@@ -1136,7 +1136,7 @@ msgid ""
 "muss ggf. zunächst importiert werden. %s"
 msgstr ""
 
-#: views/post-view.php:187 views/post-view.php:431 wpvgw.php:638
+#: views/post-view.php:187 views/post-view.php:431 wpvgw.php:646
 msgid "Zählmarken hier importieren."
 msgstr ""
 
@@ -1267,50 +1267,50 @@ msgid ""
 "Die Zuordnung zwischen Zählmarke und Beitrag konnte nicht aufgehoben werden."
 msgstr ""
 
-#: wpvgw.php:591
+#: wpvgw.php:599
 msgid ""
 "Der Datenschutz-Hinweis der VG WORT sollte in die Website eingefügt werden. %"
 "s"
 msgstr ""
 
-#: wpvgw.php:596
+#: wpvgw.php:604
 msgid "Datenschutz-Hinweis hier zur Kenntnis nehmen."
 msgstr ""
 
-#: wpvgw.php:612
+#: wpvgw.php:620
 msgid "Die Zeichenanzahlen der Beiträge müssen neuberechnet werden. %s"
 msgstr ""
 
-#: wpvgw.php:617
+#: wpvgw.php:625
 msgid "Zeichenanzahl hier neuberechnen."
 msgstr ""
 
-#: wpvgw.php:633
+#: wpvgw.php:641
 msgid ""
 "Die Zählmarken aus einer früheren Version des Plugins sollten importiert "
 "werden, da sie sonst fehlen. %s"
 msgstr ""
 
-#: wpvgw.php:671
+#: wpvgw.php:679
 msgid "„%s“ (%s)"
 msgstr ""
 
-#: wpvgw.php:676
+#: wpvgw.php:684
 msgid ", "
 msgstr ""
 
-#: wpvgw.php:683
+#: wpvgw.php:691
 msgid ""
 "Es sind folgende, andere Plugins zur Integration von Zählmarken der VG WORT "
 "aktiviert: %s. Diese sollten besser deaktiviert werden, um Zählmarken nicht "
 "mehrfach auszugeben. %s"
 msgstr ""
 
-#: wpvgw.php:687
+#: wpvgw.php:695
 msgid "Plugins hier deaktivieren."
 msgstr ""
 
-#: wpvgw.php:802 wpvgw.php:803
+#: wpvgw.php:810 wpvgw.php:811
 msgid "Prosodia VGW OS"
 msgstr ""
 

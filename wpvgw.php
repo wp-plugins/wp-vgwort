@@ -468,6 +468,14 @@ class WPVGW {
 		}
 
 
+		// upgrade to version 3.4.5
+		if ( version_compare( $oldVersion, '3.4.5', '<' ) ) {
+			// fix wrong standard regex, but only if user did not changed already
+			if ( $this->options->get_import_from_post_regex() == '%<img.*?src\s*=\s*"http://vg[0-9]+\.met\.vgwort.de/na/[a-z0-9]+".*?>%si' )
+				$this->options->set_import_from_post_regex( '%<img\s[^<>]*?src\s*=\s*"http://vg[0-9]+\.met\.vgwort\.de/na/[a-z0-9]+"[^<>]*?>%im' );
+		}
+
+
 		// this is an example for futur versions
 		/*if (version_compare($oldVersion , '2.0.0' ,'<'))
 		{
