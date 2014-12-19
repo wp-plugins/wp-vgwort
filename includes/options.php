@@ -174,7 +174,7 @@ class WPVGW_Options {
 			self::$exportCsvOutputHeadlines                           => true,
 			self::$exportCsvDelimiter                                 => ';',
 			self::$exportCsvEnclosure                                 => '"',
-			self::$importFromPostRegex                                => '%<img.*?src\s*=\s*"http://vg[0-9]+\.met\.vgwort.de/na/[a-z0-9]+".*?>%si',
+			self::$importFromPostRegex                                => '%<img\s[^<>]*?src\s*=\s*"http://vg[0-9]+\.met\.vgwort\.de/na/[a-z0-9]+"[^<>]*?>%im',
 			self::$importIsAuthorCsv                                  => true,
 			self::$privacyHideWarning                                 => false,
 			self::$showOtherActiveVgWortPluginsWarning                => true,

@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Prosodia VGW OS für Zählmarken (VG WORT) package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Prosodia VGW OS für Zählmarken (VG WORT) 3.4.3\n"
+"Project-Id-Version: Prosodia VGW OS für Zählmarken (VG WORT) 3.4.5\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wp-vgwort\n"
-"POT-Creation-Date: 2014-12-16 00:05:45+00:00\n"
+"POT-Creation-Date: 2014-12-19 12:33:43+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -115,7 +115,7 @@ msgid ""
 msgstr ""
 
 #: views/admin/configuration-admin-view.php:27
-#: views/admin/configuration-admin-view.php:34 wpvgw.php:561
+#: views/admin/configuration-admin-view.php:34 wpvgw.php:569
 msgid "Einstellungen"
 msgstr ""
 
@@ -142,8 +142,8 @@ msgstr ""
 #: views/admin/configuration-admin-view.php:87
 #: views/admin/configuration-admin-view.php:109
 #: views/admin/configuration-admin-view.php:118
-#: views/admin/configuration-admin-view.php:150
-#: views/admin/configuration-admin-view.php:171
+#: views/admin/configuration-admin-view.php:152
+#: views/admin/configuration-admin-view.php:161
 #: views/admin/operations-admin-view.php:173
 #: views/admin/operations-admin-view.php:186
 msgid "Der Standardwert ist: %s"
@@ -228,36 +228,24 @@ msgid ""
 msgstr ""
 
 #: views/admin/configuration-admin-view.php:143
-msgid "Zählmarken pro Seite"
+msgid "Verschiedenes"
 msgstr ""
 
-#: views/admin/configuration-admin-view.php:148
+#: views/admin/configuration-admin-view.php:146
+msgid "Zählmarken pro Seite in der Übersicht"
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:150
 msgid ""
 "Die Anzahl der Zählmarken, die auf einer Seite in der Zählmarken-Übersicht "
 "(Tabelle) angezeigt werden soll."
 msgstr ""
 
 #: views/admin/configuration-admin-view.php:155
-msgid "Verschiedenes"
-msgstr ""
-
-#: views/admin/configuration-admin-view.php:158
-msgid "Zählmarken pro Seite in der Übersicht"
-msgstr ""
-
-#: views/admin/configuration-admin-view.php:162
-#: views/admin/configuration-admin-view.php:182
-msgid ""
-"<strong>Achtung</strong>: Bei Aktivierung werden sämtlichen Daten "
-"(Zählmarken, Zuordnungen usw.) unwiderruflich gelöscht, sobald das VG-WORT-"
-"Plugin deaktiviert wird!"
-msgstr ""
-
-#: views/admin/configuration-admin-view.php:165
 msgid "Maximale Ausführungszeit für Operationen (in Sekunden)"
 msgstr ""
 
-#: views/admin/configuration-admin-view.php:169
+#: views/admin/configuration-admin-view.php:159
 msgid ""
 "Legt die maximale Zeitspanne in Sekunden fest, um Operationen im Bereich "
 "„Operationen“ auszuführen. Bitte erhöhen, falls Operationen abbrechen (siehe "
@@ -265,56 +253,63 @@ msgid ""
 "\"_blank\">set_time_limit</a>)."
 msgstr ""
 
-#: views/admin/configuration-admin-view.php:176
+#: views/admin/configuration-admin-view.php:166
 msgid "Deinstallation"
 msgstr ""
 
-#: views/admin/configuration-admin-view.php:180
+#: views/admin/configuration-admin-view.php:170
 msgid "Daten bei Plugin-Deaktivierung löschen"
 msgstr ""
 
-#: views/admin/configuration-admin-view.php:189
+#: views/admin/configuration-admin-view.php:172
+msgid ""
+"<strong>Achtung</strong>: Bei Aktivierung werden sämtlichen Daten "
+"(Zählmarken, Zuordnungen usw.) unwiderruflich gelöscht, sobald das VG-WORT-"
+"Plugin deaktiviert wird!"
+msgstr ""
+
+#: views/admin/configuration-admin-view.php:179
 msgid "Einstellungen speichern"
 msgstr ""
 
-#: views/admin/configuration-admin-view.php:222
+#: views/admin/configuration-admin-view.php:212
 msgid "Die nötige Zeichenanzahl muss einen Wert größer oder gleich 0 haben."
 msgstr ""
 
-#: views/admin/configuration-admin-view.php:225
+#: views/admin/configuration-admin-view.php:215
 msgid ""
 "Die nötige Zeichenanzahl muss eine natürliche Zahl größer oder gleich 0 sein."
 msgstr ""
 
-#: views/admin/configuration-admin-view.php:254
+#: views/admin/configuration-admin-view.php:244
 msgid "Der eingegebene Standard-Server hat ein ungültiges Format."
 msgstr ""
 
-#: views/admin/configuration-admin-view.php:269
+#: views/admin/configuration-admin-view.php:259
 msgid ""
 "Die Anzahl der Zählmarken pro Seite muss einen Wert größer oder gleich 1 "
 "haben."
 msgstr ""
 
-#: views/admin/configuration-admin-view.php:272
+#: views/admin/configuration-admin-view.php:262
 msgid ""
 "Die Anzahl der Zählmarken pro Seite muss eine natürliche Zahl größer oder "
 "gleich 1 sein."
 msgstr ""
 
-#: views/admin/configuration-admin-view.php:288
+#: views/admin/configuration-admin-view.php:278
 msgid ""
 "Die maximale Ausführungszeit für Operationen (in Sekunden) muss einen Wert "
 "größer 0 haben."
 msgstr ""
 
-#: views/admin/configuration-admin-view.php:291
+#: views/admin/configuration-admin-view.php:281
 msgid ""
 "Die maximale Ausführungszeit für Operationen (in Sekunden) muss eine "
 "natürliche Zahl größer als 0 sein."
 msgstr ""
 
-#: views/admin/configuration-admin-view.php:313
+#: views/admin/configuration-admin-view.php:303
 #: views/admin/data-privacy-admin-view.php:167
 msgid "Einstellungen erfolgreich übernommen."
 msgstr ""
@@ -1141,7 +1136,7 @@ msgid ""
 "muss ggf. zunächst importiert werden. %s"
 msgstr ""
 
-#: views/post-view.php:187 views/post-view.php:431 wpvgw.php:638
+#: views/post-view.php:187 views/post-view.php:431 wpvgw.php:646
 msgid "Zählmarken hier importieren."
 msgstr ""
 
@@ -1272,50 +1267,50 @@ msgid ""
 "Die Zuordnung zwischen Zählmarke und Beitrag konnte nicht aufgehoben werden."
 msgstr ""
 
-#: wpvgw.php:591
+#: wpvgw.php:599
 msgid ""
 "Der Datenschutz-Hinweis der VG WORT sollte in die Website eingefügt werden. %"
 "s"
 msgstr ""
 
-#: wpvgw.php:596
+#: wpvgw.php:604
 msgid "Datenschutz-Hinweis hier zur Kenntnis nehmen."
 msgstr ""
 
-#: wpvgw.php:612
+#: wpvgw.php:620
 msgid "Die Zeichenanzahlen der Beiträge müssen neuberechnet werden. %s"
 msgstr ""
 
-#: wpvgw.php:617
+#: wpvgw.php:625
 msgid "Zeichenanzahl hier neuberechnen."
 msgstr ""
 
-#: wpvgw.php:633
+#: wpvgw.php:641
 msgid ""
 "Die Zählmarken aus einer früheren Version des Plugins sollten importiert "
 "werden, da sie sonst fehlen. %s"
 msgstr ""
 
-#: wpvgw.php:671
+#: wpvgw.php:679
 msgid "„%s“ (%s)"
 msgstr ""
 
-#: wpvgw.php:676
+#: wpvgw.php:684
 msgid ", "
 msgstr ""
 
-#: wpvgw.php:683
+#: wpvgw.php:691
 msgid ""
 "Es sind folgende, andere Plugins zur Integration von Zählmarken der VG WORT "
 "aktiviert: %s. Diese sollten besser deaktiviert werden, um Zählmarken nicht "
 "mehrfach auszugeben. %s"
 msgstr ""
 
-#: wpvgw.php:687
+#: wpvgw.php:695
 msgid "Plugins hier deaktivieren."
 msgstr ""
 
-#: wpvgw.php:802 wpvgw.php:803
+#: wpvgw.php:810 wpvgw.php:811
 msgid "Prosodia VGW OS"
 msgstr ""
 
