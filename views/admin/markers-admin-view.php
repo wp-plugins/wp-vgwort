@@ -3,65 +3,47 @@
  * Product: Prosodia VGW OS
  * URL: http://prosodia.de/
  * Author: Ronny Harbich
- * Copyright: 2014 Ronny Harbich
+ * Copyright: Ronny Harbich
  * License: GPLv2 or later
  */
 
 
-/**
- * Represents the markers table view.
- */
+
 class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 
-	/**
-	 * @var WPVGW_MarkersListTable|null The markers table.
-	 */
+	
 	private $markerTable = null;
 
 
-	/**
-	 * See {@link WPVGW_AdminViewBase::get_slug()}.
-	 */
+	
 	public static function get_slug_static() {
 		return 'markers';
 	}
 
-	/**
-	 * See {@link WPVGW_AdminViewBase::get_long_name()}.
-	 */
+	
 	public static function get_long_name_static() {
 		return __( 'Zählmarken und Export', WPVGW_TEXT_DOMAIN );
 	}
 
-	/**
-	 * See {@link WPVGW_AdminViewBase::get_short_name()}.
-	 */
+	
 	public static function get_short_name_static() {
 		return __( 'Zählmarken', WPVGW_TEXT_DOMAIN );
 	}
 
 
-	/**
-	 * Creates a new instance of {@link WPVGW_MarkersAdminView}.
-	 *
-	 * @param WPVGW_MarkersManager $markers_manager A markers manager.
-	 * @param WPVGW_PostsExtras $posts_extras The posts extras.
-	 * @param WPVGW_Options $options The options.
-	 */
+	
 	public function __construct( WPVGW_MarkersManager $markers_manager, WPVGW_PostsExtras $posts_extras, WPVGW_Options $options ) {
 		parent::__construct( self::get_slug_static(), self::get_long_name_static(), self::get_short_name_static(), $markers_manager, $posts_extras, $options );
 
-		// hook ajax get post content action
+		
 		add_action( 'wp_ajax_' . WPVGW . '_get_post_content', array( $this, 'ajax_get_post_content' ) );
 	}
 
-	/**
-	 * Initializes the view. This function must be called before using the view.
-	 */
+	
 	public function init() {
-		// has to be called
+		
 		parent::init_base(
-		// javascript data
+		
 			array(
 				array(
 					'file'         => 'views/admin/markers-admin-view.js',
@@ -72,45 +54,37 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 		);
 
 
-		// get stored admin message
+		
 		$adminMessages = get_transient( WPVGW . '_markers_admin_view_admin_messages' );
 
 		if ( $adminMessages !== false ) {
-			// set admin messages (will be shown later)
+			
 			$this->adminMessages = $adminMessages;
-			// delete stored admin messages
+			
 			delete_transient( WPVGW . '_markers_admin_view_admin_messages' );
 		}
 
-		// set screen options (tab); not used currently because storing the value has to be in an early hook
-		/*$screenOptions = array(
-			'label'   => __( 'Seiten', WPVGW_TEXT_DOMAIN ),
-			'default' => $this->options->get_number_of_markers_per_page(),
-		);
-		add_screen_option( 'per_page', $screenOptions );*/
+		
+		
 
-		// create new markers table
-		// we need to create it at this position to add table column checkboxes to the screen options automatically
+		
+		
 		$this->markerTable = new WPVGW_MarkersListTable( $this->markersManager, $this->postsExtras, $this->options );
 	}
 
 
-	/**
-	 * Renders the view.
-	 *
-	 * @throws Exception Thrown if view is not initialized.
-	 */
+	
 	public function render() {
-		// has to be called
+		
 		parent::begin_render_base();
 
-		// fill table
+		
 		$this->markerTable->prepare_items();
 
-		// some necessary fields for the forms
+		
 		$formFields = parent::get_wp_number_once_field();
 
-		// post content overlay window; post title HTML is injected by javascript
+		
 		?>
 		<div id="wpvgw-markers-view-copy-window-background">
 			<div id="wpvgw-markers-view-copy-window">
@@ -122,22 +96,22 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 		</div>
 		<?php
 
-		// render view links
+		
 		$this->markerTable->views();
 
 		?>
 		<form id="wpvgw-markers" method="get" action="">
 			<input type="hidden" name="page" value="<?php echo( WPVGW . '-' . self::get_slug_static() ) ?>"/>
 			<?php
-			// render some input fields
+			
 			echo( $formFields );
 
-			// render search box
+			
 			$this->markerTable->search_box( __( 'Suchen', WPVGW_TEXT_DOMAIN ), 'wpvgw-markers-search' );
-			// render markers table
+			
 			$this->markerTable->display();
 
-			// bulk edit
+			
 			?>
 			<div id="wpvgw-markers-bulk-edit">
 				<h3><?php _e( 'Alle ausgewählten Zählmarken bearbeiten', WPVGW_TEXT_DOMAIN ) ?></h3>
@@ -203,7 +177,7 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 		</form>
 		<form method="post" enctype="multipart/form-data">
 			<?php
-			// render some input fields
+			
 			echo( $formFields );
 
 			?>
@@ -235,35 +209,30 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 		</form>
 		<?php
 
-		// has to be called
+		
 		parent::end_render_base();
 	}
 
 
-	/**
-	 * Echos a CSV file that contains all marker and post data. Filters and sorts made in the table are considered.
-	 * This function terminates the script execution.
-	 *
-	 * @throws Exception Thrown a database error occurred.
-	 */
+	
 	private function do_markers_action_csv() {
-		// get options
+		
 		$outputHeadlines = isset( $_POST['wpvgw_export_csv_output_headlines'] );
 
-		// set options
+		
 		$this->options->set_export_csv_output_headlines( $outputHeadlines );
 
 
-		// get all all marker and post data; filters and sorts made in the table are considered
+		
 		$markers = $this->markerTable->get_all_items( true );
 
 
-		// outputs a HTTP header for CSV files
+		
 		WPVGW_Helper::http_header_csv( "zaehlmarken.csv" );
 
 		$outputStream = fopen( 'php://output', 'w' );
 
-		// write headlines as CSV data
+		
 		if ( $outputHeadlines ) {
 			fputcsv( $outputStream,
 				array(
@@ -286,57 +255,57 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 			);
 		}
 
-		// iterate markers
+		
 		foreach ( $markers as $marker ) {
 
 			$postContent = null;
-			// get post content
+			
 			if ( $marker['post_content'] !== null ) {
-				// get post content
+				
 				$postContent = $marker['post_content'];
 
-				// remove special shortcodes from post content
+				
 				$postContent = preg_replace( array(
-						WPVGW_Helper::$captionShortcodeRegex, // remove caption shortcodes and its content
+						WPVGW_Helper::$captionShortcodeRegex, 
 					),
 					'',
 					$postContent
 				);
 
-				// do shortcodes and other filters on post content
+				
 				$postContent = apply_filters( 'the_content', $postContent );
 
-				// remove all tag from post content
+				
 				$postContent = strip_tags( $postContent );
 
-				// convert html entities (e. g. &amp; to &)
+				
 				$postContent = html_entity_decode( $postContent );
 
-				// remove leftover shortcodes from post content
+				
 				$postContent = preg_replace(
-					WPVGW_Helper::$shortcodeRegex, // remove shortcodes, but not content between shortcodes; it is escaping aware
+					WPVGW_Helper::$shortcodeRegex, 
 					'',
 					$postContent
 				);
 
-				// remove whitespace from beginning and ending
+				
 				$postContent = trim( $postContent );
 			}
 
 
 			$postTitle = null;
-			// get post title
+			
 			if ( $marker['post_title'] !== null ) {
-				// get post title
+				
 				$postTitle = apply_filters( 'the_title', $marker['post_title'] );
 
-				// convert html entities (e. g. &amp; to &)
+				
 				$postTitle = html_entity_decode( $postTitle );
 			}
 
 
 			$permanentLink = null;
-			// get permanent link of marker’s post
+			
 			if ( $marker['post_id'] !== null ) {
 				$pLink = get_permalink( $marker['post_id'] );
 
@@ -345,23 +314,23 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 			}
 
 
-			// get post type name
+			
 			$postType = null;
 			if ( $marker['post_type'] !== null ) {
 				$postTypeObject = get_post_type_object( $marker['post_type'] );
 
-				// get post type name
+				
 				if ( $postTypeObject !== null )
 					$postType = $postTypeObject->labels->singular_name;
 			}
 
 
-			// write marker as CSV data
+			
 			fputcsv( $outputStream,
 				array(
 					$marker['private_marker'],
 					$postTitle,
-					$postTitle . "\n" . $postContent, // title and content
+					$postTitle . "\n" . $postContent, 
 					$permanentLink,
 					$marker['post_date'],
 					$marker['up_display_name'],
@@ -383,19 +352,15 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 		exit;
 	}
 
-	/**
-	 * Handles the actions for the view.
-	 *
-	 * @throws Exception Thrown if view is not initialized or if a database error occurred.
-	 */
+	
 	public function do_action() {
-		// has to be called
+		
 		if ( !parent::do_action_base() )
-			// do no actions
+			
 			return;
 
 
-		// CSV export?
+		
 		if ( isset( $_POST['wpvgw_export_csv'] ) ) {
 			$this->do_markers_action_csv();
 
@@ -403,22 +368,22 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 		}
 
 
-		// get markers action
+		
 		$action = isset( $_GET['action'] ) ? $_GET['action'] : '-1';
 		if ( $action == '-1' )
 			$action = isset( $_GET['action2'] ) ? $_GET['action2'] : '-1';
 
-		// is bulk edit?
+		
 		$isBulkEdit = isset( $_REQUEST['wpvgw_bulk_edit'] );
 
-		// return if no action was chosen
+		
 		if ( ( $action == '-1' && !$isBulkEdit ) || !isset( $_GET['wpvgw_marker'] ) )
 			return;
 
 
 		$markerIds = $_GET['wpvgw_marker'];
 
-		// if marker IDs is not an array, a single marker action was done
+		
 		if ( !is_array( $markerIds ) ) {
 			$markerIds = array( intval( $markerIds ) );
 		}
@@ -440,7 +405,7 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 		$userId = null;
 
 
-		// bulk actions
+		
 		if ( $isBulkEdit ) {
 
 			if ( isset( $_REQUEST['wpvgw_e_marker_disabled_set'] ) ) {
@@ -487,12 +452,12 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 		}
 
 
-		// validation
+		
 
 		$validationFailed = false;
 		$updateMarker = array();
 
-		// disable or enable marker
+		
 		if ( $setMarkerDisabled ) {
 			if ( !$this->markersManager->is_marker_disabled_validator( $markerDisabled ) )
 				throw new Exception( 'Is maker disabled should always have a valid value.' );
@@ -500,7 +465,7 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 			$updateMarker['is_marker_disabled'] = $markerDisabled;
 		}
 
-		// validate server
+		
 		if ( $setServer ) {
 			if ( $server === null || $server === '' )
 				$server = $this->options->get_default_server();
@@ -513,10 +478,10 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 			$updateMarker['server'] = $server;
 		}
 
-		// validate user id
+		
 		if ( $setUserId ) {
 			if ( $userId == 0 )
-				// all user allowed
+				
 				$updateMarker['user_id'] = null;
 			elseif ( get_user_by( 'id', $userId ) === false ) {
 				$validationFailed = true;
@@ -527,14 +492,14 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 		}
 
 
-		// validation failed
+		
 		if ( $validationFailed ) {
 			if ( $validationFailed )
 				$this->add_admin_message( __( 'Die ausgewählten Zählmarken wurde nicht bearbeitet, da Fehler aufgetreten sind.', WPVGW_TEXT_DOMAIN ) );
 		}
-		// validation successful
+		
 		else {
-			// stats
+			
 			$markerUpdated = false;
 			$numberOfMarkers = 0;
 			$numberOfRemovedPostsFromMarkers = 0;
@@ -543,36 +508,36 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 			$numberOfUpdatedMarkers = 0;
 			$numberOfUpToDateMarkers = 0;
 
-			// iterate marker IDs
+			
 			foreach ( $markerIds as $markerId ) {
 				$numberOfMarkers++;
 
-				// cast to marker ID to integer
+				
 				$markerId = intval( $markerId );
 
 
-				// delete marker
+				
 				if ( $deleteMarker ) {
 					if ( $this->markersManager->delete_marker_in_db( $markerId ) )
 						$numberOfDeletedMarkers++;
 
-					// continue because deleted markers cannot be updated anymore
+					
 					continue;
 				}
 
-				// recalculate post character count
+				
 				if ( $recalculatePostCharacterCount ) {
-					// get current marker
+					
 					$marker = $this->markersManager->get_marker_from_db( $markerId, 'id' );
 
-					// marker has post?
+					
 					if ( $marker['post_id'] !== null ) {
-						// get post
+						
 						$post = get_post( $marker['post_id'] );
 
-						// post found?
+						
 						if ( $post !== false ) {
-							// recalculate post character count
+							
 							$this->postsExtras->recalculate_post_character_count_in_db( $post );
 
 							$numberOfRecalculatedPostCharacterCount++;
@@ -580,13 +545,13 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 					}
 				}
 
-				// remove marker from post
+				
 				if ( $removePostFromMarker ) {
 					if ( $this->markersManager->remove_post_from_marker_in_db( $markerId, 'marker' ) )
 						$numberOfRemovedPostsFromMarkers++;
 				}
 
-				// do update marker
+				
 				if ( count( $updateMarker ) > 0 ) {
 					$markerUpdated = true;
 
@@ -600,7 +565,7 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 
 			}
 
-			// add admin messages
+			
 
 			$this->add_admin_message(
 				_n( 'Es wurde eine Zählmarke zur Bearbeitung ausgewählt.',
@@ -711,16 +676,16 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 		}
 
 
-		// get HTTP referer
+		
 		$referer = wp_get_referer();
 
 		if ( $referer === false )
-			// go to home page
+			
 			wp_safe_redirect( get_home_url() );
 		else {
-			// go to referer’s page
+			
 			wp_safe_redirect( $referer );
-			// store admin messages for next page
+			
 			set_transient( WPVGW . '_markers_admin_view_admin_messages', $this->adminMessages, 30 );
 		}
 

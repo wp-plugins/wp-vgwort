@@ -3,56 +3,40 @@
  * Product: Prosodia VGW OS
  * URL: http://prosodia.de/
  * Author: Ronny Harbich
- * Copyright: 2014 Ronny Harbich
+ * Copyright: Ronny Harbich
  * License: GPLv2 or later
  */
 
 
-/**
- * Represents the markers table view.
- */
+
 class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 
-	/**
-	 * See {@link WPVGW_AdminViewBase::get_slug()}.
-	 */
+	
 	public static function get_slug_static() {
 		return 'operations';
 	}
 
-	/**
-	 * See {@link WPVGW_AdminViewBase::get_long_name()}.
-	 */
+	
 	public static function get_long_name_static() {
 		return __( 'Komplexe Operationen und Einstellungen', WPVGW_TEXT_DOMAIN );
 	}
 
-	/**
-	 * See {@link WPVGW_AdminViewBase::get_short_name()}.
-	 */
+	
 	public static function get_short_name_static() {
 		return __( 'Operationen', WPVGW_TEXT_DOMAIN );
 	}
 
 
-	/**
-	 * Creates a new instance of {@link WPVGW_OperationsAdminView}.
-	 *
-	 * @param WPVGW_MarkersManager $markers_manager A markers manager.
-	 * @param WPVGW_PostsExtras $posts_extras The posts extras.
-	 * @param WPVGW_Options $options The options.
-	 */
+	
 	public function __construct( WPVGW_MarkersManager $markers_manager, WPVGW_PostsExtras $posts_extras, WPVGW_Options $options ) {
 		parent::__construct( self::get_slug_static(), self::get_long_name_static(), self::get_short_name_static(), $markers_manager, $posts_extras, $options );
 	}
 
-	/**
-	 * Initializes the view. This function must be called before using the view.
-	 */
+	
 	public function init() {
-		// has to be called
+		
 		parent::init_base(
-		// javascript data
+		
 			array(
 				array(
 					'file'         => 'views/admin/operations-admin-view.js',
@@ -64,13 +48,9 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 	}
 
 
-	/**
-	 * Renders the view.
-	 *
-	 * @throws Exception Thrown if view is not initialized.
-	 */
+	
 	public function render() {
-		// has to be called
+		
 		parent::begin_render_base();
 
 		?>
@@ -89,7 +69,7 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 							</p>
 							<?php
 
-							// get WordPress post types
+							
 							$postTypes = $this->markersManager->get_possible_post_types();
 
 							echo( '<ul class="wpvgw-check-list-box">' );
@@ -102,10 +82,10 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 							<?php
 							}
 
-							// iterate post types
+							
 							foreach ( $postTypes as $type ) {
 								$postTypeObject = get_post_type_object( $type );
-								// check checkbox if post type is allowed
+								
 								$checked = WPVGW_Helper::get_html_checkbox_checked( $this->markersManager->is_post_type_allowed( $type ) );
 								?>
 								<li>
@@ -116,10 +96,10 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 							}
 
 
-							// get removed post types
+							
 							$removedPostTypes = $this->markersManager->get_removed_post_types();
 
-							// iterate removed post types
+							
 							foreach ( $removedPostTypes as $type ) {
 								?>
 								<li class="wpvgw-invalid">
@@ -211,21 +191,18 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 		</form>
 		<?php
 
-		// has to be called
+		
 		parent::end_render_base();
 	}
 
-	/**
-	 * Recalculates the post character count for posts.
-	 * Only allowed post statuses and allowed post types will be considered.
-	 */
+	
 	private function recalculate_post_character_count() {
-		// recalculate the post character count
+		
 		$postsExtrasFillStats = $this->postsExtras->recalculate_all_post_character_count_in_db();
 
-		// add stats admin message
+		
 		$this->add_admin_message(
-		// number of filled posts
+		
 			_n(
 				'Für einen Beitrag wurde die Zeichenanzahl neuberechnet.',
 				sprintf( 'Für %s Beiträge wurden die Zeichenanzahlen neuberechnet.', number_format_i18n( $postsExtrasFillStats->numberOfPostExtrasUpdates ) ),
@@ -235,17 +212,11 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 			WPVGW_ErrorType::Update
 		);
 
-		// recalculations are no longer necessary
+		
 		$this->options->set_operations_post_character_count_recalculations_necessary( false );
 	}
 
-	/**
-	 * Creates a message for import old makers stats.
-	 *
-	 * @param WPVGW_ImportOldMarkersAndPostsStats $import_old_markers_and_posts_stats Stats to get a message for.
-	 *
-	 * @return string A message for the stats.
-	 */
+	
 	private function create_import_old_markers_and_posts_stats( WPVGW_ImportOldMarkersAndPostsStats $import_old_markers_and_posts_stats ) {
 		return
 			sprintf(
@@ -258,39 +229,37 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 	}
 
 
-	/**
-	 * Handles the actions for the view.
-	 */
+	
 	public function do_action() {
-		// has to be called
+		
 		if ( !parent::do_action_base() )
-			// do no actions
+			
 			return;
 
 
-		// TODO: Seems to be a hack.
-		// set maximum number of seconds operations can be executed to avoid aborts
+		
+		
 		set_time_limit( $this->options->get_operation_max_execution_time() );
 
 
-		// allowed post types
+		
 		if ( isset( $_POST['wpvgw_operation_allowed_post_types'] ) ) {
-			// allowed post types
+			
 			$allowedPostTypes = array();
 
-			// get allowed post types (strip slashes) from HTTP POST
+			
 			if ( isset( $_POST['wpvgw_allowed_post_types'] ) && is_array( $_POST['wpvgw_allowed_post_types'] ) ) {
 				foreach ( $_POST['wpvgw_allowed_post_types'] as $key => $value ) {
 					$allowedPostTypes[] = stripslashes( $key );
 				}
 			}
 
-			// set new allowed post types; unknown post types will be removed
+			
 			$this->markersManager->set_allowed_post_types( $allowedPostTypes );
 
 			$allowedPostTypesCount = count( $allowedPostTypes );
 
-			// add admin message
+			
 			$this->add_admin_message(
 				_n(
 					'Der ausgewählte Beitrags-Typ wurde mit der Zählmarken-Funktion versehen.',
@@ -301,29 +270,29 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 				WPVGW_ErrorType::Update
 			);
 
-			// recalculate character count of posts
+			
 			$this->recalculate_post_character_count();
 		}
 
 
-		// removed post types
+		
 		if ( isset( $_POST['wpvgw_operation_removed_post_types'] ) ) {
-			// allowed post types
+			
 			$removedPostTypes = array();
 
-			// get removed post types (strip slashes) from HTTP POST
+			
 			if ( isset( $_POST['wpvgw_removed_post_types'] ) && is_array( $_POST['wpvgw_removed_post_types'] ) ) {
 				foreach ( $_POST['wpvgw_removed_post_types'] as $key => $value ) {
 					$removedPostTypes[] = stripslashes( $key );
 				}
 			}
 
-			// set new removed post types; choose all post types from current removed post types array without the selected post types (difference)
+			
 			$this->markersManager->set_removed_post_types( array_diff( $this->markersManager->get_removed_post_types(), $removedPostTypes ) );
 
 			$removedPostTypesCount = count( $removedPostTypes );
 
-			// add admin message
+			
 			$this->add_admin_message(
 				_n(
 					'Der ausgewählte nicht verfügbare Beitrags-Typ wurde entfernt.',
@@ -336,15 +305,15 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 		}
 
 
-		// recalculate character count of posts
+		
 		if ( isset( $_POST['wpvgw_operation_recalculate_character_count'] ) ) {
 			$this->recalculate_post_character_count();
 		}
 
 
-		// import old markers
+		
 		if ( isset( $_POST['wpvgw_operation_import_old_markers'] ) ) {
-			// import from old plugin version
+			
 			if ( isset( $_POST['wpvgw_operation_import_old_plugin_markers'] ) ) {
 
 				$metaName = isset( $_POST['wpvgw_operation_import_old_plugin_markers_meta_name'] ) ? stripslashes( $_POST['wpvgw_operation_import_old_plugin_markers_meta_name'] ) : null;
@@ -358,19 +327,19 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 				}
 
 				if ( !$invalidMetaName ) {
-					// import old markers from WordPress posts meta
+					
 					$importOldMarkersAndPostsStats = $this->markersManager->import_markers_and_posts_from_old_version( $this->options->get_meta_name(), $this->options->get_default_server() );
 
-					// import of markers from old plugin is not necessary anymore
+					
 					$this->options->set_operation_old_plugin_import_necessary( false );
 
-					// add admin messages
+					
 					$this->add_admin_message( __( 'Zählmarken aus altem VG-WORT-Plugin importiert: ', WPVGW_TEXT_DOMAIN ) . $this->create_import_markers_stats_message( $importOldMarkersAndPostsStats->importMarkersStats ), WPVGW_ErrorType::Update );
 					$this->add_admin_message( __( 'Zählmarken-Zuordnungen aus altem VG-WORT-Plugin importiert: ', WPVGW_TEXT_DOMAIN ) . $this->create_import_old_markers_and_posts_stats( $importOldMarkersAndPostsStats ), WPVGW_ErrorType::Update );
 				}
 			}
 
-			// import manual markers from posts
+			
 			if ( isset( $_POST['wpvgw_operation_import_old_manual_markers'] ) ) {
 				$manualMarkersRegex = isset( $_POST['wpvgw_operation_import_old_manual_markers_regex'] ) ? stripslashes( $_POST['wpvgw_operation_import_old_manual_markers_regex'] ) : null;
 				$deleteManualMarkers = isset( $_POST['wpvgw_operation_import_old_manual_markers_delete'] );
@@ -384,21 +353,21 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 				}
 
 				if ( !$invalidRegex ) {
-					// import old manual markers from WordPress posts
+					
 					$importOldMarkersAndPostsStats = $this->markersManager->import_markers_and_posts_from_posts( $this->options->get_import_from_post_regex(), $this->options->get_default_server(), $deleteManualMarkers );
 
-					// add admin messages
+					
 					$this->add_admin_message( __( 'Zählmarken (manuelle) aus Beiträgen importiert: ', WPVGW_TEXT_DOMAIN ) . $this->create_import_markers_stats_message( $importOldMarkersAndPostsStats->importMarkersStats ), WPVGW_ErrorType::Update );
 					$this->add_admin_message( __( 'Zählmarken-Zuordnungen aus Beiträgen importiert: ', WPVGW_TEXT_DOMAIN ) . $this->create_import_old_markers_and_posts_stats( $importOldMarkersAndPostsStats ), WPVGW_ErrorType::Update );
 				}
 			}
 
-			// import from T. Leuschner’s VG WORT plugin
+			
 			if ( isset( $_POST['wpvgw_operation_import_old_tl_vgwort_plugin_markers'] ) ) {
-				// import old markers from T. Leuschner’s VG WORT plugin
+				
 				$importOldMarkersAndPostsStats = $this->markersManager->import_markers_and_posts_from_tl_vgwort_plugin( $this->options->get_default_server() );
 
-				// add admin messages
+				
 				$this->add_admin_message( __( 'Zählmarken aus Plugin „VG Wort“ von T. Leuschner importiert: ', WPVGW_TEXT_DOMAIN ) . $this->create_import_markers_stats_message( $importOldMarkersAndPostsStats->importMarkersStats ), WPVGW_ErrorType::Update );
 				$this->add_admin_message( __( 'Zählmarken-Zuordnungen aus Plugin „VG Wort“ von T. Leuschner importiert: ', WPVGW_TEXT_DOMAIN ) . $this->create_import_old_markers_and_posts_stats( $importOldMarkersAndPostsStats ), WPVGW_ErrorType::Update );
 			}
