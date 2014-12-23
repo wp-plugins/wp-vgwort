@@ -3,67 +3,47 @@
  * Product: Prosodia VGW OS
  * URL: http://prosodia.de/
  * Author: Ronny Harbich
- * Copyright: 2014 Ronny Harbich
+ * Copyright: Ronny Harbich
  * License: GPLv2 or later
  */
 
 
-/**
- * Represents the configuration view.
- */
+
 class WPVGW_ConfigurationAdminView extends WPVGW_AdminViewBase {
 
-	/**
-	 * See {@link WPVGW_AdminViewBase::get_slug()}.
-	 */
+	
 	public static function get_slug_static() {
 		return 'configuration';
 	}
 
-	/**
-	 * See {@link WPVGW_AdminViewBase::get_long_name()}.
-	 */
+	
 	public static function get_long_name_static() {
 		return __( 'Einstellungen', WPVGW_TEXT_DOMAIN );
 	}
 
-	/**
-	 * See {@link WPVGW_AdminViewBase::get_short_name()}.
-	 */
+	
 	public static function get_short_name_static() {
 		return __( 'Einstellungen', WPVGW_TEXT_DOMAIN );
 	}
 
 
-	/**
-	 * Creates a new instance of {@link WPVGW_ConfigurationAdminView}.
-	 *
-	 * @param WPVGW_MarkersManager $markers_manager A markers manager.
-	 * @param WPVGW_PostsExtras $posts_extras The posts extras.
-	 * @param WPVGW_Options $options The options.
-	 */
+	
 	public function __construct( WPVGW_MarkersManager $markers_manager, WPVGW_PostsExtras $posts_extras, WPVGW_Options $options ) {
 		parent::__construct( self::get_slug_static(), self::get_long_name_static(), self::get_short_name_static(), $markers_manager, $posts_extras, $options );
 	}
 
-	/**
-	 * Initializes the view. This function must be called before using the view.
-	 */
+	
 	public function init() {
-		// has to be called
+		
 		parent::init_base(
-		// javascript data
+		
 			array()
 		);
 	}
 
-	/**
-	 * Renders the view.
-	 *
-	 * @throws Exception Thrown if view is not initialized.
-	 */
+	
 	public function render() {
-		// has to be called
+		
 		parent::begin_render_base();
 
 		?>
@@ -181,31 +161,27 @@ class WPVGW_ConfigurationAdminView extends WPVGW_AdminViewBase {
 		</form>
 		<?php
 
-		// has to be called
+		
 		parent::end_render_base();
 	}
 
-	/**
-	 * Handles the actions for the view.
-	 *
-	 * @throws Exception Thrown if view is not initialized or if a database error occurred.
-	 */
+	
 	public function do_action() {
-		// has to be called
+		
 		if ( !parent::do_action_base() )
-			// do no actions
+			
 			return;
 
 
-		// minimum character count
+		
 		$minimumCharacterCount = isset( $_POST['wpvgw_minimum_character_count'] ) ? $_POST['wpvgw_minimum_character_count'] : null;
 
 		if ( $minimumCharacterCount !== null ) {
 			if ( is_numeric( $minimumCharacterCount ) ) {
-				// convert minimum character count to integer
+				
 				$minimumCharacterCount = intval( $minimumCharacterCount );
 
-				// minimum character count has to be non-negative
+				
 				if ( $minimumCharacterCount >= 0 )
 					$this->options->set_vg_wort_minimum_character_count( $minimumCharacterCount );
 				else
@@ -216,26 +192,26 @@ class WPVGW_ConfigurationAdminView extends WPVGW_AdminViewBase {
 		}
 
 
-		// do shortcodes for character count calculation
+		
 		$doShortcodesForCharacterCountCalculation = isset( $_POST['wpvgw_do_shortcodes_for_character_count_calculation'] );
 
-		// set only if updated
+		
 		if ( $doShortcodesForCharacterCountCalculation !== $this->options->get_do_shortcodes_for_character_count_calculation() ) {
-			// set option
+			
 			$this->options->set_do_shortcodes_for_character_count_calculation( $doShortcodesForCharacterCountCalculation );
-			// post character count recalculations are now necessary
+			
 			$this->options->set_operations_post_character_count_recalculations_necessary( true );
 		}
 
 
-		// output format
+		
 		$outputFormat = isset( $_POST['wpvgw_output_format'] ) ? stripslashes( $_POST['wpvgw_output_format'] ) : null;
 
 		if ( $outputFormat !== null )
 			$this->options->set_output_format( $outputFormat );
 
 
-		// default server
+		
 		$defaultServer = isset( $_POST['wpvgw_default_server'] ) ? stripslashes( $_POST['wpvgw_default_server'] ) : null;
 
 		if ( $defaultServer !== null && $this->markersManager->server_validator( $defaultServer ) )
@@ -244,15 +220,15 @@ class WPVGW_ConfigurationAdminView extends WPVGW_AdminViewBase {
 			$this->add_admin_message( __( 'Der eingegebene Standard-Server hat ein ungültiges Format.', WPVGW_TEXT_DOMAIN ) );
 
 
-		// number of markers per page
+		
 		$numberOfMarkersPerPage = isset( $_POST['wpvgw_number_of_markers_per_page'] ) ? $_POST['wpvgw_number_of_markers_per_page'] : null;
 
 		if ( $numberOfMarkersPerPage !== null ) {
 			if ( is_numeric( $numberOfMarkersPerPage ) ) {
-				// convert to integer
+				
 				$numberOfMarkersPerPage = intval( $numberOfMarkersPerPage );
 
-				// minimum character count has to be non-negative
+				
 				if ( $numberOfMarkersPerPage >= 1 )
 					$this->options->set_number_of_markers_per_page( $numberOfMarkersPerPage );
 				else
@@ -263,15 +239,15 @@ class WPVGW_ConfigurationAdminView extends WPVGW_AdminViewBase {
 		}
 
 
-		// maximum number of seconds operations can be executed
+		
 		$operationMaxExecutionTime = isset( $_POST['wpvgw_operations_max_execution_time'] ) ? $_POST['wpvgw_operations_max_execution_time'] : null;
 
 		if ( $operationMaxExecutionTime !== null ) {
 			if ( is_numeric( $operationMaxExecutionTime ) ) {
-				// convert maximum number of seconds operations can be executed
+				
 				$operationMaxExecutionTime = intval( $operationMaxExecutionTime );
 
-				// maximum number of seconds operations can be executed has to be positive
+				
 				if ( $operationMaxExecutionTime >= 1 )
 					$this->options->set_operation_max_execution_time( $operationMaxExecutionTime );
 				else
@@ -282,19 +258,19 @@ class WPVGW_ConfigurationAdminView extends WPVGW_AdminViewBase {
 		}
 
 
-		//show other active VG WORT Plugins warning
+		
 		$showOtherActiveVgWortPluginsWarning = isset( $_POST['wpvgw_show_other_active_vg_wort_plugins_warning'] );
 
 		$this->options->set_show_other_active_vg_wort_plugins_warning( $showOtherActiveVgWortPluginsWarning );
 
 
-		//show old plugin import warning
+		
 		$wpvgwShowOldPluginImportWarning = isset( $_POST['wpvgw_show_old_plugin_import_warning'] );
 
 		$this->options->set_operation_old_plugin_import_necessary( $wpvgwShowOldPluginImportWarning );
 
 
-		// remove data on uninstall
+		
 		$removeDataOnUninstall = isset( $_POST['wpvgw_remove_data_on_uninstall'] );
 
 		$this->options->set_remove_data_on_uninstall( $removeDataOnUninstall );

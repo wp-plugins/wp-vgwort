@@ -3,70 +3,52 @@
  * Product: Prosodia VGW OS
  * URL: http://prosodia.de/
  * Author: Ronny Harbich
- * Copyright: 2014 Ronny Harbich
+ * Copyright: Ronny Harbich
  * License: GPLv2 or later
  */
  
 
-/**
- * Represents the data privacy view.
- */
+
 class WPVGW_DataPrivacyAdminView extends WPVGW_AdminViewBase {
 
-	/**
-	 * See {@link WPVGW_AdminViewBase::get_slug()}.
-	 */
+	
 	public static function get_slug_static() {
 		return 'data-privacy';
 	}
 
-	/**
-	 * See {@link WPVGW_AdminViewBase::get_long_name()}.
-	 */
+	
 	public static function get_long_name_static() {
 		return __( 'Datenschutz-Hinweis', WPVGW_TEXT_DOMAIN );
 	}
 
-	/**
-	 * See {@link WPVGW_AdminViewBase::get_short_name()}.
-	 */
+	
 	public static function get_short_name_static() {
 		return __( 'Datenschutz', WPVGW_TEXT_DOMAIN );
 	}
 
 
-	/**
-	 * Creates a new instance of {@link WPVGW_DataPrivacyAdminView}.
-	 *
-	 * @param WPVGW_MarkersManager $markers_manager A markers manager.
-	 * @param WPVGW_PostsExtras $posts_extras The posts extras.
-	 * @param WPVGW_Options $options The options.
-	 */
+	
 	public function __construct( WPVGW_MarkersManager $markers_manager, WPVGW_PostsExtras $posts_extras, WPVGW_Options $options ) {
 		parent::__construct( self::get_slug_static(), self::get_long_name_static(), self::get_short_name_static(), $markers_manager, $posts_extras, $options );
 	}
 
-	/**
-	 * Initializes the view. This function must be called before using the view.
-	 */
+	
 	public function init() {
-		// has to be called
+		
 		parent::init_base(
-		// javascript data
+		
 			array()
 		);
 	}
 
 
-	/**
-	 * Renders the view.
-	 */
+	
 	public function render() {
-		// has to be called
+		
 		parent::begin_render_base();
 
 
-		// do rendering here
+		
 		?>
 		<p>
 			<?php _e( 'Sobald Zählmarken der VG WORT durch dieses Plugin verwendet werden, sollte der nachstehenden Datenschutz-Hinweis der VG WORT auf die Website eingefügt werden.', WPVGW_TEXT_DOMAIN ); ?>
@@ -104,7 +86,7 @@ class WPVGW_DataPrivacyAdminView extends WPVGW_AdminViewBase {
 								<h1>Datenschutzerklärung zur Nutzung des Skalierbaren Zentralen Messverfahrens</h1>
 								<p>
 									Unsere Website und unser mobiles Webangebot nutzen das „Skalierbare Zentrale Messverfahren“ (SZM) der
-									INFOnline GmbH (https://www.infonline.de) für die Ermittlung statistischer Kennwerte zur Ermittlung der
+									INFOnline GmbH (https:
 									Kopierwahrscheinlichkeit von Texten.
 								</p>
 								<p>
@@ -144,21 +126,19 @@ class WPVGW_DataPrivacyAdminView extends WPVGW_AdminViewBase {
 		<?php
 
 
-		// has to be called
+		
 		parent::end_render_base();
 	}
 
-	/**
-	 * Handles the actions for the view.
-	 */
+	
 	public function do_action() {
-		// has to be called
+		
 		if ( !parent::do_action_base() )
-			// do no actions
+			
 			return;
 
 
-		// hide data privacy warning
+		
 		$hidePrivacyWarning = isset( $_POST['wpvgw_privacy_hide_warning'] );
 
 		$this->options->set_privacy_hide_warning( $hidePrivacyWarning );
