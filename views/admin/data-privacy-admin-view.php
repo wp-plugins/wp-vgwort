@@ -50,12 +50,12 @@ class WPVGW_DataPrivacyAdminView extends WPVGW_AdminViewBase {
 
 		
 		?>
-		<p>
+		<p class="wpvgw-admin-page-description">
 			<?php _e( 'Sobald Zählmarken der VG WORT durch dieses Plugin verwendet werden, sollte der nachstehenden Datenschutz-Hinweis der VG WORT auf die Website eingefügt werden.', WPVGW_TEXT_DOMAIN ); ?>
 		</p>
 		<form method="post">
 		<?php echo( parent::get_wp_number_once_field() ) ?>
-			<table class="form-table">
+			<table class="form-table wpvgw-form-table">
 				<tbody>
 					<tr>
 						<th scope="row"><?php _e( 'Datenschutz-Hinweis', WPVGW_TEXT_DOMAIN ); ?></th>
