@@ -54,12 +54,12 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 		parent::begin_render_base();
 
 		?>
-		<p>
+		<p class="wpvgw-admin-page-description">
 			<?php _e( 'An dieser Stelle können aufwendigere Operationen und Einstellungen vorgenommen werden. Die Bearbeitung einzelner Operationen und Einstellungen kann mehrere Sekunden in Anspruch nehmen. <strong>Gestartete Operationen sollten nicht abgebrochen werden!</strong>', WPVGW_TEXT_DOMAIN ); ?>
 		</p>
 		<form method="post">
 			<?php echo( parent::get_wp_number_once_field() ) ?>
-			<table class="form-table">
+			<table class="form-table wpvgw-form-table">
 				<tbody>
 					<tr>
 						<th scope="row"><?php _e( 'Zugelassene Beitrags-Typen', WPVGW_TEXT_DOMAIN ); ?></th>
