@@ -50,7 +50,10 @@ class WPVGW_SupportAdminView extends WPVGW_AdminViewBase {
 
 		
 		?>
-		<table class="form-table">
+		<p class="wpvgw-admin-page-description">
+			<?php _e( 'Hier können Sie Hilfe zum Plugin erhalten.', WPVGW_TEXT_DOMAIN ); ?>
+		</p>
+		<table class="form-table wpvgw-form-table">
 			<tbody>
 				<tr>
 					<th scope="row"><?php _e( 'Neue Funktionen und Hilfe', WPVGW_TEXT_DOMAIN ); ?></th>

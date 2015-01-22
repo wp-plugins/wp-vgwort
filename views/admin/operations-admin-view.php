@@ -54,12 +54,12 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 		parent::begin_render_base();
 
 		?>
-		<p>
+		<p class="wpvgw-admin-page-description">
 			<?php _e( 'An dieser Stelle können aufwendigere Operationen und Einstellungen vorgenommen werden. Die Bearbeitung einzelner Operationen und Einstellungen kann mehrere Sekunden in Anspruch nehmen. <strong>Gestartete Operationen sollten nicht abgebrochen werden!</strong>', WPVGW_TEXT_DOMAIN ); ?>
 		</p>
 		<form method="post">
 			<?php echo( parent::get_wp_number_once_field() ) ?>
-			<table class="form-table">
+			<table class="form-table wpvgw-form-table">
 				<tbody>
 					<tr>
 						<th scope="row"><?php _e( 'Zugelassene Beitrags-Typen', WPVGW_TEXT_DOMAIN ); ?></th>
@@ -174,6 +174,12 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 								<label for="wpvgw_operation_import_old_tl_vgwort_plugin_markers"><?php _e( 'Zählmarken aus dem Plugin „VG Wort“ von T. Leuschner importieren', WPVGW_TEXT_DOMAIN ); ?></label>
 								<br/>
 								<span class="description"><?php _e( 'Wenn das Plugin „VG Wort“ von T. Leuschner zuvor verwendet wurde, können die dort zugeordneten Zählmarken hier importiert werden. Es werden keine Daten gelöscht.', WPVGW_TEXT_DOMAIN ) ?></span>
+							</p>
+							<p>
+								<input type="checkbox" name="wpvgw_operation_import_old_vgw_plugin_markers" id="wpvgw_operation_import_old_vgw_plugin_markers" value="1" class="checkbox"/>
+								<label for="wpvgw_operation_import_old_vgw_plugin_markers"><?php _e( 'Zählmarken aus dem Plugin „VG-Wort Krimskram“ von H. Otterstedt importieren', WPVGW_TEXT_DOMAIN ); ?></label>
+								<br/>
+								<span class="description"><?php _e( 'Wenn das Plugin „VG-Wort Krimskram“ von H. Otterstedt zuvor verwendet wurde, können die dort zugeordneten Zählmarken hier importiert werden. Es werden keine Daten gelöscht.', WPVGW_TEXT_DOMAIN ) ?></span>
 							</p>
 							<p>
 								<?php _e( 'Diese Operationen sollten (jeweils) nur ein Mal ausgeführt werden. Es werden sowohl Zählmarken als auch deren Zuordnung zu Beiträgen importiert.', WPVGW_TEXT_DOMAIN ); ?>
@@ -371,6 +377,17 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 				$this->add_admin_message( __( 'Zählmarken aus Plugin „VG Wort“ von T. Leuschner importiert: ', WPVGW_TEXT_DOMAIN ) . $this->create_import_markers_stats_message( $importOldMarkersAndPostsStats->importMarkersStats ), WPVGW_ErrorType::Update );
 				$this->add_admin_message( __( 'Zählmarken-Zuordnungen aus Plugin „VG Wort“ von T. Leuschner importiert: ', WPVGW_TEXT_DOMAIN ) . $this->create_import_old_markers_and_posts_stats( $importOldMarkersAndPostsStats ), WPVGW_ErrorType::Update );
 			}
+
+
+			if ( isset( $_POST['wpvgw_operation_import_old_vgw_plugin_markers'] ) ) {
+				
+				$importOldMarkersAndPostsStats = $this->markersManager->import_markers_and_posts_from_vgw_plugin( $this->options->get_default_server() );
+
+				
+				$this->add_admin_message( __( 'Zählmarken aus Plugin „VG-Wort Krimskram“ von H. Otterstedt importiert: ', WPVGW_TEXT_DOMAIN ) . $this->create_import_markers_stats_message( $importOldMarkersAndPostsStats->importMarkersStats ), WPVGW_ErrorType::Update );
+				$this->add_admin_message( __( 'Zählmarken-Zuordnungen aus Plugin „VG-Wort Krimskram“ von H. Otterstedt importiert: ', WPVGW_TEXT_DOMAIN ) . $this->create_import_old_markers_and_posts_stats( $importOldMarkersAndPostsStats ), WPVGW_ErrorType::Update );
+			}
+
 		}
 	}
 }

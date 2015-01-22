@@ -47,12 +47,12 @@ class WPVGW_ConfigurationAdminView extends WPVGW_AdminViewBase {
 		parent::begin_render_base();
 
 		?>
-		<p>
+		<p class="wpvgw-admin-page-description">
 			<?php _e( 'Hier können allgemeine Einstellungen vorgenommen werden.', WPVGW_TEXT_DOMAIN ); ?>
 		</p>
 		<form method="post">
 			<?php echo( parent::get_wp_number_once_field() ) ?>
-			<table class="form-table">
+			<table class="form-table wpvgw-form-table">
 				<tbody>
 					<tr>
 						<th scope="row"><?php _e( 'Zeichenanzahl', WPVGW_TEXT_DOMAIN ); ?></th>
@@ -96,6 +96,12 @@ class WPVGW_ConfigurationAdminView extends WPVGW_AdminViewBase {
 								<span class="description"><?php _e( 'Wenn für Zählmarken nicht explizit ein Server angegeben wurde (z. B. beim Importieren), wird dieser Server verwendet.', WPVGW_TEXT_DOMAIN ); ?></span>
 								<br/>
 								<span class="description"><?php echo( sprintf( __( 'Der Standardwert ist: %s', WPVGW_TEXT_DOMAIN ), esc_html( $this->options->default_default_server() ) ) ) ?></span>
+							</p>
+							<p>
+								<input type="checkbox" name="wpvgw_post_view_set_marker_by_default" id="wpvgw_post_view_set_marker_by_default" value="1" class="checkbox" <?php echo( WPVGW_Helper::get_html_checkbox_checked( $this->options->get_post_view_set_marker_by_default() ) ) ?>/>
+								<label for="wpvgw_post_view_set_marker_by_default"><?php _e( 'Beiträgen standardmäßig eine Zählmarke zuordnen', WPVGW_TEXT_DOMAIN ); ?></label>
+								<br/>
+								<span class="description"><?php _e( 'Bei Aktivierung werden neuen Beiträgen oder Beiträge, die bearbeitet werden, als Voreinstellung Zählmarken zugeordnet (abwählbar). Dies geschieht ohne Beachtung der Mindestanzahl an Zeichen.', WPVGW_TEXT_DOMAIN ) ?></span>
 							</p>
 						</td>
 					</tr>
@@ -219,6 +225,10 @@ class WPVGW_ConfigurationAdminView extends WPVGW_AdminViewBase {
 		else
 			$this->add_admin_message( __( 'Der eingegebene Standard-Server hat ein ungültiges Format.', WPVGW_TEXT_DOMAIN ) );
 
+		
+		
+		$this->options->set_post_view_set_marker_by_default( isset( $_POST['wpvgw_post_view_set_marker_by_default'] ) );
+		
 
 		
 		$numberOfMarkersPerPage = isset( $_POST['wpvgw_number_of_markers_per_page'] ) ? $_POST['wpvgw_number_of_markers_per_page'] : null;

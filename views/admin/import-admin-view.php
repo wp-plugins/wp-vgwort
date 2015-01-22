@@ -48,12 +48,12 @@ class WPVGW_ImportAdminView extends WPVGW_AdminViewBase {
 		parent::begin_render_base();
 
 		?>
-		<p>
+		<p class="wpvgw-admin-page-description">
 			<?php _e( 'Zählmarken der VG WORT können auf bis zu 3 verschiedene Arten importiert werden. Es wird empfohlen, CSV-Dateien zu importieren, die übers Online-Konto bei der VG WORT zur Verfügung gestellt werden.', WPVGW_TEXT_DOMAIN ); ?>
 		</p>
 		<form method="post" enctype="multipart/form-data">
 			<?php echo( parent::get_wp_number_once_field() ) ?>
-			<table class="form-table">
+			<table class="form-table wpvgw-form-table">
 				<tbody>
 					<tr>
 						<th scope="row"><?php _e( 'Zählmarken aus CSV-Daten', WPVGW_TEXT_DOMAIN ); ?></th>

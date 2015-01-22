@@ -51,6 +51,8 @@ class WPVGW_Options {
 	private static $doShortcodesForCharacterCountCalculation = 'do_shortcodes_for_character_count_calculation';
 	
 	private static $postViewAutoMarker = 'post_view_auto_marker';
+	
+	private static $postViewSetMarkerByDefault = 'post_view_set_marker_by_default';
 
 
 	
@@ -117,6 +119,7 @@ class WPVGW_Options {
 			self::$operationMaxExecutionTime                          => 300, 
 			self::$doShortcodesForCharacterCountCalculation           => false,
 			self::$postViewAutoMarker                                 => true,
+			self::$postViewSetMarkerByDefault                         => false,
 		);
 
 		
@@ -565,12 +568,34 @@ class WPVGW_Options {
 	}
 
 	
-	public function get_view_auto_marker() {
+	public function get_post_view_auto_marker() {
 		return $this->options[self::$postViewAutoMarker];
 	}
 
 	
-	public function default_view_auto_marker() {
+	public function default_post_view_auto_marker() {
 		return $this->defaultOptions[self::$postViewAutoMarker];
+	}
+
+
+	
+	public function set_post_view_set_marker_by_default( $value ) {
+		if ( !is_bool( $value ) )
+			throw new Exception( 'Value is not a bool.' );
+
+		if ( $this->options[self::$postViewSetMarkerByDefault] !== $value ) {
+			$this->options[self::$postViewSetMarkerByDefault] = $value;
+			$this->optionsChanged = true;
+		}
+	}
+
+	
+	public function get_post_view_set_marker_by_default() {
+		return $this->options[self::$postViewSetMarkerByDefault];
+	}
+
+	
+	public function default_post_view_set_marker_by_default() {
+		return $this->defaultOptions[self::$postViewSetMarkerByDefault];
 	}
 }
