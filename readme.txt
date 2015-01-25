@@ -13,7 +13,6 @@ Verdienen Sie mit Ihren Beiträgen/Texten Geld durch die Integration von Zählma
 == Description ==
 
 > <strong>Anleitungen </strong>
->
 > Unter [http://prosodia.de/prosodia-vgw-os/](http://prosodia.de/prosodia-vgw-os/) gibt es bebilderte Anleitungen zum Plugin.
 
 = Beschreibung und Funktionen =
