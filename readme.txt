@@ -12,6 +12,10 @@ Verdienen Sie mit Ihren Beiträgen/Texten Geld durch die Integration von Zählma
 
 == Description ==
 
+> <strong>Anleitungen </strong>
+>
+> Unter [http://prosodia.de/prosodia-vgw-os/](http://prosodia.de/prosodia-vgw-os/) gibt es bebilderte Anleitungen zum Plugin.
+
 = Beschreibung und Funktionen =
 
 Das Plugin *Prosodia VGW OS* (open source) vom Literaturverlag [Prosodia](http://prosodia.de/) und die [Verwertungsgesellschaft WORT (VG WORT)](http://www.vgwort.de/die-vg-wort.html) ermöglichen es Ihnen, *jährlich Geld* mit Ihren in WordPress geschriebenen Beiträgen zu verdienen. Die VG WORT ist ein deutscher, rechtsfähiger Verein, in dem sich Autoren zur gemeinsamen Verwertung von Urheberrechten zusammengeschlossen haben. Derart können Sie mit Ihren [Texten im Internet (Beiträge)](http://www.vgwort.de/verguetungen/auszahlungen/texte-im-internet.html), die aus mindestens *1.800 Zeichen* bestehen, von der Verwertung (Geld, Tantiemen) Gebrauch machen. Dazu ist eine kostenlose Mitgliedschaft bei der VG WORT erforderlich: [kostenlose Anmeldung](https://tom.vgwort.de/portal/login). Jeder Beitrag, für den Sie jährlich Geld bekommen wollen, muss eine gewissen Zahl an Lesern/Zugriffen aufweisen. Die Anzahl der Zugriffe für einen Beitrag wird von der VG WORT über *Zählmarken* ermittelt. Dabei wird jedem Beitrag ein eindeutiger Code – eine Zählmarke – zugeordnet. Besucht ein Leser einen Beitrag, wird die dem Beitrag zugeordnete Zählmarke an die VG WORT übermittelt und somit die Gesamtzahl der Leser für diesen Beitrag erhöht. Einmal im Jahr wird dann *pro* Beitrag Geld an Sie ausgeschüttet, abhängig davon wie hoch die Leserzahl eines Beitrags im vorherigen Jahr gewesen ist – die notwendige Mindestzahl wird von der VG WORT festgelegt (siehe auch [Wikipedia](http://de.wikipedia.org/wiki/Meldesystem_f%C3%BCr_Texte_auf_Internetseiten)). Je nach dem wie viele Beiträge Sie verfasst haben und wie häufig diese gelesen wurden, ist ein Verdienst von jährlich mehreren hundert bis tausend Euro durchaus nicht utopisch.
@@ -27,7 +31,8 @@ Die Hauptaufgabe von Prosodia VGW OS ist, Zählmarken und deren Zuordnungen zu B
 * es können Beitrags-Typen (Beiträge, Seiten usw.) für die Zählmarken-Funktion ausgewählt werden
 * importieren von Zählmarken aus CSV-Dateien, die von der VG WORT bereitgestellt werden
 * importieren von Zählmarken aus CSV-Text oder manueller Eingabe
-* importieren von Zählmarken und Beitrags-Zuordnungen aus dem Plugin „VG Wort“ von Torben Leuschner
+* importieren von Zählmarken und Beitrags-Zuordnungen aus dem Plugin „VG Wort“ von [Torben Leuschner](http://www.torbenleuschner.de/blog/922/vg-wort-wordpress-plugin/)
+* importieren von Zählmarken und Beitrags-Zuordnungen aus dem Plugin „VG-Wort Krimskram“ von [Heiner Otterstedt](https://wordpress.org/plugins/vgw-vg-wort-zahlpixel-plugin/)
 * importieren von manuell zugeordneten Zählmarken aus Beiträgen – `<img>`-Tag wird erkannt und optional gelöscht
 * nachträglicher Import von fehlenden privaten Zählmarken, falls die entsprechend öffentlichen bereits vorhanden sind
 * exportieren von Zählmarken, Beitrags-Zuordnungen und weiterer Daten als CSV-Datei mit Filter- und Sortierfunktionen
@@ -75,9 +80,11 @@ Prosodia VGW OS wird von der [Max Heckel, Ronny Harbich, Rebekka Hempel, Torsten
 
 Prosodia VGW OS wird von der VG WORT weder unterstützt noch von ihr vertrieben.
 
-= Hilfe und Support =
+= Hilfe und Anleitungen =
 
-Wenn Sie einen Wunsch für eine neue Funktion haben oder einfach nur Hilfe benötigen, treten Sie bitte mit uns in Kontakt:
+Unter [http://prosodia.de/prosodia-vgw-os/](http://prosodia.de/prosodia-vgw-os/) gibt es bebilderte Anleitungen zum Plugin.
+
+Wenn Sie einen Wunsch für eine neue Funktion haben oder Hilfe benötigen, treten Sie bitte mit uns in Kontakt:
 
 * [FAQ-Seite](/plugins/wp-vgwort/faq/)
 * [Support-Seite](/support/plugin/wp-vgwort)
@@ -97,6 +104,10 @@ Automatische Installation über den Plugin-Bereich im Administrationsbereich von
 == Frequently Asked Questions ==
 
 = Häufige Probleme und wissenswertes =
+
+= Anleitungen =
+
+Unter [http://prosodia.de/prosodia-vgw-os/](http://prosodia.de/prosodia-vgw-os/) gibt es bebilderte Anleitungen zum Plugin.
 
 = Aktualisierung auf Version 3.0.0 oder höher =
 
