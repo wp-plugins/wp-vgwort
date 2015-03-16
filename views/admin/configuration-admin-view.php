@@ -106,6 +106,22 @@ class WPVGW_ConfigurationAdminView extends WPVGW_AdminViewBase {
 						</td>
 					</tr>
 					<tr>
+						<th scope="row"><?php _e( 'Plugin-Shortcodes', WPVGW_TEXT_DOMAIN ); ?></th>
+						<td>
+							<p>
+								<label for="wpvgw_shortcode_post_stats_template"><?php _e( 'Standard-Ausgabeformat für Post-Stats-Shortcode', WPVGW_TEXT_DOMAIN ); ?></label>
+								<br/>
+								<input type="text" id="wpvgw_shortcode_post_stats_template" name="wpvgw_shortcode_post_stats_template" class="regular-text" value="<?php echo( esc_attr( $this->options->get_shortcode_post_stats_template() ) ); ?>"/>
+								<br/>
+								<span class="description"><?php _e( 'So wie in diesem Textfeld angegeben, wird der Text des Post-Stats-Shortcodes ausgegeben, falls dieser nicht explizit im Shortcode festgelegt wurde.', WPVGW_TEXT_DOMAIN ); ?></span>
+								<br/>
+								<span class="description"><?php _e( '%1$s wird durch die Zeichenzahl ersetzt; %2$s wird durch die Anzahl der Normseiten ersetzt.', WPVGW_TEXT_DOMAIN ); ?></span>
+								<br/>
+								<span class="description"><?php echo( sprintf( __( 'Der Standardwert ist: %s', WPVGW_TEXT_DOMAIN ), esc_html( $this->options->default_shortcode_post_stats_template() ) ) ) ?></span>
+							</p>
+						</td>
+					</tr>
+					<tr>
 						<th scope="row"><?php _e( 'Plugin-Warnungen', WPVGW_TEXT_DOMAIN ); ?></th>
 						<td>
 							<p>
@@ -225,10 +241,17 @@ class WPVGW_ConfigurationAdminView extends WPVGW_AdminViewBase {
 		else
 			$this->add_admin_message( __( 'Der eingegebene Standard-Server hat ein ungültiges Format.', WPVGW_TEXT_DOMAIN ) );
 
-		
+
 		
 		$this->options->set_post_view_set_marker_by_default( isset( $_POST['wpvgw_post_view_set_marker_by_default'] ) );
+
+
 		
+		$shortcodePostStatsTemplate = isset( $_POST['wpvgw_shortcode_post_stats_template'] ) ? stripslashes( $_POST['wpvgw_shortcode_post_stats_template'] ) : null;
+
+		if ( $shortcodePostStatsTemplate !== null )
+			$this->options->set_shortcode_post_stats_template( $shortcodePostStatsTemplate );
+
 
 		
 		$numberOfMarkersPerPage = isset( $_POST['wpvgw_number_of_markers_per_page'] ) ? $_POST['wpvgw_number_of_markers_per_page'] : null;
