@@ -41,6 +41,12 @@ class WPVGW {
 	private $postsExtras;
 
 	
+	private $cache;
+	
+	private $shortcodes;
+
+
+	
 	private static $instance = null;
 
 
@@ -175,6 +181,12 @@ class WPVGW {
 		
 		$this->postsExtras = new WPVGW_PostsExtras( $this->postsExtrasTableName, $this->markersManager );
 
+		
+		$this->cache = new WPVGW_Cache( $this->markersManager, $this->postsExtras );
+
+		
+		$this->shortcodes = WPVGW_Shortcodes::get_instance();
+		$this->shortcodes->init( $this->markersManager, $this->cache, $this->options->get_shortcode_post_stats_template() );
 
 		
 		if ( is_admin() ) {
@@ -335,7 +347,6 @@ class WPVGW {
 			
 			$metaName = get_option( 'wp_vgwortmetaname', 'wp_vgwortmarke' );
 			$this->options->set_meta_name( $metaName == '' ? 'wp_vgwortmarke' : $metaName );
-
 
 			
 			
@@ -757,7 +768,7 @@ class WPVGW {
 
 
 		
-		return $this->markersManager->get_marker_from_db( $post->ID, 'post_id' );
+		return $this->cache->get_marker( $post->ID );
 	}
 
 	

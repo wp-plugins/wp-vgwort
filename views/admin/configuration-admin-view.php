@@ -47,12 +47,12 @@ class WPVGW_ConfigurationAdminView extends WPVGW_AdminViewBase {
 		parent::begin_render_base();
 
 		?>
-		<p>
+		<p class="wpvgw-admin-page-description">
 			<?php _e( 'Hier können allgemeine Einstellungen vorgenommen werden.', WPVGW_TEXT_DOMAIN ); ?>
 		</p>
 		<form method="post">
 			<?php echo( parent::get_wp_number_once_field() ) ?>
-			<table class="form-table">
+			<table class="form-table wpvgw-form-table">
 				<tbody>
 					<tr>
 						<th scope="row"><?php _e( 'Zeichenanzahl', WPVGW_TEXT_DOMAIN ); ?></th>
@@ -96,6 +96,28 @@ class WPVGW_ConfigurationAdminView extends WPVGW_AdminViewBase {
 								<span class="description"><?php _e( 'Wenn für Zählmarken nicht explizit ein Server angegeben wurde (z. B. beim Importieren), wird dieser Server verwendet.', WPVGW_TEXT_DOMAIN ); ?></span>
 								<br/>
 								<span class="description"><?php echo( sprintf( __( 'Der Standardwert ist: %s', WPVGW_TEXT_DOMAIN ), esc_html( $this->options->default_default_server() ) ) ) ?></span>
+							</p>
+							<p>
+								<input type="checkbox" name="wpvgw_post_view_set_marker_by_default" id="wpvgw_post_view_set_marker_by_default" value="1" class="checkbox" <?php echo( WPVGW_Helper::get_html_checkbox_checked( $this->options->get_post_view_set_marker_by_default() ) ) ?>/>
+								<label for="wpvgw_post_view_set_marker_by_default"><?php _e( 'Beiträgen standardmäßig eine Zählmarke zuordnen', WPVGW_TEXT_DOMAIN ); ?></label>
+								<br/>
+								<span class="description"><?php _e( 'Bei Aktivierung werden neuen Beiträgen oder Beiträge, die bearbeitet werden, als Voreinstellung Zählmarken zugeordnet (abwählbar). Dies geschieht ohne Beachtung der Mindestanzahl an Zeichen.', WPVGW_TEXT_DOMAIN ) ?></span>
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row"><?php _e( 'Plugin-Shortcodes', WPVGW_TEXT_DOMAIN ); ?></th>
+						<td>
+							<p>
+								<label for="wpvgw_shortcode_post_stats_template"><?php _e( 'Standard-Ausgabeformat für Post-Stats-Shortcode', WPVGW_TEXT_DOMAIN ); ?></label>
+								<br/>
+								<input type="text" id="wpvgw_shortcode_post_stats_template" name="wpvgw_shortcode_post_stats_template" class="regular-text" value="<?php echo( esc_attr( $this->options->get_shortcode_post_stats_template() ) ); ?>"/>
+								<br/>
+								<span class="description"><?php _e( 'So wie in diesem Textfeld angegeben, wird der Text des Post-Stats-Shortcodes ausgegeben, falls dieser nicht explizit im Shortcode festgelegt wurde.', WPVGW_TEXT_DOMAIN ); ?></span>
+								<br/>
+								<span class="description"><?php _e( '%1$s wird durch die Zeichenzahl ersetzt; %2$s wird durch die Anzahl der Normseiten ersetzt.', WPVGW_TEXT_DOMAIN ); ?></span>
+								<br/>
+								<span class="description"><?php echo( sprintf( __( 'Der Standardwert ist: %s', WPVGW_TEXT_DOMAIN ), esc_html( $this->options->default_shortcode_post_stats_template() ) ) ) ?></span>
 							</p>
 						</td>
 					</tr>
@@ -218,6 +240,17 @@ class WPVGW_ConfigurationAdminView extends WPVGW_AdminViewBase {
 			$this->options->set_default_server( $defaultServer );
 		else
 			$this->add_admin_message( __( 'Der eingegebene Standard-Server hat ein ungültiges Format.', WPVGW_TEXT_DOMAIN ) );
+
+
+		
+		$this->options->set_post_view_set_marker_by_default( isset( $_POST['wpvgw_post_view_set_marker_by_default'] ) );
+
+
+		
+		$shortcodePostStatsTemplate = isset( $_POST['wpvgw_shortcode_post_stats_template'] ) ? stripslashes( $_POST['wpvgw_shortcode_post_stats_template'] ) : null;
+
+		if ( $shortcodePostStatsTemplate !== null )
+			$this->options->set_shortcode_post_stats_template( $shortcodePostStatsTemplate );
 
 
 		

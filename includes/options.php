@@ -51,6 +51,10 @@ class WPVGW_Options {
 	private static $doShortcodesForCharacterCountCalculation = 'do_shortcodes_for_character_count_calculation';
 	
 	private static $postViewAutoMarker = 'post_view_auto_marker';
+	
+	private static $postViewSetMarkerByDefault = 'post_view_set_marker_by_default';
+	
+	private static $shortcodePostStatsTemplate = 'shortcode_post_stats_template';
 
 
 	
@@ -117,6 +121,8 @@ class WPVGW_Options {
 			self::$operationMaxExecutionTime                          => 300, 
 			self::$doShortcodesForCharacterCountCalculation           => false,
 			self::$postViewAutoMarker                                 => true,
+			self::$postViewSetMarkerByDefault                         => false,
+			self::$shortcodePostStatsTemplate                         => __( 'Dieser Text besteht aus %1$s Zeichen und entspricht damit etwa %2$s Normseiten.', WPVGW_TEXT_DOMAIN ),
 		);
 
 		
@@ -565,12 +571,56 @@ class WPVGW_Options {
 	}
 
 	
-	public function get_view_auto_marker() {
+	public function get_post_view_auto_marker() {
 		return $this->options[self::$postViewAutoMarker];
 	}
 
 	
-	public function default_view_auto_marker() {
+	public function default_post_view_auto_marker() {
 		return $this->defaultOptions[self::$postViewAutoMarker];
+	}
+
+
+	
+	public function set_post_view_set_marker_by_default( $value ) {
+		if ( !is_bool( $value ) )
+			throw new Exception( 'Value is not a bool.' );
+
+		if ( $this->options[self::$postViewSetMarkerByDefault] !== $value ) {
+			$this->options[self::$postViewSetMarkerByDefault] = $value;
+			$this->optionsChanged = true;
+		}
+	}
+
+	
+	public function get_post_view_set_marker_by_default() {
+		return $this->options[self::$postViewSetMarkerByDefault];
+	}
+
+	
+	public function default_post_view_set_marker_by_default() {
+		return $this->defaultOptions[self::$postViewSetMarkerByDefault];
+	}
+
+
+	
+	public function set_shortcode_post_stats_template( $value ) {
+		if ( !is_string( $value ) )
+			throw new Exception( 'Value is not a string.' );
+
+		if ( $this->options[self::$shortcodePostStatsTemplate] !== $value ) {
+			$this->options[self::$shortcodePostStatsTemplate] = $value;
+			$this->optionsChanged = true;
+		}
+	}
+
+	
+	public function get_shortcode_post_stats_template() {
+		return $this->options[self::$shortcodePostStatsTemplate];
+	}
+
+	
+	public function default_shortcode_post_stats_template() {
+		return $this->defaultOptions[self::$shortcodePostStatsTemplate];
 	}
 }

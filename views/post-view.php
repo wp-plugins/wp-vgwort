@@ -210,7 +210,7 @@ class WPVGW_PostView extends WPVGW_ViewBase {
 						<th><?php _e( 'Aktion' ) ?></th>
 						<td>
 							<p>
-								<input type="checkbox" name="wpvgw_set_marker" id="wpvgw_set_marker" value="1" class="checkbox"/>
+								<input type="checkbox" name="wpvgw_set_marker" id="wpvgw_set_marker" value="1" class="checkbox" <?php echo( WPVGW_Helper::get_html_checkbox_checked( $this->options->get_post_view_set_marker_by_default() ) ) ?>/>
 								<label for="wpvgw_set_marker"><?php _e( 'Diesem Beitrag eine Zählmarke zuordnen' ) ?></label>
 								<br/>
 								<span class="description"><?php _e( 'Weisen Sie diesem Beitrag eine Zählmarke zu, um Ihre Leser bei der VG WORT zählen zu lassen.', WPVGW_TEXT_DOMAIN ) ?></span>
@@ -221,7 +221,7 @@ class WPVGW_PostView extends WPVGW_ViewBase {
 						<th><?php _e( 'Zählmarken-Zuordnung', WPVGW_TEXT_DOMAIN ) ?></th>
 						<td>
 							<p>
-								<input type="checkbox" name="wpvgw_auto_marker" id="wpvgw_auto_marker" value="1" class="checkbox" <?php echo( WPVGW_Helper::get_html_checkbox_checked( $this->options->get_view_auto_marker() ) ) ?>/>
+								<input type="checkbox" name="wpvgw_auto_marker" id="wpvgw_auto_marker" value="1" class="checkbox" <?php echo( WPVGW_Helper::get_html_checkbox_checked( $this->options->get_post_view_auto_marker() ) ) ?>/>
 								<label for="wpvgw_auto_marker"><?php _e( 'Zählmarke automatisch zuordnen' ) ?></label>
 								<br/>
 								<span class="description"><?php _e( 'Aktivieren, um dem Beitrag automatisch eine unbenutzte Zählmarke zuordnen zu lassen (empfohlen), ansonsten manuell.', WPVGW_TEXT_DOMAIN ) ?></span>
