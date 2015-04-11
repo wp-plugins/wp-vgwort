@@ -4,7 +4,7 @@ Donate link: http://prosodia.de/
 Tags: VG WORT, Zählmarke, T.O.M., Zählpixel, Geld, VGW, Verwertungsgesellschaft WORT, Prosodia, Verlag
 Requires at least: 3.8
 Tested up to: 4.1
-Stable tag: 3.7.0
+Stable tag: 3.8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -145,6 +145,10 @@ Es besteht die Möglichkeit, die Einstellung „Prosodia VGW OS“ → „Operat
 == Changelog ==
 
 = Änderungen =
+
+= 3.8.0 =
+* Der Shortcode `[pvgw_post_stats]` wurde verbessert: Die Zeichenanzahl pro Blatt kann nun manuell eingestellt werden. Das Runden auf halbe Seiten wurde hinzugefügt.
+* In der Beitrags-Übersicht werden „Zählmarke möglich“ und „Zählmarke zugeordnet“ in der Spalte „Zeichen“ zur besseren Übersicht farblich hervorgehoben. Dies kann in den Einstellungen wieder zurückgesetzt werden.
 
 = 3.7.0 =
 * Shortcode `[pvgw_post_stats]` hinzugefügt, über den die Zeichenanzahl und die Anzahl der Normseiten eines Beitrags ausgeben werden kann.
@@ -294,6 +298,9 @@ Es besteht die Möglichkeit, die Einstellung „Prosodia VGW OS“ → „Operat
 * Initial-Release.
 
 == Upgrade Notice ==
+
+= 3.8.0 =
+Shortcode `[pvgw_post_stats]` verbessert. Farbhervorhebung für Spalte „Zeichen“ in Beitrags-Übersicht hinzugefügt.
 
 = 3.7.0 =
 Shortcode `[pvgw_post_stats]` hinzugefügt.

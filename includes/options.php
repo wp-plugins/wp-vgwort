@@ -54,6 +54,8 @@ class WPVGW_Options {
 	
 	private static $postViewSetMarkerByDefault = 'post_view_set_marker_by_default';
 	
+	private static $postTableViewUseColors = 'post_table_view_use_colors';
+	
 	private static $shortcodePostStatsTemplate = 'shortcode_post_stats_template';
 
 
@@ -122,7 +124,8 @@ class WPVGW_Options {
 			self::$doShortcodesForCharacterCountCalculation           => false,
 			self::$postViewAutoMarker                                 => true,
 			self::$postViewSetMarkerByDefault                         => false,
-			self::$shortcodePostStatsTemplate                         => __( 'Dieser Text besteht aus %1$s Zeichen und entspricht damit etwa %2$s Normseiten.', WPVGW_TEXT_DOMAIN ),
+			self::$postTableViewUseColors                             => true,
+			self::$shortcodePostStatsTemplate                         => __( 'Dieser Text besteht aus %1$s Zeichen und entspricht damit etwa %3$s A4-Seiten oder %2$s Normseiten.', WPVGW_TEXT_DOMAIN ),
 		);
 
 		
@@ -600,6 +603,28 @@ class WPVGW_Options {
 	
 	public function default_post_view_set_marker_by_default() {
 		return $this->defaultOptions[self::$postViewSetMarkerByDefault];
+	}
+
+
+	
+	public function set_post_table_view_use_colors( $value ) {
+		if ( !is_bool( $value ) )
+			throw new Exception( 'Value is not a bool.' );
+
+		if ( $this->options[self::$postTableViewUseColors] !== $value ) {
+			$this->options[self::$postTableViewUseColors] = $value;
+			$this->optionsChanged = true;
+		}
+	}
+
+	
+	public function get_post_table_view_use_colors() {
+		return $this->options[self::$postTableViewUseColors];
+	}
+
+	
+	public function default_post_table_view_use_colors() {
+		return $this->defaultOptions[self::$postTableViewUseColors];
 	}
 
 

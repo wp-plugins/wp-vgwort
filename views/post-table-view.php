@@ -273,9 +273,15 @@ class WPVGW_PostTableView extends WPVGW_ViewBase {
 
 			
 			if ( $hasMarker )
-				_e( 'Zählmarke zugeordnet', WPVGW_TEXT_DOMAIN );
+				echo( sprintf(
+					$this->options->get_post_table_view_use_colors() ? '<span class="wpvgw-has-marker">%s</span>' : '%s',
+					__( 'Zählmarke zugeordnet', WPVGW_TEXT_DOMAIN )
+				) );
 			elseif ( $characterCount !== null && $this->markersManager->is_character_count_sufficient( $characterCount, $this->options->get_vg_wort_minimum_character_count() ) )
-				echo( sprintf( '<em>%s</em>', __( 'Zählmarke möglich', WPVGW_TEXT_DOMAIN ) ) );
+				echo( sprintf(
+					$this->options->get_post_table_view_use_colors() ? '<span class="wpvgw-marker-possible">%s</span>' : '<em>%s</em>',
+					__( 'Zählmarke möglich', WPVGW_TEXT_DOMAIN )
+				) );
 
 			
 			if ( $isMakerDisabled ) {

@@ -115,7 +115,7 @@ class WPVGW_ConfigurationAdminView extends WPVGW_AdminViewBase {
 								<br/>
 								<span class="description"><?php _e( 'So wie in diesem Textfeld angegeben, wird der Text des Post-Stats-Shortcodes ausgegeben, falls dieser nicht explizit im Shortcode festgelegt wurde.', WPVGW_TEXT_DOMAIN ); ?></span>
 								<br/>
-								<span class="description"><?php _e( '%1$s wird durch die Zeichenzahl ersetzt; %2$s wird durch die Anzahl der Normseiten ersetzt.', WPVGW_TEXT_DOMAIN ); ?></span>
+								<span class="description"><?php _e( '%1$s wird durch die Zeichenzahl ersetzt; %2$s wird durch die Anzahl der Normseiten ersetzt; %3$s wird durch die Anzahl der Seiten (benutzerdefinierte Größe, Standard ist A4) ersetzt.', WPVGW_TEXT_DOMAIN ); ?></span>
 								<br/>
 								<span class="description"><?php echo( sprintf( __( 'Der Standardwert ist: %s', WPVGW_TEXT_DOMAIN ), esc_html( $this->options->default_shortcode_post_stats_template() ) ) ) ?></span>
 							</p>
@@ -145,13 +145,19 @@ class WPVGW_ConfigurationAdminView extends WPVGW_AdminViewBase {
 					<th scope="row"><?php _e( 'Verschiedenes', WPVGW_TEXT_DOMAIN ); ?></th>
 						<td>
 							<p>
-								<label for="wpvgw_number_of_markers_per_page"><?php _e( 'Zählmarken pro Seite in der Übersicht', WPVGW_TEXT_DOMAIN ); ?></label>
+								<label for="wpvgw_number_of_markers_per_page"><?php _e( 'Zählmarken pro Seite in der Zählmarken-Übersicht', WPVGW_TEXT_DOMAIN ); ?></label>
 								<br/>
 								<input type="text" id="wpvgw_number_of_markers_per_page" name="wpvgw_number_of_markers_per_page" class="regular-text" value="<?php echo( esc_attr( $this->options->get_number_of_markers_per_page() ) ); ?>"/>
 								<br/>
 								<span class="description"><?php _e( 'Die Anzahl der Zählmarken, die auf einer Seite in der Zählmarken-Übersicht (Tabelle) angezeigt werden soll.', WPVGW_TEXT_DOMAIN ); ?></span>
 								<br/>
 								<span class="description"><?php echo( sprintf( __( 'Der Standardwert ist: %s', WPVGW_TEXT_DOMAIN ), esc_html( $this->options->default_number_of_markers_per_page() ) ) ) ?></span>
+							</p>
+							<p>
+								<input type="checkbox" name="wpvgw_post_table_view_use_colors" id="wpvgw_post_table_view_use_colors" value="1" class="checkbox" <?php echo( WPVGW_Helper::get_html_checkbox_checked( $this->options->get_post_table_view_use_colors() ) ) ?>/>
+								<label for="wpvgw_post_table_view_use_colors"><?php _e( 'Farben in der Beitrags-Übersicht verwenden', WPVGW_TEXT_DOMAIN ); ?></label>
+								<br/>
+								<span class="description"><?php _e( 'Bei Aktivierung werden in der Beitrags-Übersicht (Tabelle) Farben für „Zählmarke möglich“ und „Zählmarke zugeordnet“ in der Spalte „Zeichen“ verwendet.', WPVGW_TEXT_DOMAIN ) ?></span>
 							</p>
 							<p>
 								<label for="wpvgw_operations_max_execution_time"><?php _e( 'Maximale Ausführungszeit für Operationen (in Sekunden)', WPVGW_TEXT_DOMAIN ); ?></label>
@@ -270,6 +276,10 @@ class WPVGW_ConfigurationAdminView extends WPVGW_AdminViewBase {
 			else
 				$this->add_admin_message( __( 'Die Anzahl der Zählmarken pro Seite muss eine natürliche Zahl größer oder gleich 1 sein.', WPVGW_TEXT_DOMAIN ) );
 		}
+
+
+		
+		$this->options->set_post_table_view_use_colors( isset( $_POST['wpvgw_post_table_view_use_colors'] ) );
 
 
 		

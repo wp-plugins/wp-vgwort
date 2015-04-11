@@ -56,18 +56,24 @@ class WPVGW_Shortcodes {
 		
 		$attributes = shortcode_atts(
 			array(
-				'post_id'   => null,
-				'formatted' => true,
-				'decimals'  => 0,
-				'text'      => $this->postStatsTemplate,
-				'type'      => 'character-count',
+				'post_id'            => null,
+				'formatted'          => true,
+				'decimals'           => 0,
+				'round'              => false,
+				'round_half'         => false,
+				'page_count_divisor' => 1800,
+				'text'               => $this->postStatsTemplate,
+				'type'               => 'character-count',
 			),
 			$attributes
 		);
 
 		
 		$formatted = filter_var( $attributes['formatted'], FILTER_VALIDATE_BOOLEAN );
-		$decimals = intval( $attributes['decimals'] );
+		$decimals = abs( intval( $attributes['decimals'] ) );
+		$round = filter_var( $attributes['round'], FILTER_VALIDATE_BOOLEAN );
+		$roundHalf = filter_var( $attributes['round_half'], FILTER_VALIDATE_BOOLEAN );
+		$pageCountDivisor = abs( intval( $attributes['page_count_divisor'] ) );
 		$text = $attributes['text'];
 		$type = $attributes['type'];
 
@@ -99,6 +105,8 @@ class WPVGW_Shortcodes {
 			$characterCount = $postExtras['character_count'];
 			
 			$standardPageCount = $characterCount / 1500.0;
+			
+			$customPageCount = $characterCount / (float)$pageCountDivisor;
 		}
 		else
 			return __( 'Keine Zeichenanzahl für den Beitrag gefunden.', WPVGW_TEXT_DOMAIN );
@@ -109,9 +117,19 @@ class WPVGW_Shortcodes {
 			case 'standard-page-count':
 				
 				if ( $formatted )
-					return esc_html( number_format_i18n( round( $standardPageCount, $decimals ), $decimals ) );
+					return esc_html( number_format_i18n( $this->round( $standardPageCount, $decimals, $roundHalf ), $decimals ) );
 
-				return $standardPageCount;
+				return $round ?
+					$this->round( $standardPageCount, $decimals, $roundHalf ) :
+					$standardPageCount;
+			case 'custom-page-count' :
+				
+				if ( $formatted )
+					return esc_html( number_format_i18n( $this->round( $customPageCount, $decimals, $roundHalf ), $decimals ) );
+
+				return $round ?
+					$this->round( $customPageCount, $decimals, $roundHalf ) :
+					$customPageCount;
 			case 'text':
 				
 				if ( $formatted )
@@ -119,11 +137,14 @@ class WPVGW_Shortcodes {
 						sprintf(
 							$text,
 							number_format_i18n( $characterCount ),
-							number_format_i18n( round( $standardPageCount, $decimals ), $decimals )
+							number_format_i18n( $this->round( $standardPageCount, $decimals, $roundHalf ), $decimals ),
+							number_format_i18n( $this->round( $customPageCount, $decimals, $roundHalf ), $decimals )
 						)
 					);
 
-				return esc_html( sprintf( $text, $characterCount, $standardPageCount ) );
+				return $round ?
+					esc_html( sprintf( $text, $this->round( $characterCount, $decimals, $roundHalf ), $this->round( $standardPageCount, $decimals, $roundHalf ), $this->round( $customPageCount, $decimals, $roundHalf ) ) ) :
+					esc_html( sprintf( $text, $characterCount, $standardPageCount, $customPageCount ) );
 			default: 
 				
 				if ( $formatted )
@@ -131,6 +152,40 @@ class WPVGW_Shortcodes {
 
 				return $characterCount;
 		}
+	}
+
+
+	
+	private function round( $number, $number_of_decimals, $round_half = false ) {
+		
+		if ( !$round_half || $number_of_decimals <= 0 )
+			return round( $number, $number_of_decimals );
+
+		
+		$number = round( $number, $number_of_decimals + 1 );
+
+		
+		$decimalShift = pow( 10, $number_of_decimals + 1 );
+
+		
+		$shiftedNumber = (int)( $number * $decimalShift );
+
+		
+		$last2Decimals = $shiftedNumber % 100;
+
+		
+		$removedDecimals = $shiftedNumber - $last2Decimals;
+
+		
+		if ( $last2Decimals <= 24 )
+			$roundedNumber = $removedDecimals;
+		elseif ( $last2Decimals <= 74 )
+			$roundedNumber = $removedDecimals + 50;
+		else
+			$roundedNumber = $removedDecimals + 100;
+
+		
+		return $roundedNumber / $decimalShift;
 	}
 
 }
