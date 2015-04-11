@@ -42,6 +42,15 @@ p.wpvgw-admin-message-dismiss-paragraph {
 	width: 15%;
 }
 
+.column-wpvgw_posts_extras_character_count .wpvgw-has-marker {
+	color: #008000;
+}
+
+.column-wpvgw_posts_extras_character_count .wpvgw-marker-possible {
+	color: #A00000;
+}
+
+
 /* markers table */
 
 form#wpvgw-markers .tablenav select option:first-child {
@@ -158,4 +167,10 @@ div.wpvgw-markers-bulk-edit {
 
 .wpvgw-about-logo {
 	float: right;
+}
+
+/* form table */
+
+.wpvgw-form-table td > p, .wpvgw-admin-page-description {
+	max-width: 80em;
 }

@@ -50,7 +50,10 @@ class WPVGW_AboutAdminView extends WPVGW_AdminViewBase {
 
 		
 		?>
-		<table class="form-table">
+		<p class="wpvgw-admin-page-description">
+			<?php _e( 'Hier erfahren Sie, wer hinter dem Plugin steht. Es werden rechtliche Hinweise zum Plugin gegeben.', WPVGW_TEXT_DOMAIN ); ?>
+		</p>
+		<table class="form-table wpvgw-form-table">
 			<tbody>
 				<tr>
 					<th scope="row"><?php _e( 'Autor', WPVGW_TEXT_DOMAIN ); ?></th>

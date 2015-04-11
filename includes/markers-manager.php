@@ -801,6 +801,25 @@ class WPVGW_MarkersManager {
 	}
 
 	
+	public function import_markers_and_posts_from_vgw_plugin( $default_server ) {
+		$thisObject = $this;
+
+		
+		return $this->import_old_markers_and_posts(
+			function ( WP_Post $post ) use ( $thisObject ) {
+				
+				$metaValue = get_post_custom_values( 'vgwpixel', $post->ID );
+
+				
+				return $thisObject->get_marker_from_string( $metaValue[0] );
+			},
+			null, 
+			$default_server,
+			array( 'meta_key' => 'vgwpixel' ) 
+		);
+	}
+
+	
 	public function import_markers_and_posts_from_posts( $match_marker_regex, $default_server, $delete_manual_marker = false ) {
 		$thisObject = $this;
 

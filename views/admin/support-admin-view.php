@@ -18,12 +18,12 @@ class WPVGW_SupportAdminView extends WPVGW_AdminViewBase {
 
 	
 	public static function get_long_name_static() {
-		return __( 'Hilfe und Support', WPVGW_TEXT_DOMAIN );
+		return __( 'Hilfe und Anleitungen', WPVGW_TEXT_DOMAIN );
 	}
 
 	
 	public static function get_short_name_static() {
-		return __( 'Hilfe', WPVGW_TEXT_DOMAIN );
+		return __( 'Hilfe/Anleitungen', WPVGW_TEXT_DOMAIN );
 	}
 
 
@@ -50,8 +50,19 @@ class WPVGW_SupportAdminView extends WPVGW_AdminViewBase {
 
 		
 		?>
-		<table class="form-table">
+		<p class="wpvgw-admin-page-description">
+			<?php _e( 'Hier können Sie Hilfe und Anleitungen zum Plugin erhalten.', WPVGW_TEXT_DOMAIN ); ?>
+		</p>
+		<table class="form-table wpvgw-form-table">
 			<tbody>
+				<tr>
+					<th scope="row"><?php _e( 'Anleitungen', WPVGW_TEXT_DOMAIN ); ?></th>
+					<td>
+						<p>
+							<?php _e( 'Unter <a href="http://prosodia.de/prosodia-vgw-os/">http://prosodia.de/prosodia-vgw-os/</a> gibt es bebilderte Anleitungen zum Plugin.', WPVGW_TEXT_DOMAIN ); ?>
+						</p>
+					</td>
+				</tr>
 				<tr>
 					<th scope="row"><?php _e( 'Neue Funktionen und Hilfe', WPVGW_TEXT_DOMAIN ); ?></th>
 					<td>
@@ -59,15 +70,14 @@ class WPVGW_SupportAdminView extends WPVGW_AdminViewBase {
 							<?php _e( 'Wenn Sie einen Wunsch für eine neue Funktion haben oder einfach nur Hilfe benötigen, treten Sie bitte mit uns in Kontakt:', WPVGW_TEXT_DOMAIN ); ?>
 						</p>
 						<p>
-							<?php echo( sprintf( __( 'Websites: %s, %s (WordPress.org) oder alternativ %s', WPVGW_TEXT_DOMAIN ),
+							<?php echo( sprintf( __( 'Websites: %s und %s (WordPress.org)', WPVGW_TEXT_DOMAIN ),
 								sprintf( '<a href="https://wordpress.org/plugins/wp-vgwort/faq/" target="_blank">%s</a>', __( 'FAQ', WPVGW_TEXT_DOMAIN ) ),
-								sprintf( '<a href="https://wordpress.org/support/plugin/wp-vgwort" target="_blank">%s</a>', __( 'Support', WPVGW_TEXT_DOMAIN ) ),
-								sprintf( '<a href="http://www.mywebcheck.de/vg-wort-plugin-wordpress/" target="_blank">%s</a>', __( 'Plugin-Seite auf my Webcheck', WPVGW_TEXT_DOMAIN ) )
+								sprintf( '<a href="https://wordpress.org/support/plugin/wp-vgwort" target="_blank">%s</a>', __( 'Support', WPVGW_TEXT_DOMAIN ) )
 							) ) ?>
 						</p>
 						<p>
 							<?php echo( sprintf( __( 'E-Mail: %s', WPVGW_TEXT_DOMAIN ),
-								'<a href="mailto:wgwortplugin@mywebcheck.de">wgwortplugin@mywebcheck.de</a>'
+								'<a href="mailto:developer@prosodia.de">developer@prosodia.de</a>'
 							) ) ?>
 						</p>
 					</td>

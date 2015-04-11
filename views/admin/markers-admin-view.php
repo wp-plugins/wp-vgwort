@@ -182,10 +182,10 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 
 			?>
 			<h3><?php _e( 'Zählmarken exportieren', WPVGW_TEXT_DOMAIN ) ?></h3>
-			<p>
+			<p class="wpvgw-admin-page-description">
 				<?php _e( 'Es werden <em>alle</em> Zählmarken entsprend der in der Tabelle ausgewählten Filter und Sortierung exportiert.', WPVGW_TEXT_DOMAIN ); ?>
 			</p>
-			<table class="form-table">
+			<table class="form-table wpvgw-form-table">
 				<tbody>
 					<tr>
 						<th scope="row"><?php _e( 'Export als CSV-Datei', WPVGW_TEXT_DOMAIN ); ?></th>
