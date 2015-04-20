@@ -151,7 +151,7 @@ class WPVGW_PostsExtras {
 	
 	public function recalculate_post_character_count_in_db( $post ) {
 		
-		$characterCount = $this->markersManager->calculate_character_count( $post->post_title, $post->post_content );
+		$characterCount = $this->markersManager->calculate_character_count( $post->post_title, $post->post_content, $post->post_excerpt );
 
 		
 		$this->insert_update_post_extras_in_db(
