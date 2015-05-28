@@ -232,6 +232,12 @@ class WPVGW_MarkersManager {
 	}
 
 	
+	public function has_valid_marker_format_sql( $marker_column ) {
+		
+		return "BINARY($marker_column) REGEXP '^[a-z0-9]{32}$'";
+	}
+
+	
 	public function key_exists_in_db( $key, $column ) {
 		
 		global $wpdb;

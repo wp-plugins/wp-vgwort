@@ -4,7 +4,7 @@ Donate link: http://prosodia.de/
 Tags: VG WORT, Zählmarke, T.O.M., Zählpixel, Geld, VGW, Verwertungsgesellschaft WORT, Prosodia, Verlag
 Requires at least: 3.8
 Tested up to: 4.2
-Stable tag: 3.9.0
+Stable tag: 3.10.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -145,6 +145,10 @@ Es besteht die Möglichkeit, die Einstellung „Prosodia VGW OS“ → „Operat
 == Changelog ==
 
 = Änderungen =
+
+= 3.10.0 =
+* Neuen Filter „Zählm.-Format“ in der Zählmarken-Übersicht hinzugefügt, mit dem nach ungültigen Zählmarken gefiltert werden kann. Besonders sinnvoll, wenn manuelle Zählmarken aus Beiträgen importiert wurden, da diese eventuell durch falsche Eingabe ungültig sein könnten.
+* Fehler behoben, der verhinderte, dass der Lade-Spinner im Bereich „Zählmarke der VG WORT“ in der Beitrags-Bearbeitung ab WordPress 4.2 angezeigt wurde.
 
 = 3.9.0 =
 * Die Zeichenanzahl der Auszüge von Beiträgen kann bei der Berechnung der Zeichenanzahl eines Beitrags nun mit einberechnet werden. Aktivierung unter „Einstellungen“.
@@ -302,6 +306,9 @@ Es besteht die Möglichkeit, die Einstellung „Prosodia VGW OS“ → „Operat
 * Initial-Release.
 
 == Upgrade Notice ==
+
+= 3.10.0 =
+Neuen Filter „Zählm.-Format“ hinzugefügt. Einen Fehler behoben.
 
 = 3.9.0 =
 Beitrags-Auszug kann bei Berechnung der Zeichenanzahl mit ausgewertet werden. Kompatibilität zu WordPress 4.2 hergestellt.

@@ -132,6 +132,8 @@ class WPVGW_MarkersListTable extends WP_List_Table {
 		
 		$characterCountSufficientSql = $markers_manager->is_character_count_sufficient_sql( 'e.character_count', $options->get_vg_wort_minimum_character_count() );
 
+		$validMarkerFormatSql = sprintf( '(%s) AND (%s)', $markers_manager->has_valid_marker_format_sql( "m.public_marker" ), $markers_manager->has_valid_marker_format_sql( "m.private_marker" ) );
+
 		
 		
 		$this->filterableColumnsSelects = array(
@@ -166,6 +168,21 @@ class WPVGW_MarkersListTable extends WP_List_Table {
 				),
 			),
 			
+			WPVGW . '_invalid_markers'       => array(
+				
+				array(
+					'label' => __( 'Zählm.-Format', WPVGW_TEXT_DOMAIN ),
+				),
+				array(
+					'label' => __( 'Gültig', WPVGW_TEXT_DOMAIN ),
+					'where' => $validMarkerFormatSql,
+					),
+				array(
+					'label' => __( 'Ungültig', WPVGW_TEXT_DOMAIN ),
+					'where' => "NOT ($validMarkerFormatSql)",
+				),
+			),
+			
 			WPVGW . '_post_type'             => $allowedPostTypesOptions,
 			
 			WPVGW . '_post_deleted'          => array(
@@ -194,7 +211,7 @@ class WPVGW_MarkersListTable extends WP_List_Table {
 				),
 				array(
 					'label' => __( 'Zu wenig', WPVGW_TEXT_DOMAIN ),
-					'where' => "NOT $characterCountSufficientSql",
+					'where' => "NOT ($characterCountSufficientSql)",
 				),
 			),
 			

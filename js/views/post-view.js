@@ -35,6 +35,7 @@ var wpvgw_post_view;
 
 			// show spinner
 			this.spinnerRefreshCharacterCount.show();
+			this.spinnerRefreshCharacterCount.css('visibility', 'visible');
 			// disable refresh character count link
 			this.linkRefreshCharacterCount.addClass('wpvgw-disabled');
 			// start timer after 2 s
