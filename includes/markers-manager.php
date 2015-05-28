@@ -29,6 +29,8 @@ class WPVGW_MarkersManager {
 
 	
 	private $doShortcodesForCharacterCountCalculation = false;
+	
+	private $considerExcerptForCharacterCountCalculation = false;
 
 
 	
@@ -71,7 +73,7 @@ class WPVGW_MarkersManager {
 
 
 	
-	public function __construct( $markers_table_name, $allowed_user_roles, $allowed_post_types, $removed_post_types, $do_shortcodes_for_character_count_calculation ) {
+	public function __construct( $markers_table_name, $allowed_user_roles, $allowed_post_types, $removed_post_types, $do_shortcodes_for_character_count_calculation, $considerExcerptForCharacterCountCalculation ) {
 		$this->markersTableName = $markers_table_name;
 		$this->allowedPostTypes = $allowed_post_types;
 		$this->removedPostTypes = $removed_post_types;
@@ -87,6 +89,7 @@ class WPVGW_MarkersManager {
 		$this->build_valid_post_type_arrays();
 
 		$this->doShortcodesForCharacterCountCalculation = $do_shortcodes_for_character_count_calculation;
+		$this->considerExcerptForCharacterCountCalculation = $considerExcerptForCharacterCountCalculation;
 	}
 
 
@@ -153,46 +156,58 @@ class WPVGW_MarkersManager {
 
 
 	
-	public function calculate_character_count( $post_title, $post_content ) {
+	public function calculate_character_count( $post_title, $post_content, $post_excerpt ) {
 		
-		$post_content = preg_replace( WPVGW_Helper::$captionShortcodeRegex, '', $post_content );
+		$post_content = $this->cleanWordPressText( $post_content );
+
+		
+		if ( $this->considerExcerptForCharacterCountCalculation )
+			
+			$post_excerpt = $this->cleanWordPressText( $post_excerpt );
+		else
+			$post_excerpt = '';
+
+		
+		return ( mb_strlen( $post_title ) + mb_strlen( $post_content ) + mb_strlen( $post_excerpt ) );
+	}
+
+	
+	private function cleanWordPressText( $text ) {
+		
+		$text = preg_replace( WPVGW_Helper::$captionShortcodeRegex, '', $text );
 
 		
 		
 		if ( $this->doShortcodesForCharacterCountCalculation )
-			$post_content = do_shortcode( $post_content );
+			$text = do_shortcode( $text );
 
 		
-		$post_content = preg_replace(
+		$text = preg_replace(
 			'%<br\s*/?>%si',
 			' ',
-			$post_content
+			$text
 		);
 
 		
-		$post_content = strip_tags( $post_content );
+		$text = strip_tags( $text );
 
 		
-		$post_content = preg_replace( array(
-				WPVGW_Helper::$shortcodeRegex, 
-				'/\s{2,}/i' 
-			),
+		$text = preg_replace( array(
+			WPVGW_Helper::$shortcodeRegex, 
+			'/\s{2,}/i' 
+		),
 			array(
 				'',
 				' '
 			),
-			$post_content
+			$text
 		);
 
 		
-		$post_content = html_entity_decode( $post_content );
+		$text = html_entity_decode( $text );
 
 		
-		$post_content = trim( $post_content );
-
-
-		
-		return ( mb_strlen( $post_title ) + mb_strlen( $post_content ) );
+		return trim( $text );
 	}
 
 	
@@ -214,6 +229,12 @@ class WPVGW_MarkersManager {
 			return $minimum_character_count - $character_count;
 		else
 			return 0;
+	}
+
+	
+	public function has_valid_marker_format_sql( $marker_column ) {
+		
+		return "BINARY($marker_column) REGEXP '^[a-z0-9]{32}$'";
 	}
 
 	

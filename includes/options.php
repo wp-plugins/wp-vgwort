@@ -50,6 +50,8 @@ class WPVGW_Options {
 	
 	private static $doShortcodesForCharacterCountCalculation = 'do_shortcodes_for_character_count_calculation';
 	
+	private static $considerExcerptForCharacterCountCalculation = 'consider_excerpt_for_character_count_calculation';
+	
 	private static $postViewAutoMarker = 'post_view_auto_marker';
 	
 	private static $postViewSetMarkerByDefault = 'post_view_set_marker_by_default';
@@ -122,6 +124,7 @@ class WPVGW_Options {
 			self::$operationOldPluginImportNecessary                  => false,
 			self::$operationMaxExecutionTime                          => 300, 
 			self::$doShortcodesForCharacterCountCalculation           => false,
+			self::$considerExcerptForCharacterCountCalculation        => false,
 			self::$postViewAutoMarker                                 => true,
 			self::$postViewSetMarkerByDefault                         => false,
 			self::$postTableViewUseColors                             => true,
@@ -559,6 +562,28 @@ class WPVGW_Options {
 	
 	public function default_do_shortcodes_for_character_count_calculation() {
 		return $this->defaultOptions[self::$doShortcodesForCharacterCountCalculation];
+	}
+
+
+	
+	public function set_consider_excerpt_for_character_count_calculation( $value ) {
+		if ( !is_bool( $value ) )
+			throw new Exception( 'Value is not a bool.' );
+
+		if ( $this->options[self::$considerExcerptForCharacterCountCalculation] !== $value ) {
+			$this->options[self::$considerExcerptForCharacterCountCalculation] = $value;
+			$this->optionsChanged = true;
+		}
+	}
+
+	
+	public function get_consider_excerpt_for_character_count_calculation() {
+		return $this->options[self::$considerExcerptForCharacterCountCalculation];
+	}
+
+	
+	public function default_consider_excerpt_for_character_count_calculation() {
+		return $this->defaultOptions[self::$considerExcerptForCharacterCountCalculation];
 	}
 
 
