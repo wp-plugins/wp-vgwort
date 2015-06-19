@@ -4,7 +4,7 @@ Donate link: http://prosodia.de/
 Tags: VG WORT, Zählmarke, T.O.M., Zählpixel, Geld, VGW, Verwertungsgesellschaft WORT, Prosodia, Verlag
 Requires at least: 3.8
 Tested up to: 4.2
-Stable tag: 3.10.0
+Stable tag: 3.10.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -145,6 +145,9 @@ Es besteht die Möglichkeit, die Einstellung „Prosodia VGW OS“ → „Operat
 == Changelog ==
 
 = Änderungen =
+
+= 3.10.1 =
+* Fehler behoben, der verhinderte, dass die Massenbearbeitungen in der unteren Auswahlliste (z. B. „Zählmarke zuordnen“) in der Beitrags-Übersicht durchgeführt werden konnten.
 
 = 3.10.0 =
 * Neuen Filter „Zählm.-Format“ in der Zählmarken-Übersicht hinzugefügt, mit dem nach ungültigen Zählmarken gefiltert werden kann. Besonders sinnvoll, wenn manuelle Zählmarken aus Beiträgen importiert wurden, da diese eventuell durch falsche Eingabe ungültig sein könnten.
@@ -306,6 +309,9 @@ Es besteht die Möglichkeit, die Einstellung „Prosodia VGW OS“ → „Operat
 * Initial-Release.
 
 == Upgrade Notice ==
+
+= 3.10.1 =
+Einen Fehler behoben.
 
 = 3.10.0 =
 Neuen Filter „Zählm.-Format“ hinzugefügt. Einen Fehler behoben.
