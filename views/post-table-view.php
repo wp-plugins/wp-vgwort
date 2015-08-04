@@ -22,6 +22,8 @@ class WPVGW_PostTableView extends WPVGW_ViewBase {
 	private $filters;
 	
 	private $adminMessages = array();
+	
+	private $postsIdMap = null;
 
 
 	
@@ -248,7 +250,22 @@ class WPVGW_PostTableView extends WPVGW_ViewBase {
 			return;
 
 		
-		$post = get_post( $post_id );
+		if ( $this->postsIdMap === null ) {
+			
+			global $wp_query;
+
+			
+			$this->postsIdMap = array();
+
+			
+			foreach ( $wp_query->posts as $post ) {
+				
+				$this->postsIdMap[$post->ID] = $post;
+			}
+		}
+
+		
+		$post = $this->postsIdMap[$post_id];
 
 		
 		if ( !$this->markersManager->is_user_allowed( (int)$post->post_author ) ) {
