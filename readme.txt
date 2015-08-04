@@ -3,8 +3,8 @@ Contributors: raubvogel, smoo1337
 Donate link: http://prosodia.de/
 Tags: VG WORT, Zählmarke, T.O.M., Zählpixel, Geld, VGW, Verwertungsgesellschaft WORT, Prosodia, Verlag
 Requires at least: 3.8
-Tested up to: 4.1
-Stable tag: 3.8.0
+Tested up to: 4.3
+Stable tag: 3.10.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -75,7 +75,7 @@ Technische Voraussetzungen für Prosodia VGW OS sind:
 
 = Lizenz und Haftung =
 
-Prosodia VGW OS wird von der [Max Heckel, Ronny Harbich, Rebekka Hempel, Torsten Klein – Prosodia GbR](http://prosodia.de/kontakt/) unter der GPLv2-Lizenz vertrieben, die unter [http://www.gnu.org/licenses/gpl-2.0.html](http://www.gnu.org/licenses/gpl-2.0.html) nachzulesen ist. Sie vertreibt diese Software vollständig kostenlos und übernimmt für diese daher keine Haftung außer die vom Bürgerlichen Gesetzbuch (BGB) zwingend erforderliche. Der Haftungsausschluss soll – soweit wie mit dem BGB vereinbar – der GPLv2-Lizenz entsprechen.
+Prosodia VGW OS wird von der [Max Heckel, Ronny Harbich – Prosodia GbR](http://prosodia.de/kontakt/) unter der GPLv2-Lizenz vertrieben, die unter [http://www.gnu.org/licenses/gpl-2.0.html](http://www.gnu.org/licenses/gpl-2.0.html) nachzulesen ist. Sie vertreibt diese Software vollständig kostenlos und übernimmt für diese daher keine Haftung außer die vom Bürgerlichen Gesetzbuch (BGB) zwingend erforderliche. Der Haftungsausschluss soll – soweit wie mit dem BGB vereinbar – der GPLv2-Lizenz entsprechen.
 
 Prosodia VGW OS wird von der VG WORT weder unterstützt noch von ihr vertrieben.
 
@@ -145,6 +145,20 @@ Es besteht die Möglichkeit, die Einstellung „Prosodia VGW OS“ → „Operat
 == Changelog ==
 
 = Änderungen =
+
+= 3.10.2 =
+*  Fehler behoben, der die korrekte Anzeige der Spalte „Zeichen“ in der Beitrags-Übersicht im Zusammenhang mit Caching-Plugins (namentlich W3 Total Cache) verhinderte.
+
+= 3.10.1 =
+* Fehler behoben, der verhinderte, dass die Massenbearbeitungen in der unteren Auswahlliste (z. B. „Zählmarke zuordnen“) in der Beitrags-Übersicht durchgeführt werden konnten.
+
+= 3.10.0 =
+* Neuen Filter „Zählm.-Format“ in der Zählmarken-Übersicht hinzugefügt, mit dem nach ungültigen Zählmarken gefiltert werden kann. Besonders sinnvoll, wenn manuelle Zählmarken aus Beiträgen importiert wurden, da diese eventuell durch falsche Eingabe ungültig sein könnten.
+* Fehler behoben, der verhinderte, dass der Lade-Spinner im Bereich „Zählmarke der VG WORT“ in der Beitrags-Bearbeitung ab WordPress 4.2 angezeigt wurde.
+
+= 3.9.0 =
+* Die Zeichenanzahl der Auszüge von Beiträgen kann bei der Berechnung der Zeichenanzahl eines Beitrags nun mit einberechnet werden. Aktivierung unter „Einstellungen“.
+* Das Plugin ist nun vollständig kompatibel zu WordPress 4.2, insbesondere im Hinblick auf die Änderung der Zeichenkodierung von `utf8` zu `utf8mb4` in der MySQL-Datenbank.
 
 = 3.8.0 =
 * Der Shortcode `[pvgw_post_stats]` wurde verbessert: Die Zeichenanzahl pro Blatt kann nun manuell eingestellt werden. Das Runden auf halbe Seiten wurde hinzugefügt.
@@ -298,6 +312,18 @@ Es besteht die Möglichkeit, die Einstellung „Prosodia VGW OS“ → „Operat
 * Initial-Release.
 
 == Upgrade Notice ==
+
+= 3.10.2 =
+Einen Fehler behoben.
+
+= 3.10.1 =
+Einen Fehler behoben.
+
+= 3.10.0 =
+Neuen Filter „Zählm.-Format“ hinzugefügt. Einen Fehler behoben.
+
+= 3.9.0 =
+Beitrags-Auszug kann bei Berechnung der Zeichenanzahl mit ausgewertet werden. Kompatibilität zu WordPress 4.2 hergestellt.
 
 = 3.8.0 =
 Shortcode `[pvgw_post_stats]` verbessert. Farbhervorhebung für Spalte „Zeichen“ in Beitrags-Übersicht hinzugefügt.

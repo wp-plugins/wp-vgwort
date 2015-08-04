@@ -3,7 +3,7 @@
  * Plugin Name: Prosodia VGW OS für Zählmarken (VG WORT)
  * Plugin URI: https://wordpress.org/plugins/wp-vgwort/
  * Description: Verdienen Sie mit Ihren Beiträgen/Texten Geld durch die Integration von Zählmarken der VG WORT.
- * Version: 3.8.0
+ * Version: 3.10.2
  * Author: Prosodia – Verlag für Musik und Literatur
  * Author URI: http://prosodia.de/
  * License: GPLv2 or later
@@ -30,7 +30,7 @@ define( 'WPVGW', 'wpvgw' );
 /**
  * The global plugin version.
  */
-define( 'WPVGW_VERSION', '3.8.0' );
+define( 'WPVGW_VERSION', '3.10.2' );
 
 /**
  * The global plugin path (without trailing slash).

@@ -70,7 +70,13 @@ class WPVGW_ConfigurationAdminView extends WPVGW_AdminViewBase {
 								<input type="checkbox" name="wpvgw_do_shortcodes_for_character_count_calculation" id="wpvgw_do_shortcodes_for_character_count_calculation" value="1" class="checkbox" <?php echo( WPVGW_Helper::get_html_checkbox_checked( $this->options->get_do_shortcodes_for_character_count_calculation() ) ) ?>/>
 								<label for="wpvgw_do_shortcodes_for_character_count_calculation"><?php _e( 'Shortcodes bei Berechnung der Zeichenanzahl auswerten', WPVGW_TEXT_DOMAIN ); ?></label>
 								<br/>
-								<span class="description"><?php _e( 'Bei Aktivierung werden <a href="http://codex.wordpress.org/Shortcode" target="_blank">Shortcodes</a> bei der Berechnung der Zeichanzahl eines Beitrags mit ausgewertet. Die Zeichenanzahl wird geanuer, aber die Berechnung dauert länger. Die Zeichanzahlen der Beiträge müssen nach Änderung neuberechnet werden.', WPVGW_TEXT_DOMAIN ) ?></span>
+								<span class="description"><?php _e( 'Bei Aktivierung werden <a href="http://codex.wordpress.org/Shortcode" target="_blank">Shortcodes</a> bei der Berechnung der Zeichanzahl eines Beitrags mit ausgewertet. Die Zeichenanzahl wird genauer, aber die Berechnung dauert länger. Die Zeichenanzahlen der Beiträge müssen nach Änderung neuberechnet werden.', WPVGW_TEXT_DOMAIN ) ?></span>
+							</p>
+							<p>
+								<input type="checkbox" name="wpvgw_consider_excerpt_for_character_count_calculation" id="wpvgw_consider_excerpt_for_character_count_calculation" value="1" class="checkbox" <?php echo( WPVGW_Helper::get_html_checkbox_checked( $this->options->get_consider_excerpt_for_character_count_calculation() ) ) ?>/>
+								<label for="wpvgw_consider_excerpt_for_character_count_calculation"><?php _e( 'Beitrags-Auszug bei Berechnung der Zeichenanzahl auswerten', WPVGW_TEXT_DOMAIN ); ?></label>
+								<br/>
+								<span class="description"><?php _e( 'Bei Aktivierung wird die Zeichenanzahl der Auszüge von Beiträgen bei der Berechnung der Zeichenanzahl eines Beitrags mit einberechnet.  Diese Option sollte nur aktiviert werden, wenn ein Auszug tatsächlich auf der Beitrags-Webseite angezeigt wird, ansonsten verstößt dies möglicherweise gegen die Bestimmungen der VG WORT. Die Zeichenanzahlen der Beiträge müssen nach Änderung neuberechnet werden.', WPVGW_TEXT_DOMAIN ) ?></span>
 							</p>
 						</td>
 					</tr>
@@ -227,6 +233,18 @@ class WPVGW_ConfigurationAdminView extends WPVGW_AdminViewBase {
 		if ( $doShortcodesForCharacterCountCalculation !== $this->options->get_do_shortcodes_for_character_count_calculation() ) {
 			
 			$this->options->set_do_shortcodes_for_character_count_calculation( $doShortcodesForCharacterCountCalculation );
+			
+			$this->options->set_operations_post_character_count_recalculations_necessary( true );
+		}
+
+
+		
+		$considerExcerptForCharacterCountCalculation = isset( $_POST['wpvgw_consider_excerpt_for_character_count_calculation'] );
+
+		
+		if ( $considerExcerptForCharacterCountCalculation !== $this->options->get_consider_excerpt_for_character_count_calculation() ) {
+			
+			$this->options->set_consider_excerpt_for_character_count_calculation( $considerExcerptForCharacterCountCalculation );
 			
 			$this->options->set_operations_post_character_count_recalculations_necessary( true );
 		}

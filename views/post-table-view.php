@@ -22,6 +22,8 @@ class WPVGW_PostTableView extends WPVGW_ViewBase {
 	private $filters;
 	
 	private $adminMessages = array();
+	
+	private $postsIdMap = null;
 
 
 	
@@ -42,6 +44,7 @@ class WPVGW_PostTableView extends WPVGW_ViewBase {
 		add_action( 'admin_action_' . WPVGW . '_add_marker', array( $this, 'do_add_marker_action' ) );
 
 		
+		add_action( 'admin_action_-1', array( $this, 'do_action2_fix' ) ); 
 		add_action( 'admin_action_' . WPVGW . '_add_markers', array( $this, 'do_add_markers_action' ) );
 		add_action( 'admin_action_' . WPVGW . '_remove_markers', array( $this, 'do_remove_markers_action' ) );
 		add_action( 'admin_action_' . WPVGW . '_recalculate_post_character_count', array( $this, 'do_recalculate_post_character_count' ) );
@@ -247,7 +250,22 @@ class WPVGW_PostTableView extends WPVGW_ViewBase {
 			return;
 
 		
-		$post = get_post( $post_id );
+		if ( $this->postsIdMap === null ) {
+			
+			global $wp_query;
+
+			
+			$this->postsIdMap = array();
+
+			
+			foreach ( $wp_query->posts as $post ) {
+				
+				$this->postsIdMap[$post->ID] = $post;
+			}
+		}
+
+		
+		$post = $this->postsIdMap[$post_id];
 
 		
 		if ( !$this->markersManager->is_user_allowed( (int)$post->post_author ) ) {
@@ -576,6 +594,13 @@ class WPVGW_PostTableView extends WPVGW_ViewBase {
 
 		
 		$this->redirect_to_last_page();
+	}
+
+	
+	public function do_action2_fix() {
+		
+		if ( substr( $_REQUEST['action2'], 0, strlen( WPVGW ) ) === WPVGW )
+			do_action( 'admin_action_' . $_REQUEST['action2'] );
 	}
 
 	

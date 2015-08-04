@@ -35,6 +35,7 @@ var wpvgw_post_view;
 
 			// show spinner
 			this.spinnerRefreshCharacterCount.show();
+			this.spinnerRefreshCharacterCount.css('visibility', 'visible');
 			// disable refresh character count link
 			this.linkRefreshCharacterCount.addClass('wpvgw-disabled');
 			// start timer after 2 s
@@ -119,11 +120,15 @@ var wpvgw_post_view;
 			// get post content
 			var postContent = $('#content').val();
 
+			// get post excerpt
+			var postExcerpt = $('#excerpt').val();
+
 			// collect AJAX post data
 			var ajaxPostData = {
 				action: 'wpvgw_get_character_count',
 				wpvgw_post_title: postTitle,
-				wpvgw_post_content: postContent
+				wpvgw_post_content: postContent,
+				wpvgw_post_excerpt: postExcerpt
 			};
 
 			// post AJAX data to WordPress AJAX url

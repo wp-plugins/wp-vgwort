@@ -77,9 +77,10 @@ class WPVGW_PostView extends WPVGW_ViewBase {
 	public function ajax_get_character_count() {
 		$postTitle = isset( $_POST['wpvgw_post_title'] ) ? stripslashes( $_POST['wpvgw_post_title'] ) : '';
 		$postContent = isset( $_POST['wpvgw_post_content'] ) ? stripslashes( $_POST['wpvgw_post_content'] ) : '';
+		$postExcerpt = isset( $_POST['wpvgw_post_excerpt'] ) ? stripslashes( $_POST['wpvgw_post_excerpt'] ) : '';
 
 		
-		$characterCount = $this->markersManager->calculate_character_count( $postTitle, $postContent );
+		$characterCount = $this->markersManager->calculate_character_count( $postTitle, $postContent, $postExcerpt );
 		$minimumCharacterCount = $this->options->get_vg_wort_minimum_character_count();
 
 		
@@ -294,7 +295,7 @@ class WPVGW_PostView extends WPVGW_ViewBase {
 	
 	private function check_post_character_count( WP_Post $post ) {
 
-		$postCharacterCount = $this->markersManager->calculate_character_count( $post->post_title, $post->post_content );
+		$postCharacterCount = $this->markersManager->calculate_character_count( $post->post_title, $post->post_content, $post->post_excerpt );
 		$minimumCharacterCount = $this->options->get_vg_wort_minimum_character_count();
 
 		if ( !$this->markersManager->is_character_count_sufficient( $postCharacterCount, $minimumCharacterCount ) )
