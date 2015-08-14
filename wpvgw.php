@@ -175,7 +175,8 @@ class WPVGW {
 			$this->options->get_allowed_user_roles(),
 			$this->options->get_allowed_post_types(),
 			$this->options->get_removed_post_types(),
-			$this->options->get_do_shortcodes_for_character_count_calculation()
+			$this->options->get_do_shortcodes_for_character_count_calculation(),
+			$this->options->get_consider_excerpt_for_character_count_calculation()
 		);
 
 		
@@ -218,15 +219,15 @@ class WPVGW {
 	
 	private function install_plugin() {
 		
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		global $wpdb;
 
 		
 		$sql = "CREATE TABLE IF NOT EXISTS $this->markersTableName (
 					id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 					post_id bigint(20) unsigned DEFAULT NULL,
 					user_id bigint(20) unsigned DEFAULT NULL,
-					public_marker varchar(255) NOT NULL,
-					private_marker varchar(255) DEFAULT NULL,
+					public_marker varchar(100) NOT NULL,
+					private_marker varchar(100) DEFAULT NULL,
 					server varchar(255) NOT NULL,
 					is_marker_disabled tinyint(1) unsigned NOT NULL DEFAULT '0',
 					is_post_deleted tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -237,7 +238,7 @@ class WPVGW {
 					UNIQUE KEY private_marker (private_marker),
 					KEY user_id (user_id)
 				);";
-		dbDelta( $sql );
+		$wpdb->query( $sql );
 
 		
 		$sql = "CREATE TABLE IF NOT EXISTS $this->postsExtrasTableName (
@@ -246,7 +247,7 @@ class WPVGW {
 					PRIMARY KEY (post_id),
 					KEY character_count (character_count)
 				);";
-		dbDelta( $sql );
+		$wpdb->query( $sql );
 	}
 
 	
@@ -306,17 +307,14 @@ class WPVGW {
 
 		
 		if ( version_compare( $oldVersion, '1.0.0', '<=' ) ) {
-			
-			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
 			$markersTableName = $wpdb->prefix . 'wpvgw_markers';
 			
 			$sql = "CREATE TABLE IF NOT EXISTS $markersTableName (
 						id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 						post_id bigint(20) unsigned DEFAULT NULL,
 						user_id bigint(20) unsigned DEFAULT NULL,
-						public_marker varchar(255) NOT NULL,
-						private_marker varchar(255) DEFAULT NULL,
+						public_marker varchar(100) NOT NULL,
+						private_marker varchar(100) DEFAULT NULL,
 						server varchar(255) NOT NULL,
 						is_marker_disabled tinyint(1) unsigned NOT NULL DEFAULT '0',
 						is_post_deleted tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -327,7 +325,7 @@ class WPVGW {
 						UNIQUE KEY private_marker (private_marker),
 						KEY user_id (user_id)
 					);";
-			dbDelta( $sql );
+			$wpdb->query( $sql );
 
 			$postsExtrasTableName = $wpdb->prefix . 'wpvgw_posts_extras';
 			
@@ -337,7 +335,7 @@ class WPVGW {
 						PRIMARY KEY (post_id),
 						KEY character_count (character_count)
 					);";
-			dbDelta( $sql );
+			$wpdb->query( $sql );
 
 			
 			$oldAllowedPostTypes = get_option( 'wp_cpt', array() );
@@ -379,6 +377,16 @@ class WPVGW {
 			
 			if ( $this->options->get_import_from_post_regex() == '%<img.*?src\s*=\s*"http://vg[0-9]+\.met\.vgwort.de/na/[a-z0-9]+".*?>%si' )
 				$this->options->set_import_from_post_regex( '%<img\s[^<>]*?src\s*=\s*"http://vg[0-9]+\.met\.vgwort\.de/na/[a-z0-9]+"[^<>]*?>%im' );
+		}
+
+
+		
+		if ( version_compare( $oldVersion, '3.9.0', '<' ) ) {
+			
+			$markersTableName = $wpdb->prefix . 'wpvgw_markers';
+			
+			$sql = "ALTER TABLE $markersTableName CHANGE public_marker public_marker VARCHAR(100) NOT NULL, CHANGE private_marker private_marker VARCHAR(100) NULL DEFAULT NULL;";
+			$wpdb->query($sql);
 		}
 
 
@@ -699,7 +707,7 @@ class WPVGW {
 			$this->postsExtras->insert_update_post_extras_in_db(
 				array(
 					'post_id'         => $post->ID,
-					'character_count' => $this->markersManager->calculate_character_count( $post->post_title, $post->post_content ),
+					'character_count' => $this->markersManager->calculate_character_count( $post->post_title, $post->post_content, $post->post_excerpt ),
 				)
 			);
 		}
@@ -738,12 +746,22 @@ class WPVGW {
 			return '';
 
 		
+		if ( $this->options->get_use_tls() )
+			$marker['server'] = $this->options->get_tls_server();
+
+		
 		return apply_filters(
 			'wp_vgwort_frontend_display', 
-			sprintf( $this->options->get_output_format(),
-				esc_attr( $marker['server'] ),
-				esc_attr( $marker['public_marker'] )
-			),
+			$this->options->get_use_tls() ? 
+				sprintf( $this->options->get_tls_output_format(),
+					esc_attr( $marker['server'] ),
+					esc_attr( $marker['public_marker'] )
+				)
+				:
+				sprintf( $this->options->get_output_format(),
+					esc_attr( $marker['server'] ),
+					esc_attr( $marker['public_marker'] )
+				),
 			$marker
 		);
 	}

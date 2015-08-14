@@ -46,6 +46,9 @@ class WPVGW_ConfigurationAdminView extends WPVGW_AdminViewBase {
 		
 		parent::begin_render_base();
 
+		
+		$activated = __( '<strong>aktiviert</strong>', WPVGW_TEXT_DOMAIN );
+
 		?>
 		<p class="wpvgw-admin-page-description">
 			<?php _e( 'Hier können allgemeine Einstellungen vorgenommen werden.', WPVGW_TEXT_DOMAIN ); ?>
@@ -58,19 +61,28 @@ class WPVGW_ConfigurationAdminView extends WPVGW_AdminViewBase {
 						<th scope="row"><?php _e( 'Zeichenanzahl', WPVGW_TEXT_DOMAIN ); ?></th>
 						<td>
 							<p>
-								<label for="wpvgw_minimum_character_count"><?php _e( 'Minimale Zeichenanzahl', WPVGW_TEXT_DOMAIN ); ?></label>
+								<label for="wpvgw_minimum_character_count"><?php _e( 'Minimale Zeichenanzahl für Beiträge', WPVGW_TEXT_DOMAIN ); ?></label>
 								<br/>
 								<input type="text" id="wpvgw_minimum_character_count" name="wpvgw_minimum_character_count" class="regular-text" value="<?php echo( esc_attr( $this->options->get_vg_wort_minimum_character_count() ) ); ?>"/>
-								<br/>
-								<span class="description"><?php _e( 'Die Mindestanzahl an Zeichen, die ein Beitrag haben muss, damit eine Zählmarke zugeordnet werden darf (wird von der VG WORT vorgegeben).', WPVGW_TEXT_DOMAIN ); ?></span>
-								<br/>
-								<span class="description"><?php echo( sprintf( __( 'Der Standardwert ist: %s', WPVGW_TEXT_DOMAIN ), esc_html( $this->options->default_vg_wort_minimum_character_count() ) ) ) ?></span>
+								<span class="description wpvgw-description">
+									<?php _e( 'Die Mindestanzahl an Zeichen, die ein Beitrag haben muss, damit eine Zählmarke zugeordnet werden darf (wird von der VG WORT vorgegeben).', WPVGW_TEXT_DOMAIN ); ?>
+									<br/>
+									<?php echo( sprintf( __( 'Der Standardwert ist: %s', WPVGW_TEXT_DOMAIN ), esc_html( $this->options->default_vg_wort_minimum_character_count() ) ) ) ?>
+								</span>
 							</p>
 							<p>
 								<input type="checkbox" name="wpvgw_do_shortcodes_for_character_count_calculation" id="wpvgw_do_shortcodes_for_character_count_calculation" value="1" class="checkbox" <?php echo( WPVGW_Helper::get_html_checkbox_checked( $this->options->get_do_shortcodes_for_character_count_calculation() ) ) ?>/>
 								<label for="wpvgw_do_shortcodes_for_character_count_calculation"><?php _e( 'Shortcodes bei Berechnung der Zeichenanzahl auswerten', WPVGW_TEXT_DOMAIN ); ?></label>
-								<br/>
-								<span class="description"><?php _e( 'Bei Aktivierung werden <a href="http://codex.wordpress.org/Shortcode" target="_blank">Shortcodes</a> bei der Berechnung der Zeichanzahl eines Beitrags mit ausgewertet. Die Zeichenanzahl wird geanuer, aber die Berechnung dauert länger. Die Zeichanzahlen der Beiträge müssen nach Änderung neuberechnet werden.', WPVGW_TEXT_DOMAIN ) ?></span>
+								<span class="description wpvgw-description">
+									<?php _e( 'Bei Aktivierung werden <a href="http://codex.wordpress.org/Shortcode" target="_blank">Shortcodes</a> bei der Berechnung der Zeichanzahl eines Beitrags mit ausgewertet. Die Zeichenanzahl wird genauer, aber die Berechnung dauert länger. Die Zeichenanzahlen der Beiträge müssen nach Änderung neuberechnet werden.', WPVGW_TEXT_DOMAIN ) ?>
+								</span>
+							</p>
+							<p>
+								<input type="checkbox" name="wpvgw_consider_excerpt_for_character_count_calculation" id="wpvgw_consider_excerpt_for_character_count_calculation" value="1" class="checkbox" <?php echo( WPVGW_Helper::get_html_checkbox_checked( $this->options->get_consider_excerpt_for_character_count_calculation() ) ) ?>/>
+								<label for="wpvgw_consider_excerpt_for_character_count_calculation"><?php _e( 'Beitrags-Auszug bei Berechnung der Zeichenanzahl auswerten', WPVGW_TEXT_DOMAIN ); ?></label>
+								<span class="description wpvgw-description">
+									<?php _e( 'Bei Aktivierung wird die Zeichenanzahl der Auszüge von Beiträgen bei der Berechnung der Zeichenanzahl eines Beitrags mit einberechnet.  Diese Option sollte nur aktiviert werden, wenn ein Auszug tatsächlich auf der Beitrags-Webseite angezeigt wird, ansonsten verstößt dies möglicherweise gegen die Bestimmungen der VG WORT. Die Zeichenanzahlen der Beiträge müssen nach Änderung neuberechnet werden.', WPVGW_TEXT_DOMAIN ) ?>
+								</span>
 							</p>
 						</td>
 					</tr>
@@ -78,30 +90,68 @@ class WPVGW_ConfigurationAdminView extends WPVGW_AdminViewBase {
 						<th scope="row"><?php _e( 'Zählmarken', WPVGW_TEXT_DOMAIN ); ?></th>
 						<td>
 							<p>
-								<label for="wpvgw_output_format"><?php _e( 'Ausgabeformat einer Zählmarke', WPVGW_TEXT_DOMAIN ); ?></label>
+								<input type="radio" name="wpvgw_use_tls" id="wpvgw_use_tls_no" value="0" <?php echo( WPVGW_Helper::get_html_checkbox_checked( !$this->options->get_use_tls() ) ) ?>/>
+								<label for="wpvgw_use_tls_no"><?php _e( 'Unverschlüsselte Verbindungen verwenden', WPVGW_TEXT_DOMAIN ); ?></label>
+								<span class="description wpvgw-description">
+									<?php _e( 'Für Websites/Blogs, die über eine unverschlüsselte Verbindung (http) aufgerufen werden, können (öffentliche) Zählmarken ebenfalls über eine unverschlüsselte Verbindung aufgerufen werden.', WPVGW_TEXT_DOMAIN ); ?>
+									<br/>
+									<?php _e( 'Es wird der in den Zählmarken angegebene Server verwendet.', WPVGW_TEXT_DOMAIN ); ?>
+								</span>
+							</p>
+							<p>
+								<input type="radio" name="wpvgw_use_tls" id="wpvgw_use_tls_yes" value="1" <?php echo( WPVGW_Helper::get_html_checkbox_checked( $this->options->get_use_tls() ) ) ?>/>
+								<label for="wpvgw_use_tls_yes"><?php _e( 'Verschlüsselte Verbindungen (TLS/SSL) verwenden', WPVGW_TEXT_DOMAIN ); ?></label>
+								<span class="description wpvgw-description">
+									<?php _e( 'Für Websites/Blogs, die über eine verschlüsselte Verbindung (https, TLS/SSL) aufgerufen werden, sollten (öffentliche) Zählmarken ebenfalls über eine verschlüsselte Verbindung aufgerufen werden.', WPVGW_TEXT_DOMAIN ); ?>
+									<br/>
+									<?php echo( sprintf( __( 'Für verschlüsselte Verbindungen (TLS/SSL) wird der Server %s verwendet (von VG WORT festgelegt). Der Server einer Zählmarke wird somit ignoriert.', WPVGW_TEXT_DOMAIN ), esc_html( $this->options->get_tls_server() ) ) ); ?>
+								</span>
+							</p>
+							<p>
+								<label for="wpvgw_output_format"><?php _e( 'Ausgabeformat einer Zählmarke für unverschlüsselte Verbindungen', WPVGW_TEXT_DOMAIN ); ?></label>
 								<br/>
 								<input type="text" id="wpvgw_output_format" name="wpvgw_output_format" class="regular-text" value="<?php echo( esc_attr( $this->options->get_output_format() ) ); ?>"/>
+								<?php if ( !$this->options->get_use_tls() ) echo( $activated ); ?>
+								<span class="description wpvgw-description">
+									<?php _e( 'So wie in diesem Textfeld angegeben, wird eine Zählmarke auf Ihrer Website ausgegeben. Dies ist in der Regel ein HTML-Code.', WPVGW_TEXT_DOMAIN ); ?>
+									<br/>
+									<?php _e( '%1$s wird durch den Server ersetzt (ohne https://); %2$s wird durch die öffentliche Zählmarke ersetzt.', WPVGW_TEXT_DOMAIN ); ?>
+									<br/>
+									<?php echo( sprintf( __( 'Der Standardwert ist: %s', WPVGW_TEXT_DOMAIN ), esc_html( $this->options->default_output_format() ) ) ) ?>
+								</span>
+							</p>
+
+							<p>
+								<label for="wpvgw_tls_output_format"><?php _e( 'Ausgabeformat einer Zählmarke für verschlüsselte Verbindungen (TLS/SSL)', WPVGW_TEXT_DOMAIN ); ?></label>
 								<br/>
-								<span class="description"><?php _e( 'So wie in diesem Textfeld angegeben, wird eine Zählmarke auf Ihrer Website ausgegeben. Dies ist in der Regel ein HTML-Code.', WPVGW_TEXT_DOMAIN ); ?></span>
-								<br/>
-								<span class="description"><?php _e( '%1$s wird durch den Server ersetzt (ohne http://); %2$s wird durch die öffentliche Zählmarke ersetzt.', WPVGW_TEXT_DOMAIN ); ?></span>
-								<br/>
-								<span class="description"><?php echo( sprintf( __( 'Der Standardwert ist: %s', WPVGW_TEXT_DOMAIN ), esc_html( $this->options->default_output_format() ) ) ) ?></span>
+								<input type="text" id="wpvgw_tls_output_format" name="wpvgw_tls_output_format" class="regular-text" value="<?php echo( esc_attr( $this->options->get_tls_output_format() ) ); ?>"/>
+								<?php if ( $this->options->get_use_tls() ) echo( $activated ); ?>
+								<span class="description wpvgw-description">
+									<?php _e( 'So wie in diesem Textfeld angegeben, wird eine Zählmarke auf Ihrer Website ausgegeben. Dies ist in der Regel ein HTML-Code.', WPVGW_TEXT_DOMAIN ); ?>
+									<br/>
+									<?php echo( sprintf( __( '%%1$s wird durch den Server %s ersetzt (von VG WORT festgelegt); %%2$s wird durch die öffentliche Zählmarke ersetzt.', WPVGW_TEXT_DOMAIN ), esc_html( $this->options->get_tls_server() ) ) ); ?>
+									<br/>
+									<?php _e( 'Für verschlüsselte Verbindung (TLS/SSL) muss https:// und nicht http:// angegeben werden.', WPVGW_TEXT_DOMAIN ); ?>
+									<br/>
+									<?php echo( sprintf( __( 'Der Standardwert ist: %s', WPVGW_TEXT_DOMAIN ), esc_html( $this->options->default_tls_output_format() ) ) ) ?>
+								</span>
 							</p>
 							<p>
 								<label for="wpvgw_default_server"><?php _e( 'Standard-Server', WPVGW_TEXT_DOMAIN ); ?></label>
 								<br/>
 								<input type="text" id="wpvgw_default_server" name="wpvgw_default_server" class="regular-text" value="<?php echo( esc_attr( $this->options->get_default_server() ) ); ?>"/>
-								<br/>
-								<span class="description"><?php _e( 'Wenn für Zählmarken nicht explizit ein Server angegeben wurde (z. B. beim Importieren), wird dieser Server verwendet.', WPVGW_TEXT_DOMAIN ); ?></span>
-								<br/>
-								<span class="description"><?php echo( sprintf( __( 'Der Standardwert ist: %s', WPVGW_TEXT_DOMAIN ), esc_html( $this->options->default_default_server() ) ) ) ?></span>
+								<span class="description wpvgw-description">
+									<?php _e( 'Wenn für Zählmarken nicht explizit ein Server angegeben wurde (z. B. beim Importieren), wird dieser Server verwendet.', WPVGW_TEXT_DOMAIN ); ?>
+									<br/>
+									<?php echo( sprintf( __( 'Der Standardwert ist: %s', WPVGW_TEXT_DOMAIN ), esc_html( $this->options->default_default_server() ) ) ) ?>
+								</span>
 							</p>
 							<p>
 								<input type="checkbox" name="wpvgw_post_view_set_marker_by_default" id="wpvgw_post_view_set_marker_by_default" value="1" class="checkbox" <?php echo( WPVGW_Helper::get_html_checkbox_checked( $this->options->get_post_view_set_marker_by_default() ) ) ?>/>
 								<label for="wpvgw_post_view_set_marker_by_default"><?php _e( 'Beiträgen standardmäßig eine Zählmarke zuordnen', WPVGW_TEXT_DOMAIN ); ?></label>
-								<br/>
-								<span class="description"><?php _e( 'Bei Aktivierung werden neuen Beiträgen oder Beiträge, die bearbeitet werden, als Voreinstellung Zählmarken zugeordnet (abwählbar). Dies geschieht ohne Beachtung der Mindestanzahl an Zeichen.', WPVGW_TEXT_DOMAIN ) ?></span>
+								<span class="description wpvgw-description">
+									<?php _e( 'Bei Aktivierung werden neuen Beiträgen oder Beiträge, die bearbeitet werden, als Voreinstellung Zählmarken zugeordnet (abwählbar). Dies geschieht ohne Beachtung der Mindestanzahl an Zeichen.', WPVGW_TEXT_DOMAIN ) ?>
+								</span>
 							</p>
 						</td>
 					</tr>
@@ -112,12 +162,13 @@ class WPVGW_ConfigurationAdminView extends WPVGW_AdminViewBase {
 								<label for="wpvgw_shortcode_post_stats_template"><?php _e( 'Standard-Ausgabeformat für Post-Stats-Shortcode', WPVGW_TEXT_DOMAIN ); ?></label>
 								<br/>
 								<input type="text" id="wpvgw_shortcode_post_stats_template" name="wpvgw_shortcode_post_stats_template" class="regular-text" value="<?php echo( esc_attr( $this->options->get_shortcode_post_stats_template() ) ); ?>"/>
-								<br/>
-								<span class="description"><?php _e( 'So wie in diesem Textfeld angegeben, wird der Text des Post-Stats-Shortcodes ausgegeben, falls dieser nicht explizit im Shortcode festgelegt wurde.', WPVGW_TEXT_DOMAIN ); ?></span>
-								<br/>
-								<span class="description"><?php _e( '%1$s wird durch die Zeichenzahl ersetzt; %2$s wird durch die Anzahl der Normseiten ersetzt; %3$s wird durch die Anzahl der Seiten (benutzerdefinierte Größe, Standard ist A4) ersetzt.', WPVGW_TEXT_DOMAIN ); ?></span>
-								<br/>
-								<span class="description"><?php echo( sprintf( __( 'Der Standardwert ist: %s', WPVGW_TEXT_DOMAIN ), esc_html( $this->options->default_shortcode_post_stats_template() ) ) ) ?></span>
+								<span class="description wpvgw-description">
+									<?php _e( 'So wie in diesem Textfeld angegeben, wird der Text des Post-Stats-Shortcodes ausgegeben, falls dieser nicht explizit im Shortcode festgelegt wurde.', WPVGW_TEXT_DOMAIN ); ?>
+									<br/>
+									<?php _e( '%1$s wird durch die Zeichenzahl ersetzt; %2$s wird durch die Anzahl der Normseiten ersetzt; %3$s wird durch die Anzahl der Seiten (benutzerdefinierte Größe, Standard ist A4) ersetzt.', WPVGW_TEXT_DOMAIN ); ?>
+									<br/>
+									<?php echo( sprintf( __( 'Der Standardwert ist: %s', WPVGW_TEXT_DOMAIN ), esc_html( $this->options->default_shortcode_post_stats_template() ) ) ) ?>
+								</span>
 							</p>
 						</td>
 					</tr>
@@ -130,14 +181,16 @@ class WPVGW_ConfigurationAdminView extends WPVGW_AdminViewBase {
 							<p>
 								<input type="checkbox" name="wpvgw_show_other_active_vg_wort_plugins_warning" id="wpvgw_show_other_active_vg_wort_plugins_warning" value="1" class="checkbox" <?php echo( WPVGW_Helper::get_html_checkbox_checked( $this->options->get_show_other_active_vg_wort_plugins_warning() ) ) ?>/>
 								<label for="wpvgw_show_other_active_vg_wort_plugins_warning"><?php _e( 'Warnung, falls andere VG-WORT-Plugins aktiviert sind', WPVGW_TEXT_DOMAIN ); ?></label>
-								<br/>
-								<span class="description"><?php _e( 'Wird angezeigt, falls andere Plugins zur Integration von Zählmarken der VG WORT aktiviert sind.', WPVGW_TEXT_DOMAIN ) ?></span>
+								<span class="description wpvgw-description">
+									<?php _e( 'Wird angezeigt, falls andere Plugins zur Integration von Zählmarken der VG WORT aktiviert sind.', WPVGW_TEXT_DOMAIN ) ?>
+								</span>
 							</p>
 							<p>
 								<input type="checkbox" name="wpvgw_show_old_plugin_import_warning" id="wpvgw_show_old_plugin_import_warning" value="1" class="checkbox" <?php echo( WPVGW_Helper::get_html_checkbox_checked( $this->options->get_operation_old_plugin_import_necessary() ) ) ?>/>
 								<label for="wpvgw_show_old_plugin_import_warning"><?php _e( 'Warnung, falls Zählmarken aus früherer Plugin-Version importiert werden sollten', WPVGW_TEXT_DOMAIN ); ?></label>
-								<br/>
-								<span class="description"><?php _e( 'Wird angezeigt, falls Zählmarken aus einer früheren Version des Plugins importiert werden sollten. Diese Warnung wird nach dem Import automatisch deaktiviert.', WPVGW_TEXT_DOMAIN ) ?></span>
+								<span class="description wpvgw-description">
+									<?php _e( 'Wird angezeigt, falls Zählmarken aus einer früheren Version des Plugins importiert werden sollten. Diese Warnung wird nach dem Import automatisch deaktiviert.', WPVGW_TEXT_DOMAIN ) ?>
+								</span>
 							</p>
 						</td>
 					</tr>
@@ -148,25 +201,28 @@ class WPVGW_ConfigurationAdminView extends WPVGW_AdminViewBase {
 								<label for="wpvgw_number_of_markers_per_page"><?php _e( 'Zählmarken pro Seite in der Zählmarken-Übersicht', WPVGW_TEXT_DOMAIN ); ?></label>
 								<br/>
 								<input type="text" id="wpvgw_number_of_markers_per_page" name="wpvgw_number_of_markers_per_page" class="regular-text" value="<?php echo( esc_attr( $this->options->get_number_of_markers_per_page() ) ); ?>"/>
-								<br/>
-								<span class="description"><?php _e( 'Die Anzahl der Zählmarken, die auf einer Seite in der Zählmarken-Übersicht (Tabelle) angezeigt werden soll.', WPVGW_TEXT_DOMAIN ); ?></span>
-								<br/>
-								<span class="description"><?php echo( sprintf( __( 'Der Standardwert ist: %s', WPVGW_TEXT_DOMAIN ), esc_html( $this->options->default_number_of_markers_per_page() ) ) ) ?></span>
+								<span class="description wpvgw-description">
+									<?php _e( 'Die Anzahl der Zählmarken, die auf einer Seite in der Zählmarken-Übersicht (Tabelle) angezeigt werden soll.', WPVGW_TEXT_DOMAIN ); ?>
+									<br/>
+									<?php echo( sprintf( __( 'Der Standardwert ist: %s', WPVGW_TEXT_DOMAIN ), esc_html( $this->options->default_number_of_markers_per_page() ) ) ) ?>
+								</span>
 							</p>
 							<p>
 								<input type="checkbox" name="wpvgw_post_table_view_use_colors" id="wpvgw_post_table_view_use_colors" value="1" class="checkbox" <?php echo( WPVGW_Helper::get_html_checkbox_checked( $this->options->get_post_table_view_use_colors() ) ) ?>/>
 								<label for="wpvgw_post_table_view_use_colors"><?php _e( 'Farben in der Beitrags-Übersicht verwenden', WPVGW_TEXT_DOMAIN ); ?></label>
-								<br/>
-								<span class="description"><?php _e( 'Bei Aktivierung werden in der Beitrags-Übersicht (Tabelle) Farben für „Zählmarke möglich“ und „Zählmarke zugeordnet“ in der Spalte „Zeichen“ verwendet.', WPVGW_TEXT_DOMAIN ) ?></span>
+								<span class="description wpvgw-description">
+									<?php _e( 'Bei Aktivierung werden in der Beitrags-Übersicht (Tabelle) Farben für „Zählmarke möglich“ und „Zählmarke zugeordnet“ in der Spalte „Zeichen“ verwendet.', WPVGW_TEXT_DOMAIN ) ?>
+								</span>
 							</p>
 							<p>
 								<label for="wpvgw_operations_max_execution_time"><?php _e( 'Maximale Ausführungszeit für Operationen (in Sekunden)', WPVGW_TEXT_DOMAIN ); ?></label>
 								<br/>
 								<input type="text" id="wpvgw_operations_max_execution_time" name="wpvgw_operations_max_execution_time" class="regular-text" value="<?php echo( esc_attr( $this->options->get_operation_max_execution_time() ) ); ?>"/>
-								<br/>
-								<span class="description"><?php _e( 'Legt die maximale Zeitspanne in Sekunden fest, um Operationen im Bereich „Operationen“ auszuführen. Bitte erhöhen, falls Operationen abbrechen (siehe auch <a href="http://php.net/manual/de/function.set-time-limit.php" target="_blank">set_time_limit</a>).', WPVGW_TEXT_DOMAIN ); ?></span>
-								<br/>
-								<span class="description"><?php echo( sprintf( __( 'Der Standardwert ist: %s', WPVGW_TEXT_DOMAIN ), esc_html( $this->options->default_operation_max_execution_time() ) ) ) ?></span>
+								<span class="description wpvgw-description">
+									<?php _e( 'Legt die maximale Zeitspanne in Sekunden fest, um Operationen im Bereich „Operationen“ auszuführen. Bitte erhöhen, falls Operationen abbrechen (siehe auch <a href="http://php.net/manual/de/function.set-time-limit.php" target="_blank">set_time_limit</a>).', WPVGW_TEXT_DOMAIN ); ?>
+									<br/>
+									<?php echo( sprintf( __( 'Der Standardwert ist: %s', WPVGW_TEXT_DOMAIN ), esc_html( $this->options->default_operation_max_execution_time() ) ) ) ?>
+								</span>
 							</p>
 						</td>
 					</tr>
@@ -176,15 +232,16 @@ class WPVGW_ConfigurationAdminView extends WPVGW_AdminViewBase {
 							<p>
 								<input type="checkbox" name="wpvgw_remove_data_on_uninstall" id="wpvgw_remove_data_on_uninstall" value="1" class="checkbox" <?php echo( WPVGW_Helper::get_html_checkbox_checked( $this->options->get_remove_data_on_uninstall() ) ) ?>/>
 								<label for="wpvgw_remove_data_on_uninstall"><?php _e( 'Daten bei Plugin-Deaktivierung löschen', WPVGW_TEXT_DOMAIN ); ?></label>
-								<br/>
-								<span class="description"><?php _e( '<strong>Achtung</strong>: Bei Aktivierung werden sämtlichen Daten (Zählmarken, Zuordnungen usw.) unwiderruflich gelöscht, sobald das VG-WORT-Plugin deaktiviert wird!', WPVGW_TEXT_DOMAIN ) ?></span>
+								<span class="description wpvgw-description-important">
+									<?php _e( '<strong>Achtung</strong>: Bei Aktivierung werden sämtlichen Daten (Zählmarken, Zuordnungen usw.) unwiderruflich gelöscht, sobald das VG-WORT-Plugin deaktiviert wird!', WPVGW_TEXT_DOMAIN ) ?>
+								</span>
 							</p>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 			<p class="submit">
-				<input type="submit" name="wpvgw_configuration" value="<?php _e( 'Einstellungen speichern', WPVGW_TEXT_DOMAIN ); ?>" class="button-primary" / >
+				<input type="submit" name="wpvgw_configuration" value="<?php _e( 'Einstellungen speichern', WPVGW_TEXT_DOMAIN ); ?>" class="button-primary"/>
 			</p>
 		</form>
 		<?php
@@ -233,10 +290,36 @@ class WPVGW_ConfigurationAdminView extends WPVGW_AdminViewBase {
 
 
 		
+		$considerExcerptForCharacterCountCalculation = isset( $_POST['wpvgw_consider_excerpt_for_character_count_calculation'] );
+
+		
+		if ( $considerExcerptForCharacterCountCalculation !== $this->options->get_consider_excerpt_for_character_count_calculation() ) {
+			
+			$this->options->set_consider_excerpt_for_character_count_calculation( $considerExcerptForCharacterCountCalculation );
+			
+			$this->options->set_operations_post_character_count_recalculations_necessary( true );
+		}
+
+
+		
 		$outputFormat = isset( $_POST['wpvgw_output_format'] ) ? stripslashes( $_POST['wpvgw_output_format'] ) : null;
 
 		if ( $outputFormat !== null )
 			$this->options->set_output_format( $outputFormat );
+
+
+		
+		$tlsOutputFormat = isset( $_POST['wpvgw_tls_output_format'] ) ? stripslashes( $_POST['wpvgw_tls_output_format'] ) : null;
+
+		if ( $tlsOutputFormat !== null )
+			$this->options->set_tls_output_format( $tlsOutputFormat );
+
+
+		
+		$useTls = isset( $_POST['wpvgw_use_tls'] ) ? $_POST['wpvgw_use_tls'] : null;
+
+		if ( $useTls !== null )
+			$this->options->set_use_tls( $useTls === '1' );
 
 
 		

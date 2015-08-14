@@ -1,10 +1,10 @@
 === Prosodia VGW OS für Zählmarken (VG WORT) ===
-Contributors: raubvogel, smoo1337
+Contributors: raubvogel
 Donate link: http://prosodia.de/
-Tags: VG WORT, Zählmarke, T.O.M., Zählpixel, Geld, VGW, Verwertungsgesellschaft WORT, Prosodia, Verlag
+Tags: VG WORT, Zählmarke, Beitrag, T.O.M., Zählpixel, Geld, VGW, Verwertungsgesellschaft WORT, Prosodia, Verlag
 Requires at least: 3.8
-Tested up to: 4.1
-Stable tag: 3.8.0
+Tested up to: 4.3
+Stable tag: 3.11.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,25 +21,28 @@ Das Plugin *Prosodia VGW OS* (open source) vom Literaturverlag [Prosodia](http:/
 
 Die Hauptaufgabe von Prosodia VGW OS ist, Zählmarken und deren Zuordnungen zu Beiträgen bequem für Sie im WordPress-Administrationsbereich zu verwalten und sicherzustellen, dass keine Zählmarken verloren gehen oder mehrfach vergeben werden. Besonders dann, wenn Sie im Laufe der Zeit viele Texte mit Zählmarken versehen, werden Sie feststellen, dass eine manuelle Zuordnung durch direktes Einfügen der Zählmarken in Beiträgen in hinreichend großer Unüberschaubarkeit endet – dem wirkt Prosodia VGW OS durch Formalisierung und ausgeklügelter Technik entgegen. Im Folgenden werden die Funktionen und Fähigkeiten von Prosodia VGW OS kurz aufgelistet:
 
-* Übersicht aller Zählmarken, Beitrags-Zuordnungen und weiterer Daten mit vielen Filter- und Sortierfunktionen
-* Massenbearbeitung von Zählmarken und Beitrags-Zuordnungen
+* Übersicht aller Zählmarken, Zählmarken-Zuordnungen und weiterer Daten mit vielen Filter- und Sortierfunktionen
+* Massenbearbeitung von Zählmarken und Zählmarken-Zuordnungen
 * Integration in die Beitrags-Übersicht („Alle Beiträge“) von WordPress
 * automatisches Zuordnen von Zählmarken zu Beiträgen – auch massenhaft
 * Anzeige der Zeichenanzahl eines Beitrags sowie der Anzahl fehlender Zeichen beim Schreiben
 * Zeichenanzahl wird nach VG-WORT-Vorgabe berechnet – keine Bilder und Beschriftungen, Shortcodes, HTML-Tags usw.
 * es können Beitrags-Typen (Beiträge, Seiten usw.) für die Zählmarken-Funktion ausgewählt werden
+* private Zählmarken, Beitrags-Titel, -Texte und -Links können für eine Meldung schnell in die Zwischenablage kopiert werden
 * importieren von Zählmarken aus CSV-Dateien, die von der VG WORT bereitgestellt werden
 * importieren von Zählmarken aus CSV-Text oder manueller Eingabe
-* importieren von Zählmarken und Beitrags-Zuordnungen aus dem Plugin „VG Wort“ von [Torben Leuschner](http://www.torbenleuschner.de/blog/922/vg-wort-wordpress-plugin/)
-* importieren von Zählmarken und Beitrags-Zuordnungen aus dem Plugin „VG-Wort Krimskram“ von [Heiner Otterstedt](https://wordpress.org/plugins/vgw-vg-wort-zahlpixel-plugin/)
+* importieren von Zählmarken und Zählmarken-Zuordnungen aus dem Plugin „Worthy“ von B. Holzmüller
+* importieren von Zählmarken und Zählmarken-Zuordnungen aus dem Plugin „VG Wort“ von [Torben Leuschner](http://www.torbenleuschner.de/blog/922/vg-wort-wordpress-plugin/)
+* importieren von Zählmarken und Zählmarken-Zuordnungen aus dem Plugin „VG-Wort Krimskram“ von [Heiner Otterstedt](https://wordpress.org/plugins/vgw-vg-wort-zahlpixel-plugin/)
 * importieren von manuell zugeordneten Zählmarken aus Beiträgen – `<img>`-Tag wird erkannt und optional gelöscht
 * nachträglicher Import von fehlenden privaten Zählmarken, falls die entsprechend öffentlichen bereits vorhanden sind
-* exportieren von Zählmarken, Beitrags-Zuordnungen und weiterer Daten als CSV-Datei mit Filter- und Sortierfunktionen
+* exportieren von Zählmarken, Zählmarken-Zuordnungen und weiterer Daten als CSV-Datei mit Filter- und Sortierfunktionen
 * Zählmarken (`<img>`-Tags) werden in den Beiträgen auf Ihrer Website ausgegeben
 * Format der Zählmarkenausgabe kann frei angegeben werden (Platzhalter für Server und öffentliche Zählmarke)
-* Datenintegrität der Zählmarken und Beitrags-Zuordnungen wird stets gewährleistet
-* Zählmarken und Beitrags-Zuordnungen werden in einer eigenen Datenbanktabelle gespeichert – hohe Leistung
-* inaktiv setzen von Zählmarken – Beitrags-Zuordnung wird nicht aufgehoben, Zählmarke wird nicht ausgegeben
+* Unterstützung der Übertragung von Zählmarken (`<img>`-Tags) über verschlüsselte Verbindungen (TLS/SSL, https)
+* Datenintegrität der Zählmarken und Zählmarken-Zuordnungen wird stets gewährleistet
+* Zählmarken und Zählmarken-Zuordnungen werden in einer eigenen Datenbanktabelle gespeichert – hohe Leistung (getestet über 10.000 Beiträgen)
+* inaktiv setzen von Zählmarken – Zählmarken-Zuordnung wird nicht aufgehoben, Zählmarke wird nicht ausgegeben
 * Warnung wird ausgegeben, falls andere VG-WORT-Plugins aktiviert sind
 * Datenschutz-Vorlage für die Datenschutz-Erklärung Ihrer Website, wenn Sie Zählmarken der VG WORT verwenden
 * Möglichkeit der vollständigen Deinstallation und Löschung der Datenbanktabellen und Einstellungen
@@ -47,12 +50,14 @@ Die Hauptaufgabe von Prosodia VGW OS ist, Zählmarken und deren Zuordnungen zu B
 
 Schauen Sie sich bitte auch die [Bildschirm-Fotos (Screenshots)](/plugins/wp-vgwort/screenshots/) von Prosodia VGW OS an.
 
+Das Plugin selbst wird mit stets aktuellen Software-Entwicklungswerkzeugen (für [PHP](http://php.net/)), Code-Überprüfungswerkzeugen und Code-Versionierungswerkzeugen in mehreren lokalen Entwicklungs- und Test-Umgebungen weiterentwickelt. Wir achten des Weiteren penibel darauf, dass keine PHP-Warnungen, -Hinweise und -Fehler durch unser Plugin im Normalbetrieb ausgegeben werden und dass wir uns stets an empfohlene Vorgehensweisen beim Entwickeln halten (dies scheint bei vielen Plugins leider nicht gängige Praxis zu sein). Daher sind wir – vermutlich zu recht – davon überzeugt, dass unser Plugin auch in Zukunft stabil und fehlerarm läuft.
+
 = Eignung =
 
 Was Prosodia VGW OS nicht leistet:
 
 * Differenzierung der Zählmarken zwischen den Autoren eines Blogs
-* direktes kopieren von Daten für die Abschluss-Meldung von Beiträgen bei der VG WORT (aber über CSV-Export möglich)
+* keine direkte Interaktion mit [T.O.M.](https://tom.vgwort.de/portal/index), da von der VG WORT nicht unterstützt
 * keine Warnung, wenn nicht zugeordnete Zählmarken knapp werden
 * separate Behandlung von Lyrik (darf weniger als 1.800 Zeichen haben)
 * Zuordnung von Zählmarken zu PDFs
@@ -75,7 +80,7 @@ Technische Voraussetzungen für Prosodia VGW OS sind:
 
 = Lizenz und Haftung =
 
-Prosodia VGW OS wird von der [Max Heckel, Ronny Harbich, Rebekka Hempel, Torsten Klein – Prosodia GbR](http://prosodia.de/kontakt/) unter der GPLv2-Lizenz vertrieben, die unter [http://www.gnu.org/licenses/gpl-2.0.html](http://www.gnu.org/licenses/gpl-2.0.html) nachzulesen ist. Sie vertreibt diese Software vollständig kostenlos und übernimmt für diese daher keine Haftung außer die vom Bürgerlichen Gesetzbuch (BGB) zwingend erforderliche. Der Haftungsausschluss soll – soweit wie mit dem BGB vereinbar – der GPLv2-Lizenz entsprechen.
+Prosodia VGW OS wird von der [Max Heckel, Ronny Harbich – Prosodia GbR](http://prosodia.de/kontakt/) unter der GPLv2-Lizenz vertrieben, die unter [http://www.gnu.org/licenses/gpl-2.0.html](http://www.gnu.org/licenses/gpl-2.0.html) nachzulesen ist. Sie vertreibt diese Software vollständig kostenlos und übernimmt für diese daher keine Haftung außer die vom Bürgerlichen Gesetzbuch (BGB) zwingend erforderliche. Der Haftungsausschluss soll – soweit wie mit dem BGB vereinbar – der GPLv2-Lizenz entsprechen.
 
 Prosodia VGW OS wird von der VG WORT weder unterstützt noch von ihr vertrieben.
 
@@ -87,8 +92,7 @@ Wenn Sie einen Wunsch für eine neue Funktion haben oder Hilfe benötigen, trete
 
 * [FAQ-Seite](/plugins/wp-vgwort/faq/)
 * [Support-Seite](/support/plugin/wp-vgwort)
-* [Plugin-Seite auf my Webcheck](http://www.mywebcheck.de/vg-wort-plugin-wordpress/)
-* E-Mail-Adressen gibt es im Plugin unter „Prosodia VGW OS“ → „Hilfe“
+* E-Mail-Adressen befindet sich im Plugin unter „Prosodia VGW OS“ → „Hilfe“
 
 == Installation ==
 
@@ -112,7 +116,7 @@ Unter [http://prosodia.de/prosodia-vgw-os/](http://prosodia.de/prosodia-vgw-os/)
 
 Da das Plugin ab Version 3.0.0 vollständig neu entwickelt wurde, ist es nicht mehr direkt mit den vorherigen Versionen kompatibel. Allerdings werden sämtliche Daten und Einstellungen aus den Vorgängerversionen nach der Aktualisierung übernommen – insbesondere die Zählmarken und deren Zuordnungen zu Beiträgen. Dies funktioniert nicht vollautomatisch, sondern erst nach einigen, wenigen Mausklicks. So werden nach der Aktualisierung im Administrationsbereich einige Warnungen angezeigt. Diese Warnungen enthalten Anweisungen und Links, wie die dargelegten Sachverhalte zu lösen sind – keine Sorge, dies ist mit wenigen Mausklicks erledigt. Und selbst wenn dabei etwas schief gehen sollte – wovon wir nicht ausgehen –, werden die alten Daten und Einstellungen nicht gelöscht. Das Einsetzen einer Version vor 3.0.0 ist stets möglich: [alte Versionen](/plugins/wp-vgwort/developers/).
 
-Sollte das Plugin die ältere Version nicht erkennen, so führen Sie bitte manuell „Prosodia VGW OS“ → „Operationen“ → „Zählmarken aus altem VG-WORT-Plugin vor Version 3.0.0 importieren“ (Haken setzen) → „Alte Zählmarken und Beitrags-Zuordnungen importieren“ (Schaltfläche) aus.
+Sollte das Plugin die ältere Version nicht erkennen, so führen Sie bitte manuell „Prosodia VGW OS“ → „Operationen“ → „Zählmarken aus altem VG-WORT-Plugin vor Version 3.0.0 importieren“ (Haken setzen) → „Alte Zählmarken und Zählmarken-Zuordnungen importieren“ (Schaltfläche) aus.
 
 = „Parse error“ nach Update auf Version 3.0.0 oder höher =
 
@@ -146,6 +150,26 @@ Es besteht die Möglichkeit, die Einstellung „Prosodia VGW OS“ → „Operat
 
 = Änderungen =
 
+= 3.11.0 =
+* In der Zählmarken-Übersicht („Prosodia VGW OS“ → „Zählmarken“) können nun private Zählmarken, Beitrags-Titel, -Texte und -Links einfach in die Zwischenablage kopiert werden. Das Melden von Beiträgen bei der VG WORT verläuft damit schneller.
+* Möglichkeit hinzugefügt, TLS/SSL (https) zur Übertragung von Zählmarken zu verwenden („Prosodia VGW OS“ → „Einstellungen“ → „Zählmarken“).
+* Die Hilfe-Texte können nun über „i“-Symbole ein- und ausgeblendet werden. Die Seiten „Einstellungen“, „Operationen“ usw. sind daher übersichtlicher.
+* Zählmarken und Zählmarken-Zuordnungen können nun aus dem Plugin „Worthy“ von B. Holzmüller importiert werden („Prosodia VGW OS“ → „Operationen“ → „Zählmarken aus dem Plugin ‚Worthy‘ von B. Holzmüller importieren“).
+
+= 3.10.2 =
+* Fehler behoben, der die korrekte Anzeige der Spalte „Zeichen“ in der Beitrags-Übersicht im Zusammenhang mit Caching-Plugins (namentlich W3 Total Cache) verhinderte.
+
+= 3.10.1 =
+* Fehler behoben, der verhinderte, dass die Massenbearbeitungen in der unteren Auswahlliste (z. B. „Zählmarke zuordnen“) in der Beitrags-Übersicht durchgeführt werden konnten.
+
+= 3.10.0 =
+* Neuen Filter „Zählm.-Format“ in der Zählmarken-Übersicht hinzugefügt, mit dem nach ungültigen Zählmarken gefiltert werden kann. Besonders sinnvoll, wenn manuelle Zählmarken aus Beiträgen importiert wurden, da diese eventuell durch falsche Eingabe ungültig sein könnten.
+* Fehler behoben, der verhinderte, dass der Lade-Spinner im Bereich „Zählmarke der VG WORT“ in der Beitrags-Bearbeitung ab WordPress 4.2 angezeigt wurde.
+
+= 3.9.0 =
+* Die Zeichenanzahl der Auszüge von Beiträgen kann bei der Berechnung der Zeichenanzahl eines Beitrags nun mit einberechnet werden. Aktivierung unter „Einstellungen“.
+* Das Plugin ist nun vollständig kompatibel zu WordPress 4.2, insbesondere im Hinblick auf die Änderung der Zeichenkodierung von `utf8` zu `utf8mb4` in der MySQL-Datenbank.
+
 = 3.8.0 =
 * Der Shortcode `[pvgw_post_stats]` wurde verbessert: Die Zeichenanzahl pro Blatt kann nun manuell eingestellt werden. Das Runden auf halbe Seiten wurde hinzugefügt.
 * In der Beitrags-Übersicht werden „Zählmarke möglich“ und „Zählmarke zugeordnet“ in der Spalte „Zeichen“ zur besseren Übersicht farblich hervorgehoben. Dies kann in den Einstellungen wieder zurückgesetzt werden.
@@ -154,7 +178,7 @@ Es besteht die Möglichkeit, die Einstellung „Prosodia VGW OS“ → „Operat
 * Shortcode `[pvgw_post_stats]` hinzugefügt, über den die Zeichenanzahl und die Anzahl der Normseiten eines Beitrags ausgeben werden kann.
 
 = 3.6.0 =
-* Es können nun Zählmarken und Beitrags-Zuordnungen vom Plugin „VG-Wort Krimskram“ von H. Otterstedt importiert werden.
+* Es können nun Zählmarken und Zählmarken-Zuordnungen vom Plugin „VG-Wort Krimskram“ von H. Otterstedt importiert werden.
 
 = 3.5.0 =
 * Beiträgen kann nun standardmäßig eine Zählmarke zugeordnet werden. Muss in den Einstellungen aktiviert werden.
@@ -299,6 +323,21 @@ Es besteht die Möglichkeit, die Einstellung „Prosodia VGW OS“ → „Operat
 
 == Upgrade Notice ==
 
+= 3.11.0 =
+Kopieren von Beitrags-Texten usw. in die Zwischenablage in der Zählmarken-Übersicht möglich. TLS/SSL-Unterstützung. Hilfe-Texte über „i“-Symbole anzeigen. Zählmarken-Import vom Plugin „Worthy“ möglich.
+
+= 3.10.2 =
+Einen Fehler behoben.
+
+= 3.10.1 =
+Einen Fehler behoben.
+
+= 3.10.0 =
+Neuen Filter „Zählm.-Format“ hinzugefügt. Einen Fehler behoben.
+
+= 3.9.0 =
+Beitrags-Auszug kann bei Berechnung der Zeichenanzahl mit ausgewertet werden. Kompatibilität zu WordPress 4.2 hergestellt.
+
 = 3.8.0 =
 Shortcode `[pvgw_post_stats]` verbessert. Farbhervorhebung für Spalte „Zeichen“ in Beitrags-Übersicht hinzugefügt.
 
@@ -306,7 +345,7 @@ Shortcode `[pvgw_post_stats]` verbessert. Farbhervorhebung für Spalte „Zeiche
 Shortcode `[pvgw_post_stats]` hinzugefügt.
 
 = 3.6.0 =
-Zählmarken und Beitrags-Zuordnungen vom Plugin „VG-Wort Krimskram“ importierbar.
+Zählmarken und Zählmarken-Zuordnungen vom Plugin „VG-Wort Krimskram“ importierbar.
 
 = 3.5.0 =
 Beiträgen kann nun standardmäßig eine Zählmarke zugeordnet werden. Absätze in den Seiten unter „Prosodia VGW OS“ haben nun eine maximale Breite.

@@ -60,29 +60,27 @@ class WPVGW_ImportAdminView extends WPVGW_AdminViewBase {
 						<td>
 							<p>
 								<label for="wpvgw_import_file"><?php _e( 'CSV-Datei', WPVGW_TEXT_DOMAIN ); ?></label>
-								<br/>
 								<input type="file" name="wpvgw_import_file" id="wpvgw_import_file"/>
-								<br/>
-								<span class="description"><?php _e( 'Hier kann eine CSV-Datei mit Zählmarken der VG WORT hochgeladen werden, welche über das <a href="https://tom.vgwort.de/portal/login" target="_blank">Online-Konto der VG WORT</a> bezogen werden kann.', WPVGW_TEXT_DOMAIN ) ?></span>
+								<span class="description wpvgw-description">
+									<?php _e( 'Hier kann eine CSV-Datei mit Zählmarken der VG WORT hochgeladen werden, welche über das <a href="https://tom.vgwort.de/portal/login" target="_blank">Online-Konto der VG WORT</a> bezogen werden kann.', WPVGW_TEXT_DOMAIN ) ?>
+								</span>
 							</p>
 							<p>
 								<label for="wpvgw_import_csv"><?php _e( 'Zählmarken aus CSV-Text (von VG WORT)', WPVGW_TEXT_DOMAIN ); ?></label>
 								<br/>
 								<textarea name="wpvgw_import_csv" id="wpvgw_import_csv" style="overflow: auto;" wrap="off" cols="36" rows="7"></textarea>
-								<br/>
-								<span class="description"><?php _e( 'Hier kann der gesamte Inhalt einer CSV-Datei mit Zählmarken der VG WORT hineinkopiert werden (falls das Hochladen der CSV-Datei nicht funktioniert).', WPVGW_TEXT_DOMAIN ) ?></span>
+								<span class="description wpvgw-description">
+									<?php _e( 'Hier kann der gesamte Inhalt einer CSV-Datei mit Zählmarken der VG WORT hineinkopiert werden (falls das Hochladen der CSV-Datei nicht funktioniert).', WPVGW_TEXT_DOMAIN ) ?>
+								</span>
 							</p>
 							<p>
 								<input type="radio" name="wpvgw_import_is_author_csv" id="wpvgw_import_is_author_csv" value="1" <?php echo( WPVGW_Helper::get_html_checkbox_checked( $this->options->get_is_author_csv() ) ) ?> />
 								<label for="wpvgw_import_is_author_csv"><?php _e( 'CSV-Daten von Autor-Konto', WPVGW_TEXT_DOMAIN ); ?></label>
 								<input type="radio" name="wpvgw_import_is_author_csv" id="wpvgw_import_is_publisher_csv" value="0" <?php echo( WPVGW_Helper::get_html_checkbox_checked( !$this->options->get_is_author_csv() ) ) ?> />
 								<label for="wpvgw_import_is_publisher_csv"><?php _e( 'CSV-Daten von Verlags-Konto', WPVGW_TEXT_DOMAIN ); ?></label>
-								<br/>
-								<span class="description">
+								<span class="description wpvgw-description">
 									<?php _e( 'Bei der VG WORT unterscheiden sich CSV-Daten von Autoren-Konten und Verlags-Konten.', WPVGW_TEXT_DOMAIN ) ?>
-								</span>
-								<br/>
-								<span class="description">
+									<br/>
 									<?php
 									echo(
 									sprintf(
@@ -117,15 +115,16 @@ class WPVGW_ImportAdminView extends WPVGW_AdminViewBase {
 								<label for="wpvgw_import_server"><?php _e( 'Server', WPVGW_TEXT_DOMAIN ); ?></label>
 								<br/>
 								<input type="text" name="wpvgw_import_server" id="wpvgw_import_server" class="regular-text"/>
-								<br/>
-								<span class="description"><?php echo( sprintf( __( 'Wenn der Server nicht angegeben wird, wird der Standard-Server (%s) verwendet.', WPVGW_TEXT_DOMAIN ), $this->options->get_default_server() ) ); ?></span>
+								<span class="description wpvgw-description">
+									<?php echo( sprintf( __( 'Wenn der Server nicht angegeben wird, wird der Standard-Server (%s) verwendet.', WPVGW_TEXT_DOMAIN ), $this->options->get_default_server() ) ); ?>
+								</span>
 							</p>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 			<p class="submit">
-				<input type="submit" name="wpvgw_import" value="<?php _e( 'Zählmarken importieren', WPVGW_TEXT_DOMAIN ); ?>" class="button-primary" / >
+				<input type="submit" name="wpvgw_import" value="<?php _e( 'Zählmarken importieren', WPVGW_TEXT_DOMAIN ); ?>" class="button-primary"/>
 			</p>
 		</form>
 		<?php
