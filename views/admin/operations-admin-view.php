@@ -79,7 +79,7 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 								<li>
 									<?php _e( 'Keine Beitrags-Typen vorhanden!', WPVGW_TEXT_DOMAIN ); ?>
 								</li>
-							<?php
+								<?php
 							}
 
 							
@@ -92,7 +92,7 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 									<input type="checkbox" <?php echo( $checked ) ?> id="wpvgw_allowed_post_types_<?php echo( $type ) ?>" name="wpvgw_allowed_post_types[<?php echo( $type ) ?>]"/>
 									<label for="wpvgw_allowed_post_types_<?php echo( $type ) ?>"><?php echo( esc_html( $postTypeObject->labels->name ) ) ?></label>
 								</li>
-							<?php
+								<?php
 							}
 
 
@@ -106,7 +106,7 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 									<input type="checkbox" id="wpvgw_removed_post_types_<?php echo( $type ) ?>" name="wpvgw_removed_post_types[<?php echo( $type ) ?>]"/>
 									<label for="wpvgw_removed_post_types_<?php echo( $type ) ?>"><?php echo( esc_html( $type ) ) ?></label>
 								</li>
-							<?php
+								<?php
 							}
 
 							echo( '</ul>' );
@@ -121,8 +121,8 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 								<?php _e( 'Rotmarkierte Beitrags-Typen (entfernbar) sind nicht verfügbar, da Plugins/Themes, die diese definieren, deaktiviert oder deinstalliert wurden.', WPVGW_TEXT_DOMAIN ); ?>
 							</p>
 							<p class="submit">
-								<input type="submit" name="wpvgw_operation_allowed_post_types" value="<?php _e( 'Beitrags-Typen zulassen', WPVGW_TEXT_DOMAIN ); ?>" class="button-primary" / >
-								<input type="submit" name="wpvgw_operation_removed_post_types" value="<?php _e( 'Nicht verfügbare Beitrags-Typen entfernen', WPVGW_TEXT_DOMAIN ); ?>" class="button" / >
+								<input type="submit" name="wpvgw_operation_allowed_post_types" value="<?php _e( 'Beitrags-Typen zulassen', WPVGW_TEXT_DOMAIN ); ?>" class="button-primary"/>
+								<input type="submit" name="wpvgw_operation_removed_post_types" value="<?php _e( 'Nicht verfügbare Beitrags-Typen entfernen', WPVGW_TEXT_DOMAIN ); ?>" class="button"/>
 							</p>
 						</td>
 					</tr>
@@ -136,7 +136,7 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 								<?php _e( 'Wenn die Zeichenanzahl eines Beitrags falsch oder nicht vorhanden ist, kann sie hier neuberechnet werden.', WPVGW_TEXT_DOMAIN ); ?>
 							</p>
 							<p class="submit">
-								<input type="submit" name="wpvgw_operation_recalculate_character_count" value="<?php _e( 'Zeichenanzahl aller Beiträge neuberechnen', WPVGW_TEXT_DOMAIN ); ?>" class="button-primary" / >
+								<input type="submit" name="wpvgw_operation_recalculate_character_count" value="<?php _e( 'Zeichenanzahl aller Beiträge neuberechnen', WPVGW_TEXT_DOMAIN ); ?>" class="button-primary"/>
 							</p>
 						</td>
 					</tr>
@@ -149,10 +149,11 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 								<br/>
 								<label for="wpvgw_operation_import_old_plugin_markers_meta_name"><?php _e( 'Meta-Name aus altem Plugin: ', WPVGW_TEXT_DOMAIN ); ?></label>
 								<input type="text" name="wpvgw_operation_import_old_plugin_markers_meta_name" id="wpvgw_operation_import_old_plugin_markers_meta_name" class="regular-text" value="<?php echo( esc_attr( $this->options->get_meta_name() ) ) ?>"/>
-								<br/>
-								<span class="description"><?php echo( sprintf( __( 'Der Standardwert ist: %s', WPVGW_TEXT_DOMAIN ), esc_html( $this->options->default_meta_name() ) ) ); ?></span>
-								<br/>
-								<span class="description"><?php _e( 'Wenn dieses VG-WORT-Plugin bereits vor Version 3.0.0 verwendet wurde, können hier die zuvor verwendeten Zählmarken importiert werden. Es werden keine Daten gelöscht.', WPVGW_TEXT_DOMAIN ) ?></span>
+								<span class="description wpvgw-description">
+									<?php echo( sprintf( __( 'Der Standardwert ist: %s', WPVGW_TEXT_DOMAIN ), esc_html( $this->options->default_meta_name() ) ) ); ?>
+									<br/>
+									<?php _e( 'Wenn dieses VG-WORT-Plugin bereits vor Version 3.0.0 verwendet wurde, können hier die zuvor verwendeten Zählmarken importiert werden. Es werden keine Daten gelöscht.', WPVGW_TEXT_DOMAIN ) ?>
+								</span>
 							</p>
 							<p>
 								<input type="checkbox" name="wpvgw_operation_import_old_manual_markers" id="wpvgw_operation_import_old_manual_markers" value="1" class="checkbox"/>
@@ -162,33 +163,44 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 								<br/>
 								<label for="wpvgw_operation_import_old_manual_markers_regex"><?php _e( 'Regulärer Ausdruck (PHP-Stil) zur Zählmarkenerkennung: ', WPVGW_TEXT_DOMAIN ); ?></label>
 								<input type="text" name="wpvgw_operation_import_old_manual_markers_regex" id="wpvgw_operation_import_old_manual_markers_regex" class="regular-text" value="<?php echo( esc_attr( $this->options->get_import_from_post_regex() ) ) ?>"/>
-								<br/>
-								<span class="description"><?php echo( sprintf( __( 'Der Standardwert ist: %s', WPVGW_TEXT_DOMAIN ), esc_html( $this->options->default_import_from_post_regex() ) ) ); ?></span>
-								<br/>
-								<span class="description"><?php echo( sprintf( __( 'Wenn bereits Zählmarken der Form %s manuell in Beiträgen (deren Inhalt) eingefügt wurden, können diese hier importiert und entfernt werden.', WPVGW_TEXT_DOMAIN ), esc_html( '<img src="http://vg02.met.vgwort.de/na/abc123" … >' ) ) ) ?></span>
-								<br/>
-								<span class="description"><?php _e( '<strong>Achtung:</strong> Aus Beiträgen (deren Inhalt) entfernte Zählmarken können nicht wiederhergestellt werden. Bitte sämtliche Beiträge sichern (Backup), bevor diese Operation durchgeführt wird.', WPVGW_TEXT_DOMAIN ) ?></span>
+								<span class="description wpvgw-description">
+									<?php echo( sprintf( __( 'Der Standardwert ist: %s', WPVGW_TEXT_DOMAIN ), esc_html( $this->options->default_import_from_post_regex() ) ) ); ?>
+									<br/>
+									<?php echo( sprintf( __( 'Wenn bereits Zählmarken der Form %s manuell in Beiträgen (deren Inhalt) eingefügt wurden, können diese hier importiert und entfernt werden.', WPVGW_TEXT_DOMAIN ), esc_html( '<img src="http://vg02.met.vgwort.de/na/abc123" … >' ) ) ) ?>
+								</span>
+								<span class="description wpvgw-description-important">
+									<?php _e( '<strong>Achtung:</strong> Aus Beiträgen (deren Inhalt) entfernte Zählmarken können nicht wiederhergestellt werden. Bitte sämtliche Beiträge sichern (Backup), bevor diese Operation durchgeführt wird.', WPVGW_TEXT_DOMAIN ) ?>
+								</span>
+							</p>
+							<p>
+								<input type="checkbox" name="wpvgw_operation_import_old_worthy_plugin_markers" id="wpvgw_operation_import_old_worthy_plugin_markers" value="1" class="checkbox"/>
+								<label for="wpvgw_operation_import_old_worthy_plugin_markers"><?php _e( 'Zählmarken aus dem Plugin „Worthy“ von B. Holzmüller importieren', WPVGW_TEXT_DOMAIN ); ?></label>
+								<span class="description wpvgw-description">
+									<?php _e( 'Wenn das Plugin „Worthy“ von B. Holzmüller zuvor verwendet wurde, können die dort eingefügten Zählmarken und Zählmarken-Zuordnungen hier importiert werden. Es werden keine Daten gelöscht.', WPVGW_TEXT_DOMAIN ) ?>
+								</span>
 							</p>
 							<p>
 								<input type="checkbox" name="wpvgw_operation_import_old_tl_vgwort_plugin_markers" id="wpvgw_operation_import_old_tl_vgwort_plugin_markers" value="1" class="checkbox"/>
 								<label for="wpvgw_operation_import_old_tl_vgwort_plugin_markers"><?php _e( 'Zählmarken aus dem Plugin „VG Wort“ von T. Leuschner importieren', WPVGW_TEXT_DOMAIN ); ?></label>
-								<br/>
-								<span class="description"><?php _e( 'Wenn das Plugin „VG Wort“ von T. Leuschner zuvor verwendet wurde, können die dort zugeordneten Zählmarken hier importiert werden. Es werden keine Daten gelöscht.', WPVGW_TEXT_DOMAIN ) ?></span>
+								<span class="description wpvgw-description">
+									<?php _e( 'Wenn das Plugin „VG Wort“ von T. Leuschner zuvor verwendet wurde, können die dort zugeordneten Zählmarken hier importiert werden. Es werden keine Daten gelöscht.', WPVGW_TEXT_DOMAIN ) ?>
+								</span>
 							</p>
 							<p>
 								<input type="checkbox" name="wpvgw_operation_import_old_vgw_plugin_markers" id="wpvgw_operation_import_old_vgw_plugin_markers" value="1" class="checkbox"/>
 								<label for="wpvgw_operation_import_old_vgw_plugin_markers"><?php _e( 'Zählmarken aus dem Plugin „VG-Wort Krimskram“ von H. Otterstedt importieren', WPVGW_TEXT_DOMAIN ); ?></label>
-								<br/>
-								<span class="description"><?php _e( 'Wenn das Plugin „VG-Wort Krimskram“ von H. Otterstedt zuvor verwendet wurde, können die dort zugeordneten Zählmarken hier importiert werden. Es werden keine Daten gelöscht.', WPVGW_TEXT_DOMAIN ) ?></span>
+								<span class="description wpvgw-description">
+									<?php _e( 'Wenn das Plugin „VG-Wort Krimskram“ von H. Otterstedt zuvor verwendet wurde, können die dort zugeordneten Zählmarken hier importiert werden. Es werden keine Daten gelöscht.', WPVGW_TEXT_DOMAIN ) ?>
+								</span>
 							</p>
 							<p>
 								<?php _e( 'Diese Operationen sollten (jeweils) nur ein Mal ausgeführt werden. Es werden sowohl Zählmarken als auch deren Zuordnung zu Beiträgen importiert.', WPVGW_TEXT_DOMAIN ); ?>
 							</p>
 							<p>
-								<?php _e( 'Falls es zu Konflikten mit bereits vorhandenen Beitrags-Zuordnungen kommt, wird keine Überschreibung vorgenommen.', WPVGW_TEXT_DOMAIN ); ?>
+								<?php _e( 'Falls es zu Konflikten mit bereits vorhandenen Zählmarken-Zuordnungen kommt, wird keine Überschreibung vorgenommen.', WPVGW_TEXT_DOMAIN ); ?>
 							</p>
 							<p class="submit">
-								<input type="submit" name="wpvgw_operation_import_old_markers" value="<?php _e( 'Alte Zählmarken und Beitrags-Zuordnungen importieren', WPVGW_TEXT_DOMAIN ); ?>" class="button-primary" / >
+								<input type="submit" name="wpvgw_operation_import_old_markers" value="<?php _e( 'Alte Zählmarken und Zählmarken-Zuordnungen importieren', WPVGW_TEXT_DOMAIN ); ?>" class="button-primary"/>
 							</p>
 						</td>
 					</tr>
@@ -369,6 +381,21 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 			}
 
 			
+			if ( isset( $_POST['wpvgw_operation_import_old_worthy_plugin_markers'] ) ) {
+				
+				$importOldMarkersAndPostsStats = $this->markersManager->import_markers_and_posts_from_wp_worthy( $this->options->get_default_server() );
+
+				if ( $importOldMarkersAndPostsStats === null ) {
+					$this->add_admin_message( __( 'Die Datenbank-Tabelle zum Plugin „Worthy“ von B. Holzmüller wurde nicht gefunden. Keine Zählmarken importiert.', WPVGW_TEXT_DOMAIN ), WPVGW_ErrorType::Error );
+				}
+				else {
+					
+					$this->add_admin_message( __( 'Zählmarken aus Plugin „Worthy“ von B. Holzmüller importiert: ', WPVGW_TEXT_DOMAIN ) . $this->create_import_markers_stats_message( $importOldMarkersAndPostsStats->importMarkersStats ), WPVGW_ErrorType::Update );
+					$this->add_admin_message( __( 'Zählmarken-Zuordnungen aus Plugin „Worthy“ von B. Holzmüller importiert: ', WPVGW_TEXT_DOMAIN ) . $this->create_import_old_markers_and_posts_stats( $importOldMarkersAndPostsStats ), WPVGW_ErrorType::Update );
+				}
+			}
+
+			
 			if ( isset( $_POST['wpvgw_operation_import_old_tl_vgwort_plugin_markers'] ) ) {
 				
 				$importOldMarkersAndPostsStats = $this->markersManager->import_markers_and_posts_from_tl_vgwort_plugin( $this->options->get_default_server() );
@@ -378,7 +405,7 @@ class WPVGW_OperationsAdminView extends WPVGW_AdminViewBase {
 				$this->add_admin_message( __( 'Zählmarken-Zuordnungen aus Plugin „VG Wort“ von T. Leuschner importiert: ', WPVGW_TEXT_DOMAIN ) . $this->create_import_old_markers_and_posts_stats( $importOldMarkersAndPostsStats ), WPVGW_ErrorType::Update );
 			}
 
-
+			
 			if ( isset( $_POST['wpvgw_operation_import_old_vgw_plugin_markers'] ) ) {
 				
 				$importOldMarkersAndPostsStats = $this->markersManager->import_markers_and_posts_from_vgw_plugin( $this->options->get_default_server() );

@@ -238,7 +238,7 @@ class WPVGW {
 					UNIQUE KEY private_marker (private_marker),
 					KEY user_id (user_id)
 				);";
-		$wpdb->query($sql);
+		$wpdb->query( $sql );
 
 		
 		$sql = "CREATE TABLE IF NOT EXISTS $this->postsExtrasTableName (
@@ -247,7 +247,7 @@ class WPVGW {
 					PRIMARY KEY (post_id),
 					KEY character_count (character_count)
 				);";
-		$wpdb->query($sql);
+		$wpdb->query( $sql );
 	}
 
 	
@@ -325,7 +325,7 @@ class WPVGW {
 						UNIQUE KEY private_marker (private_marker),
 						KEY user_id (user_id)
 					);";
-			$wpdb->query($sql);
+			$wpdb->query( $sql );
 
 			$postsExtrasTableName = $wpdb->prefix . 'wpvgw_posts_extras';
 			
@@ -335,7 +335,7 @@ class WPVGW {
 						PRIMARY KEY (post_id),
 						KEY character_count (character_count)
 					);";
-			$wpdb->query($sql);
+			$wpdb->query( $sql );
 
 			
 			$oldAllowedPostTypes = get_option( 'wp_cpt', array() );
@@ -746,12 +746,22 @@ class WPVGW {
 			return '';
 
 		
+		if ( $this->options->get_use_tls() )
+			$marker['server'] = $this->options->get_tls_server();
+
+		
 		return apply_filters(
 			'wp_vgwort_frontend_display', 
-			sprintf( $this->options->get_output_format(),
-				esc_attr( $marker['server'] ),
-				esc_attr( $marker['public_marker'] )
-			),
+			$this->options->get_use_tls() ? 
+				sprintf( $this->options->get_tls_output_format(),
+					esc_attr( $marker['server'] ),
+					esc_attr( $marker['public_marker'] )
+				)
+				:
+				sprintf( $this->options->get_output_format(),
+					esc_attr( $marker['server'] ),
+					esc_attr( $marker['public_marker'] )
+				),
 			$marker
 		);
 	}

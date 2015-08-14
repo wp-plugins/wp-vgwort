@@ -213,8 +213,9 @@ class WPVGW_PostView extends WPVGW_ViewBase {
 							<p>
 								<input type="checkbox" name="wpvgw_set_marker" id="wpvgw_set_marker" value="1" class="checkbox" <?php echo( WPVGW_Helper::get_html_checkbox_checked( $this->options->get_post_view_set_marker_by_default() ) ) ?>/>
 								<label for="wpvgw_set_marker"><?php _e( 'Diesem Beitrag eine Zählmarke zuordnen' ) ?></label>
-								<br/>
-								<span class="description"><?php _e( 'Weisen Sie diesem Beitrag eine Zählmarke zu, um Ihre Leser bei der VG WORT zählen zu lassen.', WPVGW_TEXT_DOMAIN ) ?></span>
+								<span class="description wpvgw-description">
+									<?php _e( 'Weisen Sie diesem Beitrag eine Zählmarke zu, um Ihre Leser bei der VG WORT zählen zu lassen.', WPVGW_TEXT_DOMAIN ) ?>
+								</span>
 							</p>
 						</td>
 					</tr>
@@ -224,29 +225,34 @@ class WPVGW_PostView extends WPVGW_ViewBase {
 							<p>
 								<input type="checkbox" name="wpvgw_auto_marker" id="wpvgw_auto_marker" value="1" class="checkbox" <?php echo( WPVGW_Helper::get_html_checkbox_checked( $this->options->get_post_view_auto_marker() ) ) ?>/>
 								<label for="wpvgw_auto_marker"><?php _e( 'Zählmarke automatisch zuordnen' ) ?></label>
-								<br/>
-								<span class="description"><?php _e( 'Aktivieren, um dem Beitrag automatisch eine unbenutzte Zählmarke zuordnen zu lassen (empfohlen), ansonsten manuell.', WPVGW_TEXT_DOMAIN ) ?></span>
+								<span class="description wpvgw-description">
+									<?php _e( 'Aktivieren, um dem Beitrag automatisch eine unbenutzte Zählmarke zuordnen zu lassen (empfohlen), ansonsten manuell.', WPVGW_TEXT_DOMAIN ) ?>
+								</span>
 							</p>
 							<div id="wpvgw_manual_marker">
-								<p class="description">
-									<?php _e( 'Nur bereits importierte Zählmarken können manuell zugeordnet werden. Es mindestens eine Marke angegeben werden.', WPVGW_TEXT_DOMAIN ) ?>
-								</p>
 								<p>
 									<label for="wpvgw_public_marker"><?php _e( 'Öffentliche Zählmarke manuell zuordnen', WPVGW_TEXT_DOMAIN ) ?></label>
 									<br/>
 									<input type="text" name="wpvgw_public_marker" id="wpvgw_public_marker" class="regular-text" value=""/>
+									<span class="description wpvgw-description">
+										<?php _e( 'Nur bereits importierte Zählmarken können manuell zugeordnet werden. Die Angabe einer öffentlichen Zählmarke genügt.', WPVGW_TEXT_DOMAIN ) ?>
+									</span>
 								</p>
 								<p>
 									<label for="wpvgw_private_marker"><?php _e( 'Private Zählmarke manuell zuordnen', WPVGW_TEXT_DOMAIN ) ?></label>
 									<br/>
 									<input type="text" name="wpvgw_private_marker" id="wpvgw_private_marker" class="regular-text" value=""/>
+									<span class="description wpvgw-description">
+										<?php _e( 'Nur bereits importierte Zählmarken können manuell zugeordnet werden. Die Angabe einer privaten Zählmarke genügt.', WPVGW_TEXT_DOMAIN ) ?>
+									</span>
 								</p>
 							</div>
 							<p>
 								<input type="checkbox" name="wpvgw_marker_disabled" id="wpvgw_marker_disabled" value="1" class="checkbox"/>
 								<label for="wpvgw_marker_disabled"><?php _e( 'Inaktiv' ) ?></label>
-								<br/>
-								<span class="description"><?php _e( 'Inaktive Zählmarken werden für den zugeordneten Beitrag nicht mehr ausgegeben (keine Zählung mehr bei VG WORT).', WPVGW_TEXT_DOMAIN ) ?></span>
+								<span class="description wpvgw-description">
+									<?php _e( 'Inaktive Zählmarken werden für den zugeordneten Beitrag nicht mehr ausgegeben (keine Zählung mehr bei VG WORT).', WPVGW_TEXT_DOMAIN ) ?>
+								</span>
 							</p>
 						</td>
 					</tr>
@@ -266,8 +272,9 @@ class WPVGW_PostView extends WPVGW_ViewBase {
 							<p>
 								<input type="checkbox" name="wpvgw_marker_disabled" id="wpvgw_marker_disabled" value="1" class="checkbox" <?php echo( WPVGW_Helper::get_html_checkbox_checked( $marker['is_marker_disabled'] ) ) ?>/>
 								<label for="wpvgw_marker_disabled"><?php _e( 'Inaktiv', WPVGW_TEXT_DOMAIN ); ?></label>
-								<br/>
-								<span class="description"><?php _e( 'Inaktive Zählmarken werden für den zugeordneten Beitrag nicht mehr ausgegeben (keine Zählung mehr bei VG WORT).', WPVGW_TEXT_DOMAIN ) ?></span>
+								<span class="description wpvgw-description">
+									<?php _e( 'Inaktive Zählmarken werden für den zugeordneten Beitrag nicht mehr ausgegeben (keine Zählung mehr bei VG WORT).', WPVGW_TEXT_DOMAIN ) ?>
+								</span>
 							</p>
 						</td>
 					</tr>
@@ -280,8 +287,9 @@ class WPVGW_PostView extends WPVGW_ViewBase {
 								<p>
 									<input type="checkbox" name="wpvgw_remove_post_from_marker" id="wpvgw_remove_post_from_marker" value="1" class="checkbox"/>
 									<label for="wpvgw_remove_post_from_marker"><?php _e( 'Zählmarken-Zuordnung aufheben', WPVGW_TEXT_DOMAIN ); ?></label>
-									<br/>
-									<span class="description"><?php _e( 'In der Regel sollte die Zuordnung nicht aufgehoben, sondern die Zählmarke inaktiv gesetzt werden.', WPVGW_TEXT_DOMAIN ) ?></span>
+									<span class="description wpvgw-description">
+										<?php _e( 'In der Regel sollte die Zuordnung nicht aufgehoben, sondern die Zählmarke inaktiv gesetzt werden.', WPVGW_TEXT_DOMAIN ) ?>
+									</span>
 								</p>
 							</td>
 						</tr>
@@ -289,7 +297,7 @@ class WPVGW_PostView extends WPVGW_ViewBase {
 				<?php endif; ?>
 			</tbody>
 		</table>
-	<?php
+		<?php
 	}
 
 	

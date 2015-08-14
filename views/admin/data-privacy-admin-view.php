@@ -6,7 +6,7 @@
  * Copyright: Ronny Harbich
  * License: GPLv2 or later
  */
- 
+
 
 
 class WPVGW_DataPrivacyAdminView extends WPVGW_AdminViewBase {
@@ -112,15 +112,16 @@ class WPVGW_DataPrivacyAdminView extends WPVGW_AdminViewBase {
 							<p>
 								<input type="checkbox" name="wpvgw_privacy_hide_warning" id="wpvgw_privacy_hide_warning" value="1" class="checkbox" <?php echo( WPVGW_Helper::get_html_checkbox_checked( $this->options->get_privacy_hide_warning() ) ) ?>/>
 								<label for="wpvgw_privacy_hide_warning"><?php _e( 'Datenschutz-Hinweis zur Kenntnis genommen', WPVGW_TEXT_DOMAIN ); ?></label>
-								<br/>
-								<span class="description"><?php _e( 'Es wird keine Warnung mehr im Administrationsbereich angezeigt, wenn aktiviert.', WPVGW_TEXT_DOMAIN ) ?></span>
+								<span class="description wpvgw-description">
+									<?php _e( 'Es wird keine Warnung mehr im Administrationsbereich angezeigt, wenn aktiviert.', WPVGW_TEXT_DOMAIN ) ?>
+								</span>
 							</p>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 			<p class="submit">
-				<input type="submit" name="wpvgw_privacy" value="<?php _e( 'Einstellung speichern', WPVGW_TEXT_DOMAIN ); ?>" class="button-primary" / >
+				<input type="submit" name="wpvgw_privacy" value="<?php _e( 'Einstellung speichern', WPVGW_TEXT_DOMAIN ); ?>" class="button-primary"/>
 			</p>
 		</form>
 		<?php

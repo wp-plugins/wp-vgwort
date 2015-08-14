@@ -64,7 +64,7 @@ class WPVGW_AboutAdminView extends WPVGW_AdminViewBase {
 							</a>
 						</p>
 						<p>
-							<?php _e( 'Max Heckel, Ronny Harbich, Rebekka Hempel, Torsten Klein – Prosodia GbR<br/>Max Heckel z. Hd. Ronny Harbich<br/>Arneburger Straße 37T<br/>39590 Tangermünde', WPVGW_TEXT_DOMAIN ); ?>
+							<?php _e( 'Max Heckel, Ronny Harbich – Prosodia GbR<br/>Max Heckel z. Hd. Ronny Harbich<br/>Arneburger Straße 37T<br/>39590 Tangermünde', WPVGW_TEXT_DOMAIN ); ?>
 						</p>
 						<p>
 							<?php _e( 'E-Mail: <a href="mailto:info@prosodia.de">info@prosodia.de</a><br/>Website: <a href="http://prosodia.de/">prosodia.de</a>', WPVGW_TEXT_DOMAIN ); ?>
@@ -72,26 +72,10 @@ class WPVGW_AboutAdminView extends WPVGW_AdminViewBase {
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><?php _e( 'Partner', WPVGW_TEXT_DOMAIN ); ?></th>
-					<td>
-						<p>
-							<a href="http://conversion-junkies.de/">
-								<img class="wpvgw-about-logo" src="<?php echo( WPVGW_PLUGIN_URL . '/images/conversionjunkies-logo.png' ) ?>" alt="Conversion Junkies"/>
-							</a>
-						</p>
-						<p>
-							<?php _e( 'Conversion Junkies 2.0 Gesellschaft mit beschränkter Haftung (GmbH)<br/>Marcus Franke, Ronny Siegel<br/>Gutzkowstr. 30<br/>01069 Dresden', WPVGW_TEXT_DOMAIN ); ?>
-						</p>
-						<p>
-							<?php _e( 'E-Mail: <a href="mailto:info@conversion-junkies.de">info@conversion-junkies.de</a><br/>Website: <a href="http://conversion-junkies.de/">conversion-junkies.de</a>', WPVGW_TEXT_DOMAIN ); ?>
-						</p>
-					</td>
-				</tr>
-				<tr>
 					<th scope="row"><?php _e( 'Lizenz und Haftung', WPVGW_TEXT_DOMAIN ); ?></th>
 					<td>
 						<p>
-							<?php _e( 'Prosodia VGW OS wird von der Max Heckel, Ronny Harbich, Rebekka Hempel, Torsten Klein – Prosodia GbR unter der GPLv2-Lizenz vertrieben, die unter <a href="http://www.gnu.org/licenses/gpl-2.0.html">http://www.gnu.org/licenses/gpl-2.0.html</a> nachzulesen ist. Sie vertreibt diese Software vollständig kostenlos und übernimmt für diese daher keine Haftung außer die vom Bürgerlichen Gesetzbuch (BGB) zwingend erforderliche. Der Haftungsausschluss soll – soweit wie mit dem BGB vereinbar – der GPLv2-Lizenz entsprechen.', WPVGW_TEXT_DOMAIN ); ?>
+							<?php _e( 'Prosodia VGW OS wird von der Max Heckel, Ronny Harbich – Prosodia GbR unter der GPLv2-Lizenz vertrieben, die unter <a href="http://www.gnu.org/licenses/gpl-2.0.html">http://www.gnu.org/licenses/gpl-2.0.html</a> nachzulesen ist. Sie vertreibt diese Software vollständig kostenlos und übernimmt für diese daher keine Haftung außer die vom Bürgerlichen Gesetzbuch (BGB) zwingend erforderliche. Der Haftungsausschluss soll – soweit wie mit dem BGB vereinbar – der GPLv2-Lizenz entsprechen.', WPVGW_TEXT_DOMAIN ); ?>
 						</p>
 					</td>
 				</tr>

@@ -18,7 +18,11 @@ class WPVGW_Options {
 	
 	private static $outputFormat = 'output_format';
 	
+	private static $tlsOutputFormat = 'tls_output_format';
+	
 	private static $defaultServer = 'default_server';
+	
+	private static $useTls = 'use_tls';
 	
 	private static $metaName = 'meta_name';
 	
@@ -108,7 +112,9 @@ class WPVGW_Options {
 			self::$allowedPostTypes                                   => array( 'post', 'page' ),
 			self::$removedPostTypes                                   => array(),
 			self::$outputFormat                                       => '<img src="http://%1$s/%2$s" width="1" height="1" alt="" style="display:none" />',
+			self::$tlsOutputFormat                                    => '<img src="https://%1$s/%2$s" width="1" height="1" alt="" style="display:none" />',
 			self::$defaultServer                                      => 'vg02.met.vgwort.de/na',
+			self::$useTls                                             => false,
 			self::$metaName                                           => 'wp_vgwortmarke',
 			self::$vgWortMinimumCharacterCount                        => 1800,
 			self::$numberOfMarkersPerPage                             => 10,
@@ -226,6 +232,34 @@ class WPVGW_Options {
 
 
 	
+	public function set_use_tls( $value ) {
+		if ( !is_bool( $value ) )
+			throw new Exception( 'Value is not a bool.' );
+
+		if ( $this->options[self::$useTls] !== $value ) {
+			$this->options[self::$useTls] = $value;
+			$this->optionsChanged = true;
+		}
+	}
+
+	
+	public function get_use_tls() {
+		return $this->options[self::$useTls];
+	}
+
+	
+	public function default_use_tls() {
+		return $this->defaultOptions[self::$useTls];
+	}
+
+
+	
+	public function get_tls_server() {
+		return 'ssl-vg03.met.vgwort.de/na';
+	}
+
+
+	
 	public function set_meta_name( $value ) {
 		if ( !is_string( $value ) )
 			throw new Exception( 'Value is not a string.' );
@@ -272,6 +306,28 @@ class WPVGW_Options {
 	
 	public function default_output_format() {
 		return $this->defaultOptions[self::$outputFormat];
+	}
+
+
+	
+	public function set_tls_output_format( $value ) {
+		if ( !is_string( $value ) )
+			throw new Exception( 'Value is not a string.' );
+
+		if ( $this->options[self::$tlsOutputFormat] !== $value ) {
+			$this->options[self::$tlsOutputFormat] = $value;
+			$this->optionsChanged = true;
+		}
+	}
+
+	
+	public function get_tls_output_format() {
+		return $this->options[self::$tlsOutputFormat];
+	}
+
+	
+	public function default_tls_output_format() {
+		return $this->defaultOptions[self::$tlsOutputFormat];
 	}
 
 

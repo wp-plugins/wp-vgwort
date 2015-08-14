@@ -23,7 +23,8 @@ class WPVGW_Helper {
 	private static $otherVgWortPlugins = array(
 		'vgw-vg-wort-zahlpixel-plugin/vgw.php', 
 		'tl-vgwort/tl-vgwort.php', 
-		'prosodia-vgw/prosodia-vgw.php' 
+		'prosodia-vgw/prosodia-vgw.php', 
+		'wp-worthy/wp-worthy.php', 
 	);
 
 	

@@ -873,6 +873,94 @@ class WPVGW_MarkersManager {
 		);
 	}
 
+	
+	public function import_markers_and_posts_from_wp_worthy( $default_server ) {
+		
+		global $wpdb;
+
+		
+		$importMarkersStats = new WPVGW_ImportMarkersStats();
+		$importOldMarkersAndPostsStats = new WPVGW_ImportOldMarkersAndPostsStats();
+		$importOldMarkersAndPostsStats->importMarkersStats = $importMarkersStats;
+
+		
+		$worthyMarkersTableName = $wpdb->prefix . 'worthy_markers';
+
+		
+		$worthyMarkersTableNameExists = $wpdb->get_var( "SHOW TABLES LIKE '$worthyMarkersTableName'" ) !== null ? true : false;
+
+		if ( $wpdb->last_error !== '' )
+			WPVGW_Helper::throw_database_exception();
+
+		
+		if ( !$worthyMarkersTableNameExists )
+			return null;
+
+		
+		$mySqlLimitSelect = new WPVGW_MySqlLimitSelect( "SELECT * FROM $worthyMarkersTableName" );
+
+		
+		while ( true ) {
+			
+			$markers = $mySqlLimitSelect->next_results( ARRAY_A );
+
+			
+			if ( empty( $markers ) )
+				break;
+
+			
+			foreach ( $markers as $marker ) {
+				
+				$publicMarker = $marker['public'];
+				$privateMarker = $marker['private'] === '' ? null : $marker['private'];
+				$server = $marker['server'];
+				$postId = is_numeric( $marker['postid'] ) ? intval( $marker['postid'] ) : null;
+				$isMarkerDisabled = $marker['disabled'] === '1' ? true : false;
+
+				
+				$importMarkersStats->add(
+					$this->import_marker( $default_server, $publicMarker, $privateMarker, $server )
+				);
+
+				
+				if ( $postId !== null ) {
+					
+					$importOldMarkersAndPostsStats->numberOfPosts++;
+
+					
+					$updateMarkerResult = $this->update_marker_in_db(
+						$publicMarker, 
+						'public_marker', 
+						array( 
+							'post_id'            => $postId,
+							'is_marker_disabled' => $isMarkerDisabled
+						),
+						null, 
+						array( 
+							'post_id' => array( null, $postId )
+						)
+					);
+
+					
+					switch ( $updateMarkerResult ) {
+						case WPVGW_UpdateMarkerResults::Updated:
+							$importOldMarkersAndPostsStats->numberOfUpdates++;
+							break;
+						case WPVGW_UpdateMarkerResults::UpdateNotNecessary:
+							$importOldMarkersAndPostsStats->numberOfDuplicates++;
+							break;
+						default:
+							$importOldMarkersAndPostsStats->numberOfIntegrityErrors++;
+							break;
+					}
+				}
+			}
+		}
+
+		
+		return $importOldMarkersAndPostsStats;
+	}
+
 
 	
 	public function public_marker_validator( $public_marker ) {

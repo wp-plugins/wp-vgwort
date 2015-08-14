@@ -271,6 +271,62 @@ class WPVGW_MarkersListTable extends WP_List_Table {
 		
 		$actions = array();
 		$linkTemplate = '<a href="%s" title="%s">%s</a>';
+		$jsLinkTemplate = '<a class="%s" data-object-id="%s" href="#" title="%s">%s</a>';
+
+		$copyActions = array(
+			
+			array(
+				'key'       => 'private_marker',
+				'condition' => true,
+				'class'     => WPVGW . '-markers-view-copy-private-marker',
+				'object_id' => $row['id'],
+				'title'     => __( 'Ermöglicht, die private Zählmarke in die Zwischenablage zu kopieren', WPVGW_TEXT_DOMAIN ),
+				'text'      => __( 'Priv.', WPVGW_TEXT_DOMAIN )
+			),
+			
+			array(
+				'key'       => 'post_title',
+				'condition' => $row['post_title'] !== null,
+				'class'     => WPVGW . '-markers-view-copy-post-title',
+				'object_id' => $row['post_id'],
+				'title'     => __( 'Ermöglicht, den Beitrags-Titel in die Zwischenablage zu kopieren', WPVGW_TEXT_DOMAIN ),
+				'text'      => __( 'Titel', WPVGW_TEXT_DOMAIN )
+			),
+			
+			array(
+				'key'       => 'post_content',
+				'condition' => $row['post_id'] !== null,
+				'class'     => WPVGW . '-markers-view-copy-post-content',
+				'object_id' => $row['post_id'],
+				'title'     => __( 'Ermöglicht, den Beitrags-Text in die Zwischenablage zu kopieren', WPVGW_TEXT_DOMAIN ),
+				'text'      => __( 'Text', WPVGW_TEXT_DOMAIN )
+			),
+			
+			array(
+				'key'       => 'post_link',
+				'condition' => $row['post_id'] !== null,
+				'class'     => WPVGW . '-markers-view-copy-post-link',
+				'object_id' => $row['post_id'],
+				'title'     => __( 'Ermöglicht, den Beitrags-Link in die Zwischenablage zu kopieren', WPVGW_TEXT_DOMAIN ),
+				'text'      => __( 'Link', WPVGW_TEXT_DOMAIN )
+			),
+		);
+
+		
+		foreach ( $copyActions as $copyAction ) {
+			
+			if ( $copyAction['condition'] ) {
+				
+				$actions[WPVGW . '_copy_' . $copyAction['key']] = sprintf(
+					$jsLinkTemplate,
+					$copyAction['class'],
+					esc_attr( $copyAction['object_id'] ),
+					esc_attr( $copyAction['title'] ),
+					$copyAction['text']
+				);
+			}
+		}
+
 
 		if ( $row['is_marker_disabled'] == '1' )
 			

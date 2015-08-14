@@ -49,6 +49,12 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 					'file'         => 'views/admin/markers-admin-view.js',
 					'slug'         => 'admin-view-markers',
 					'dependencies' => array( 'jquery' ),
+					'localize'     => array(
+						'object_name' => 'ajax_object',
+						'data'        => array(
+							'ajax_url' => admin_url( 'admin-ajax.php' )
+						)
+					)
 				)
 			)
 		);
@@ -123,20 +129,23 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 								<p>
 									<input type="checkbox" name="wpvgw_e_remove_post_from_marker" id="wpvgw_e_remove_post_from_marker" value="1" class="checkbox"/>
 									<label for="wpvgw_e_remove_post_from_marker"><?php _e( 'Zählmarken-Zuordnung aufheben', WPVGW_TEXT_DOMAIN ); ?></label>
-									<br/>
-									<span class="description"><?php _e( 'In der Regel sollte die Zuordnung nicht aufgehoben, sondern die Zählmarke inaktiv gesetzt werden.', WPVGW_TEXT_DOMAIN ) ?></span>
+									<span class="description wpvgw-description">
+										<?php _e( 'In der Regel sollte die Zuordnung nicht aufgehoben, sondern die Zählmarke inaktiv gesetzt werden.', WPVGW_TEXT_DOMAIN ) ?>
+									</span>
 								</p>
 								<p>
 									<input type="checkbox" name="wpvgw_e_delete_marker" id="wpvgw_e_delete_marker" value="1" class="checkbox"/>
 									<label for="wpvgw_e_delete_marker"><?php _e( 'Löschen (nicht empfohlen)', WPVGW_TEXT_DOMAIN ); ?></label>
-									<br/>
-									<span class="description"><?php _e( 'In der Regel sollten nur falsch importierte Zählmarken gelöscht werden.', WPVGW_TEXT_DOMAIN ) ?></span>
+									<span class="description wpvgw-description">
+										<?php _e( 'In der Regel sollten nur falsch importierte Zählmarken gelöscht werden.', WPVGW_TEXT_DOMAIN ) ?>
+									</span>
 								</p>
 								<p>
 									<input type="checkbox" name="wpvgw_e_recalculate_post_character_count" id="wpvgw_e_recalculate_post_character_count" value="1" class="checkbox"/>
 									<label for="wpvgw_e_recalculate_post_character_count"><?php _e( 'Zeichenanzahl neuberechnen', WPVGW_TEXT_DOMAIN ); ?></label>
-									<br/>
-									<span class="description"><?php _e( 'Zeichenanzahlen der Beiträge neuberechnen. Sinnvoll, wenn die Zeichenanzahlen falsch oder nicht vorhanden sind.', WPVGW_TEXT_DOMAIN ) ?></span>
+									<span class="description wpvgw-description">
+										<?php _e( 'Zeichenanzahlen der Beiträge neuberechnen. Sinnvoll, wenn die Zeichenanzahlen falsch oder nicht vorhanden sind.', WPVGW_TEXT_DOMAIN ) ?>
+									</span>
 								</p>
 							</td>
 						</tr>
@@ -148,8 +157,9 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 									<label for="wpvgw_e_marker_disabled"><?php _e( 'Inaktiv', WPVGW_TEXT_DOMAIN ); ?></label>
 									<input type="checkbox" name="wpvgw_e_marker_disabled_set" id="wpvgw_e_marker_disabled_set" value="1" class="checkbox"/>
 									<label for="wpvgw_e_marker_disabled_set"><?php _e( 'Wert ändern', WPVGW_TEXT_DOMAIN ); ?></label>
-									<br/>
-									<span class="description"><?php _e( 'Inaktive Zählmarken werden für den zugeordneten Beitrag nicht mehr ausgegeben (keine Zählung mehr bei VG WORT).', WPVGW_TEXT_DOMAIN ) ?></span>
+									<span class="description wpvgw-description">
+										<?php _e( 'Inaktive Zählmarken werden für den zugeordneten Beitrag nicht mehr ausgegeben (keine Zählung mehr bei VG WORT).', WPVGW_TEXT_DOMAIN ) ?>
+									</span>
 								</p>
 							</td>
 						</tr>
@@ -160,8 +170,9 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 									<input type="text" name="wpvgw_e_server" id="wpvgw_e_server" class="regular-text"/>
 									<input type="checkbox" name="wpvgw_e_server_set" id="wpvgw_e_server_set" value="1" class="checkbox"/>
 									<label for="wpvgw_e_server_set"><?php _e( 'Wert ändern', WPVGW_TEXT_DOMAIN ); ?></label>
-									<br/>
-									<span class="description"><?php echo( sprintf( __( 'Wenn der Server nicht angegeben wird, wird der Standard-Server (%s) verwendet.', WPVGW_TEXT_DOMAIN ), $this->options->get_default_server() ) ); ?></span>
+									<span class="description wpvgw-description">
+										<?php echo( sprintf( __( 'Wenn der Server nicht angegeben wird, wird der Standard-Server (%s) verwendet.', WPVGW_TEXT_DOMAIN ), $this->options->get_default_server() ) ); ?>
+									</span>
 								</p>
 							</td>
 						</tr>
@@ -170,22 +181,23 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 				<p class="submit">
 					<input type="submit" name="wpvgw_bulk_edit" value="<?php _e( 'Ausgewählte Zählmarken bearbeiten', WPVGW_TEXT_DOMAIN ); ?>" class="button-primary"/>
 					<a class="button-secondary cancel wpvgw-bulk-edit-cancel" href="#"><?php _e( 'Abbrechen', WPVGW_TEXT_DOMAIN ); ?></a>
-					<br/>
-					<span class="description"><?php _e( 'Die Bearbeitung kann nicht Rückgängig gemacht werden!', WPVGW_TEXT_DOMAIN ) ?></span>
+					<span class="description wpvgw-description-important">
+						<?php _e( '<strong>Achtung</strong>: Die Bearbeitung kann nicht Rückgängig gemacht werden!', WPVGW_TEXT_DOMAIN ) ?>
+					</span>
 				</p>
 			</div>
 		</form>
 		<form method="post" enctype="multipart/form-data">
-			<?php
-			
-			echo( $formFields );
+		<?php
+		
+		echo( $formFields );
 
-			?>
+		?>
 			<h3><?php _e( 'Zählmarken exportieren', WPVGW_TEXT_DOMAIN ) ?></h3>
-			<p class="wpvgw-admin-page-description">
-				<?php _e( 'Es werden <em>alle</em> Zählmarken entsprend der in der Tabelle ausgewählten Filter und Sortierung exportiert.', WPVGW_TEXT_DOMAIN ); ?>
-			</p>
-			<table class="form-table wpvgw-form-table">
+		<p class="wpvgw-admin-page-description">
+			<?php _e( 'Es werden <em>alle</em> Zählmarken entsprend der in der Tabelle ausgewählten Filter und Sortierung exportiert.', WPVGW_TEXT_DOMAIN ); ?>
+		</p>
+		<table class="form-table wpvgw-form-table">
 				<tbody>
 					<tr>
 						<th scope="row"><?php _e( 'Export als CSV-Datei', WPVGW_TEXT_DOMAIN ); ?></th>
@@ -196,11 +208,12 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 							<p>
 								<input type="checkbox" name="wpvgw_export_csv_output_headlines" id="wpvgw_export_csv_output_headlines" value="1" class="checkbox" <?php echo( WPVGW_Helper::get_html_checkbox_checked( $this->options->get_export_csv_output_headlines() ) ) ?>/>
 								<label for="wpvgw_export_csv_output_headlines"><?php _e( 'Tabellenkopf ausgeben', WPVGW_TEXT_DOMAIN ); ?></label>
-								<br/>
-								<span class="description"><?php _e( 'Gibt an, ob der Tabellenkopf (Beschreibung der einzelnen Spalten) als erste Zeile ausgegeben werden soll.', WPVGW_TEXT_DOMAIN ) ?></span>
+								<span class="description wpvgw-description">
+									<?php _e( 'Gibt an, ob der Tabellenkopf (Beschreibung der einzelnen Spalten) als erste Zeile ausgegeben werden soll.', WPVGW_TEXT_DOMAIN ) ?>
+								</span>
 							</p>
 							<p class="submit">
-								<input type="submit" name="wpvgw_export_csv" value="<?php _e( 'Zählmarken als CSV-Datei exportieren', WPVGW_TEXT_DOMAIN ); ?>" class="button-primary" / >
+								<input type="submit" name="wpvgw_export_csv" value="<?php _e( 'Zählmarken als CSV-Datei exportieren', WPVGW_TEXT_DOMAIN ); ?>" class="button-primary"/>
 							</p>
 						</td>
 					</tr>
@@ -213,6 +226,73 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 		parent::end_render_base();
 	}
 
+	
+	public function ajax_get_post_content() {
+		
+		$postId = isset( $_POST['wpvgw_post_id'] ) ? $_POST['wpvgw_post_id'] : null;
+
+		
+		if ( $postId === null || !is_numeric( $postId ) )
+			return;
+
+		
+		$postId = intval( $postId );
+
+		
+		$post = get_post( $postId );
+
+		
+		$postContent = $this->cleanWordPressText( $post->post_content );
+
+		$considerPostExcerpt = $this->options->get_consider_excerpt_for_character_count_calculation();
+		
+		if ( $considerPostExcerpt )
+			
+			$postExcerpt = $this->cleanWordPressText( $post->post_excerpt );
+		else
+			$postExcerpt = '';
+
+		
+		$postTitle = apply_filters( 'the_title', $post->post_title );
+
+
+		
+		$data = array(
+			'post_content'          => $postContent,
+			'post_excerpt'          => $postExcerpt,
+			'post_title'            => $postTitle,
+			'post_consider_excerpt' => $considerPostExcerpt
+		);
+
+		
+		echo( json_encode( $data ) );
+
+		exit();
+	}
+
+	
+	private function cleanWordPressText( $text ) {
+		
+		$text = preg_replace( array(
+			WPVGW_Helper::$captionShortcodeRegex, 
+			WPVGW_Helper::$imageTagRegex, 
+		),
+			'',
+			$text
+		);
+
+		
+		$text = apply_filters( 'the_content', $text );
+
+		
+		$text = preg_replace(
+			WPVGW_Helper::$shortcodeRegex, 
+			'',
+			$text
+		);
+
+		return $text;
+	}
 
 	
 	private function do_markers_action_csv() {
@@ -266,8 +346,8 @@ class WPVGW_MarkersAdminView extends WPVGW_AdminViewBase {
 
 				
 				$postContent = preg_replace( array(
-						WPVGW_Helper::$captionShortcodeRegex, 
-					),
+					WPVGW_Helper::$captionShortcodeRegex, 
+				),
 					'',
 					$postContent
 				);

@@ -53,7 +53,15 @@ abstract class WPVGW_ViewBase {
 		$this->javaScripts = $javascript;
 
 		
-		
+		$this->javaScripts = array_merge( array(
+				array(
+					'file'         => 'views/view-base.js',
+					'slug'         => 'view-base',
+					'dependencies' => array( 'jquery' )
+				)
+			),
+			$javascript
+		);
 	}
 
 }
